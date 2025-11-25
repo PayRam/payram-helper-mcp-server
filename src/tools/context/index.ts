@@ -1,0 +1,113 @@
+import { z } from 'zod';
+import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
+import { logger } from '../../utils/logger.js';
+import { buildToolSchemas } from '../common/schemas.js';
+import { safeHandler } from '../common/errors.js';
+import { markdownDocResponseSchema, MarkdownDocResponse } from '../../types/context.js';
+import { PAYRAM_BASICS_DOC } from './content/payramBasicsContent.js';
+import { PAYRAM_LINKS_DOC } from './content/payramLinksContent.js';
+import { PAYMENT_FLOW_DOC } from './content/paymentFlowContent.js';
+import { PAYRAM_CONCEPTS_DOC } from './content/payramConceptsContent.js';
+import { REFERRALS_BASICS_DOC } from './content/referralsBasicsContent.js';
+import { REFERRAL_FLOW_DOC } from './content/referralFlowContent.js';
+import { REFERRAL_DASHBOARD_DOC } from './content/referralDashboardGuideContent.js';
+import { registerDocLookupTool } from './docById.js';
+
+interface DocToolDefinition {
+  name: string;
+  title: string;
+  description: string;
+  doc: MarkdownDocResponse;
+}
+
+const docSchemas = buildToolSchemas({
+  input: z.object({}),
+  output: markdownDocResponseSchema,
+});
+
+const textContent = (text: string) => ({ type: 'text' as const, text });
+
+const docTools: DocToolDefinition[] = [
+  {
+    name: 'explain_payram_basics',
+    title: 'Payram Basics Overview',
+    description:
+      "Explain Payram's product pillars, architecture, payments, and payouts capabilities.",
+    doc: PAYRAM_BASICS_DOC,
+  },
+  {
+    name: 'get_payram_links',
+    title: 'Payram Important Links',
+    description: 'Surface official documentation, website, and community links.',
+    doc: PAYRAM_LINKS_DOC,
+  },
+  {
+    name: 'explain_payment_flow',
+    title: 'Payment Flow Guide',
+    description: 'Describe how payments move from customer initiation through settlement.',
+    doc: PAYMENT_FLOW_DOC,
+  },
+  {
+    name: 'explain_payram_concepts',
+    title: 'Core Payram Concepts',
+    description: 'Glossary-backed explanation of Payram terminology and constraints.',
+    doc: PAYRAM_CONCEPTS_DOC,
+  },
+  {
+    name: 'explain_referrals_basics',
+    title: 'Referral Basics Overview',
+    description: 'Summarize how Payram referral campaigns are configured and managed.',
+    doc: REFERRALS_BASICS_DOC,
+  },
+  {
+    name: 'explain_referral_flow',
+    title: 'Referral Flow Guide',
+    description: 'Detail the referrer/referee lifecycle and required APIs.',
+    doc: REFERRAL_FLOW_DOC,
+  },
+  {
+    name: 'get_referral_dashboard_guide',
+    title: 'Referral Dashboard Guide',
+    description: 'Explain how to embed and manage the referral dashboard experience.',
+    doc: REFERRAL_DASHBOARD_DOC,
+  },
+];
+
+const registerDocTool = (server: McpServer, definition: DocToolDefinition) => {
+  server.registerTool(
+    definition.name,
+    {
+      title: definition.title,
+      description: definition.description,
+      inputSchema: docSchemas.input,
+      outputSchema: docSchemas.output,
+    },
+    safeHandler(
+      async () => {
+        const response: MarkdownDocResponse = {
+          ...definition.doc,
+          title: definition.doc.title ?? definition.title,
+          description: definition.doc.description ?? definition.description,
+        };
+
+        return {
+          content: [
+            textContent(
+              `${definition.title} ready with ${response.sections.length} curated sections.`,
+            ),
+          ],
+          structuredContent: response,
+        };
+      },
+      { toolName: definition.name },
+    ),
+  );
+};
+
+export const registerContextTools = (server: McpServer) => {
+  logger.info('Registering context tools...');
+  for (const tool of docTools) {
+    registerDocTool(server, tool);
+  }
+  registerDocLookupTool(server);
+};
