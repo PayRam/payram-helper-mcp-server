@@ -48,6 +48,7 @@ precommit-test:
 	$(MAKE) format-check; \
 	$(MAKE) lint; \
 	$(MAKE) test; \
+	$(MAKE) build; \
 	echo "All checks passed"
 
 .PHONY: commit

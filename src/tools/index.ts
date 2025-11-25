@@ -4,6 +4,7 @@ import { registerPaymentTools } from './integration/payments/index.js';
 import { registerPayoutTools } from './integration/payouts/index.js';
 import { registerReferralTools } from './integration/referrals/index.js';
 import { registerContextTools } from './context/index.js';
+import { registerSetupTools } from './setup/index.js';
 
 export const registerTools = (server: McpServer) => {
   registerTestConnectionTool(server);
@@ -11,4 +12,5 @@ export const registerTools = (server: McpServer) => {
   registerPayoutTools(server);
   registerReferralTools(server);
   registerContextTools(server);
+  registerSetupTools(server);
 };
