@@ -18,7 +18,7 @@ import {
   buildExpressCreatePaymentRouteSnippet,
   buildNextjsRouteCreatePaymentSnippet,
 } from './templates/routeTemplates.js';
-import { SnippetResponse } from './types.js';
+import { SnippetResponse } from '../common/snippetTypes.js';
 
 const supportedLanguages = ['typescript', 'javascript', 'python', 'go', 'php', 'java'] as const;
 // TODO: Extend this list when we add fastapi/gin/laravel/spring-boot snippets.

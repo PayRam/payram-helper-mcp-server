@@ -1,4 +1,4 @@
-import { SnippetResponse } from '../types.js';
+import { SnippetResponse } from '../../common/snippetTypes.js';
 
 const buildHeadersComment = () => "// Payram uses the 'API-Key' header.";
 

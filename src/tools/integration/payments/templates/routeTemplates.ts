@@ -1,4 +1,4 @@
-import { SnippetResponse } from '../types.js';
+import { SnippetResponse } from '../../common/snippetTypes.js';
 
 export const buildExpressCreatePaymentRouteSnippet = (): SnippetResponse => ({
   title: 'Express route for creating a Payram payment',

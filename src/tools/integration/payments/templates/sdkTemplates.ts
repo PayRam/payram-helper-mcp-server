@@ -24,6 +24,7 @@ export async function createCheckout(payload: InitiatePaymentRequest): Promise<I
     console.log('Redirect customer to:', checkout.url);
     return checkout;
   } catch (error) {
+
     if (isPayramSDKError(error)) {
       console.error('Payram Error:', {
         status: error.status,
