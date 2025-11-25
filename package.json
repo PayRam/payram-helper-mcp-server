@@ -1,0 +1,33 @@
+{
+  "name": "payram-mcp-server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx src/server.ts",
+    "dev:ngrok": "ngrok http 3333 --log=stdout",
+    "build": "tsc --project tsconfig.json",
+    "start": "node dist/server.js",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.22.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "payram": "^1.0.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.11.30",
+    "eslint": "^9.12.0",
+    "prettier": "^3.3.3",
+    "tsx": "^4.19.2",
+    "typescript": "^5.4.5",
+    "typescript-eslint": "^8.8.1",
+    "vitest": "^1.6.0"
+  }
+}

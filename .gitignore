@@ -1,0 +1,17 @@
+.env
+node_modules/
+dist/
+logs/
+*.log
+.DS_Store
+.vscode/
+.idea/
+*.iml
+coverage/
+.cache/
+npm-debug.log*
+yarn-error.log*
+lerna-debug.log*
+/build/
+/temp/
+/out/
