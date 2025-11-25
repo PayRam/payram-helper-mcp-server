@@ -14,10 +14,12 @@ export const buildNodeSdkCreatePayoutSnippet = (): SnippetResponse => ({
 const payram = new Payram({
   apiKey: process.env.PAYRAM_API_KEY!,
   baseUrl: process.env.PAYRAM_BASE_URL!,
+  // ignore if advanced configuration is not needed
   config: {
-    timeoutMs: 10_000,
-    maxRetries: 2,
-    retryPolicy: 'safe',
+    timeoutMs: 10_000, // optional for advance configuration
+    maxRetries: 2, // optional for advance configuration
+    retryPolicy: 'safe', // optional for advance configuration
+    allowInsecureHttp: false, // optional for advance configuration
   },
 });
 
