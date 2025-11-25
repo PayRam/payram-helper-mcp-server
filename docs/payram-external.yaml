@@ -1,0 +1,1406 @@
+openapi: 3.0.4
+info:
+  title: Payram External API
+  version: 1.0.0
+  description: >
+    Reference OpenAPI document for Payram-hosted endpoints used by server-side
+    integrations and SDK generation. This spec intentionally includes **current**
+    and **deprecated** variants observed across deployments so one SDK can work
+    against multiple versions.
+
+    Merchant-hosted webhooks are documented separately (OpenAPI 3.1 "webhooks" spec).
+  contact:
+    name: Payram Support
+    url: https://docs.payram.com
+    email: dev@payram.com
+
+servers:
+  - url: '{baseUrl}'
+    description: Environment-driven base URL
+    variables:
+      baseUrl:
+        default: http://localhost:8080  # override at runtime
+
+tags:
+  - name: Payments
+    description: Endpoints related to initiating and tracking payments.
+  - name: Referrals
+    description: Endpoints for campaign referrals.
+  - name: Withdrawals
+    description: Merchant payout and withdrawal operations.
+  - name: Deprecated
+    description: Older endpoints retained for backward compatibility.
+
+# Apply API key auth to all operations by default
+security:
+  - PayramApiKey: []
+
+paths:
+  ############################################################
+  # PAYMENTS — CURRENT
+  ############################################################
+  /api/v1/payment:
+    post:
+      tags: [Payments]
+      summary: Initiate a customer payment session
+      description: >
+        Creates a hosted checkout session and returns a reference identifier,
+        hosted URL, and the effective host domain.
+
+        For current active handlers, the success response **always** contains `host`,
+        therefore it is marked **required**.
+      operationId: initiatePayment
+      security:
+        - PayramApiKey: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InitiatePaymentRequest'
+            examples:
+              minimal:
+                value:
+                  customerEmail: user@example.com
+                  customerId: cust_123
+                  amountInUSD: 12.5
+              typical:
+                value:
+                  customerEmail: jane@acme.io
+                  customerId: 9b2e0d92-2b0c-4b3d-9a1a-33e5b3db7f2c
+                  amountInUSD: 49.99
+      responses:
+        '200':
+          description: Payment session created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InitiatePaymentResponse'
+              examples:
+                success:
+                  value:
+                    url: "https://checkout.payram.com/sess/px_abc123"
+                    reference_id: "px_abc123"
+                    host: "checkout.payram.com"
+        '400':
+          description: Invalid payment payload.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/StandardError'  # {"error": {...}}
+                  - $ref: '#/components/schemas/FlatError'      # {"code": ..., "message": ...}
+              examples:
+                invalid_json_nested:
+                  value:
+                    error:
+                      code: 3
+                      message: "The request is invalid."
+                non_positive_amount_flat:
+                  value:
+                    code: 3
+                    message: "The request is invalid. Amount should be greater than 0."
+        '401':
+          description: Missing or invalid session/API key.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/StandardError'
+                  - $ref: '#/components/schemas/FlatError'
+              examples:
+                nested_envelope:
+                  value:
+                    error:
+                      code: "UNAUTHORIZED"
+                      message: "Unauthorised access!"
+                flat_variant:
+                  value:
+                    code: 1
+                    message: "Unauthorized access"
+        '500':
+          description: Internal server error while creating the payment request.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/StandardError'
+                  - $ref: '#/components/schemas/FlatError'
+              examples:
+                create_failed_flat:
+                  value:
+                    code: 5
+                    message: "Error occurred while creating the payment request."
+        '502':
+          description: Upstream payment processor error.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/StandardError'
+                  - $ref: '#/components/schemas/FlatError'
+              examples:
+                upstream_nested:
+                  value:
+                    error:
+                      code: 5
+                      message: "Error occurred while creating the payment request."
+                      details: "Processor timeout"
+        default:
+          description: Unhandled error
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/StandardError'
+                  - $ref: '#/components/schemas/FlatError'
+
+  # Fetch a single payment request by referenceID (active)
+  /api/v1/payment/reference/{referenceID}:
+    get:
+      tags: [Payments]
+      summary: Get a payment request by reference ID
+      description: >
+        Retrieves a payment request object for the supplied reference ID.
+        Response structure depends on service version; a flexible schema is used.
+      operationId: getPaymentRequest
+      security:
+        - PayramApiKey: []
+      parameters:
+        - in: path
+          name: referenceID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Payment request object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentRequestData'
+              examples:
+                success:
+                  value:
+                    invoiceID: "8e1e9fff-57c7-46e4-925a-93ad775e2b7f"
+                    customerID: "1001"
+                    currencySymbol: null
+                    blockchainSymbol: null
+                    currencyAddress: null
+                    currencyName: null
+                    currencyDesc: null
+                    currencyDecimals: null
+                    amountInUSD: "82"
+                    filledAmount: null
+                    filledAmountInUSD: null
+                    paymentState: "OPEN"
+                    merchantName: "Project One"
+                    depositAddress: null
+                    referenceID: "8e1e9fff-57c7-46e4-925a-93ad775e2b7f"
+                    successURL: "https://payram.resuefas.vip/success"
+                    cancelURL: "https://payram.resuefas.vip/fail"
+                    createdAt: "2025-11-05T07:33:01.96103Z"
+                    explorerTransaction: ""
+                    externalPlatformID: 1
+        '400':
+          description: Bad request (e.g., empty referenceID).
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/StandardError'
+                  - $ref: '#/components/schemas/FlatError'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/StandardError'
+                  - $ref: '#/components/schemas/FlatError'
+        '500':
+          description: Error fetching the payment request.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/StandardError'
+                  - $ref: '#/components/schemas/FlatError'
+
+  # Payment summary (active)
+  /api/v1/payment/summary:
+    get:
+      tags: [Payments]
+      summary: Summary of payment requests
+      description: Returns aggregate metrics; exact shape may vary by version.
+      operationId: paymentSummary
+      security:
+        - PayramApiKey: []
+      responses:
+        '200':
+          description: Summary results.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentSummary'
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardError'
+        '404':
+          description: External platform not found (or similar).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardError'
+        '500':
+          description: Error fetching payment requests.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/SimpleErrorEnvelope'
+                  - $ref: '#/components/schemas/StandardError'
+              examples:
+                message_only:
+                  value:
+                    error: "Error fetching payment requests"
+
+  # Search payment requests (active)
+  /api/v1/payment/search:
+    post:
+      tags: [Payments]
+      summary: Search payment requests
+      description: Filter/search across payment requests; parameters may vary.
+      operationId: searchPayments
+      security:
+        - PayramApiKey: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchParams'
+      responses:
+        '200':
+          description: Search results.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentSearchResults'
+        '400':
+          description: Invalid request parameters.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/SimpleErrorEnvelope'
+                  - $ref: '#/components/schemas/StandardError'
+              examples:
+                message_only:
+                  value:
+                    error: "Invalid request parameters"
+        '401':
+          description: Unauthorized access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardError'
+        '404':
+          description: External platform not found (or similar).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardError'
+        '500':
+          description: Error fetching payment requests.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/SimpleErrorEnvelope'
+                  - $ref: '#/components/schemas/StandardError'
+              examples:
+                message_only:
+                  value:
+                    error: "Error fetching payment requests"
+
+  ############################################################
+  # WITHDRAWALS
+  ############################################################
+  /api/v1/withdrawal/merchant:
+    post:
+      tags: [Withdrawals]
+      summary: Create a merchant payout
+      description: |
+        Queues a payout in Payram using the authenticated external platform context
+        (API-Key required). Prefer this endpoint for merchant-initiated payouts.
+      operationId: createMerchantWithdrawal
+      security:
+        - PayramApiKey: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MerchantPayoutFromMerchantCreateRequest'
+      responses:
+        '201':
+          description: Payout successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Withdrawal'
+        '400':
+          description: Validation or payload error
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ValidationErrorResponse'
+                  - $ref: '#/components/schemas/PayramErrorResponse'
+        '401':
+          description: Unauthorized or missing API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayramErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayramErrorResponse'
+
+  /api/v1/withdrawal/{withdrawal_id}/merchant:
+    get:
+      tags: [Withdrawals]
+      summary: Retrieve a merchant payout by ID
+      description: |
+        Fetches a single payout for the authenticated merchant using the numeric
+        `withdrawal_id` path parameter. The results honor the same filter semantics as
+        the collection endpoint.
+      operationId: getMerchantWithdrawal
+      security:
+        - PayramApiKey: []
+      parameters:
+        - name: withdrawal_id
+          in: path
+          required: true
+          description: Primary key of the payout record stored by Payram.
+          schema:
+            type: integer
+            format: int64
+        - $ref: '#/components/parameters/StatusParam'
+        - $ref: '#/components/parameters/TypesParam'
+        - $ref: '#/components/parameters/AddressParam'
+        - $ref: '#/components/parameters/BlockchainCodeParam'
+        - $ref: '#/components/parameters/RecipientEmailsParam'
+        - $ref: '#/components/parameters/CreatedByParam'
+      responses:
+        '200':
+          description: Payout details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Withdrawal'
+        '400':
+          description: Invalid path parameter or filters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayramErrorResponse'
+        '401':
+          description: Unauthorized or missing API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayramErrorResponse'
+        '404':
+          description: Payout not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayramErrorResponse'
+
+  ############################################################
+  # PAYMENTS — DEPRECATED VARIANTS
+  ############################################################
+  # Deprecated "Payment" handler (success lacks 'host')
+  /api/payment:
+    post:
+      tags: [Deprecated]
+      summary: Initiate payment (deprecated)
+      description: >
+        Legacy payment creation endpoint. Successful responses **do not** include `host`.
+      operationId: initiatePaymentDeprecated
+      deprecated: true
+      security:
+        - PayramApiKey: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true  # legacy bodies varied (e.g., PaymentParams)
+      responses:
+        '200':
+          description: Payment created (legacy shape).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InitiatePaymentResponseLegacy'
+              examples:
+                success:
+                  value:
+                    url: "https://checkout.payram.com/sess/px_abc123"
+                    reference_id: "px_abc123"
+        '400':
+          description: Invalid request payload.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardError'
+        '401':
+          description: Unauthorized or missing external platform.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardError'
+        '500':
+          description: Error creating the payment request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardError'
+
+  # Deprecated "GetPaymentDetails" (query param)
+  /api/v1/payment/details:
+    get:
+      tags: [Deprecated]
+      summary: Get payment details by reference ID (deprecated)
+      description: Legacy detail fetch; error strings may be returned for some failures.
+      operationId: getPaymentDetailsDeprecated
+      deprecated: true
+      security:
+        - PayramApiKey: []
+      parameters:
+        - in: query
+          name: referenceID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Payment details (legacy structure).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentDetails'
+        '400':
+          description: Missing reference ID, etc.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/SimpleErrorEnvelope'
+                  - $ref: '#/components/schemas/StandardError'
+              examples:
+                message_only:
+                  value:
+                    error: "Reference ID is required"
+        '500':
+          description: Failed to get payment request.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/SimpleErrorEnvelope'
+                  - $ref: '#/components/schemas/StandardError'
+              examples:
+                message_only:
+                  value:
+                    error: "Failed to get payment request"
+
+  ############################################################
+  # REFERRALS
+  ############################################################
+  /api/v1/referral/referrers/authenticate:
+    post:
+      tags: [Referrals]
+      summary: Authenticate and retrieve referrer session details
+      description: >
+        Preferred endpoint for referrer authentication.
+      operationId: authenticateReferrer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthRequest'
+      responses:
+        '200':
+          description: Authentication payload returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+              examples:
+                success:
+                  value:
+                    redirectURL: "https://example.com/referral/e7dd52cd996266896e6c7836377e5sana"
+                    referrer:
+                      id: 0
+                      createdAt: '2025-11-05T05:30:41.629135Z'
+                      updatedAt: '2025-11-05T05:39:27.021856Z'
+                      project: '33'
+                      referenceId: 'ref_07f91c9964be'
+                      email: 'user@example.com'
+                      code: 'ABC123D'
+                      status: 'active'
+                      referredByMemberID: null
+                      referredByMemberReferenceID: null
+                      campaigns: []
+        '404':
+          description: Referrer not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayramError'
+        '422':
+          description: Payload rejected by Payram.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayramError'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayramError'
+
+  /api/v1/referral/referee:
+    post:
+      tags: [Referrals]
+      summary: Link a referee to a referrer
+      description: Link a referee to a referrer
+      operationId: linkReferee
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefereeLinkRequest'
+      responses:
+        '200':
+          description: Referee linked successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RefereeLinkResponse'
+              examples:
+                success:
+                  value:
+                    id: 78
+                    createdAt: '2025-11-05T05:46:56.851435Z'
+                    updatedAt: '2025-11-05T05:46:56.851435Z'
+                    project: '33'
+                    referenceId: 'ref_456'
+                    email: 'abc@example.com'
+                    code: 'ABC123D'
+                    status: 'active'
+                    referredByMemberID: 0
+                    referredByMemberReferenceID: 'ref_123'
+                    referredByMember:
+                      id: 0
+                      createdAt: '2025-11-05T05:30:41.629135Z'
+                      updatedAt: '2025-11-05T05:39:27.021856Z'
+                      project: '33'
+                      referenceId: 'ref_123'
+                      email: 'abc@example.com'
+                      code: 'ABC123D'
+                      status: 'active'
+                      referredByMemberID: null
+                      referredByMemberReferenceID: null
+                      campaigns: null
+                    campaigns: []
+        '409':
+          description: Link already exists.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayramError'
+        '422':
+          description: Validation error returned by Payram.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayramError'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayramError'
+
+  /api/v1/referral/event-log:
+    post:
+      tags: [Referrals]
+      summary: Log a referral lifecycle event
+      description: Log a referral lifecycle event
+      operationId: logReferralEvent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventLogRequest'
+      responses:
+        '200':
+          description: Event accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventLogResponse'
+              examples:
+                success:
+                  value:
+                    id: 0
+                    createdAt: '2025-11-05T05:59:55.272663328Z'
+                    updatedAt: '2025-11-05T05:59:55.272663328Z'
+                    project: '0'
+                    eventKey: 'event_name'
+                    memberID: 0
+                    memberReferenceID: 'ref_abc'
+                    amount: '30'
+                    triggeredAt: '2025-11-05T05:59:55.271347363Z'
+                    data: null
+                    status: 'pending'
+                    failureReason: null
+                    member: null
+        '409':
+          description: Duplicate event detected.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayramError'
+        '422':
+          description: Invalid event details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayramError'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayramError'
+
+components:
+  securitySchemes:
+    PayramApiKey:
+      type: apiKey
+      in: header
+      name: API-Key
+      description: >
+        API key issued by Payram. Required for all endpoints.
+
+  schemas:
+    ########################################################
+    # Payments — Requests / Responses
+    ########################################################
+    InitiatePaymentRequest:
+      type: object
+      required: [customerEmail, customerId, amountInUSD]
+      properties:
+        customerEmail:
+          type: string
+          format: email
+        customerId:
+          type: string
+        amountInUSD:
+          type: number
+          format: double
+          minimum: 0
+          exclusiveMinimum: true  # amount must be > 0
+
+    # CURRENT success: host is required
+    InitiatePaymentResponse:
+      type: object
+      required: [reference_id, url, host]
+      properties:
+        reference_id:
+          type: string
+        url:
+          type: string
+          format: uri
+        host:
+          type: string
+          description: Effective domain serving the checkout session.
+
+    # LEGACY success: no host
+    InitiatePaymentResponseLegacy:
+      type: object
+      required: [reference_id, url]
+      properties:
+        reference_id:
+          type: string
+        url:
+          type: string
+          format: uri
+
+    PaymentRequestData:
+      type: object
+      description: >
+        Normalized payment request payload returned by the Payram services. Some
+        fields may be omitted depending on payment method or service version.
+      properties:
+        invoiceID:
+          type: string
+        customerID:
+          type: string
+          nullable: true
+        currencySymbol:
+          type: string
+          nullable: true
+        blockchainSymbol:
+          type: string
+          nullable: true
+        currencyAddress:
+          type: string
+          nullable: true
+        currencyName:
+          type: string
+          nullable: true
+        currencyDesc:
+          type: string
+          nullable: true
+        currencyDecimals:
+          type: integer
+          nullable: true
+        amountInUSD:
+          type: string
+          description: Decimal amount expressed as a string (e.g., "82" or "49.99").
+        filledAmount:
+          type: string
+          description: Amount received so far for the selected currency as a decimal string.
+          nullable: true
+        filledAmountInUSD:
+          type: string
+          description: USD-equivalent of `filledAmount` as a decimal string.
+          nullable: true
+        paymentState:
+          type: string
+          description: Current lifecycle state (e.g., OPEN, PAID, EXPIRED).
+        merchantName:
+          type: string
+          nullable: true
+        depositAddress:
+          type: string
+          nullable: true
+        referenceID:
+          type: string
+        successURL:
+          type: string
+          format: uri
+          nullable: true
+        cancelURL:
+          type: string
+          format: uri
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+        explorerTransaction:
+          type: string
+          nullable: true
+        externalPlatformID:
+          type: integer
+          nullable: true
+      additionalProperties: true
+
+    PaymentDetails:
+      type: object
+      description: >
+        Flexible legacy payment details object. Exact fields vary by version.
+      additionalProperties: true
+
+    PaymentSummary:
+      type: object
+      description: Summary metrics for payment requests (shape may vary).
+      additionalProperties: true
+
+    SearchParams:
+      type: object
+      description: Search filters; parameters vary by service version.
+      additionalProperties: true
+
+    PaymentSearchResults:
+      type: object
+      description: Search results; structure may vary.
+      additionalProperties: true
+
+    ########################################################
+    # Withdrawals
+    ########################################################
+    MerchantPayoutFromMerchantCreateRequest:
+      type: object
+      required:
+        - email
+        - blockchainCode
+        - currencyCode
+        - amount
+        - toAddress
+      properties:
+        email:
+          type: string
+          format: email
+          description: Recipient email recorded by the merchant.
+          example: merchant.user@example.com
+        blockchainCode:
+          type: string
+          description: >
+            Blockchain code. Allowed values are ETH, TRX, BTC, BASE.
+          enum:
+            - ETH
+            - TRX
+            - BTC
+            - BASE
+          example: ETH
+        currencyCode:
+          type: string
+          description: Code for the asset to send. Allowed values are USDC or USDT.
+          enum:
+            - USDC
+            - USDT
+          example: USDT
+        amount:
+          type: string
+          pattern: "^\\d+(\\.\\d+)?$"
+          description: Amount expressed in blockchain units.
+          example: "250.75"
+        toAddress:
+          type: string
+          description: Destination wallet address.
+        customerID:
+          type: string
+          nullable: true
+          description: Optional customer identifier for platform records.
+        mobileNumber:
+          type: string
+          nullable: true
+          description: Optional phone number used for fraud checks.
+        residentialAddress:
+          type: string
+          nullable: true
+          description: Optional physical address of the recipient.
+
+    Withdrawal:
+      type: object
+      description: Withdrawal/payout record returned by Payram.
+      properties:
+        id:
+          type: integer
+          format: int64
+        currencyCode:
+          type: string
+          description: Asset code associated with the payout. Allowed values are USDC or USDT.
+          enum:
+            - USDC
+            - USDT
+        blockchainCode:
+          type: string
+          description: >
+            Blockchain code associated with the payout. Allowed values are ETH,
+            TRX, BTC, BASE.
+          enum:
+            - ETH
+            - TRX
+            - BTC
+            - BASE
+        amount:
+          type: string
+          example: "500.25"
+        priceInUSD:
+          type: string
+          nullable: true
+        amountInUSD:
+          type: string
+          nullable: true
+        fee:
+          type: string
+          nullable: true
+        fromAddress:
+          type: string
+          nullable: true
+        toAddress:
+          type: string
+        recipientEmail:
+          type: string
+          nullable: true
+        tokenAddress:
+          type: string
+          nullable: true
+        txHash:
+          type: string
+          nullable: true
+        uniqueTxHash:
+          type: string
+          nullable: true
+        txIndex:
+          type: integer
+          format: int32
+          nullable: true
+        blockHash:
+          type: string
+          nullable: true
+        status:
+          type: string
+        blockNumber:
+          type: integer
+          format: int64
+          nullable: true
+        type:
+          type: string
+          enum:
+            - payout
+            - payout_merchant
+            - withdrawal
+        currencyType:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+          nullable: true
+        attributes:
+          type: string
+          nullable: true
+        failureReason:
+          type: string
+          nullable: true
+        webhookStatus:
+          type: string
+          nullable: true
+        retryCount:
+          type: integer
+          format: int32
+        lastRetryAt:
+          type: string
+          format: date-time
+          nullable: true
+        memberID:
+          type: integer
+          format: int64
+        createdByMemberID:
+          type: integer
+          format: int64
+          nullable: true
+        createdByProjectID:
+          type: integer
+          format: int64
+          nullable: true
+        rejectedByMemberID:
+          type: integer
+          format: int64
+          nullable: true
+        approvedByMemberID:
+          type: integer
+          format: int64
+          nullable: true
+        externalPlatformID:
+          type: integer
+          format: int64
+          nullable: true
+        currencyID:
+          type: integer
+          format: int64
+        blockchainID:
+          type: integer
+          format: int64
+        createdBy:
+          type: string
+        member:
+          type: object
+          nullable: true
+          additionalProperties: true
+        createdByMember:
+          type: object
+          nullable: true
+          additionalProperties: true
+        createdByProject:
+          type: object
+          nullable: true
+          additionalProperties: true
+        rejectedByMember:
+          type: object
+          nullable: true
+          additionalProperties: true
+        approvedByMember:
+          type: object
+          nullable: true
+          additionalProperties: true
+        currency:
+          type: object
+          nullable: true
+          additionalProperties: true
+        blockchain:
+          type: object
+          nullable: true
+          additionalProperties: true
+        externalPlatform:
+          type: object
+          nullable: true
+          additionalProperties: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        deletedAt:
+          type: string
+          format: date-time
+          nullable: true
+
+    ValidationErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Validation failed
+        message:
+          type: string
+          example: Invalid request data
+        fields:
+          type: object
+          additionalProperties:
+            type: string
+
+    PayramErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          required:
+            - code
+            - message
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            details:
+              type: string
+              nullable: true
+
+    MessageResponse:
+      type: object
+      properties:
+        message:
+          type: string
+
+    ########################################################
+    # Error Shapes (support both nested and flat variants)
+    ########################################################
+    AnyJson:
+      description: Arbitrary JSON value (string, number, boolean, object, array, or null).
+
+    SimpleErrorEnvelope:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: string
+
+    ErrorCodeString:
+      type: string
+
+    ErrorCodeInteger:
+      type: integer
+
+    ErrorCode:
+      description: Error code can be string (e.g., "UNAUTHORIZED") or integer (e.g., 3).
+      oneOf:
+        - $ref: '#/components/schemas/ErrorCodeString'
+        - $ref: '#/components/schemas/ErrorCodeInteger'
+
+    # NESTED: {"error": { code, message, details? }}
+    StandardError:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: object
+          required: [code, message]
+          properties:
+            code:
+              $ref: '#/components/schemas/ErrorCode'
+            message:
+              type: string
+            details:
+              $ref: '#/components/schemas/AnyJson'
+
+    # FLAT: {"code": 3, "message": "...", "details"?}
+    FlatError:
+      type: object
+      required: [code, message]
+      properties:
+        code:
+          $ref: '#/components/schemas/ErrorCode'
+        message:
+          type: string
+        details:
+          $ref: '#/components/schemas/AnyJson'
+
+    ########################################################
+    # Referrals
+    ########################################################
+    AuthRequest:
+      type: object
+      required: [email, referenceID]
+      properties:
+        email:
+          type: string
+          format: email
+        referenceID:
+          type: string
+
+    AuthResponse:
+      type: object
+      required: [redirectURL, referrer]
+      properties:
+        redirectURL:
+          type: string
+          format: uri
+        referrer:
+          $ref: '#/components/schemas/ReferrerProfile'
+
+    ReferrerProfile:
+      type: object
+      required:
+        - id
+        - createdAt
+        - updatedAt
+        - project
+        - referenceId
+        - email
+        - code
+        - status
+      properties:
+        id:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        project:
+          type: string
+          description: Internal project identifier associated with the referrer.
+        referenceId:
+          type: string
+        email:
+          type: string
+          format: email
+        code:
+          type: string
+        status:
+          type: string
+          description: Lifecycle status (e.g., active, inactive).
+        referredByMemberID:
+          type: integer
+          nullable: true
+        referredByMemberReferenceID:
+          type: string
+          nullable: true
+        referredByMember:
+          type: object
+          nullable: true
+          description: Optional parent referrer that invited this referrer.
+          allOf:
+            - $ref: '#/components/schemas/ReferrerProfile'
+        campaigns:
+          type: array
+          nullable: true
+          description: Campaign memberships associated with the referrer.
+          items:
+            type: object
+            additionalProperties: true
+
+    RefereeLinkRequest:
+      type: object
+      required: [email, referrerCode, referenceID]
+      properties:
+        email:
+          type: string
+          format: email
+        referrerCode:
+          type: string
+        referenceID:
+          type: string
+
+    RefereeLinkResponse:
+      type: object
+      description: Alias for the referrer profile returned when a referee is linked.
+      allOf:
+        - $ref: '#/components/schemas/ReferrerProfile'
+
+    EventLogRequest:
+      type: object
+      required: [eventKey, referenceID]
+      properties:
+        eventKey:
+          type: string
+        referenceID:
+          type: string
+        amount:
+          type: number
+          format: double
+          nullable: true
+
+    EventLogResponse:
+      type: object
+      description: Alias for the event log record returned after logging an event.
+      allOf:
+        - $ref: '#/components/schemas/EventLogRecord'
+
+    EventLogRecord:
+      type: object
+      required:
+        - id
+        - createdAt
+        - updatedAt
+        - project
+        - eventKey
+        - status
+      properties:
+        id:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        project:
+          type: string
+        eventKey:
+          type: string
+        memberID:
+          type: integer
+          nullable: true
+        memberReferenceID:
+          type: string
+          nullable: true
+        amount:
+          type: string
+          nullable: true
+          description: Monetary amount associated with the event (decimal string).
+        triggeredAt:
+          type: string
+          format: date-time
+          nullable: true
+        data:
+          type: object
+          nullable: true
+          additionalProperties: true
+          description: Additional metadata payload associated with the event.
+        status:
+          type: string
+        failureReason:
+          type: string
+          nullable: true
+        member:
+          type: object
+          nullable: true
+          allOf:
+            - $ref: '#/components/schemas/ReferrerProfile'
+
+    # Legacy non-standard error used by some referral endpoints
+    PayramError:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+        details:
+          $ref: '#/components/schemas/AnyJson'
+
+  parameters:
+    StatusParam:
+      name: status
+      in: query
+      description: Filter payouts by status (pending/processing/sent/failure).
+      schema:
+        type: array
+        items:
+          type: string
+      style: form
+      explode: true
+    TypesParam:
+      name: types
+      in: query
+      description: Filter by payout type (e.g., `payout_merchant`).
+      schema:
+        type: array
+        items:
+          type: string
+      style: form
+      explode: true
+    AddressParam:
+      name: address
+      in: query
+      description: Filter by destination wallet addresses.
+      schema:
+        type: array
+        items:
+          type: string
+      style: form
+      explode: true
+    BlockchainCodeParam:
+      name: blockchainCode
+      in: query
+      description: >
+        Filter by blockchain codes. Allowed values are ETH, TRX, BTC, BASE.
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - ETH
+            - TRX
+            - BTC
+            - BASE
+      style: form
+      explode: true
+    RecipientEmailsParam:
+      name: recipientEmails
+      in: query
+      description: Filter by recipient email addresses.
+      schema:
+        type: array
+        items:
+          type: string
+          format: email
+      style: form
+      explode: true
+    CreatedByParam:
+      name: createdBy
+      in: query
+      description: Actor that created the payout (system/user/merchant_api).
+      schema:
+        type: string
+        enum: [system, user, merchant_api]

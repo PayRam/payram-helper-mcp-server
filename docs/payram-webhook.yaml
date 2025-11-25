@@ -1,0 +1,83 @@
+openapi: 3.1.0
+info:
+  title: Payram Webhooks
+  version: 0.0.1
+  description: >
+    OpenAPI 3.1 document for Payram → Merchant webhook events. Use this to
+    implement your server's webhook endpoint. This file is not used for SDK codegen.
+  contact:
+    name: Payram Support
+    url: https://docs.payram.com
+    email: dev@payram.com
+servers:
+  - url: https://webhooks.payram.example
+    description: Placeholder URL for merchant webhook listener implementations.
+webhooks:
+  paymentEvent:
+    post:
+      summary: Payram → Merchant payment lifecycle event
+      description: Payram sends this to your endpoint when payment status changes.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/WebhookPayload"
+            examples:
+              completed:
+                value:
+                  reference_id: ref_123
+                  invoice_id: inv_456
+                  customer_id: cust_789
+                  customer_email: a@b.com
+                  status: FILLED
+                  amount: 49.99
+                  filled_amount_in_usd: 49.99
+                  currency: USD
+      responses:
+        "200":
+          description: Acknowledge receipt
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WebhookAck"
+          headers:
+            API-Key:
+              description: Shared secret used for webhook auth
+              schema:
+                type: string
+components:
+  schemas:
+    WebhookPayload:
+      type: object
+      properties:
+        reference_id:
+          type: string
+        invoice_id:
+          type: string
+        customer_id:
+          type: string
+        customer_email:
+          type: string
+          format: email
+        status:
+          type: string
+          enum: [OPEN, CANCELLED, FILLED, PARTIALLY_FILLED, OVER_FILLED, UNDEFINED]
+        amount:
+          type: number
+          format: double
+        filled_amount_in_usd:
+          type: number
+          format: double
+        currency:
+          type: string
+          minLength: 3
+          maxLength: 3
+      additionalProperties: true
+      required: [reference_id, status]
+    WebhookAck:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Webhook received successfully
