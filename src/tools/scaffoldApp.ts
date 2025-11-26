@@ -27,21 +27,19 @@ const scaffoldInputSchema = z
   })
   .strict();
 
-const scaffoldOutputSchema = z
-  .object({
-    appName: z.string(),
-    language: z.string(),
-    framework: z.string(),
-    instructions: z.string(),
-    files: z.array(
-      z.object({
-        path: z.string(),
-        description: z.string(),
-        contents: z.string(),
-      }),
-    ),
-  })
-  .strict();
+const scaffoldOutputSchema = z.object({
+  appName: z.string(),
+  language: z.string(),
+  framework: z.string(),
+  instructions: z.string(),
+  files: z.array(
+    z.object({
+      path: z.string(),
+      description: z.string(),
+      contents: z.string(),
+    }),
+  ),
+});
 
 const schemas = buildToolSchemas({
   input: scaffoldInputSchema,
@@ -403,7 +401,7 @@ const expressFrontend = `<!doctype html>
           body: data,
         });
         if (response.url) {
-          window.location.href = response.url;
+          window.open(response.url, '_blank', 'noopener');
         }
       });
 
@@ -482,6 +480,17 @@ Minimal Express app that proxies Payram payments, payouts, and webhooks with a t
 2. Install dependencies: \`npm install\`.
 3. Run dev server: \`npm run dev\`.
 4. Open http://localhost:3000 to try the UI.
+
+${
+  input.includeWebhooks !== false
+    ? `## Payram dashboard checklist
+
+1. Copy your API key and server base URL from the Payram dashboard (see docs/js-sdk.md) and paste them into .env as PAYRAM_API_KEY and PAYRAM_BASE_URL.
+2. Under Developers → Webhooks set the URL to http://localhost:3000/api/payram/webhook while testing locally.
+3. Ensure the webhook uses the same API-Key header value; this sample rejects calls with the wrong key.
+`
+    : ''
+}
 
 Routes:
 - POST /api/payments/create
@@ -633,7 +642,7 @@ export default function HomePage() {
             });
             setPaymentResult(result);
             if (result.url) {
-              window.location.href = result.url;
+              window.open(result.url, '_blank', 'noopener');
             }
           }}
             style={formStyle}
@@ -869,6 +878,17 @@ Full-stack Next.js example for Payram payments & payouts with a minimal UI.
 2. Install dependencies: \`npm install\`.
 3. Run dev server: \`npm run dev\`.
 4. Visit http://localhost:3000.
+
+${
+  input.includeWebhooks !== false
+    ? `## Payram dashboard checklist
+
+1. From the Payram dashboard copy your API key and base URL (see docs/js-sdk.md) and place them in .env.
+2. Configure a webhook endpoint pointing to http://localhost:3000/api/payram/webhook while running locally.
+3. Reuse the same API-Key header that you configured in .env so the generated handler accepts requests.
+`
+    : ''
+}
 `,
     },
     { path: 'app/page.tsx', description: 'Next.js frontend page.', contents: nextPageTsx },
@@ -940,13 +960,19 @@ export async function GET(_request: Request, context: { params: { id: string } }
     files.push({
       path: 'app/api/payram/webhook/route.ts',
       description: 'Webhook handler for Payram events.',
-      contents: `import { NextRequest, NextResponse } from 'next/server';
+      contents: `import { NextRequest } from 'next/server';
+import { Payram } from 'payram';
 
-export async function POST(request: NextRequest) {
-  const payload = await request.json();
-  console.log('Payram webhook payload', payload);
-  return NextResponse.json({ message: 'Webhook received successfully' });
-}
+const payram = new Payram({
+  apiKey: process.env.PAYRAM_API_KEY!,
+  baseUrl: process.env.PAYRAM_BASE_URL!,
+});
+
+export const POST = payram.webhooks.next.app(
+  async (payload, req: NextRequest) => {
+    console.log('Payram webhook event', payload.event ?? payload.status, payload.reference_id);
+  },
+);
 `,
     });
   }
@@ -983,13 +1009,24 @@ FastAPI starter for Payram payments, payouts, and optional webhook.
 3. cp .env.example .env and fill PAYRAM vars
 4. uvicorn main:app --reload
 5. Open http://localhost:8000
+
+${
+  input.includeWebhooks !== false
+    ? `## Payram dashboard checklist
+
+1. Copy your API key and base URL from the Payram dashboard (see docs/js-sdk.md) and store them in .env.
+2. Configure a webhook endpoint pointing to http://localhost:8000/api/payram/webhook while running locally.
+3. Payram must send the same API-Key header you configured; otherwise the FastAPI route returns 401.
+`
+    : ''
+}
 `,
     },
     {
       path: 'main.py',
       description: 'FastAPI app with API + webhook + template route.',
       contents: `import os
-    from fastapi import FastAPI, Request
+    from fastapi import FastAPI, Request, HTTPException, status
     from fastapi.responses import HTMLResponse, JSONResponse
     from fastapi.templating import Jinja2Templates
     from dotenv import load_dotenv
@@ -1049,9 +1086,12 @@ ${
   input.includeWebhooks !== false
     ? `
 @app.post('/api/payram/webhook')
-async def webhook(payload: dict):
-    print('Payram webhook payload', payload)
-    return {'message': 'Webhook received successfully'}
+async def webhook(request: Request):
+  if request.headers.get('API-Key') != PAYRAM_API_KEY:
+    raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail='invalid-api-key')
+  payload = await request.json()
+  print('Payram webhook payload', payload)
+  return {'message': 'Webhook received successfully'}
 `
     : ''
 }
@@ -1091,6 +1131,17 @@ Laravel example for Payram payments and payouts with a Blade UI.
 2. cp .env.example .env and set PAYRAM_* plus APP_KEY
 3. php artisan serve
 4. Visit http://localhost:8000
+
+${
+  input.includeWebhooks !== false
+    ? `## Payram dashboard checklist
+
+1. In the Payram dashboard copy your API key + base URL (docs/js-sdk.md covers both) and paste them into .env.
+2. Add a webhook pointing to http://localhost:8000/api/payram/webhook when testing locally.
+3. Reuse the same API key for the webhook's API-Key header so the controller accepts the request.
+`
+    : ''
+}
 `,
     },
     {
@@ -1179,8 +1230,12 @@ ${
     ? `
     public function webhook(Request $request): JsonResponse
     {
-        logger()->info('Payram webhook payload', $request->all());
-        return response()->json(['message' => 'Webhook received successfully']);
+      if ($request->header('API-Key') !== $this->apiKey) {
+        return response()->json(['error' => 'invalid-api-key'], 401);
+      }
+
+      logger()->info('Payram webhook payload', $request->all());
+      return response()->json(['message' => 'Webhook received successfully']);
     }
 `
     : ''
@@ -1235,6 +1290,17 @@ Gin starter for Payram payments, payouts, and webhook.
 2. cp .env.example .env and set values
 3. go run main.go
 4. Open http://localhost:3000
+
+${
+  input.includeWebhooks !== false
+    ? `## Payram dashboard checklist
+
+1. Copy PAYRAM_BASE_URL and PAYRAM_API_KEY from the Payram dashboard (see docs/js-sdk.md) into .env.
+2. Add a webhook endpoint targeting http://localhost:3000/api/payram/webhook for local testing.
+3. Ensure Payram uses the same API key for the webhook call; the Gin handler returns 401 otherwise.
+`
+    : ''
+}
 `,
     },
     {
@@ -1353,6 +1419,10 @@ ${
   input.includeWebhooks !== false
     ? `
 func webhook(c *gin.Context) {
+  if c.GetHeader("API-Key") != payramKey {
+    c.JSON(http.StatusUnauthorized, gin.H{"error": "invalid-api-key"})
+    return
+  }
   var payload map[string]interface{}
   c.BindJSON(&payload)
   log.Println("Payram webhook payload", payload)
@@ -1406,6 +1476,17 @@ Spring Boot example for Payram payments, payouts, webhook, and a Thymeleaf UI.
 1. ./mvnw spring-boot:run
 2. Set PAYRAM_* via environment or application.properties
 3. Visit http://localhost:8080
+
+${
+  input.includeWebhooks !== false
+    ? `## Payram dashboard checklist
+
+1. Grab your API key + base URL from the Payram dashboard (see docs/js-sdk.md) and expose them as PAYRAM_API_KEY / PAYRAM_BASE_URL.
+2. Create a webhook endpoint pointing to http://localhost:8080/api/payram/webhook while running locally.
+3. Configure the webhook to send the same API-Key header so the controller returns 200 instead of 401.
+`
+    : ''
+}
 `,
     },
     {
@@ -1467,6 +1548,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -1531,7 +1613,13 @@ ${
   input.includeWebhooks !== false
     ? `
   @PostMapping("/payram/webhook")
-  public ResponseEntity<?> webhook(@RequestBody Map<String, Object> payload) {
+  public ResponseEntity<?> webhook(
+      @RequestHeader(value = "API-Key", required = false) String headerKey,
+      @RequestBody Map<String, Object> payload) {
+    if (headerKey == null || !headerKey.equals(apiKey)) {
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "invalid-api-key"));
+    }
+
     System.out.println("Payram webhook payload " + payload);
     return ResponseEntity.ok(Map.of("message", "Webhook received successfully"));
   }

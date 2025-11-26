@@ -241,7 +241,7 @@ const payram = new Payram({
   baseUrl: process.env.PAYRAM_BASE_URL!,
 });
 
-export const POST = payram.webhooks.nextAppRouterWebhook(
+export const POST = payram.webhooks.next.app(
   async (payload, req: NextRequest) => {
     console.log('Payram webhook event:', payload.event, payload.reference_id);
     // handle payment / referral events here
