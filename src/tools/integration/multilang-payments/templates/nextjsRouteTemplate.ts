@@ -1,27 +1,24 @@
 import { SnippetResponse } from '../../common/snippetTypes.js';
 
 const notes =
-  'Request/response contract sourced from docs/payram-external.yaml (/api/v1/payment initiatePayment).';
+  'Wires the Payram JS SDK (docs/js-sdk.md) into a Next.js App Router handler for initiating payments.';
 
 export const buildNextjsPaymentRouteSnippet = (): SnippetResponse => ({
   title: 'Next.js App Router endpoint for Payram create-payment',
   snippet: `import { NextRequest, NextResponse } from 'next/server';
+import { Payram, InitiatePaymentRequest, isPayramSDKError } from 'payram';
 
-const PAYRAM_PAYMENT_PATH = '/api/v1/payment';
+if (!process.env.PAYRAM_BASE_URL || !process.env.PAYRAM_API_KEY) {
+  throw new Error('PAYRAM_BASE_URL and PAYRAM_API_KEY must be configured');
+}
+
+const payram = new Payram({
+  apiKey: process.env.PAYRAM_API_KEY!,
+  baseUrl: process.env.PAYRAM_BASE_URL!,
+});
 
 export async function POST(request: NextRequest) {
-  const baseUrl = process.env.PAYRAM_BASE_URL;
-  const apiKey = process.env.PAYRAM_API_KEY;
-
-  if (!baseUrl || !apiKey) {
-    return NextResponse.json({ error: 'payram_not_configured' }, { status: 500 });
-  }
-
-  let payload: {
-    customerEmail: string;
-    customerId: string;
-    amountInUSD: number;
-  };
+  let payload: Partial<InitiatePaymentRequest>;
 
   try {
     payload = await request.json();
@@ -29,39 +26,31 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'invalid-json' }, { status: 400 });
   }
 
-  const normalizedBaseUrl = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
-  const payramUrl = normalizedBaseUrl + PAYRAM_PAYMENT_PATH;
+  if (!payload?.customerEmail || !payload.customerId || typeof payload.amountInUSD !== 'number') {
+    return NextResponse.json({ error: 'invalid_request' }, { status: 400 });
+  }
 
   try {
-    const payramResponse = await fetch(payramUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'API-Key': apiKey,
-      },
-      body: JSON.stringify({
-        customerEmail: payload.customerEmail,
-        customerId: payload.customerId,
-        amountInUSD: payload.amountInUSD,
-      }),
+    const checkout = await payram.payments.initiatePayment({
+      customerEmail: payload.customerEmail,
+      customerId: payload.customerId,
+      amountInUSD: payload.amountInUSD,
     });
-
-    const payramBody = await payramResponse.json();
-
-    if (!payramResponse.ok) {
-      return NextResponse.json(
-        { error: 'payram_error', details: payramBody },
-        { status: payramResponse.status },
-      );
-    }
 
     return NextResponse.json({
-      referenceId: payramBody.reference_id,
-      checkoutUrl: payramBody.url,
-      host: payramBody.host,
+      referenceId: checkout.reference_id,
+      checkoutUrl: checkout.url,
+      host: checkout.host,
     });
   } catch (error) {
-    console.error('Failed to create Payram payment', error);
+    if (isPayramSDKError(error)) {
+      console.error('Payram Error:', {
+        status: error.status,
+        requestId: error.requestId,
+      });
+    } else {
+      console.error('Failed to create Payram payment', error);
+    }
     return NextResponse.json({ error: 'payram_upstream_error' }, { status: 502 });
   }
 }
@@ -70,7 +59,7 @@ export async function POST(request: NextRequest) {
     language: 'typescript',
     framework: 'nextjs',
     filenameSuggestion: 'app/api/pay/create/route.ts',
-    description: "Next.js App Router API route that proxies to Payram's /api/v1/payment endpoint.",
+    description: 'Next.js App Router API route that uses the Payram JS SDK to initiate payments.',
   },
   notes,
 });
