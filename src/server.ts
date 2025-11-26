@@ -1,5 +1,4 @@
 import express from 'express';
-import { randomUUID } from 'node:crypto';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
 import { registerTools } from './tools/index.js';
@@ -25,7 +24,8 @@ const bootstrap = async () => {
   registerTools(mcpServer);
 
   const transport = new StreamableHTTPServerTransport({
-    sessionIdGenerator: () => randomUUID(),
+    // Disable session management so older MCP clients that lack Mcp-Session-Id headers can connect.
+    sessionIdGenerator: undefined,
     enableJsonResponse: true,
   });
 
