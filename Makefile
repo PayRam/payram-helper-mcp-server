@@ -45,7 +45,7 @@ test:
 precommit-test:
 	@set -euo pipefail; \
 	echo "Running precommit suite"; \
-	$(MAKE) format-check; \
+	$(MAKE) format; \
 	$(MAKE) lint; \
 	$(MAKE) test; \
 	$(MAKE) build; \

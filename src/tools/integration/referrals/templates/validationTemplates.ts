@@ -70,7 +70,7 @@ console.log('Validated referral request for campaign', request.campaignId);
 `,
   meta: {
     language: 'typescript',
-    framework: 'node-generic',
+    framework: 'generic-http',
     filenameSuggestion: 'src/payram/referrals/validateReferral.ts',
     description: 'Guards referral inputs before invoking Payram referral APIs.',
   },
@@ -125,7 +125,7 @@ export async function getReferralStatus(referenceID: string): Promise<ReferralRe
 `,
   meta: {
     language: 'typescript',
-    framework: 'node-generic',
+    framework: 'generic-http',
     filenameSuggestion: 'src/payram/referrals/referralStatusStore.ts',
     description: 'Backend-only helper to track referral states until Payram exposes read APIs.',
   },

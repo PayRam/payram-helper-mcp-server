@@ -74,7 +74,7 @@ await logReferralEvent({
 `,
   meta: {
     language: 'typescript',
-    framework: 'node-generic',
+    framework: 'generic-http',
     filenameSuggestion: 'src/payram/referrals/createReferral.ts',
     description: 'Links a referee and logs a referral event via payram.referrals.* SDK APIs.',
   },
@@ -115,7 +115,7 @@ await getReferrerStatus({
 `,
   meta: {
     language: 'typescript',
-    framework: 'node-generic',
+    framework: 'generic-http',
     filenameSuggestion: 'src/payram/referrals/getReferrerStatus.ts',
     description:
       'Uses payram.referrals.authenticateReferrer to fetch referrer profile + redirect URL.',

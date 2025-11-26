@@ -22,7 +22,7 @@ import { SnippetResponse } from '../common/snippetTypes.js';
 
 const supportedLanguages = ['typescript', 'javascript', 'python', 'go', 'php', 'java'] as const;
 // TODO: Extend this list when we add fastapi/gin/laravel/spring-boot snippets.
-const supportedFrameworks = ['node-generic', 'express', 'nextjs', 'generic-http'] as const;
+const supportedFrameworks = ['generic-http', 'express', 'nextjs'] as const;
 
 const snippetMetaSchema = z.object({
   language: z.enum(supportedLanguages),
@@ -40,7 +40,7 @@ const snippetResponseSchema = z.object({
 
 const sdkInputSchema = z
   .object({
-    framework: z.enum(['node-generic', 'express', 'nextjs'] as const),
+    framework: z.enum(['generic-http', 'express', 'nextjs'] as const),
   })
   .strict();
 
@@ -97,7 +97,7 @@ type GenerateRouteSnippetInput = z.infer<typeof routeInputSchema>;
 
 const selectSdkSnippet = (framework: GenerateSdkSnippetInput['framework']) => {
   switch (framework) {
-    case 'node-generic':
+    case 'generic-http':
       return buildNodeSdkCreatePaymentSnippet();
     case 'express':
     case 'nextjs':

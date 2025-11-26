@@ -54,7 +54,7 @@ await createPayout({
 `,
   meta: {
     language: 'typescript',
-    framework: 'node-generic',
+    framework: 'generic-http',
     filenameSuggestion: 'src/payram/payouts/createPayout.ts',
     description: 'Uses payram.payouts.createPayout with the documented request payload.',
   },
@@ -96,7 +96,7 @@ await getPayoutStatus(120);
 `,
   meta: {
     language: 'typescript',
-    framework: 'node-generic',
+    framework: 'generic-http',
     filenameSuggestion: 'src/payram/payouts/getPayoutStatus.ts',
     description: 'Wraps payram.payouts.getPayoutById to inspect payout.status / transfer details.',
   },

@@ -1,7 +1,13 @@
 export type SupportedLanguage = 'typescript' | 'javascript' | 'python' | 'go' | 'php' | 'java';
 
-// TODO: Re-introduce fastapi/gin/laravel/spring-boot once we ship snippets for them.
-export type SupportedBackendFramework = 'node-generic' | 'express' | 'nextjs' | 'generic-http';
+export type SupportedBackendFramework =
+  | 'nextjs'
+  | 'express'
+  | 'fastapi'
+  | 'gin'
+  | 'laravel'
+  | 'spring-boot'
+  | 'generic-http';
 
 export interface SnippetMeta {
   language: SupportedLanguage;

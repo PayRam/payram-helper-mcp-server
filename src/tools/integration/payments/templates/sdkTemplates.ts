@@ -45,7 +45,7 @@ await createCheckout({
 `,
   meta: {
     language: 'typescript',
-    framework: 'node-generic',
+    framework: 'generic-http',
     filenameSuggestion: 'src/payram/payments/createPayment.ts',
     description:
       'Create a Payram payment using the official JS/TS SDK exactly as documented in docs/js-sdk.md.',
@@ -86,7 +86,7 @@ export async function getPaymentStatus(referenceId: string): Promise<PaymentRequ
 `,
   meta: {
     language: 'typescript',
-    framework: 'node-generic',
+    framework: 'generic-http',
     filenameSuggestion: 'src/payram/payments/paymentStatus.ts',
     description:
       'Fetch payment status using payram.payments.getPaymentRequest as shown in docs/js-sdk.md.',

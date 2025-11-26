@@ -10,7 +10,7 @@ import {
 } from './templates/sdkTemplates.js';
 
 const supportedLanguages = ['typescript'] as const;
-const supportedFrameworks = ['node-generic'] as const;
+const supportedFrameworks = ['generic-http'] as const;
 
 const snippetMetaSchema = z.object({
   language: z.enum(supportedLanguages),
@@ -66,7 +66,7 @@ export const registerPayoutTools = (server: McpServer) => {
     },
     safeHandler(
       async (params: z.infer<typeof sdkInputSchema>) => {
-        if (params.framework !== 'node-generic') {
+        if (params.framework !== 'generic-http') {
           throw new Error(`Unsupported framework for payout SDK snippets: ${params.framework}`);
         }
         const snippet = buildNodeSdkCreatePayoutSnippet();

@@ -18,12 +18,12 @@ import {
 } from './templates/routeTemplates.js';
 
 const supportedLanguages = ['typescript'] as const;
-const sdkFrameworks = ['node-generic'] as const;
+const sdkFrameworks = ['generic-http'] as const;
 const routeFrameworks = ['express', 'nextjs'] as const;
 
 const snippetMetaSchema = z.object({
   language: z.enum(supportedLanguages),
-  framework: z.enum(['node-generic', 'express', 'nextjs'] as const),
+  framework: z.enum(['generic-http', 'express', 'nextjs'] as const),
   filenameSuggestion: z.string().optional(),
   description: z.string().optional(),
 });
@@ -95,7 +95,7 @@ export const registerReferralTools = (server: McpServer) => {
     },
     safeHandler(
       async (params: z.infer<typeof sdkInputSchema>) => {
-        if (params.framework !== 'node-generic') {
+        if (params.framework !== 'generic-http') {
           throw new Error(`Unsupported framework for referral SDK snippets: ${params.framework}`);
         }
         const snippet = buildNodeSdkCreateReferralSnippet();
