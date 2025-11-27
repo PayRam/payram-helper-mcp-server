@@ -141,6 +141,7 @@ Use the Payouts API to create and retrieve payout transactions for merchants or 
 
 ```tsx
 await payram.payouts.createPayout({
+  customerID: 'demo-customer-id',
   email: 'merchant@example.com',
   blockchainCode: 'ETH',
   currencyCode: 'USDT',

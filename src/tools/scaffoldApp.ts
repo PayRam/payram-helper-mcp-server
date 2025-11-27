@@ -131,10 +131,12 @@ app.get('/api/payments/:referenceId', async (req, res) => {
 
 app.post('/api/payouts/create', async (req, res) => {
   try {
-    const { amount, currencyCode = 'USDT', toAddress } = req.body;
+    const { amount, currencyCode = 'USDT', blockchainCode = 'ETH', customerID, customerId, email = 'merchant@example.com', toAddress } = req.body;
+    const normalizedCustomerID = customerID ?? customerId ?? 'demo-customer-id';
     const payout = await payram.payouts.createPayout({
-      email: 'merchant@example.com',
-      blockchainCode: 'ETH',
+      customerID: normalizedCustomerID,
+      email,
+      blockchainCode,
       currencyCode,
       amount: String(amount ?? '1'),
       toAddress: toAddress ?? '0xfeedfacecafebeefdeadbeefdeadbeefdeadbeef',
@@ -344,6 +346,18 @@ const expressFrontend = `<!doctype html>
             <label>
               Currency Code
               <input type="text" name="currencyCode" value="USDT" />
+            </label>
+            <label>
+              Blockchain Code
+              <input type="text" name="blockchainCode" value="ETH" />
+            </label>
+            <label>
+              Customer ID
+              <input type="text" name="customerID" value="demo-customer-id" />
+            </label>
+            <label>
+              Email
+              <input type="email" name="email" value="merchant@example.com" />
             </label>
             <label>
               Wallet Address
@@ -613,7 +627,7 @@ const preStyle: CSSProperties = {
 export default function HomePage() {
   const [paymentForm, setPaymentForm] = useState({ amount: '1', referenceId: 'demo-ref' });
   const [paymentStatusRef, setPaymentStatusRef] = useState('demo-ref');
-  const [payoutForm, setPayoutForm] = useState({ amount: '1', currencyCode: 'USDT', toAddress: '0xfeedfacecafebeefdeadbeefdeadbeefdeadbeef' });
+  const [payoutForm, setPayoutForm] = useState({ amount: '1', currencyCode: 'USDT', blockchainCode: 'ETH', customerID: 'demo-customer-id', email: 'merchant@example.com', toAddress: '0xfeedfacecafebeefdeadbeefdeadbeefdeadbeef' });
   const [payoutStatusId, setPayoutStatusId] = useState('1');
 
   const [paymentResult, setPaymentResult] = useState<Record<string, unknown> | null>(null);
@@ -723,6 +737,9 @@ export default function HomePage() {
               await callApi('/api/payouts/create', {
                 amount: Number(payoutForm.amount) || 0,
                 currencyCode: payoutForm.currencyCode,
+                blockchainCode: payoutForm.blockchainCode,
+                customerID: payoutForm.customerID,
+                email: payoutForm.email,
                 toAddress: payoutForm.toAddress.trim(),
               }),
             );
@@ -750,6 +767,39 @@ export default function HomePage() {
                 style={inputStyle}
               onChange={(event) =>
                 setPayoutForm((prev) => ({ ...prev, currencyCode: event.target.value }))
+              }
+            />
+          </label>
+          <label style={fieldStyle}>
+            Blockchain Code
+            <input
+              type="text"
+              value={payoutForm.blockchainCode}
+                style={inputStyle}
+              onChange={(event) =>
+                setPayoutForm((prev) => ({ ...prev, blockchainCode: event.target.value }))
+              }
+            />
+          </label>
+          <label style={fieldStyle}>
+            Customer ID
+            <input
+              type="text"
+              value={payoutForm.customerID}
+                style={inputStyle}
+              onChange={(event) =>
+                setPayoutForm((prev) => ({ ...prev, customerID: event.target.value }))
+              }
+            />
+          </label>
+          <label style={fieldStyle}>
+            Email
+            <input
+              type="email"
+              value={payoutForm.email}
+                style={inputStyle}
+              onChange={(event) =>
+                setPayoutForm((prev) => ({ ...prev, email: event.target.value }))
               }
             />
           </label>
@@ -927,7 +977,7 @@ export async function GET(_request: Request, context: { params: { referenceId: s
       path: 'app/api/payouts/create/route.ts',
       description: 'Payout creation route.',
       contents: nextApiRoute(
-        '    const payout = await payram.payouts.createPayout({ email: "merchant@example.com", blockchainCode: "ETH", currencyCode: payload.currencyCode ?? "USDT", amount: String(payload.amount ?? "1"), toAddress: payload.toAddress ?? "0xfeedfacecafebeefdeadbeefdeadbeefdeadbeef" });\n    return NextResponse.json(payout);',
+        '    const payout = await payram.payouts.createPayout({ customerID: payload.customerID ?? payload.customerId ?? "demo-customer-id", email: payload.email ?? "merchant@example.com", blockchainCode: payload.blockchainCode ?? "ETH", currencyCode: payload.currencyCode ?? "USDT", amount: String(payload.amount ?? "1"), toAddress: payload.toAddress ?? "0xfeedfacecafebeefdeadbeefdeadbeefdeadbeef" });\n    return NextResponse.json(payout);',
       ),
     },
     {
@@ -1070,11 +1120,12 @@ async def payment_status(reference_id: str):
 @app.post('/api/payouts/create')
 async def create_payout(payload: dict):
     resp = await client.post('/api/v1/withdrawal/merchant', json={
+      'customerID': payload.get('customerID') or payload.get('customerId') or 'demo-customer-id',
       'amount': payload.get('amount', 1),
       'currencyCode': payload.get('currencyCode', 'USDT'),
-        'blockchainCode': 'ETH',
+        'blockchainCode': payload.get('blockchainCode', 'ETH'),
         'toAddress': payload.get('toAddress', '0xfeedfacecafebeefdeadbeefdeadbeefdeadbeef'),
-        'email': 'merchant@example.com',
+        'email': payload.get('email', 'merchant@example.com'),
     })
     return JSONResponse(resp.json(), status_code=resp.status_code)
 
@@ -1211,11 +1262,12 @@ class PayramController extends Controller
     public function createPayout(Request $request): JsonResponse
     {
         $response = $this->client()->post($this->baseUrl.'/api/v1/withdrawal/merchant', [
+          'customerID' => $request->input('customerID', $request->input('customerId', 'demo-customer-id')),
           'amount' => $request->input('amount', 1),
           'currencyCode' => $request->input('currencyCode', 'USDT'),
-            'blockchainCode' => 'ETH',
+            'blockchainCode' => $request->input('blockchainCode', 'ETH'),
             'toAddress' => $request->input('toAddress'),
-            'email' => 'merchant@example.com',
+            'email' => $request->input('email', 'merchant@example.com'),
         ]);
         return response()->json($response->json(), $response->status());
     }
@@ -1392,17 +1444,31 @@ func createPayout(c *gin.Context) {
     payload = map[string]interface{}{}
   }
   body := map[string]interface{}{
+    "customerID": payload["customerID"],
     "amount": payload["amount"],
     "currencyCode": payload["currencyCode"],
-    "blockchainCode": "ETH",
+    "blockchainCode": payload["blockchainCode"],
     "toAddress": payload["toAddress"],
-    "email": "merchant@example.com",
+    "email": payload["email"],
   }
   if body["amount"] == nil {
     body["amount"] = 1
   }
   if body["currencyCode"] == nil {
     body["currencyCode"] = "USDT"
+  }
+  if body["blockchainCode"] == nil {
+    body["blockchainCode"] = "ETH"
+  }
+  if body["customerID"] == nil {
+    if legacy, ok := payload["customerId"]; ok {
+      body["customerID"] = legacy
+    } else {
+      body["customerID"] = "demo-customer-id"
+    }
+  }
+  if body["email"] == nil {
+    body["email"] = "merchant@example.com"
   }
   if body["toAddress"] == nil {
     body["toAddress"] = "0xfeedfacecafebeefdeadbeefdeadbeefdeadbeef"
@@ -1538,6 +1604,7 @@ public class PayramApplication {
       contents: `package com.example.payram;
 
 import java.util.Map;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -1596,12 +1663,17 @@ class PayramApiController {
 
   @PostMapping("/payouts/create")
   public ResponseEntity<?> createPayout(@RequestBody Map<String, Object> payload) {
-    Map<String, Object> body = Map.of(
-      "amount", payload.getOrDefault("amount", 1),
-      "currencyCode", payload.getOrDefault("currencyCode", "USDT"),
-        "blockchainCode", "ETH",
-        "toAddress", payload.getOrDefault("toAddress", "0xfeedfacecafebeefdeadbeefdeadbeefdeadbeef"),
-        "email", "merchant@example.com");
+    var body = new HashMap<String, Object>();
+    Object customerID = payload.containsKey("customerID") ? payload.get("customerID") : payload.get("customerId");
+    if (customerID == null) {
+      customerID = "demo-customer-id";
+    }
+    body.put("customerID", customerID);
+    body.put("amount", payload.getOrDefault("amount", 1));
+    body.put("currencyCode", payload.getOrDefault("currencyCode", "USDT"));
+    body.put("blockchainCode", payload.getOrDefault("blockchainCode", "ETH"));
+    body.put("toAddress", payload.getOrDefault("toAddress", "0xfeedfacecafebeefdeadbeefdeadbeefdeadbeef"));
+    body.put("email", payload.getOrDefault("email", "merchant@example.com"));
     return payram("POST", "/api/v1/withdrawal/merchant", body);
   }
 
