@@ -1,6 +1,7 @@
 import { SnippetResponse } from '../../common/snippetTypes.js';
 
-const buildHeadersComment = () => "// Payram uses the 'API-Key' header.";
+const buildHeadersComment = () =>
+  "// Payram uses the 'API-Key' header. Do NOT send Authorization: Bearer — it will be rejected.";
 
 export const buildPythonHttpCreatePaymentSnippet = (): SnippetResponse => ({
   title: 'Create a Payram payment using Python + requests',

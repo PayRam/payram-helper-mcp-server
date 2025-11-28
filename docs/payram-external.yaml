@@ -714,7 +714,8 @@ components:
       in: header
       name: API-Key
       description: >
-        API key issued by Payram. Required for all endpoints.
+        API key issued by Payram. Required for all endpoints and **must** be sent via the
+        `API-Key` header (never `Authorization: Bearer ...`).
 
   schemas:
     ########################################################

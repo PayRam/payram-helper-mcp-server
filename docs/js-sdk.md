@@ -16,8 +16,8 @@ You’ll need:
 
 > ⚠️ This SDK is meant for backend use only. Never expose your API key in browser or frontend code.
 > 
+> ❗ **Authentication reminder:** Payram's HTTP APIs expect your credential in the `API-Key` header. The platform does **not** accept `Authorization: Bearer ...` or any other header names. Every snippet in this repo uses `API-Key` on purpose—mirror that when wiring your own clients to avoid 401 errors.
 
----
 
 ## Install
 
