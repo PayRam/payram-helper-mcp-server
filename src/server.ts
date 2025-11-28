@@ -17,7 +17,7 @@ const bootstrap = async () => {
   });
 
   const mcpServer = new McpServer({
-    name: 'payram-mcp-server',
+    name: 'payram-helper',
     version: '0.1.0',
   });
 
