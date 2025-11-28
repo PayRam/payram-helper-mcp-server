@@ -8,6 +8,7 @@ import { PAYRAM_BASICS_DOC } from './content/payramBasicsContent.js';
 import { PAYRAM_LINKS_DOC } from './content/payramLinksContent.js';
 import { PAYMENT_FLOW_DOC } from './content/paymentFlowContent.js';
 import { PAYRAM_CONCEPTS_DOC } from './content/payramConceptsContent.js';
+import { PAYRAM_TEST_PREP_DOC } from './content/payramTestPrepContent.js';
 import { REFERRALS_BASICS_DOC } from './content/referralsBasicsContent.js';
 import { REFERRAL_FLOW_DOC } from './content/referralFlowContent.js';
 import { REFERRAL_DASHBOARD_DOC } from './content/referralDashboardGuideContent.js';
@@ -18,6 +19,7 @@ interface DocToolDefinition {
   title: string;
   description: string;
   doc: MarkdownDocResponse;
+  promptTestPhrase?: boolean;
 }
 
 const docSchemas = buildToolSchemas({
@@ -34,6 +36,7 @@ const docTools: DocToolDefinition[] = [
     description:
       "Explain Payram's product pillars, architecture, payments, and payouts capabilities.",
     doc: PAYRAM_BASICS_DOC,
+    promptTestPhrase: true,
   },
   {
     name: 'get_payram_links',
@@ -46,12 +49,14 @@ const docTools: DocToolDefinition[] = [
     title: 'Payment Flow Guide',
     description: 'Describe how payments move from customer initiation through settlement.',
     doc: PAYMENT_FLOW_DOC,
+    promptTestPhrase: true,
   },
   {
     name: 'explain_payram_concepts',
     title: 'Core Payram Concepts',
     description: 'Glossary-backed explanation of Payram terminology and constraints.',
     doc: PAYRAM_CONCEPTS_DOC,
+    promptTestPhrase: true,
   },
   {
     name: 'explain_referrals_basics',
@@ -70,6 +75,13 @@ const docTools: DocToolDefinition[] = [
     title: 'Referral Dashboard Guide',
     description: 'Explain how to embed and manage the referral dashboard experience.',
     doc: REFERRAL_DASHBOARD_DOC,
+  },
+  {
+    name: 'prepare_payram_test',
+    title: 'Payram Test Readiness Checklist',
+    description:
+      'Confirm hosting, credentials, and environment variables before generating demo apps.',
+    doc: PAYRAM_TEST_PREP_DOC,
   },
 ];
 
@@ -90,11 +102,30 @@ const registerDocTool = (server: McpServer, definition: DocToolDefinition) => {
           description: definition.doc.description ?? definition.description,
         };
 
+        const sectionMarkdown = (response.sections ?? [])
+          .map((section, index) => {
+            const title = section.title ?? `Section ${index + 1}`;
+            const body = section.markdown?.trim() ?? '';
+            if (!body) {
+              return `### ${title}`;
+            }
+            return `### ${title}\n${body}`;
+          })
+          .join('\n\n');
+
         return {
           content: [
             textContent(
               `${definition.title} ready with ${response.sections.length} curated sections.`,
             ),
+            ...(sectionMarkdown ? [textContent(sectionMarkdown)] : []),
+            ...(definition.promptTestPhrase
+              ? [
+                  textContent(
+                    'If you want to test Payram after reading this, just say "test payram" and I will start with the readiness checklist before we touch env vars or connectivity checks.',
+                  ),
+                ]
+              : []),
           ],
           structuredContent: response,
         };

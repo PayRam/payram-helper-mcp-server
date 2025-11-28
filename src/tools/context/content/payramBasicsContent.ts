@@ -86,7 +86,7 @@ export const PAYRAM_BASICS_DOC: MarkdownDocResponse = {
     {
       id: 'operator-checklist',
       title: 'Operator Checklist',
-      markdown: `1. Install Payram on a server with at least 4 CPUs, 4 GB RAM, and 50 GB SSD.\n2. Configure node connections and master accounts for the chains you plan to accept.\n3. Set up SMTP so OTP approvals and alerts can be delivered.\n4. Invite teammates through User Management and assign least-privilege roles.\n5. Test on testnet or a staging environment, then switch configs to production once satisfied.`,
+      markdown: `1. Install Payram on a server with at least 4 CPUs, 4 GB RAM, and 50 GB SSD.\n2. Configure node connections and master accounts for the chains you plan to accept.\n3. Test on testnet or a staging environment, then switch configs to production once satisfied.`,
       sources: [
         {
           id: 'faqs/general-faqs',
