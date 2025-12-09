@@ -40,8 +40,11 @@ jobs:
           VERSION=${GITHUB_REF#refs/tags/v}
           jq --arg v "$VERSION" '.version = $v' server.json > server.tmp && mv server.tmp server.json
 
+      - name: Download server schema
+        run: curl -L https://static.modelcontextprotocol.io/schemas/2025-10-17/server.schema.json -o /tmp/mcp-server-schema.json
+
       - name: Validate server.json against schema
-        run: npx ajv-cli@5 validate -s https://static.modelcontextprotocol.io/schemas/2025-10-17/server.schema.json -d server.json
+        run: npx ajv-cli@5 validate -s /tmp/mcp-server-schema.json -d server.json --strict=false
 
       - name: Authenticate to MCP Registry (GitHub OIDC)
         run: ./mcp-publisher login github-oidc
