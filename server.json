@@ -3,7 +3,7 @@
   "name": "io.github.payram/payram-helper-mcp",
   "title": "Payram Helper MCP Server",
   "description": "Remote MCP server to integrate and validate self-hosted Payram deployments.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "repository": {
     "source": "github",
     "url": "https://github.com/PayRam/payram-helper-mcp-server"
