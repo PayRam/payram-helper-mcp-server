@@ -1,0 +1,50 @@
+name: Publish to MCP Registry
+
+on:
+  push:
+    tags:
+      - 'v*' # trigger on version tags like v1.0.0
+
+permissions:
+  contents: read
+  id-token: write # required for github-oidc auth
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 'lts/*'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Run tests
+        run: yarn test
+
+      - name: Build
+        run: yarn build
+
+      - name: Install mcp-publisher
+        run: |
+          curl -L "https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/').tar.gz" | tar xz mcp-publisher
+
+      - name: Sync server.json version from tag
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/v}
+          jq --arg v "$VERSION" '.version = $v' server.json > server.tmp && mv server.tmp server.json
+
+      - name: Validate server.json against schema
+        run: npx ajv-cli@5 validate -s https://static.modelcontextprotocol.io/schemas/2025-10-17/server.schema.json -d server.json
+
+      - name: Authenticate to MCP Registry (GitHub OIDC)
+        run: ./mcp-publisher login github-oidc
+
+      - name: Publish server to MCP Registry
+        run: ./mcp-publisher publish
