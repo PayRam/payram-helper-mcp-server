@@ -1,9 +1,9 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-10-17/server.schema.json",
-  "name": "io.github.payram/payram-helper-mcp",
+  "name": "io.github.PayRam/payram-helper-mcp",
   "title": "Payram Helper MCP Server",
   "description": "Remote MCP server to integrate and validate self-hosted Payram deployments.",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "repository": {
     "source": "github",
     "url": "https://github.com/PayRam/payram-helper-mcp-server"
