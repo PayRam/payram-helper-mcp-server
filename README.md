@@ -107,8 +107,8 @@ An **MCP (Model Context Protocol) server** that teaches GitHub Copilot (and any 
   - `docs/js-sdk.md` – expanded guide for the TypeScript SDK.
   - `docs/payram-external.yaml`, `docs/payram-webhook.yaml` – OpenAPI specs.
   - `docs/referrals.md` – referral FAQs and workflows.
-- MCP doc tools (`get_payram_doc_by_id`, `list_payram_docs`) read files from `docs/payram-docs/**` via `src/utils/markdownLoader.ts`.
-- For future updates, mirror the upstream docs tree in `docs/payram-docs` so the server’s responses stay in sync.
+- MCP doc tools (`get_payram_doc_by_id`, `list_payram_docs`) read files from `docs/payram-docs-live/**` via `src/utils/markdownLoader.ts`.
+- For future updates, mirror the upstream docs tree in `docs/payram-docs-live` so the server’s responses stay in sync.
 
 ---
 
@@ -130,7 +130,7 @@ Project is TypeScript-first (ESM). Prettier config lives in `.prettierrc.json`; 
 
 - **Copilot doesn’t call the right tool:** Check `COPILOT-USE.md` and ensure your MCP client loaded the server. Re-run "test payram" or "assess my project" to trigger the expected automation.
 - **`test_payram_connection` fails with 401:** Confirm `.env` uses the `API-Key` header, not `Authorization`. The tool echoes the missing fields when placeholders are detected.
-- **Docs tool says a file is missing:** Verify your local `docs/payram-docs/` tree contains the requested markdown (`get_payram_doc_by_id` rejects paths with `..`).
+- **Docs tool says a file is missing:** Verify your local `docs/payram-docs-live/` tree contains the requested markdown (`get_payram_doc_by_id` rejects paths with `..`).
 - **Server won’t start:** Check `.env` for `PAYRAM_BASE_URL`/`PAYRAM_API_KEY`, ensure Node 18+, and run `yarn install` to grab the MCP SDK.
 
 For anything else, inspect the structured logs emitted from `src/utils/logger.ts` (set `LOG_LEVEL=debug`) and open an issue/PR with reproduction details.

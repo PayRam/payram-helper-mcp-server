@@ -1,0 +1,214 @@
+{
+  "fetchedAt": "2026-02-03T14:30:30.670Z",
+  "totalPages": 52,
+  "pages": [
+    {
+      "url": "/api-integration/introduction",
+      "path": "api-integration/introduction.md"
+    },
+    {
+      "url": "/api-integration/payments-api",
+      "path": "api-integration/payments-api.md"
+    },
+    {
+      "url": "/api-integration/payments-api/assign-deposit-address",
+      "path": "api-integration/payments-api/assign-deposit-address.md"
+    },
+    {
+      "url": "/api-integration/payments-api/create-payment",
+      "path": "api-integration/payments-api/create-payment.md"
+    },
+    {
+      "url": "/api-integration/payments-api/fetch-tickers",
+      "path": "api-integration/payments-api/fetch-tickers.md"
+    },
+    {
+      "url": "/api-integration/payments-api/get-blockchain-currencies",
+      "path": "api-integration/payments-api/get-blockchain-currencies.md"
+    },
+    {
+      "url": "/api-integration/payments-api/payment-status",
+      "path": "api-integration/payments-api/payment-status.md"
+    },
+    {
+      "url": "/api-integration/payments-api/webhook",
+      "path": "api-integration/payments-api/webhook.md"
+    },
+    {
+      "url": "/api-integration/payouts-apis",
+      "path": "api-integration/payouts-apis.md"
+    },
+    {
+      "url": "/api-integration/payouts-apis/create-payouts",
+      "path": "api-integration/payouts-apis/create-payouts.md"
+    },
+    {
+      "url": "/api-integration/payouts-apis/get-all-payouts",
+      "path": "api-integration/payouts-apis/get-all-payouts.md"
+    },
+    {
+      "url": "/api-integration/payouts-apis/payouts-status",
+      "path": "api-integration/payouts-apis/payouts-status.md"
+    },
+    {
+      "url": "/deployment-guide",
+      "path": "deployment-guide.md"
+    },
+    {
+      "url": "/deployment-guide/advanced-setup",
+      "path": "deployment-guide/advanced-setup.md"
+    },
+    {
+      "url": "/deployment-guide/introduction",
+      "path": "deployment-guide/introduction.md"
+    },
+    {
+      "url": "/deployment-guide/quick-setup",
+      "path": "deployment-guide/quick-setup.md"
+    },
+    {
+      "url": "/faqs/customization-faqs",
+      "path": "faqs/customization-faqs.md"
+    },
+    {
+      "url": "/faqs/debug-faqs",
+      "path": "faqs/debug-faqs.md"
+    },
+    {
+      "url": "/faqs/fund-management-faqs",
+      "path": "faqs/fund-management-faqs.md"
+    },
+    {
+      "url": "/faqs/general-faqs",
+      "path": "faqs/general-faqs.md"
+    },
+    {
+      "url": "/faqs/introduction",
+      "path": "faqs/introduction.md"
+    },
+    {
+      "url": "/faqs/referral-faqs",
+      "path": "faqs/referral-faqs.md"
+    },
+    {
+      "url": "/features/analytics-and-reporting",
+      "path": "features/analytics-and-reporting.md"
+    },
+    {
+      "url": "/features/customer-deposit-wallets",
+      "path": "features/customer-deposit-wallets.md"
+    },
+    {
+      "url": "/features/fiat-onramp",
+      "path": "features/fiat-onramp.md"
+    },
+    {
+      "url": "/features/multi-brand-setup",
+      "path": "features/multi-brand-setup.md"
+    },
+    {
+      "url": "/features/multi-currency-and-multi-chain-support",
+      "path": "features/multi-currency-and-multi-chain-support.md"
+    },
+    {
+      "url": "/features/payment-apis",
+      "path": "features/payment-apis.md"
+    },
+    {
+      "url": "/features/payment-links",
+      "path": "features/payment-links.md"
+    },
+    {
+      "url": "/features/payouts",
+      "path": "features/payouts.md"
+    },
+    {
+      "url": "/features/smartsweep",
+      "path": "features/smartsweep.md"
+    },
+    {
+      "url": "/features/user-management",
+      "path": "features/user-management.md"
+    },
+    {
+      "url": "/",
+      "path": "index.md"
+    },
+    {
+      "url": "/introduction",
+      "path": "introduction.md"
+    },
+    {
+      "url": "/introduction/whats-new",
+      "path": "introduction/whats-new.md"
+    },
+    {
+      "url": "/mcp/analytics-mcp",
+      "path": "mcp/analytics-mcp.md"
+    },
+    {
+      "url": "/mcp/payram-mcp",
+      "path": "mcp/payram-mcp.md"
+    },
+    {
+      "url": "/onboarding-guide",
+      "path": "onboarding-guide.md"
+    },
+    {
+      "url": "/onboarding-guide/funds-sweeping",
+      "path": "onboarding-guide/funds-sweeping.md"
+    },
+    {
+      "url": "/onboarding-guide/funds-sweeping/bitcoin-funds-sweep-guide",
+      "path": "onboarding-guide/funds-sweeping/bitcoin-funds-sweep-guide.md"
+    },
+    {
+      "url": "/onboarding-guide/hot-wallet-setup",
+      "path": "onboarding-guide/hot-wallet-setup.md"
+    },
+    {
+      "url": "/onboarding-guide/introduction",
+      "path": "onboarding-guide/introduction.md"
+    },
+    {
+      "url": "/onboarding-guide/node-details-configuration",
+      "path": "onboarding-guide/node-details-configuration.md"
+    },
+    {
+      "url": "/onboarding-guide/root-account-setup",
+      "path": "onboarding-guide/root-account-setup.md"
+    },
+    {
+      "url": "/onboarding-guide/testing-payment-links",
+      "path": "onboarding-guide/testing-payment-links.md"
+    },
+    {
+      "url": "/onboarding-guide/wallet-integration",
+      "path": "onboarding-guide/wallet-integration.md"
+    },
+    {
+      "url": "/payram-sdk/typescript-javascript-sdk",
+      "path": "payram-sdk/typescript-javascript-sdk.md"
+    },
+    {
+      "url": "/script/script-usage",
+      "path": "script/script-usage.md"
+    },
+    {
+      "url": "/support/change-log",
+      "path": "support/change-log.md"
+    },
+    {
+      "url": "/support/glossary",
+      "path": "support/glossary.md"
+    },
+    {
+      "url": "/support/important-links",
+      "path": "support/important-links.md"
+    },
+    {
+      "url": "/support/supported-networks-and-coins",
+      "path": "support/supported-networks-and-coins.md"
+    }
+  ]
+}

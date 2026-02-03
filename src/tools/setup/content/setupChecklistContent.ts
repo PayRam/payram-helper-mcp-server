@@ -66,7 +66,7 @@ export const PAYRAM_SETUP_CHECKLIST: SetupChecklistResponse = {
       label: 'Integrate backend + webhooks',
       description:
         'Install the SDK or call REST endpoints directly, create payment intents, and register webhook listeners for status updates.',
-      docsRefs: ['welcome_to_payram.md', 'onboarding-guide/introduction.md'],
+      docsRefs: ['index.md', 'onboarding-guide/introduction.md'],
     },
   ],
   notes:

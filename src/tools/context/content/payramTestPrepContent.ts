@@ -11,9 +11,9 @@ export const PAYRAM_TEST_PREP_DOC: MarkdownDocResponse = {
       markdown: `Whenever you're ready to run through a hands-on Payram test, reply with **"test payram"**. I'll only walk through the environment checklist after you explicitly say those words so we don't spin up demos accidentally.`,
       sources: [
         {
-          id: 'welcome_to_payram',
-          path: 'welcome_to_payram.md',
-          url: 'https://docs.payram.com/welcome_to_payram',
+          id: 'welcome-to-payram',
+          path: 'index.md',
+          url: 'https://docs.payram.com/',
         },
       ],
     },
@@ -30,12 +30,12 @@ Either way, I'll keep asking until it's clear whether a new install is required.
       sources: [
         {
           id: 'deployment-guide/quick-setup',
-          path: 'payram-docs/deployment-guide/quick-setup.md',
+          path: 'deployment-guide/quick-setup.md',
           url: 'https://docs.payram.com/deployment-guide/quick-setup',
         },
         {
           id: 'onboarding-guide/introduction',
-          path: 'payram-docs/onboarding-guide/introduction.md',
+          path: 'onboarding-guide/introduction.md',
           url: 'https://docs.payram.com/onboarding-guide/introduction',
         },
       ],
@@ -55,12 +55,12 @@ We'll plug both values into \`.env\` so every generated sample can authenticate 
       sources: [
         {
           id: 'features/payment-apis',
-          path: 'payram-docs/features/payment-apis.md',
+          path: 'features/payment-apis.md',
           url: 'https://docs.payram.com/features/payment-apis',
         },
         {
           id: 'features/multi-brand-setup',
-          path: 'payram-docs/features/multi-brand-setup.md',
+          path: 'features/multi-brand-setup.md',
           url: 'https://docs.payram.com/features/multi-brand-setup',
         },
       ],
@@ -76,9 +76,9 @@ We'll plug both values into \`.env\` so every generated sample can authenticate 
 Already running a server with valid API keys? You can skip straight here: update \`.env\`, ask me for a demo, and we'll wire payments, payouts, and webhooks against your environment.`,
       sources: [
         {
-          id: 'js-sdk',
-          path: 'js-sdk.md',
-          url: 'https://docs.payram.com/js-sdk',
+          id: 'payram-sdk/typescript-javascript-sdk',
+          path: 'payram-sdk/typescript-javascript-sdk.md',
+          url: 'https://docs.payram.com/payram-sdk/typescript-javascript-sdk',
         },
       ],
     },

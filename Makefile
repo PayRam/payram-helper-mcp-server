@@ -14,6 +14,7 @@ help:
 	@echo "  make format           Apply Prettier"
 	@echo "  make format-check     Check formatting"
 	@echo "  make test             Run Vitest suite"
+	@echo "  make fetch-docs       Fetch latest docs from docs.payram.com"
 	@echo "  make precommit-test   format-check + lint + test"
 	@echo "  make commit           Run precommit checks, then guide interactive commit"
 
@@ -40,6 +41,11 @@ format-check:
 .PHONY: test
 test:
 	$(RUN) test
+
+.PHONY: fetch-docs
+fetch-docs:
+	@echo "Fetching documentation from docs.payram.com..."
+	@tsx scripts/fetchDocs.ts
 
 .PHONY: precommit-test
 precommit-test:

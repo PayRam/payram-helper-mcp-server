@@ -97,7 +97,7 @@ const collectDocIds = async (relativeDir: string): Promise<string[]> => {
     .catch(() => false);
   if (!exists) {
     throw new Error(
-      `Unknown docs prefix "${relativeDir}". Make sure the folder exists under docs/payram-docs.`,
+      `Unknown docs prefix "${relativeDir}". Make sure the folder exists under docs/payram-docs-live.`,
     );
   }
 
@@ -166,7 +166,7 @@ export const registerDocLookupTool = (server: McpServer) => {
     {
       title: 'List Payram Docs',
       description:
-        'Lists the available Payram doc ids relative to docs/payram-docs. Optionally scope by a prefix such as "features".',
+        'Lists the available Payram doc ids relative to docs/payram-docs-live. Optionally scope by a prefix such as "features".',
       inputSchema: listSchemas.input,
       outputSchema: listSchemas.output,
     },

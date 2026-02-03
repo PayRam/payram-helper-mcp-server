@@ -11,9 +11,9 @@ export const PAYRAM_BASICS_DOC: MarkdownDocResponse = {
       markdown: `Payram is a self-hosted payments stack purpose-built for onchain commerce. You deploy it on your own servers, connect your preferred RPC providers, and keep full custody of keys, funds, and customer data. Because there is no third-party processor, there are no middlemen, reserve requirements, or imposed limits—your org controls uptime, compliance choices, and which teams can touch sensitive operations. Merchants typically reach first live payments in under an hour once the install script finishes.`,
       sources: [
         {
-          id: 'welcome_to_payram',
-          path: 'welcome_to_payram.md',
-          url: 'https://docs.payram.com/welcome_to_payram',
+          id: 'welcome-to-payram',
+          path: 'index.md',
+          url: 'https://docs.payram.com/',
         },
         {
           id: 'faqs/general-faqs',

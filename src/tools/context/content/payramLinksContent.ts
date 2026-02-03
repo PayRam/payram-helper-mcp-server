@@ -22,9 +22,9 @@ export const PAYRAM_LINKS_DOC: MarkdownDocResponse = {
       markdown: `- **Contact support form:** https://payram.short.gy/payram-gitbook-contact\n- **Community DMs:** Reach the team via @PayRamApp on X for quick escalations.`,
       sources: [
         {
-          id: 'welcome_to_payram',
-          path: 'welcome_to_payram.md',
-          url: 'https://docs.payram.com/welcome_to_payram',
+          id: 'welcome-to-payram',
+          path: 'index.md',
+          url: 'https://docs.payram.com/',
         },
       ],
     },

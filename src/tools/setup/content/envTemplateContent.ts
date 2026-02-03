@@ -14,7 +14,7 @@ PAYRAM_API_KEY=pk_live_replace_me
       required: true,
       description: 'Base URL for your self-hosted Payram API (used by server-side SDK calls).',
       example: 'https://payram.selfhosted.local',
-      docsRefs: ['deployment-guide/quick-setup', 'welcome_to_payram.md'],
+      docsRefs: ['deployment-guide/quick-setup', 'index.md'],
     },
     {
       key: 'PAYRAM_API_KEY',

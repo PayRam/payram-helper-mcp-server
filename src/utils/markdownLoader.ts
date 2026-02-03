@@ -6,7 +6,7 @@ import { logger } from './logger.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const DOCS_ROOT = path.resolve(__dirname, '../..', 'docs', 'payram-docs');
+const DOCS_ROOT = path.resolve(__dirname, '../..', 'docs', 'payram-docs-live');
 
 export const getDocsRoot = () => DOCS_ROOT;
 
