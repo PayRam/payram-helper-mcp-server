@@ -65,6 +65,15 @@ const bootstrap = async () => {
     void handleTransportRequest(req, res);
   });
 
+  // Handle root path for LLMs that don't include /mcp
+  app.post('/', jsonParser, (req, res) => {
+    void handleTransportRequest(req, res, req.body);
+  });
+
+  app.get('/', (req, res) => {
+    void handleTransportRequest(req, res);
+  });
+
   app.get('/healthz', (_req, res) => {
     res.json({ ok: true, name: 'payram-mcp-server' });
   });
