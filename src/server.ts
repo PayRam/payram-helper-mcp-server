@@ -79,7 +79,7 @@ const bootstrap = async () => {
   });
 
   app.listen(port, () => {
-    logger.info(`MCP server running with SSE on http://localhost:${port}/mcp and /mcp/sse`);
+    logger.info(`MCP server running with SSE on http://localhost:${port}/mcp, /mcp/sse, and /`);
   });
 };
 
