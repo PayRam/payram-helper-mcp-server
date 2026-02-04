@@ -101,6 +101,68 @@ An **MCP (Model Context Protocol) server** that teaches GitHub Copilot (and any 
 
 ---
 
+## Skills.sh Compatibility
+
+This repository includes **skills.sh-compatible skills** for AI agents that don't support MCP. These skills provide static, comprehensive instructions that replicate the MCP server's capabilities.
+
+### Available Skills
+
+| Skill Name           | Description                                                                   | Use Case                                                   |
+| -------------------- | ----------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| `setup-payram`       | Configure Payram environment, credentials, and test connectivity              | Initial setup, credential validation, connectivity testing |
+| `integrate-payments` | Complete payment integration guide (SDK + HTTP) for all languages             | Accept cryptocurrency payments from customers              |
+| `integrate-payouts`  | Payout creation and status monitoring across all frameworks                   | Send cryptocurrency payments to recipients                 |
+| `handle-webhooks`    | Webhook handler implementation for 6 frameworks with security best practices  | Real-time payment status notifications                     |
+| `scaffold-app`       | Generate complete starter applications with Payram integration pre-configured | Build proof-of-concept or reference implementations        |
+
+### Installation with skills.sh
+
+```bash
+# Install specific skill
+npx skills add https://github.com/your-org/payram-helper-mcp-server --skill setup-payram
+
+# Install all skills
+npx skills add https://github.com/your-org/payram-helper-mcp-server --skill setup-payram
+npx skills add https://github.com/your-org/payram-helper-mcp-server --skill integrate-payments
+npx skills add https://github.com/your-org/payram-helper-mcp-server --skill integrate-payouts
+npx skills add https://github.com/your-org/payram-helper-mcp-server --skill handle-webhooks
+npx skills add https://github.com/your-org/payram-helper-mcp-server --skill scaffold-app
+```
+
+### Using Skills
+
+Skills provide the same guidance as MCP tools but in a static format. Each skill includes:
+
+- **Overview**: What the skill covers
+- **When to Use**: Specific scenarios
+- **Prerequisites**: Requirements before starting
+- **Instructions**: Step-by-step guidance
+- **Best Practices**: Production-ready patterns
+- **Troubleshooting**: Common issues and solutions
+- **Related Skills**: Connections to other skills
+
+**Example workflow:**
+
+1. Start with `setup-payram` to configure environment
+2. Follow `integrate-payments` for payment functionality
+3. Add `handle-webhooks` for real-time updates
+4. Reference `scaffold-app` for complete examples
+
+### Skills vs. MCP Tools
+
+| Feature                  | MCP Server (Tools)                   | Skills                                   |
+| ------------------------ | ------------------------------------ | ---------------------------------------- |
+| **Client Requirements**  | MCP-aware (GitHub Copilot, etc.)     | Any AI agent (Claude, GPT, etc.)         |
+| **Dynamic Capabilities** | ✅ Generate code, assess projects    | ❌ Static instructions only              |
+| **Connectivity Testing** | ✅ Live API validation               | ❌ Instructions for manual testing       |
+| **Code Generation**      | ✅ Framework-specific templates      | ✅ Copy-paste code examples              |
+| **Documentation Access** | ✅ Query Payram docs dynamically     | ✅ Inline references to docs             |
+| **Best For**             | Interactive development with Copilot | AI chat interfaces, non-MCP environments |
+
+Choose **MCP tools** for interactive development in supported IDEs. Choose **skills** for AI chat interfaces or when MCP integration isn't available.
+
+---
+
 ## Docs & Specs
 
 - Local references live under `docs/`:
@@ -108,7 +170,7 @@ An **MCP (Model Context Protocol) server** that teaches GitHub Copilot (and any 
   - `docs/payram-external.yaml`, `docs/payram-webhook.yaml` – OpenAPI specs.
   - `docs/referrals.md` – referral FAQs and workflows.
 - MCP doc tools (`get_payram_doc_by_id`, `list_payram_docs`) read files from `docs/payram-docs-live/**` via `src/utils/markdownLoader.ts`.
-- For future updates, mirror the upstream docs tree in `docs/payram-docs-live` so the server’s responses stay in sync.
+- For future updates, run `make fetch-docs` to sync the latest documentation from docs.payram.com into `docs/payram-docs-live/`.
 
 ---
 
