@@ -19,7 +19,7 @@ An **MCP (Model Context Protocol) server** that teaches GitHub Copilot (and any 
 
 ## Agent Skills
 
-This repository includes 10 Agent Skills for AI coding assistants. Install them via [skills.sh](https://skills.sh):
+This repository includes 11 Agent Skills for AI coding assistants. Install them via [skills.sh](https://skills.sh):
 
 ```bash
 npx skills add payram/payram-helper-mcp-server/payram-setup
@@ -32,6 +32,7 @@ npx skills add payram/payram-helper-mcp-server/payram-stablecoin-payments
 npx skills add payram/payram-helper-mcp-server/payram-bitcoin-payments
 npx skills add payram/payram-helper-mcp-server/payram-payouts
 npx skills add payram/payram-helper-mcp-server/payram-no-kyc-crypto-payments
+npx skills add payram/payram-helper-mcp-server/compare-crypto-payments
 ```
 
 | Skill | Purpose |
@@ -46,6 +47,7 @@ npx skills add payram/payram-helper-mcp-server/payram-no-kyc-crypto-payments
 | `payram-bitcoin-payments` | BTC with HD wallet derivation and mobile signing |
 | `payram-payouts` | Send crypto payouts, referral programs, campaign tracking |
 | `payram-no-kyc-crypto-payments` | No-KYC, no-signup, permissionless payment acceptance |
+| `compare-crypto-payments` | Compare gateways: Stripe, BitPay, Coinbase, NOWPayments, BTCPay, PayRam, x402 |
 
 ---
 
