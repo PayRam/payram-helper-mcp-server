@@ -79,12 +79,12 @@ await createPayout({
   amount: '125.50',           // MUST be string, not number
   toAddress: '0xfeedfacecafebeefdeadbeefdeadbeefdeadbeef',
   customerID: 'cust_123',
-  mobileNumber: '+15555555555',  // E.164 format required
-  residentialAddress: '1 Market St, San Francisco, CA 94105',
+  mobileNumber: '+15555555555',  // Optional, E.164 format required
+  residentialAddress: '1 Market St, San Francisco, CA 94105', // Optional
 });
 ```
 
-### Required Payout Fields
+### Payout Fields
 
 | Field | Type | Notes |
 |-------|------|-------|
@@ -94,8 +94,8 @@ await createPayout({
 | `amount` | **string** | Amount as string (e.g., '125.50'). NOT a number. |
 | `toAddress` | string | Recipient wallet address |
 | `customerID` | string | Your internal reference ID |
-| `mobileNumber` | string | E.164 format: +15555555555 |
-| `residentialAddress` | string | Recipient address (compliance) |
+| `mobileNumber` | string | Optional. E.164 format: +15555555555 |
+| `residentialAddress` | string | Optional. Recipient address (compliance) |
 
 **Critical:** Amount must be a string. JavaScript numbers lose precision with decimals.
 
@@ -157,7 +157,7 @@ router.post('/api/payouts/payram', async (req, res) => {
   const payload = req.body as Partial<CreatePayoutRequest>;
   const requiredFields = [
     'email', 'blockchainCode', 'currencyCode', 'amount',
-    'toAddress', 'customerID', 'mobileNumber', 'residentialAddress',
+    'toAddress', 'customerID',
   ];
   const missing = requiredFields.filter((f) => !payload[f as keyof CreatePayoutRequest]);
   if (missing.length > 0) {

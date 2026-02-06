@@ -28,8 +28,8 @@ Payments transition through these states:
 - `FILLED` — Customer sent exact amount, payment confirmed
 - `PARTIALLY_FILLED` — Partial payment received (less than requested)
 - `OVER_FILLED` — Overpayment received (more than requested)
-- `EXPIRED` — Payment window closed
 - `CANCELLED` — Payment manually cancelled
+- `UNDEFINED` — Unknown status (fallback)
 
 ## SDK Integration (Node.js/TypeScript)
 
@@ -304,12 +304,16 @@ async function pollPaymentStatus(referenceId: string, maxAttempts = 10) {
   for (let i = 0; i < maxAttempts; i++) {
     const payment = await getPaymentStatus(referenceId);
 
-    if (payment.paymentState === 'COMPLETED' || payment.paymentState === 'FILLED') {
+    if (payment.paymentState === 'FILLED' || payment.paymentState === 'OVER_FILLED') {
       return payment;
     }
 
-    if (payment.paymentState === 'EXPIRED' || payment.paymentState === 'CANCELLED') {
+    if (payment.paymentState === 'CANCELLED') {
       throw new Error(`Payment ${payment.paymentState.toLowerCase()}`);
+    }
+
+    if (payment.paymentState === 'UNDEFINED') {
+      throw new Error('Payment status undefined');
     }
 
     await new Promise((resolve) => setTimeout(resolve, Math.min(1000 * Math.pow(2, i), 30000)));

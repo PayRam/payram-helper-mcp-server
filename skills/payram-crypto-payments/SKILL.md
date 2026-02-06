@@ -68,7 +68,7 @@ Use `scaffold_payram_app` to generate complete starter apps with payments, payou
 > scaffold_payram_app fastapi    # FastAPI starter
 > scaffold_payram_app laravel    # Laravel starter
 > scaffold_payram_app gin        # Gin (Go) starter
-> scaffold_payram_app spring     # Spring Boot starter
+> scaffold_payram_app spring-boot     # Spring Boot starter
 ```
 
 Each scaffold includes payment creation, payout endpoints, webhook handling, and a browser-based test console.
