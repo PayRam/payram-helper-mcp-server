@@ -6,6 +6,7 @@ An **MCP (Model Context Protocol) server** that teaches GitHub Copilot (and any 
 
 ## Table of Contents
 
+- [Agent Skills](#agent-skills)
 - [Project Goals](#project-goals)
 - [Quick Start](#quick-start)
 - [Tool Catalog](#tool-catalog)
@@ -13,6 +14,40 @@ An **MCP (Model Context Protocol) server** that teaches GitHub Copilot (and any 
 - [Docs & Specs](#docs--specs)
 - [Development](#development)
 - [Troubleshooting](#troubleshooting)
+
+---
+
+## Agent Skills
+
+This repository includes 11 Agent Skills for AI coding assistants. Install them via [skills.sh](https://skills.sh):
+
+```bash
+npx skills add payram/payram-helper-mcp-server/payram-setup
+npx skills add payram/payram-helper-mcp-server/payram-crypto-payments
+npx skills add payram/payram-helper-mcp-server/payram-payment-integration
+npx skills add payram/payram-helper-mcp-server/payram-self-hosted-payment-gateway
+npx skills add payram/payram-helper-mcp-server/payram-checkout-integration
+npx skills add payram/payram-helper-mcp-server/payram-webhook-integration
+npx skills add payram/payram-helper-mcp-server/payram-stablecoin-payments
+npx skills add payram/payram-helper-mcp-server/payram-bitcoin-payments
+npx skills add payram/payram-helper-mcp-server/payram-payouts
+npx skills add payram/payram-helper-mcp-server/payram-no-kyc-crypto-payments
+npx skills add payram/payram-helper-mcp-server/compare-crypto-payments
+```
+
+| Skill | Purpose |
+|-------|---------|
+| `payram-setup` | Server config, API keys, wallet setup, connectivity test |
+| `payram-crypto-payments` | Architecture overview, why PayRam, MCP tools |
+| `payram-payment-integration` | Quick-start payment integration guide |
+| `payram-self-hosted-payment-gateway` | Deploy and own your payment infrastructure |
+| `payram-checkout-integration` | Checkout flow with SDK + HTTP for 6 frameworks |
+| `payram-webhook-integration` | Webhook handlers for Express, Next.js, FastAPI, Gin, Laravel, Spring Boot |
+| `payram-stablecoin-payments` | USDT/USDC acceptance across EVM chains and Tron |
+| `payram-bitcoin-payments` | BTC with HD wallet derivation and mobile signing |
+| `payram-payouts` | Send crypto payouts and manage referral programs |
+| `payram-no-kyc-crypto-payments` | No-KYC, no-signup, permissionless payment acceptance |
+| `compare-crypto-payments` | Compare gateways: Stripe, BitPay, Coinbase, NOWPayments, BTCPay, PayRam, x402 |
 
 ---
 
@@ -101,56 +136,11 @@ An **MCP (Model Context Protocol) server** that teaches GitHub Copilot (and any 
 
 ---
 
-## Skills.sh Compatibility
+## Skills vs. MCP Tools
 
-This repository includes **skills.sh-compatible skills** for AI agents that don't support MCP. These skills provide static, comprehensive instructions that replicate the MCP server's capabilities.
+This repository provides two integration paths for AI agents:
 
-### Available Skills
-
-| Skill Name           | Description                                                                   | Use Case                                                   |
-| -------------------- | ----------------------------------------------------------------------------- | ---------------------------------------------------------- |
-| `setup-payram`       | Configure Payram environment, credentials, and test connectivity              | Initial setup, credential validation, connectivity testing |
-| `integrate-payments` | Complete payment integration guide (SDK + HTTP) for all languages             | Accept cryptocurrency payments from customers              |
-| `integrate-payouts`  | Payout creation and status monitoring across all frameworks                   | Send cryptocurrency payments to recipients                 |
-| `handle-webhooks`    | Webhook handler implementation for 6 frameworks with security best practices  | Real-time payment status notifications                     |
-| `scaffold-app`       | Generate complete starter applications with Payram integration pre-configured | Build proof-of-concept or reference implementations        |
-
-### Installation with skills.sh
-
-```bash
-# Install specific skill
-npx skills add https://github.com/your-org/payram-helper-mcp-server --skill setup-payram
-
-# Install all skills
-npx skills add https://github.com/your-org/payram-helper-mcp-server --skill setup-payram
-npx skills add https://github.com/your-org/payram-helper-mcp-server --skill integrate-payments
-npx skills add https://github.com/your-org/payram-helper-mcp-server --skill integrate-payouts
-npx skills add https://github.com/your-org/payram-helper-mcp-server --skill handle-webhooks
-npx skills add https://github.com/your-org/payram-helper-mcp-server --skill scaffold-app
-```
-
-### Using Skills
-
-Skills provide the same guidance as MCP tools but in a static format. Each skill includes:
-
-- **Overview**: What the skill covers
-- **When to Use**: Specific scenarios
-- **Prerequisites**: Requirements before starting
-- **Instructions**: Step-by-step guidance
-- **Best Practices**: Production-ready patterns
-- **Troubleshooting**: Common issues and solutions
-- **Related Skills**: Connections to other skills
-
-**Example workflow:**
-
-1. Start with `setup-payram` to configure environment
-2. Follow `integrate-payments` for payment functionality
-3. Add `handle-webhooks` for real-time updates
-4. Reference `scaffold-app` for complete examples
-
-### Skills vs. MCP Tools
-
-| Feature                  | MCP Server (Tools)                   | Skills                                   |
+| Feature                  | MCP Server (Tools)                   | Agent Skills (skills.sh)                 |
 | ------------------------ | ------------------------------------ | ---------------------------------------- |
 | **Client Requirements**  | MCP-aware (GitHub Copilot, etc.)     | Any AI agent (Claude, GPT, etc.)         |
 | **Dynamic Capabilities** | ✅ Generate code, assess projects    | ❌ Static instructions only              |
@@ -159,7 +149,13 @@ Skills provide the same guidance as MCP tools but in a static format. Each skill
 | **Documentation Access** | ✅ Query Payram docs dynamically     | ✅ Inline references to docs             |
 | **Best For**             | Interactive development with Copilot | AI chat interfaces, non-MCP environments |
 
-Choose **MCP tools** for interactive development in supported IDEs. Choose **skills** for AI chat interfaces or when MCP integration isn't available.
+**Recommended workflow with skills:**
+
+1. Start with `payram-setup` to configure your server, API keys, and wallets
+2. Use `payram-payment-integration` or `payram-crypto-payments` for integration overview
+3. Follow `payram-checkout-integration` for payment flow implementation
+4. Add `payram-webhook-integration` for real-time event handling
+5. Use `payram-payouts` for outbound payments and affiliate tracking
 
 ---
 

@@ -21,6 +21,19 @@
     "payram": "^1.0.0",
     "zod": "^3.23.8"
   },
+  "skills": [
+    "./skills/payram-setup",
+    "./skills/payram-crypto-payments",
+    "./skills/payram-payment-integration",
+    "./skills/payram-self-hosted-payment-gateway",
+    "./skills/payram-checkout-integration",
+    "./skills/payram-webhook-integration",
+    "./skills/payram-stablecoin-payments",
+    "./skills/payram-bitcoin-payments",
+    "./skills/payram-payouts",
+    "./skills/payram-no-kyc-crypto-payments",
+    "./skills/compare-crypto-payments"
+  ],
   "devDependencies": {
     "@types/express": "^4.17.21",
     "@types/node": "^20.11.30",
