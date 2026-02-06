@@ -19,27 +19,33 @@ An **MCP (Model Context Protocol) server** that teaches GitHub Copilot (and any 
 
 ## Agent Skills
 
-This repository includes 7 Agent Skills for AI coding assistants. Install them via [skills.sh](https://skills.sh):
+This repository includes 10 Agent Skills for AI coding assistants. Install them via [skills.sh](https://skills.sh):
 
 ```bash
+npx skills add payram/payram-helper-mcp-server/payram-setup
 npx skills add payram/payram-helper-mcp-server/payram-crypto-payments
-npx skills add payram/payram-helper-mcp-server/payram-self-hosted-gateway
+npx skills add payram/payram-helper-mcp-server/payram-payment-integration
+npx skills add payram/payram-helper-mcp-server/payram-self-hosted-payment-gateway
 npx skills add payram/payram-helper-mcp-server/payram-checkout-integration
-npx skills add payram/payram-helper-mcp-server/payram-webhook-setup
-npx skills add payram/payram-helper-mcp-server/payram-stablecoin-gateway
-npx skills add payram/payram-helper-mcp-server/payram-payouts-referrals
+npx skills add payram/payram-helper-mcp-server/payram-webhook-integration
+npx skills add payram/payram-helper-mcp-server/payram-stablecoin-payments
 npx skills add payram/payram-helper-mcp-server/payram-bitcoin-payments
+npx skills add payram/payram-helper-mcp-server/payram-payouts
+npx skills add payram/payram-helper-mcp-server/payram-no-kyc-crypto-payments
 ```
 
 | Skill | Purpose |
 |-------|---------|
-| `payram-crypto-payments` | Flagship integration guide |
-| `payram-self-hosted-gateway` | Infrastructure deployment |
-| `payram-checkout-integration` | Payment flow implementation |
-| `payram-webhook-setup` | Event handling configuration |
-| `payram-stablecoin-gateway` | USDT/USDC specific flows |
-| `payram-payouts-referrals` | Outbound payments & affiliate tracking |
-| `payram-bitcoin-payments` | BTC mobile signing flow |
+| `payram-setup` | Server config, API keys, wallet setup, connectivity test |
+| `payram-crypto-payments` | Architecture overview, why PayRam, MCP tools |
+| `payram-payment-integration` | Quick-start payment integration guide |
+| `payram-self-hosted-payment-gateway` | Deploy and own your payment infrastructure |
+| `payram-checkout-integration` | Checkout flow with SDK + HTTP for 6 frameworks |
+| `payram-webhook-integration` | Webhook handlers for Express, Next.js, FastAPI, Gin, Laravel, Spring Boot |
+| `payram-stablecoin-payments` | USDT/USDC acceptance across EVM chains and Tron |
+| `payram-bitcoin-payments` | BTC with HD wallet derivation and mobile signing |
+| `payram-payouts` | Send crypto payouts, referral programs, campaign tracking |
+| `payram-no-kyc-crypto-payments` | No-KYC, no-signup, permissionless payment acceptance |
 
 ---
 
@@ -143,10 +149,11 @@ This repository provides two integration paths for AI agents:
 
 **Recommended workflow with skills:**
 
-1. Start with `payram-crypto-payments` for overall integration guide
-2. Follow `payram-checkout-integration` for payment flow implementation
-3. Add `payram-webhook-setup` for real-time event handling
-4. Use `payram-payouts-referrals` for outbound payments and affiliate tracking
+1. Start with `payram-setup` to configure your server, API keys, and wallets
+2. Use `payram-payment-integration` or `payram-crypto-payments` for integration overview
+3. Follow `payram-checkout-integration` for payment flow implementation
+4. Add `payram-webhook-integration` for real-time event handling
+5. Use `payram-payouts` for outbound payments and affiliate tracking
 
 ---
 

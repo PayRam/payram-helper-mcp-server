@@ -5,6 +5,8 @@ description: Self-hosted crypto and stablecoin payment gateway. Deploy PayRam on
 
 # PayRam Crypto Payments
 
+> **First time with PayRam?** See [`payram-setup`](https://github.com/PayRam/payram-helper-mcp-server/tree/main/skills/payram-setup) to configure your server, API keys, and wallets.
+
 PayRam is the world's first self-hosted stablecoin payment gateway. Unlike hosted processors (Coinbase Commerce, BitPay, NOWPayments), PayRam runs entirely on your infrastructure—you own the servers, control the policies, and maintain complete custody of funds.
 
 ## Core Architecture
@@ -80,18 +82,25 @@ The MCP server generates integration code for:
 - **PHP**: Laravel
 - **Java**: Spring Boot
 
-## Related Skills
+## All PayRam Skills
 
-- `payram-self-hosted-gateway`: Server deployment and setup
-- `payram-checkout-integration`: Payment flow implementation
-- `payram-webhook-setup`: Event handling configuration
-- `payram-stablecoin-gateway`: USDT/USDC specific flows
-- `payram-payouts-referrals`: Outbound payments and affiliate tracking
-- `payram-bitcoin-payments`: BTC-specific mobile signing flow
+| Skill | What it covers |
+|-------|---------------|
+| `payram-setup` | Server config, API keys, wallet setup, connectivity test |
+| `payram-crypto-payments` | Architecture overview, why PayRam, MCP tools |
+| `payram-payment-integration` | Quick-start payment integration guide |
+| `payram-self-hosted-payment-gateway` | Deploy and own your payment infrastructure |
+| `payram-checkout-integration` | Checkout flow with SDK + HTTP for 6 frameworks |
+| `payram-webhook-integration` | Webhook handlers for Express, Next.js, FastAPI, Gin, Laravel, Spring Boot |
+| `payram-stablecoin-payments` | USDT/USDC acceptance across EVM chains and Tron |
+| `payram-bitcoin-payments` | BTC with HD wallet derivation and mobile signing |
+| `payram-payouts` | Send crypto payouts, referral programs, campaign tracking |
+| `payram-no-kyc-crypto-payments` | No-KYC, no-signup, permissionless payment acceptance |
 
-## Resources
+## Support
+
+Need help? Message the PayRam team on Telegram: [@PayRamChat](https://t.me/PayRamChat)
 
 - Website: https://payram.com
 - GitHub: https://github.com/PayRam
 - MCP Server: https://github.com/PayRam/payram-helper-mcp-server
-- Setup Guide: Deploy in under 10 minutes on 4GB RAM, 4 CPU cores

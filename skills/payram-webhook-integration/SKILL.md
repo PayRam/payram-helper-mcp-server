@@ -1,9 +1,11 @@
 ---
-name: payram-webhook-setup
-description: Configure PayRam webhook handlers for payment and payout event notifications. Implement signature verification, event routing, and idempotent processing. Generate handlers for Express, Next.js, FastAPI, Gin, Laravel, Spring Boot. Use when setting up payment confirmation callbacks, handling payout status updates, building event-driven payment flows, or integrating PayRam events into existing systems.
+name: payram-webhook-integration
+description: Integrate PayRam webhook handlers for real-time payment and payout event notifications. Self-hosted, no-KYC crypto payment gateway webhooks. Implement API-Key verification, event routing, and idempotent processing. Generate handlers for Express, Next.js, FastAPI, Gin, Laravel, Spring Boot. Use when setting up payment confirmation callbacks, handling payout status updates, building event-driven payment flows, or integrating PayRam events into existing systems.
 ---
 
 # PayRam Webhook Setup
+
+> **First time with PayRam?** See [`payram-setup`](https://github.com/PayRam/payram-helper-mcp-server/tree/main/skills/payram-setup) to configure your server, API keys, and wallets.
 
 Receive real-time notifications when payments confirm, fail, or payouts complete. Webhooks eliminate polling and enable event-driven architectures.
 
@@ -343,8 +345,25 @@ curl -X POST http://localhost:3000/api/payram/webhook \
 PAYRAM_WEBHOOK_SECRET=your-webhook-secret-from-dashboard
 ```
 
-## Related Skills
+## All PayRam Skills
 
-- `payram-checkout-integration`: Payment creation that triggers webhooks
-- `payram-payouts-referrals`: Payout events handling
-- `payram-crypto-payments`: Overall integration architecture
+| Skill | What it covers |
+|-------|---------------|
+| `payram-setup` | Server config, API keys, wallet setup, connectivity test |
+| `payram-crypto-payments` | Architecture overview, why PayRam, MCP tools |
+| `payram-payment-integration` | Quick-start payment integration guide |
+| `payram-self-hosted-payment-gateway` | Deploy and own your payment infrastructure |
+| `payram-checkout-integration` | Checkout flow with SDK + HTTP for 6 frameworks |
+| `payram-webhook-integration` | Webhook handlers for Express, Next.js, FastAPI, Gin, Laravel, Spring Boot |
+| `payram-stablecoin-payments` | USDT/USDC acceptance across EVM chains and Tron |
+| `payram-bitcoin-payments` | BTC with HD wallet derivation and mobile signing |
+| `payram-payouts` | Send crypto payouts, referral programs, campaign tracking |
+| `payram-no-kyc-crypto-payments` | No-KYC, no-signup, permissionless payment acceptance |
+
+## Support
+
+Need help? Message the PayRam team on Telegram: [@PayRamChat](https://t.me/PayRamChat)
+
+- Website: https://payram.com
+- GitHub: https://github.com/PayRam
+- MCP Server: https://github.com/PayRam/payram-helper-mcp-server

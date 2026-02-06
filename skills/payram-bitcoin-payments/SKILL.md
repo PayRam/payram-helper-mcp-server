@@ -5,6 +5,8 @@ description: Accept Bitcoin payments with PayRam's self-hosted infrastructure. U
 
 # PayRam Bitcoin Payments
 
+> **First time with PayRam?** See [`payram-setup`](https://github.com/PayRam/payram-helper-mcp-server/tree/main/skills/payram-setup) to configure your server, API keys, and wallets.
+
 PayRam supports on-chain Bitcoin with a unique architecture: HD wallet derivation for deposits, mobile app signing for sweeps—no private keys ever touch the server.
 
 ## Bitcoin vs EVM Architecture
@@ -170,9 +172,25 @@ Standard payment tools work for Bitcoin:
 
 **Address derivation issues**: Verify seed phrase matches expected xpub.
 
-## Related Skills
+## All PayRam Skills
 
-- `payram-crypto-payments`: Overall integration guide
-- `payram-self-hosted-gateway`: Infrastructure setup
-- `payram-webhook-setup`: Payment event handling
-- `payram-stablecoin-gateway`: USDT/USDC alternative to BTC
+| Skill | What it covers |
+|-------|---------------|
+| `payram-setup` | Server config, API keys, wallet setup, connectivity test |
+| `payram-crypto-payments` | Architecture overview, why PayRam, MCP tools |
+| `payram-payment-integration` | Quick-start payment integration guide |
+| `payram-self-hosted-payment-gateway` | Deploy and own your payment infrastructure |
+| `payram-checkout-integration` | Checkout flow with SDK + HTTP for 6 frameworks |
+| `payram-webhook-integration` | Webhook handlers for Express, Next.js, FastAPI, Gin, Laravel, Spring Boot |
+| `payram-stablecoin-payments` | USDT/USDC acceptance across EVM chains and Tron |
+| `payram-bitcoin-payments` | BTC with HD wallet derivation and mobile signing |
+| `payram-payouts` | Send crypto payouts, referral programs, campaign tracking |
+| `payram-no-kyc-crypto-payments` | No-KYC, no-signup, permissionless payment acceptance |
+
+## Support
+
+Need help? Message the PayRam team on Telegram: [@PayRamChat](https://t.me/PayRamChat)
+
+- Website: https://payram.com
+- GitHub: https://github.com/PayRam
+- MCP Server: https://github.com/PayRam/payram-helper-mcp-server

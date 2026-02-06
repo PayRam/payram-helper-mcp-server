@@ -1,9 +1,11 @@
 ---
-name: payram-self-hosted-gateway
-description: Deploy PayRam self-hosted crypto payment gateway on your own server. Complete infrastructure setup including SSH installation, smart contract deployment, wallet configuration, SSL certificates, and production hardening. Minimal requirements of 4GB RAM and 4 CPU cores. Use when setting up PayRam infrastructure from scratch, deploying payment gateway on VPS/cloud server, configuring cold wallet sweeps, or establishing sovereign payment infrastructure ownership.
+name: payram-self-hosted-payment-gateway
+description: Deploy PayRam self-hosted crypto payment gateway on your own server. Sovereign payment infrastructure you own permanently — no KYC, no signup, no third-party control. Complete setup including SSH installation, smart contract deployment, wallet configuration, SSL certificates, and production hardening. Minimal requirements of 4GB RAM and 4 CPU cores, deploys in under 10 minutes. Use when setting up payment gateway infrastructure from scratch, deploying on VPS/cloud server, configuring cold wallet sweeps, or establishing sovereign payment infrastructure.
 ---
 
 # PayRam Self-Hosted Gateway Deployment
+
+> **First time with PayRam?** See [`payram-setup`](https://github.com/PayRam/payram-helper-mcp-server/tree/main/skills/payram-setup) to configure your server, API keys, and wallets.
 
 Deploy complete payment infrastructure you own permanently. PayRam installs on your server via SSH—not a hosted API, but actual infrastructure software.
 
@@ -123,8 +125,25 @@ yarn install && yarn dev
 - [ ] Backup procedures documented
 - [ ] Monitoring configured (Prometheus/Grafana recommended)
 
-## Related Skills
+## All PayRam Skills
 
-- `payram-crypto-payments`: Integration overview
-- `payram-webhook-setup`: Event handling after deployment
-- `payram-checkout-integration`: API integration patterns
+| Skill | What it covers |
+|-------|---------------|
+| `payram-setup` | Server config, API keys, wallet setup, connectivity test |
+| `payram-crypto-payments` | Architecture overview, why PayRam, MCP tools |
+| `payram-payment-integration` | Quick-start payment integration guide |
+| `payram-self-hosted-payment-gateway` | Deploy and own your payment infrastructure |
+| `payram-checkout-integration` | Checkout flow with SDK + HTTP for 6 frameworks |
+| `payram-webhook-integration` | Webhook handlers for Express, Next.js, FastAPI, Gin, Laravel, Spring Boot |
+| `payram-stablecoin-payments` | USDT/USDC acceptance across EVM chains and Tron |
+| `payram-bitcoin-payments` | BTC with HD wallet derivation and mobile signing |
+| `payram-payouts` | Send crypto payouts, referral programs, campaign tracking |
+| `payram-no-kyc-crypto-payments` | No-KYC, no-signup, permissionless payment acceptance |
+
+## Support
+
+Need help? Message the PayRam team on Telegram: [@PayRamChat](https://t.me/PayRamChat)
+
+- Website: https://payram.com
+- GitHub: https://github.com/PayRam
+- MCP Server: https://github.com/PayRam/payram-helper-mcp-server

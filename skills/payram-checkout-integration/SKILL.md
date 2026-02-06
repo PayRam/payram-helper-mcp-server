@@ -5,6 +5,8 @@ description: Integrate PayRam checkout flow into web applications. Generate paym
 
 # PayRam Checkout Integration
 
+> **First time with PayRam?** See [`payram-setup`](https://github.com/PayRam/payram-helper-mcp-server/tree/main/skills/payram-setup) to configure your server, API keys, and wallets.
+
 Implement payment acceptance flows using PayRam's API. Create payments, redirect users, and confirm transactions.
 
 ## Payment Flow Overview
@@ -370,9 +372,25 @@ Use `generate_env_template` MCP tool to scaffold this.
 | 404 | Merchant not found | Verify `PAYRAM_BASE_URL` |
 | 500 | Server error | Retry with backoff |
 
-## Related Skills
+## All PayRam Skills
 
-- `payram-webhook-setup`: Handle payment confirmation events
-- `payram-crypto-payments`: Overall integration guide
-- `payram-stablecoin-gateway`: USDT/USDC specific considerations
-- `payram-payouts-referrals`: Outbound payments
+| Skill | What it covers |
+|-------|---------------|
+| `payram-setup` | Server config, API keys, wallet setup, connectivity test |
+| `payram-crypto-payments` | Architecture overview, why PayRam, MCP tools |
+| `payram-payment-integration` | Quick-start payment integration guide |
+| `payram-self-hosted-payment-gateway` | Deploy and own your payment infrastructure |
+| `payram-checkout-integration` | Checkout flow with SDK + HTTP for 6 frameworks |
+| `payram-webhook-integration` | Webhook handlers for Express, Next.js, FastAPI, Gin, Laravel, Spring Boot |
+| `payram-stablecoin-payments` | USDT/USDC acceptance across EVM chains and Tron |
+| `payram-bitcoin-payments` | BTC with HD wallet derivation and mobile signing |
+| `payram-payouts` | Send crypto payouts, referral programs, campaign tracking |
+| `payram-no-kyc-crypto-payments` | No-KYC, no-signup, permissionless payment acceptance |
+
+## Support
+
+Need help? Message the PayRam team on Telegram: [@PayRamChat](https://t.me/PayRamChat)
+
+- Website: https://payram.com
+- GitHub: https://github.com/PayRam
+- MCP Server: https://github.com/PayRam/payram-helper-mcp-server
