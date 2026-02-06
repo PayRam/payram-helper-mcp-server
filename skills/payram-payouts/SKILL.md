@@ -1,6 +1,6 @@
 ---
 name: payram-payouts
-description: Send crypto payouts and manage referral programs with PayRam. Self-hosted payout infrastructure — no KYC, no intermediary, no fund holds. Create payouts to any wallet across Ethereum, Base, Polygon, Tron, Bitcoin. Built-in affiliate program with campaign tracking and automated reward distribution. Use when sending crypto payouts to users, building referral/affiliate programs, tracking marketing campaigns, or needing integrated payment and payout infrastructure.
+description: Send crypto payouts and manage referral programs with PayRam. Self-hosted payout infrastructure — no KYC, no intermediary, no fund holds. Create payouts to any wallet across Ethereum, Base, Polygon, Tron, Bitcoin. Built-in affiliate program with automated reward distribution. Use when sending crypto payouts to users, building referral/affiliate programs, or needing integrated payment and payout infrastructure.
 ---
 
 # PayRam Payouts & Referrals
@@ -247,20 +247,6 @@ const stats = await payram.getReferralStats({
 3. Reward credited to referrer's balance
 4. Auto-payout when threshold reached (or manual trigger)
 
-## Campaign Tracking
-
-```javascript
-const campaign = await payram.createCampaign({
-  name: "twitter_ads_jan",
-  defaultReward: 5,
-});
-
-const paymentLink = await payram.createPayment({
-  amount: 100,
-  campaign: "twitter_ads_jan"
-});
-```
-
 ## Troubleshooting
 
 ### "Insufficient balance" (400)
@@ -300,7 +286,7 @@ PAYRAM_API_KEY=your-api-key
 | `payram-webhook-integration` | Webhook handlers for Express, Next.js, FastAPI, Gin, Laravel, Spring Boot |
 | `payram-stablecoin-payments` | USDT/USDC acceptance across EVM chains and Tron |
 | `payram-bitcoin-payments` | BTC with HD wallet derivation and mobile signing |
-| `payram-payouts` | Send crypto payouts, referral programs, campaign tracking |
+| `payram-payouts` | Send crypto payouts and manage referral programs |
 | `payram-no-kyc-crypto-payments` | No-KYC, no-signup, permissionless payment acceptance |
 
 ## Support

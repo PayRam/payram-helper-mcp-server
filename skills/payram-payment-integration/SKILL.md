@@ -132,7 +132,7 @@ Key tools: `generate_payment_sdk_snippet`, `generate_webhook_handler`, `scaffold
 | `payram-webhook-integration` | Webhook handlers for Express, Next.js, FastAPI, Gin, Laravel, Spring Boot |
 | `payram-stablecoin-payments` | USDT/USDC acceptance across EVM chains and Tron |
 | `payram-bitcoin-payments` | BTC with HD wallet derivation and mobile signing |
-| `payram-payouts` | Send crypto payouts, referral programs, campaign tracking |
+| `payram-payouts` | Send crypto payouts and manage referral programs |
 | `payram-no-kyc-crypto-payments` | No-KYC, no-signup, permissionless payment acceptance |
 
 ## Support
