@@ -122,7 +122,7 @@ Always validate recipient addresses before creating payouts:
 function validateAddress(address: string, blockchainCode: string): boolean {
   const patterns: Record<string, RegExp> = {
     ETH: /^0x[a-fA-F0-9]{40}$/,
-    BTC: /^[13][a-km-zA-HJ-NP-Z1-9]{25,34}$/,
+    BTC: /^(?:[13][a-km-zA-HJ-NP-Z1-9]{25,34}|bc1[a-z0-9]{39,59})$/,
     MATIC: /^0x[a-fA-F0-9]{40}$/,
   };
   const pattern = patterns[blockchainCode];
@@ -253,7 +253,7 @@ const stats = await payram.getReferralStats({
 Check merchant balance, deposit funds, account for gas fees.
 
 ### "Invalid address format" (400)
-ETH/Polygon: `0x` + 40 hex chars. BTC: starts with `1`/`3`, 26-35 chars.
+ETH/Polygon: `0x` + 40 hex chars. BTC: starts with `1`/`3` (legacy) or `bc1` (Bech32), 26-62 chars.
 
 ### Amount must be string
 ```typescript

@@ -157,6 +157,7 @@ Content-Type: application/json
 
 ```python
 import httpx
+import os
 from fastapi import APIRouter
 from fastapi.responses import RedirectResponse
 

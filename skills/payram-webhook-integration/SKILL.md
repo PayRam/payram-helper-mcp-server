@@ -11,7 +11,7 @@ Receive real-time notifications when payments confirm, fail, or payouts complete
 
 ## Webhook Flow
 
-```
+```text
 1. Payment status changes on-chain
 2. PayRam sends POST to your webhook URL
 3. Your handler verifies API-Key header
@@ -30,7 +30,7 @@ Receive real-time notifications when payments confirm, fail, or payouts complete
 
 PayRam sends webhook requests with an `API-Key` header for verification:
 
-```
+```http
 POST https://your-domain.com/api/payram/webhook
 Content-Type: application/json
 API-Key: your-webhook-secret
@@ -119,6 +119,7 @@ export async function handlePayramEvent(payload: PayramWebhookPayload) {
 
 ```typescript
 import express, { Request, Response } from 'express';
+import crypto from 'crypto';
 
 const router = express.Router();
 router.use(express.json());
@@ -129,9 +130,17 @@ router.post('/api/payram/webhook', async (req: Request, res: Response) => {
     return res.status(500).json({ error: 'webhook_not_configured' });
   }
 
-  // Validate API-Key header
+  // Validate API-Key header (timing-safe comparison)
   const incomingKey = req.get('API-Key');
-  if (!incomingKey || incomingKey !== sharedSecret) {
+  if (!incomingKey) {
+    return res.status(401).json({ error: 'invalid-webhook-key' });
+  }
+  
+  const isValid = crypto.timingSafeEqual(
+    Buffer.from(incomingKey),
+    Buffer.from(sharedSecret)
+  );
+  if (!isValid) {
     return res.status(401).json({ error: 'invalid-webhook-key' });
   }
 
@@ -154,6 +163,7 @@ router.post('/api/payram/webhook', async (req: Request, res: Response) => {
 
 ```typescript
 import { NextRequest, NextResponse } from 'next/server';
+import crypto from 'crypto';
 
 export async function POST(request: NextRequest) {
   const sharedSecret = process.env.PAYRAM_WEBHOOK_SECRET;
@@ -162,7 +172,15 @@ export async function POST(request: NextRequest) {
   }
 
   const incomingKey = request.headers.get('API-Key');
-  if (!incomingKey || incomingKey !== sharedSecret) {
+  if (!incomingKey) {
+    return NextResponse.json({ error: 'invalid-webhook-key' }, { status: 401 });
+  }
+  
+  const isValid = crypto.timingSafeEqual(
+    Buffer.from(incomingKey),
+    Buffer.from(sharedSecret)
+  );
+  if (!isValid) {
     return NextResponse.json({ error: 'invalid-webhook-key' }, { status: 401 });
   }
 
@@ -184,7 +202,10 @@ export async function POST(request: NextRequest) {
 
 ```python
 import os
+import hmac
 from fastapi import FastAPI, HTTPException, Request
+
+app = FastAPI()
 
 @app.post('/api/payram/webhook')
 async def payram_webhook(request: Request):
@@ -193,7 +214,11 @@ async def payram_webhook(request: Request):
         raise HTTPException(status_code=500, detail='webhook_not_configured')
 
     incoming_key = request.headers.get('API-Key')
-    if not incoming_key or incoming_key != shared_secret:
+    if not incoming_key:
+        raise HTTPException(status_code=401, detail='invalid-webhook-key')
+    
+    # Timing-safe comparison
+    if not hmac.compare_digest(incoming_key, shared_secret):
         raise HTTPException(status_code=401, detail='invalid-webhook-key')
 
     payload = await request.json()
@@ -207,6 +232,14 @@ async def payram_webhook(request: Request):
 ### Gin (Go)
 
 ```go
+import (
+    "crypto/subtle"
+    "net/http"
+    "os"
+    
+    "github.com/gin-gonic/gin"
+)
+
 func handlePayramWebhook(c *gin.Context) {
     sharedSecret := os.Getenv("PAYRAM_WEBHOOK_SECRET")
     if sharedSecret == "" {
@@ -214,7 +247,14 @@ func handlePayramWebhook(c *gin.Context) {
         return
     }
 
-    if c.GetHeader("API-Key") != sharedSecret {
+    incomingKey := c.GetHeader("API-Key")
+    if incomingKey == "" {
+        c.JSON(http.StatusUnauthorized, gin.H{"error": "invalid-webhook-key"})
+        return
+    }
+    
+    // Timing-safe comparison
+    if subtle.ConstantTimeCompare([]byte(incomingKey), []byte(sharedSecret)) != 1 {
         c.JSON(http.StatusUnauthorized, gin.H{"error": "invalid-webhook-key"})
         return
     }
@@ -246,7 +286,13 @@ class PayramWebhookController extends Controller
             return response()->json(['error' => 'webhook_not_configured'], 500);
         }
 
-        if ($request->header('API-Key') !== $sharedSecret) {
+        $incomingKey = $request->header('API-Key');
+        if (!$incomingKey) {
+            return response()->json(['error' => 'invalid-webhook-key'], 401);
+        }
+        
+        // Timing-safe comparison
+        if (!hash_equals($sharedSecret, $incomingKey)) {
             return response()->json(['error' => 'invalid-webhook-key'], 401);
         }
 
@@ -264,6 +310,9 @@ class PayramWebhookController extends Controller
 ### Spring Boot (Java)
 
 ```java
+import java.security.MessageDigest;
+import java.nio.charset.StandardCharsets;
+
 @PostMapping("/webhook")
 public ResponseEntity<?> handleWebhook(
         @RequestBody Map<String, Object> payload,
@@ -274,7 +323,16 @@ public ResponseEntity<?> handleWebhook(
         return ResponseEntity.status(500).body(Map.of("error", "webhook_not_configured"));
     }
 
-    if (apiKey == null || !apiKey.equals(sharedSecret)) {
+    if (apiKey == null || apiKey.isBlank()) {
+        return ResponseEntity.status(401).body(Map.of("error", "invalid-webhook-key"));
+    }
+    
+    // Timing-safe comparison
+    boolean isValid = MessageDigest.isEqual(
+        apiKey.getBytes(StandardCharsets.UTF_8),
+        sharedSecret.getBytes(StandardCharsets.UTF_8)
+    );
+    if (!isValid) {
         return ResponseEntity.status(401).body(Map.of("error", "invalid-webhook-key"));
     }
 
