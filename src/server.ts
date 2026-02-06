@@ -4,6 +4,7 @@ import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/
 import { registerTools } from './tools/index.js';
 import { getServerPort } from './config/env.js';
 import { logger } from './utils/logger.js';
+import { serveLandingPage } from './landing.js';
 
 const createApp = () => express();
 
@@ -71,6 +72,13 @@ const bootstrap = async () => {
   });
 
   app.get('/', (req, res) => {
+    // Serve the landing page to browsers and agents requesting text;
+    // fall through to MCP transport for SSE/protocol clients.
+    const accept = req.headers.accept || '';
+    if (accept.includes('text/html') || accept.includes('text/markdown')) {
+      serveLandingPage(req, res);
+      return;
+    }
     void handleTransportRequest(req, res);
   });
 
