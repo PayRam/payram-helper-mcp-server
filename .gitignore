@@ -15,3 +15,5 @@ lerna-debug.log*
 /build/
 /temp/
 /out/
+.claude/
+.agents/

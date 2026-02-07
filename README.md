@@ -21,6 +21,8 @@ An **MCP (Model Context Protocol) server** that teaches GitHub Copilot (and any 
 
 This repository includes 11 Agent Skills for AI coding assistants. Install them via [skills.sh](https://skills.sh):
 
+### Install individually
+
 ```bash
 npx skills add payram/payram-helper-mcp-server/payram-setup
 npx skills add payram/payram-helper-mcp-server/payram-crypto-payments
