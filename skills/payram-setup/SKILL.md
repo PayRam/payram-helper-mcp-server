@@ -1,123 +1,270 @@
 ---
 name: payram-setup
-description: Set up PayRam self-hosted crypto payment gateway. Configure environment, API keys, and wallet connections. Deploy in under 10 minutes on any VPS with 4GB RAM. No signup required — install on your own server and start accepting USDT, USDC, Bitcoin, ETH. Connectivity testing with SDK and raw HTTP. Use when starting a PayRam integration, configuring credentials, validating server connectivity, or setting up a new environment.
+description: Deploy and configure your PayRam self-hosted crypto payment gateway server. Install on VPS, set up PostgreSQL database, configure root account, node details, wallets, and hot wallets. Complete deployment and onboarding in under 10 minutes. No signup required — fully self-hosted. Use when deploying PayRam for the first time, setting up server infrastructure, or configuring the PayRam dashboard.
 ---
 
 # PayRam Setup
 
-> **This is the starting point for all PayRam integrations.** Configure your server, API keys, and wallets here before moving to payment, webhook, or payout skills.
+> **This is the deployment and onboarding guide for PayRam.** Deploy the PayRam server on your VPS and configure the dashboard before integrating payments into your application.
 
 ## What is PayRam?
 
 PayRam is a self-hosted crypto payment gateway. You deploy it on your own server — no signup, no KYC, no third-party custody. Accept USDT, USDC, Bitcoin, and ETH across Ethereum, Base, Polygon, and Tron.
 
-## Step 1: Environment Configuration
+---
 
-Create a `.env` file in your project root:
+## Part 1: Deploy PayRam Server
+
+### Prerequisites
+
+**Server Requirements:**
+- **CPU**: 4 cores
+- **RAM**: 4 GB
+- **Storage**: 50 GB SSD
+- **OS**: Ubuntu 22.04
+- **Ports**: 80, 443, 8080, 8443, 5432
+
+**Database Requirements:**
+- **Engine**: PostgreSQL
+- **vCPUs**: 2 CPU cores
+- **Memory**: 8 GB
+- **Storage**: 50 GB SSD
+
+**Recommended VPS Providers:** AWS, Google Cloud, Azure, Hetzner, Hostinger
+
+### Quick Setup (Recommended - 10 Minutes)
+
+1. **Connect to your VPS via SSH**
+
+2. **Choose network** (mainnet or testnet)
+
+3. **Run the installation script:**
+```bash
+curl -fsSL https://raw.githubusercontent.com/PayRam/payram-server/main/install.sh | bash
+```
+
+4. **Follow the interactive prompts:**
+   - Enter PostgreSQL connection details
+   - Set encryption keys
+   - Configure domain/IP address
+   - Choose SSL certificate options
+
+5. **Wait for installation to complete** (~5-10 minutes)
+
+The script automatically:
+- Installs dependencies
+- Sets up Docker containers
+- Configures database connections
+- Generates SSL certificates (if using Let's Encrypt)
+- Starts PayRam services
+
+### Advanced Setup (Docker)
+
+For manual Docker deployment with custom configurations:
+
+1. **Clone the repository:**
+```bash
+git clone https://github.com/PayRam/payram-server.git
+cd payram-server
+```
+
+2. **Configure environment variables:**
+```bash
+cp .env.example .env
+nano .env  # Edit with your database, encryption keys, domain
+```
+
+3. **Start with Docker Compose:**
+```bash
+docker compose up -d
+```
+
+4. **Verify services are running:**
+```bash
+docker compose ps
+```
+
+For detailed Docker setup instructions, see the PayRam deployment documentation.
+
+---
+
+## Part 2: Onboard Your PayRam Instance
+
+After the server is installed and running, complete the onboarding configuration through the dashboard.
+
+### Step 1: Create Root Account
+
+1. **Navigate to signup page:**
+   - Open `http://<your-ip-address>/signup` in your browser
+   - Replace `<your-ip-address>` with your server's IP or domain
+
+2. **Set root email:**
+   - Enter your admin email (you'll use this to log in)
+   - This becomes your root/administrator account
+
+3. **Set root password:**
+   - Create a strong password and store it securely
+   - You can change it later in dashboard settings
+
+4. **Create your first project:**
+   - Enter a project name (e.g., "My E-commerce Store")
+   - Projects represent different products/websites using PayRam
+
+### Step 2: Configure Node Details
+
+After logging in, configure blockchain node connections:
+
+1. **Go to Settings → Node Details**
+
+2. **For each chain you want to support:**
+   - Enter RPC endpoint URLs (public or private)
+   - Recommended: Use dedicated node providers for production
+   - Example providers: Alchemy, Infura, QuickNode, GetBlock
+
+3. **Test connections** to verify nodes are accessible
+
+**Supported Chains:**
+- Ethereum (Mainnet/Testnet)
+- Base (Mainnet/Testnet)
+- Polygon (Mainnet/Testnet)
+- Tron (Mainnet/Testnet)
+- Bitcoin (Mainnet/Testnet)
+
+### Step 3: Configure Wallets
+
+Set up your wallet infrastructure:
+
+1. **Go to Settings → Wallets**
+
+2. **For each chain, configure:**
+   - **Sweep Contract Address** (deploy once per chain)
+   - **Cold Wallet Address** (where funds are swept to)
+   - **Hot Wallet** (for gas fees and instant payouts)
+
+3. **Deploy sweep contracts** using the provided scripts in the dashboard
+
+4. **Fund hot wallets** with native tokens:
+   - ETH for Ethereum/Base
+   - MATIC for Polygon
+   - TRX for Tron
+   - BTC for Bitcoin
+
+### Step 4: Set Up Hot Wallets
+
+Configure hot wallets for paying gas fees:
+
+1. **Go to Settings → Hot Wallets**
+
+2. **For each chain:**
+   - Generate a hot wallet or import an existing one
+   - Fund it with enough native tokens for gas
+   - Set auto-refill thresholds (optional)
+
+**Recommended Hot Wallet Balances:**
+- Ethereum: 0.5-1 ETH
+- Base: 0.1-0.5 ETH
+- Polygon: 100-500 MATIC
+- Tron: 1000-5000 TRX
+
+### Step 5: Configure Funds Sweeping
+
+Set up automatic fund sweeping to your cold wallet:
+
+1. **Go to Settings → Sweeping Configuration**
+
+2. **Configure sweep rules:**
+   - Minimum balance threshold before sweep
+   - Sweep schedule (e.g., every 6 hours)
+   - Gas price limits
+
+3. **Enable auto-sweep** for each chain
+
+4. **Test sweep** with a small payment to verify everything works
+
+### Step 6: Generate API Keys
+
+Create API keys for your application:
+
+1. **Go to Settings → API Keys**
+
+2. **Generate a new API key** for your project
+
+3. **Copy and securely store:**
+   - `PAYRAM_API_KEY` (for authentication)
+   - `PAYRAM_BASE_URL` (your server's URL)
+
+4. **Use these in your application's `.env` file**
+
+---
+
+## Part 3: Test Your Setup
+
+After completing deployment and onboarding, verify everything works:
+
+### Test Payment Link
+
+1. **Go to Payment Links in the dashboard**
+2. **Create a test payment** (e.g., $1 USD)
+3. **Complete the checkout flow**
+4. **Verify payment appears** in dashboard
+5. **Check funds swept** to cold wallet
+
+### Verify API Access
+
+Test your API key works:
 
 ```bash
-# Payram REST base URL (include protocol, no trailing slash)
-PAYRAM_BASE_URL=https://your-payram-server.example
-
-# Payram API key (from dashboard Settings → Accounts → API Keys)
-PAYRAM_API_KEY=pk_live_your_actual_key_here
+curl -X POST https://your-server.com/api/v1/payment \
+  -H "API-Key: your_api_key_here" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "customerEmail": "test@example.com",
+    "customerId": "test-123",
+    "amountInUSD": 1
+  }'
 ```
 
-**Where to get these values:**
-- `PAYRAM_BASE_URL`: The URL of your self-hosted PayRam instance
-- `PAYRAM_API_KEY`: Settings → Accounts → Select Project → API Keys
-
-**Important:** Never commit `.env` files. Add `.env` to your `.gitignore`.
-
-## Step 2: Understand Authentication
-
-PayRam uses header-based authentication:
-
-```
-API-Key: your_api_key_here
-```
-
-**Critical:** Use `API-Key` header, NOT `Authorization: Bearer`. This is case-sensitive and the #1 cause of 401 errors.
-
-## Step 3: Test Connectivity
-
-### Node.js/TypeScript (Payram SDK)
-
-```bash
-npm install payram dotenv
-```
-
-```typescript
-import { Payram, isPayramSDKError } from 'payram';
-import dotenv from 'dotenv';
-dotenv.config();
-
-const payram = new Payram({
-  apiKey: process.env.PAYRAM_API_KEY!,
-  baseUrl: process.env.PAYRAM_BASE_URL!,
-  config: { timeoutMs: 10_000, maxRetries: 2 },
-});
-
-async function testConnection() {
-  try {
-    const checkout = await payram.payments.initiatePayment({
-      customerEmail: 'test@example.com',
-      customerId: 'connectivity-test',
-      amountInUSD: 1,
-    });
-    console.log('✅ Connection successful!');
-    console.log('   Reference ID:', checkout.reference_id);
-  } catch (error) {
-    if (isPayramSDKError(error)) {
-      console.error('❌ Failed:', error.status, error.message);
-    }
-  }
+Expected response:
+```json
+{
+  "reference_id": "ref_...",
+  "url": "https://your-server.com/checkout/...",
+  "host": "your-server.com"
 }
-testConnection();
 ```
 
-### Python
+---
 
-```python
-import os, requests
-from dotenv import load_dotenv
-load_dotenv()
+## Troubleshooting Setup Issues
 
-response = requests.post(
-    f"{os.getenv('PAYRAM_BASE_URL')}/api/v1/payment",
-    json={'customerEmail': 'test@example.com', 'customerId': 'test', 'amountInUSD': 1},
-    headers={'API-Key': os.getenv('PAYRAM_API_KEY'), 'Content-Type': 'application/json'},
-    timeout=10
-)
-print('✅ Success!' if response.status_code in [200, 201] else f'❌ Failed: {response.status_code}')
-```
-
-## Step 4: Wallet Configuration
-
-After connectivity is confirmed, set up wallets in the PayRam dashboard:
-
-1. **Deploy sweep contracts** per chain (see `payram-self-hosted-payment-gateway`)
-2. **Fund hot wallets** for gas fees (ETH, MATIC, TRX)
-3. **Configure cold wallet** addresses for fund settlement
-
-## Troubleshooting
-
-| Error | Cause | Fix |
+| Issue | Cause | Fix |
 |-------|-------|-----|
-| 401 Unauthorized | Wrong header | Use `API-Key`, not `Authorization` |
-| 404 Not Found | Wrong URL | Check `PAYRAM_BASE_URL`, include `https://` |
-| Network error | Server unreachable | Check firewall, confirm PayRam is running |
-| Missing env vars | `.env` not loaded | Call `dotenv.config()` / `load_dotenv()` |
+| Can't access dashboard | Firewall blocking ports | Open ports 80, 443, 8080, 8443 |
+| Database connection error | Wrong credentials | Check PostgreSQL connection string in `.env` |
+| SSL certificate error | Domain not configured | Use HTTP for testing, or configure Let's Encrypt |
+| Node RPC failing | Invalid endpoint | Verify RPC URL and API key with provider |
+| Sweep not working | Hot wallet empty | Fund hot wallet with native tokens |
+| API 401 error | Wrong API key | Regenerate in Settings → API Keys |
+
+---
+
+---
 
 ## Next Steps
 
-After setup is complete, proceed to:
-- **Accept payments** → `payram-checkout-integration`
+After your PayRam server is deployed and configured, start integrating it into your application:
+
+- **Integrate payments into your app** → `payram-payment-integration`
+- **Complete checkout implementation** → `payram-checkout-integration`
 - **Handle webhooks** → `payram-webhook-integration`
 - **Send payouts** → `payram-payouts`
-- **Deploy infrastructure** → `payram-self-hosted-payment-gateway`
+- **Learn about stablecoin payments** → `payram-stablecoin-payments`
+
+---
 
 ## MCP Server Tools
+
+For automated setup assistance, use the PayRam MCP server:
 
 | Tool | Purpose |
 |------|---------|
@@ -125,22 +272,24 @@ After setup is complete, proceed to:
 | `generate_setup_checklist` | Step-by-step deployment runbook |
 | `test_payram_connection` | Validate API connectivity |
 
+---
+
 ## All PayRam Skills
 
 | Skill | What it covers |
 |-------|---------------|
-| `payram-setup` | Server config, API keys, wallet setup, connectivity test |
+| `payram-setup` | Deploy PayRam server, configure dashboard, wallets, and hot wallets |
 | `payram-crypto-payments` | Architecture overview, why PayRam, MCP tools |
-| `payram-payment-integration` | Quick-start payment integration guide |
-| `payram-self-hosted-payment-gateway` | Deploy and own your payment infrastructure |
-| `payram-checkout-integration` | Checkout flow with SDK + HTTP for 6 frameworks |
-| `payram-webhook-integration` | Webhook handlers for Express, Next.js, FastAPI, Gin, Laravel, Spring Boot |
-| `payram-stablecoin-payments` | USDT/USDC acceptance across EVM chains and Tron |
-| `payram-bitcoin-payments` | BTC with HD wallet derivation and mobile signing |
+| `payram-payment-integration` | Integrate payments into your application code |
+| `payram-self-hosted-payment-gateway` | Deep dive into PayRam infrastructure and deployment |
+| `payram-checkout-integration` | Build complete checkout flows in 6 frameworks |
+| `payram-webhook-integration` | Handle payment webhooks in Express, Next.js, FastAPI, etc. |
+| `payram-stablecoin-payments` | Accept USDT/USDC across EVM chains and Tron |
+| `payram-bitcoin-payments` | Bitcoin payments with HD wallets and mobile signing |
 | `payram-payouts` | Send crypto payouts and manage referral programs |
 | `payram-no-kyc-crypto-payments` | No-KYC, no-signup, permissionless payment acceptance |
 
-## Support
+---
 
 Need help? Message the PayRam team on Telegram: [@PayRamChat](https://t.me/PayRamChat)
 
