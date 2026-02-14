@@ -29,7 +29,7 @@ PayRam is the world's first self-hosted stablecoin payment gateway. Unlike hoste
 
 ## Integration via MCP Server
 
-PayRam provides an MCP server with 25+ tools for integration. Install and connect it to your agent:
+PayRam provides an MCP server with 25+ tools for integration. Install and connect it to your agent: `https://mcp.payram.com`. Use tools for code snippets, webhooks, scaffolding, and more, or clone the MCP server repo to run locally.
 
 ```bash
 # Clone and run MCP server
