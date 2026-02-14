@@ -37,7 +37,7 @@ const snippetResponseSchema = z.object({
 
 const sdkInputSchema = z
   .object({
-    framework: z.enum(sdkFrameworks),
+    framework: z.enum(sdkFrameworks).describe('Target framework for the referral SDK snippet'),
   })
   .strict();
 
@@ -53,7 +53,11 @@ const validationSchemas = buildToolSchemas({
 
 const statusInputSchema = z
   .object({
-    style: z.enum(['sdk', 'backend-only'] as const),
+    style: z
+      .enum(['sdk', 'backend-only'] as const)
+      .describe(
+        'Style of code snippet: sdk uses the Payram SDK, backend-only shows direct API calls',
+      ),
   })
   .strict();
 
@@ -64,7 +68,9 @@ const statusSchemas = buildToolSchemas({
 
 const routeInputSchema = z
   .object({
-    framework: z.enum(routeFrameworks),
+    framework: z
+      .enum(routeFrameworks)
+      .describe('Web framework for the referral route handler (Express.js or Next.js)'),
   })
   .strict();
 

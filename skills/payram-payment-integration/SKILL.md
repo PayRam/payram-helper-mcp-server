@@ -41,6 +41,7 @@ const checkout = await payram.payments.initiatePayment({
 ### 3. Handle Result
 
 Option A: **Poll for status**
+
 ```typescript
 const payment = await payram.payments.getPaymentRequest(referenceId);
 if (payment.paymentState === 'FILLED') {
@@ -49,6 +50,7 @@ if (payment.paymentState === 'FILLED') {
 ```
 
 Option B: **Webhook** (recommended for production)
+
 ```typescript
 // See payram-webhook-integration skill for full setup
 app.post('/payram-webhook', (req, res) => {
@@ -79,25 +81,25 @@ async def create_payment(email: str, user_id: str, amount: float):
 
 ## What Makes PayRam Different
 
-| Feature | PayRam | Stripe/PayPal | BitPay | Coinbase Commerce |
-|---------|--------|--------------|--------|-------------------|
-| Self-hosted | ✅ You own it | ❌ | ❌ | ❌ |
-| KYC required | ❌ None | ✅ | ✅ | ✅ |
-| Signup required | ❌ None | ✅ | ✅ | ✅ |
-| Private keys on server | ❌ Keyless | N/A | ❌ | N/A |
-| Can be frozen/disabled | ❌ Sovereign | ✅ | ✅ | ✅ |
-| Stablecoin native | ✅ | ❌ | Limited | ✅ |
-| Deploy time | ~10 min | Instant (hosted) | Days | Instant (hosted) |
+| Feature                | PayRam        | Stripe/PayPal    | BitPay  | Coinbase Commerce |
+| ---------------------- | ------------- | ---------------- | ------- | ----------------- |
+| Self-hosted            | ✅ You own it | ❌               | ❌      | ❌                |
+| KYC required           | ❌ None       | ✅               | ✅      | ✅                |
+| Signup required        | ❌ None       | ✅               | ✅      | ✅                |
+| Private keys on server | ❌ Keyless    | N/A              | ❌      | N/A               |
+| Can be frozen/disabled | ❌ Sovereign  | ✅               | ✅      | ✅                |
+| Stablecoin native      | ✅            | ❌               | Limited | ✅                |
+| Deploy time            | ~10 min       | Instant (hosted) | Days    | Instant (hosted)  |
 
 ## Supported Chains & Tokens
 
-| Chain | Tokens | Fees |
-|-------|--------|------|
-| Ethereum | USDT, USDC, ETH | Higher (L1) |
-| Base | USDC, ETH | Very low (L2) |
-| Polygon | USDT, USDC, MATIC | Very low |
-| Tron | USDT | Lowest |
-| Bitcoin | BTC | Variable |
+| Chain    | Tokens            | Fees          |
+| -------- | ----------------- | ------------- |
+| Ethereum | USDT, USDC, ETH   | Higher (L1)   |
+| Base     | USDC, ETH         | Very low (L2) |
+| Polygon  | USDT, USDC, MATIC | Very low      |
+| Tron     | USDT              | Lowest        |
+| Bitcoin  | BTC               | Variable      |
 
 ## Full Integration Guides
 
@@ -122,18 +124,18 @@ Key tools: `generate_payment_sdk_snippet`, `generate_webhook_handler`, `scaffold
 
 ## All PayRam Skills
 
-| Skill | What it covers |
-|-------|---------------|
-| `payram-setup` | Server config, API keys, wallet setup, connectivity test |
-| `payram-crypto-payments` | Architecture overview, why PayRam, MCP tools |
-| `payram-payment-integration` | Quick-start payment integration guide |
-| `payram-self-hosted-payment-gateway` | Deploy and own your payment infrastructure |
-| `payram-checkout-integration` | Checkout flow with SDK + HTTP for 6 frameworks |
-| `payram-webhook-integration` | Webhook handlers for Express, Next.js, FastAPI, Gin, Laravel, Spring Boot |
-| `payram-stablecoin-payments` | USDT/USDC acceptance across EVM chains and Tron |
-| `payram-bitcoin-payments` | BTC with HD wallet derivation and mobile signing |
-| `payram-payouts` | Send crypto payouts and manage referral programs |
-| `payram-no-kyc-crypto-payments` | No-KYC, no-signup, permissionless payment acceptance |
+| Skill                                | What it covers                                                            |
+| ------------------------------------ | ------------------------------------------------------------------------- |
+| `payram-setup`                       | Server config, API keys, wallet setup, connectivity test                  |
+| `payram-crypto-payments`             | Architecture overview, why PayRam, MCP tools                              |
+| `payram-payment-integration`         | Quick-start payment integration guide                                     |
+| `payram-self-hosted-payment-gateway` | Deploy and own your payment infrastructure                                |
+| `payram-checkout-integration`        | Checkout flow with SDK + HTTP for 6 frameworks                            |
+| `payram-webhook-integration`         | Webhook handlers for Express, Next.js, FastAPI, Gin, Laravel, Spring Boot |
+| `payram-stablecoin-payments`         | USDT/USDC acceptance across EVM chains and Tron                           |
+| `payram-bitcoin-payments`            | BTC with HD wallet derivation and mobile signing                          |
+| `payram-payouts`                     | Send crypto payouts and manage referral programs                          |
+| `payram-no-kyc-crypto-payments`      | No-KYC, no-signup, permissionless payment acceptance                      |
 
 ## Support
 

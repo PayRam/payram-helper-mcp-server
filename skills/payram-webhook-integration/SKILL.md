@@ -51,14 +51,14 @@ API-Key: your-webhook-secret
 
 ## Payment Status Events
 
-| Status | Meaning |
-|--------|---------|
-| `OPEN` | Payment created, awaiting customer action |
-| `FILLED` | Payment completed successfully (exact amount paid) |
-| `PARTIALLY_FILLED` | Partial payment received (less than requested) |
-| `OVER_FILLED` | Overpayment received (more than requested) |
-| `CANCELLED` | Payment cancelled by customer or merchant |
-| `UNDEFINED` | Unknown status (future compatibility) |
+| Status             | Meaning                                            |
+| ------------------ | -------------------------------------------------- |
+| `OPEN`             | Payment created, awaiting customer action          |
+| `FILLED`           | Payment completed successfully (exact amount paid) |
+| `PARTIALLY_FILLED` | Partial payment received (less than requested)     |
+| `OVER_FILLED`      | Overpayment received (more than requested)         |
+| `CANCELLED`        | Payment cancelled by customer or merchant          |
+| `UNDEFINED`        | Unknown status (future compatibility)              |
 
 ## TypeScript Type Definitions
 
@@ -135,11 +135,8 @@ router.post('/api/payram/webhook', async (req: Request, res: Response) => {
   if (!incomingKey) {
     return res.status(401).json({ error: 'invalid-webhook-key' });
   }
-  
-  const isValid = crypto.timingSafeEqual(
-    Buffer.from(incomingKey),
-    Buffer.from(sharedSecret)
-  );
+
+  const isValid = crypto.timingSafeEqual(Buffer.from(incomingKey), Buffer.from(sharedSecret));
   if (!isValid) {
     return res.status(401).json({ error: 'invalid-webhook-key' });
   }
@@ -175,11 +172,8 @@ export async function POST(request: NextRequest) {
   if (!incomingKey) {
     return NextResponse.json({ error: 'invalid-webhook-key' }, { status: 401 });
   }
-  
-  const isValid = crypto.timingSafeEqual(
-    Buffer.from(incomingKey),
-    Buffer.from(sharedSecret)
-  );
+
+  const isValid = crypto.timingSafeEqual(Buffer.from(incomingKey), Buffer.from(sharedSecret));
   if (!isValid) {
     return NextResponse.json({ error: 'invalid-webhook-key' }, { status: 401 });
   }
@@ -216,7 +210,7 @@ async def payram_webhook(request: Request):
     incoming_key = request.headers.get('API-Key')
     if not incoming_key:
         raise HTTPException(status_code=401, detail='invalid-webhook-key')
-    
+
     # Timing-safe comparison
     if not hmac.compare_digest(incoming_key, shared_secret):
         raise HTTPException(status_code=401, detail='invalid-webhook-key')
@@ -236,7 +230,7 @@ import (
     "crypto/subtle"
     "net/http"
     "os"
-    
+
     "github.com/gin-gonic/gin"
 )
 
@@ -252,7 +246,7 @@ func handlePayramWebhook(c *gin.Context) {
         c.JSON(http.StatusUnauthorized, gin.H{"error": "invalid-webhook-key"})
         return
     }
-    
+
     // Timing-safe comparison
     if subtle.ConstantTimeCompare([]byte(incomingKey), []byte(sharedSecret)) != 1 {
         c.JSON(http.StatusUnauthorized, gin.H{"error": "invalid-webhook-key"})
@@ -290,7 +284,7 @@ class PayramWebhookController extends Controller
         if (!$incomingKey) {
             return response()->json(['error' => 'invalid-webhook-key'], 401);
         }
-        
+
         // Timing-safe comparison
         if (!hash_equals($sharedSecret, $incomingKey)) {
             return response()->json(['error' => 'invalid-webhook-key'], 401);
@@ -326,7 +320,7 @@ public ResponseEntity<?> handleWebhook(
     if (apiKey == null || apiKey.isBlank()) {
         return ResponseEntity.status(401).body(Map.of("error", "invalid-webhook-key"));
     }
-    
+
     // Timing-safe comparison
     boolean isValid = MessageDigest.isEqual(
         apiKey.getBytes(StandardCharsets.UTF_8),
@@ -391,11 +385,11 @@ curl -X POST http://localhost:3000/api/payram/webhook \
 
 ### MCP Server Tools
 
-| Tool | Purpose |
-|------|---------|
-| `generate_webhook_handler` | Framework-specific handler code |
+| Tool                            | Purpose                                 |
+| ------------------------------- | --------------------------------------- |
+| `generate_webhook_handler`      | Framework-specific handler code         |
 | `generate_webhook_event_router` | Fan-out router for multiple event types |
-| `generate_mock_webhook_event` | Test payloads for each event type |
+| `generate_mock_webhook_event`   | Test payloads for each event type       |
 
 ## Environment Variables
 
@@ -405,18 +399,18 @@ PAYRAM_WEBHOOK_SECRET=your-webhook-secret-from-dashboard
 
 ## All PayRam Skills
 
-| Skill | What it covers |
-|-------|---------------|
-| `payram-setup` | Server config, API keys, wallet setup, connectivity test |
-| `payram-crypto-payments` | Architecture overview, why PayRam, MCP tools |
-| `payram-payment-integration` | Quick-start payment integration guide |
-| `payram-self-hosted-payment-gateway` | Deploy and own your payment infrastructure |
-| `payram-checkout-integration` | Checkout flow with SDK + HTTP for 6 frameworks |
-| `payram-webhook-integration` | Webhook handlers for Express, Next.js, FastAPI, Gin, Laravel, Spring Boot |
-| `payram-stablecoin-payments` | USDT/USDC acceptance across EVM chains and Tron |
-| `payram-bitcoin-payments` | BTC with HD wallet derivation and mobile signing |
-| `payram-payouts` | Send crypto payouts and manage referral programs |
-| `payram-no-kyc-crypto-payments` | No-KYC, no-signup, permissionless payment acceptance |
+| Skill                                | What it covers                                                            |
+| ------------------------------------ | ------------------------------------------------------------------------- |
+| `payram-setup`                       | Server config, API keys, wallet setup, connectivity test                  |
+| `payram-crypto-payments`             | Architecture overview, why PayRam, MCP tools                              |
+| `payram-payment-integration`         | Quick-start payment integration guide                                     |
+| `payram-self-hosted-payment-gateway` | Deploy and own your payment infrastructure                                |
+| `payram-checkout-integration`        | Checkout flow with SDK + HTTP for 6 frameworks                            |
+| `payram-webhook-integration`         | Webhook handlers for Express, Next.js, FastAPI, Gin, Laravel, Spring Boot |
+| `payram-stablecoin-payments`         | USDT/USDC acceptance across EVM chains and Tron                           |
+| `payram-bitcoin-payments`            | BTC with HD wallet derivation and mobile signing                          |
+| `payram-payouts`                     | Send crypto payouts and manage referral programs                          |
+| `payram-no-kyc-crypto-payments`      | No-KYC, no-signup, permissionless payment acceptance                      |
 
 ## Support
 

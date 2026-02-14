@@ -7,8 +7,20 @@ import { safeHandler } from './common/errors.js';
 const schemas = buildToolSchemas({
   input: z
     .object({
-      baseUrl: z.string().url().optional(),
-      apiKey: z.string().min(1).optional(),
+      baseUrl: z
+        .string()
+        .url()
+        .optional()
+        .describe(
+          'The base URL of your Payram server (e.g., https://your-server.example). If not provided, uses PAYRAM_BASE_URL from environment.',
+        ),
+      apiKey: z
+        .string()
+        .min(1)
+        .optional()
+        .describe(
+          'Your Payram API key from the dashboard. If not provided, uses PAYRAM_API_KEY from environment.',
+        ),
     })
     .strict(),
   output: z.object({

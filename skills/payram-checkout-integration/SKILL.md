@@ -84,11 +84,13 @@ await createCheckout({
 ```
 
 **Required Fields:**
+
 - `customerEmail`: Customer's email address
 - `customerId`: Your internal customer identifier
 - `amountInUSD`: Payment amount in USD
 
 **Optional Fields:**
+
 - `settlementCurrency`: Currency for settlement (default: USD)
 - `memo`: Internal reference or description
 - `redirectUrl`: Custom URL to redirect after payment
@@ -136,6 +138,7 @@ Content-Type: application/json
 **Critical:** PayRam uses `API-Key` header, NOT `Authorization: Bearer`.
 
 **Request Body:**
+
 ```json
 {
   "customerEmail": "customer@example.com",
@@ -145,6 +148,7 @@ Content-Type: application/json
 ```
 
 **Response:**
+
 ```json
 {
   "host": "https://your-payram-server:8080",
@@ -346,16 +350,16 @@ CREATE INDEX idx_customer_id ON payments(customer_id);
 
 Use the PayRam MCP server to generate framework-specific code:
 
-| Framework | MCP Tool |
-|-----------|----------|
-| JavaScript SDK | `generate_payment_sdk_snippet` |
+| Framework               | MCP Tool                        |
+| ----------------------- | ------------------------------- |
+| JavaScript SDK          | `generate_payment_sdk_snippet`  |
 | Raw HTTP (any language) | `generate_payment_http_snippet` |
-| Express.js | `snippet_express_payment_route` |
-| Next.js App Router | `snippet_nextjs_payment_route` |
-| FastAPI | `snippet_fastapi_payment_route` |
-| Gin (Go) | `snippet_gin_payment_route` |
-| Laravel | `snippet_laravel_payment_route` |
-| Spring Boot | `snippet_spring_payment_route` |
+| Express.js              | `snippet_express_payment_route` |
+| Next.js App Router      | `snippet_nextjs_payment_route`  |
+| FastAPI                 | `snippet_fastapi_payment_route` |
+| Gin (Go)                | `snippet_gin_payment_route`     |
+| Laravel                 | `snippet_laravel_payment_route` |
+| Spring Boot             | `snippet_spring_payment_route`  |
 
 ## Environment Configuration
 
@@ -369,28 +373,28 @@ Use `generate_env_template` MCP tool to scaffold this.
 
 ## Error Handling
 
-| HTTP Code | Meaning | Action |
-|-----------|---------|--------|
-| 200/201 | Payment created | Redirect to URL |
-| 401 | Invalid API key | Check `API-Key` header (NOT `Authorization`) |
-| 400 | Invalid request | Check required fields, amount > 0 |
-| 404 | Merchant not found | Verify `PAYRAM_BASE_URL` |
-| 500 | Server error | Retry with backoff |
+| HTTP Code | Meaning            | Action                                       |
+| --------- | ------------------ | -------------------------------------------- |
+| 200/201   | Payment created    | Redirect to URL                              |
+| 401       | Invalid API key    | Check `API-Key` header (NOT `Authorization`) |
+| 400       | Invalid request    | Check required fields, amount > 0            |
+| 404       | Merchant not found | Verify `PAYRAM_BASE_URL`                     |
+| 500       | Server error       | Retry with backoff                           |
 
 ## All PayRam Skills
 
-| Skill | What it covers |
-|-------|---------------|
-| `payram-setup` | Server config, API keys, wallet setup, connectivity test |
-| `payram-crypto-payments` | Architecture overview, why PayRam, MCP tools |
-| `payram-payment-integration` | Quick-start payment integration guide |
-| `payram-self-hosted-payment-gateway` | Deploy and own your payment infrastructure |
-| `payram-checkout-integration` | Checkout flow with SDK + HTTP for 6 frameworks |
-| `payram-webhook-integration` | Webhook handlers for Express, Next.js, FastAPI, Gin, Laravel, Spring Boot |
-| `payram-stablecoin-payments` | USDT/USDC acceptance across EVM chains and Tron |
-| `payram-bitcoin-payments` | BTC with HD wallet derivation and mobile signing |
-| `payram-payouts` | Send crypto payouts and manage referral programs |
-| `payram-no-kyc-crypto-payments` | No-KYC, no-signup, permissionless payment acceptance |
+| Skill                                | What it covers                                                            |
+| ------------------------------------ | ------------------------------------------------------------------------- |
+| `payram-setup`                       | Server config, API keys, wallet setup, connectivity test                  |
+| `payram-crypto-payments`             | Architecture overview, why PayRam, MCP tools                              |
+| `payram-payment-integration`         | Quick-start payment integration guide                                     |
+| `payram-self-hosted-payment-gateway` | Deploy and own your payment infrastructure                                |
+| `payram-checkout-integration`        | Checkout flow with SDK + HTTP for 6 frameworks                            |
+| `payram-webhook-integration`         | Webhook handlers for Express, Next.js, FastAPI, Gin, Laravel, Spring Boot |
+| `payram-stablecoin-payments`         | USDT/USDC acceptance across EVM chains and Tron                           |
+| `payram-bitcoin-payments`            | BTC with HD wallet derivation and mobile signing                          |
+| `payram-payouts`                     | Send crypto payouts and manage referral programs                          |
+| `payram-no-kyc-crypto-payments`      | No-KYC, no-signup, permissionless payment acceptance                      |
 
 ## Support
 

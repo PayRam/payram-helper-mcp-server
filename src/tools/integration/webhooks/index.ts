@@ -46,7 +46,9 @@ const snippetResponseSchema = z.object({
 
 const handlerInputSchema = z
   .object({
-    framework: z.enum(['express', 'nextjs', 'fastapi', 'gin', 'laravel', 'spring-boot'] as const),
+    framework: z
+      .enum(['express', 'nextjs', 'fastapi', 'gin', 'laravel', 'spring-boot'] as const)
+      .describe('Web framework for the webhook handler code'),
   })
   .strict();
 
@@ -62,15 +64,19 @@ const routerSchemas = buildToolSchemas({
 
 const mockInputSchema = z
   .object({
-    language: z.enum(['curl', 'python', 'go', 'php', 'java'] as const),
-    status: z.enum([
-      'OPEN',
-      'CANCELLED',
-      'FILLED',
-      'PARTIALLY_FILLED',
-      'OVER_FILLED',
-      'UNDEFINED',
-    ] as const),
+    language: z
+      .enum(['curl', 'python', 'go', 'php', 'java'] as const)
+      .describe('Language/tool for the mock webhook request (curl for command-line testing)'),
+    status: z
+      .enum([
+        'OPEN',
+        'CANCELLED',
+        'FILLED',
+        'PARTIALLY_FILLED',
+        'OVER_FILLED',
+        'UNDEFINED',
+      ] as const)
+      .describe('Payment status to simulate in the mock webhook event'),
   })
   .strict();
 

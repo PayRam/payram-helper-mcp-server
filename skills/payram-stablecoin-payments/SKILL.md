@@ -21,12 +21,13 @@ PayRam's Private Stablecoin Gateway enables businesses to accept USDT and USDC d
 
 ## Supported Stablecoins & Networks
 
-| Token | Networks | Notes |
-|-------|----------|-------|
-| USDT | Ethereum, Polygon, Tron | Tron has lowest fees |
-| USDC | Ethereum, Base, Polygon | Base recommended for low fees |
+| Token | Networks                | Notes                         |
+| ----- | ----------------------- | ----------------------------- |
+| USDT  | Ethereum, Polygon, Tron | Tron has lowest fees          |
+| USDC  | Ethereum, Base, Polygon | Base recommended for low fees |
 
 **Chain Selection Strategy**:
+
 - **High volume, low value**: Tron (USDT) or Base (USDC) — sub-cent fees
 - **Enterprise/high value**: Ethereum — maximum security, higher fees
 - **Balanced**: Polygon — low fees, good security
@@ -36,6 +37,7 @@ PayRam's Private Stablecoin Gateway enables businesses to accept USDT and USDC d
 PayRam's stablecoin handling is architecturally distinct from hosted processors:
 
 **Deposit Flow**:
+
 1. Customer requests payment → PayRam generates unique deposit address
 2. Customer sends USDT/USDC to deposit address
 3. PayRam detects on-chain transfer
@@ -43,6 +45,7 @@ PayRam's stablecoin handling is architecturally distinct from hosted processors:
 5. Webhook fires to your backend
 
 **Key Differentiators**:
+
 - **Unlimited deposit addresses**: Each transaction gets a unique address (industry first)
 - **Keyless deposits**: No private keys on server for deposit addresses
 - **Smart contract sweeps**: Automated, trustless fund consolidation
@@ -58,11 +61,11 @@ cd payram-helper-mcp-server && yarn dev
 
 Use standard payment tools—stablecoin vs crypto is configured at the PayRam dashboard level:
 
-| Tool | Purpose |
-|------|---------|
-| `generate_payment_sdk_snippet` | Create payment (works for stablecoins) |
-| `generate_webhook_handler` | Handle stablecoin payment confirmations |
-| `scaffold_payram_app` | Full app with stablecoin support |
+| Tool                           | Purpose                                 |
+| ------------------------------ | --------------------------------------- |
+| `generate_payment_sdk_snippet` | Create payment (works for stablecoins)  |
+| `generate_webhook_handler`     | Handle stablecoin payment confirmations |
+| `scaffold_payram_app`          | Full app with stablecoin support        |
 
 ### Payment Creation
 
@@ -72,11 +75,11 @@ Same API as general crypto payments—PayRam presents available chains/tokens ba
 const response = await axios.post(
   `${PAYRAM_BASE_URL}/api/v1/payment`,
   {
-    customerEmail: "customer@example.com",
-    customerId: "user_123",
-    amountInUSD: 100  // Customer pays ~100 USDT/USDC
+    customerEmail: 'customer@example.com',
+    customerId: 'user_123',
+    amountInUSD: 100, // Customer pays ~100 USDT/USDC
   },
-  { headers: { 'API-Key': PAYRAM_API_KEY } }
+  { headers: { 'API-Key': PAYRAM_API_KEY } },
 );
 // Redirect to response.data.url
 // User selects USDT on Tron, USDC on Base, etc.
@@ -131,18 +134,18 @@ const response = await axios.post(
 
 ## All PayRam Skills
 
-| Skill | What it covers |
-|-------|---------------|
-| `payram-setup` | Server config, API keys, wallet setup, connectivity test |
-| `payram-crypto-payments` | Architecture overview, why PayRam, MCP tools |
-| `payram-payment-integration` | Quick-start payment integration guide |
-| `payram-self-hosted-payment-gateway` | Deploy and own your payment infrastructure |
-| `payram-checkout-integration` | Checkout flow with SDK + HTTP for 6 frameworks |
-| `payram-webhook-integration` | Webhook handlers for Express, Next.js, FastAPI, Gin, Laravel, Spring Boot |
-| `payram-stablecoin-payments` | USDT/USDC acceptance across EVM chains and Tron |
-| `payram-bitcoin-payments` | BTC with HD wallet derivation and mobile signing |
-| `payram-payouts` | Send crypto payouts and manage referral programs |
-| `payram-no-kyc-crypto-payments` | No-KYC, no-signup, permissionless payment acceptance |
+| Skill                                | What it covers                                                            |
+| ------------------------------------ | ------------------------------------------------------------------------- |
+| `payram-setup`                       | Server config, API keys, wallet setup, connectivity test                  |
+| `payram-crypto-payments`             | Architecture overview, why PayRam, MCP tools                              |
+| `payram-payment-integration`         | Quick-start payment integration guide                                     |
+| `payram-self-hosted-payment-gateway` | Deploy and own your payment infrastructure                                |
+| `payram-checkout-integration`        | Checkout flow with SDK + HTTP for 6 frameworks                            |
+| `payram-webhook-integration`         | Webhook handlers for Express, Next.js, FastAPI, Gin, Laravel, Spring Boot |
+| `payram-stablecoin-payments`         | USDT/USDC acceptance across EVM chains and Tron                           |
+| `payram-bitcoin-payments`            | BTC with HD wallet derivation and mobile signing                          |
+| `payram-payouts`                     | Send crypto payouts and manage referral programs                          |
+| `payram-no-kyc-crypto-payments`      | No-KYC, no-signup, permissionless payment acceptance                      |
 
 ## Support
 

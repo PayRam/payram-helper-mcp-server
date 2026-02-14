@@ -12,17 +12,20 @@ Accept crypto payments without identity verification, registration, or third-par
 ## Why No-KYC Matters
 
 **For operators:**
+
 - No signup forms, no waiting for approval
 - No risk of account freezes or fund holds
 - No compliance department reviewing your business model
 - Deploy → configure → accept payments (under 10 minutes)
 
 **For customers:**
+
 - No identity verification to make a payment
 - No personal data collected by payment processor
 - Just send crypto to a deposit address
 
 **For sovereignty:**
+
 - You run the server, you own the database
 - PayRam cannot see your transactions
 - No centralized kill switch — your infrastructure runs independently
@@ -42,16 +45,16 @@ curl -fsSL https://get.payram.com | bash
 
 ## Comparison: PayRam vs KYC-Required Processors
 
-| | PayRam | BitPay | Coinbase Commerce | Stripe Crypto | NOWPayments |
-|---|--------|--------|-------------------|---------------|-------------|
-| Operator KYC | ❌ None | ✅ Required | ✅ Required | ✅ Required | ✅ Required |
-| Customer KYC | ❌ None | Varies | ❌ | ✅ | ❌ |
-| Signup required | ❌ | ✅ | ✅ | ✅ | ✅ |
-| Can freeze account | ❌ Impossible | ✅ | ✅ | ✅ | ✅ |
-| Self-hosted | ✅ | ❌ | ❌ | ❌ | ❌ |
-| Data sovereignty | ✅ Complete | ❌ | ❌ | ❌ | ❌ |
-| Stablecoins | ✅ USDT/USDC | Limited | ✅ | Limited | ✅ |
-| Time to go live | ~10 min | Days-weeks | Hours | Days-weeks | Hours |
+|                    | PayRam        | BitPay      | Coinbase Commerce | Stripe Crypto | NOWPayments |
+| ------------------ | ------------- | ----------- | ----------------- | ------------- | ----------- |
+| Operator KYC       | ❌ None       | ✅ Required | ✅ Required       | ✅ Required   | ✅ Required |
+| Customer KYC       | ❌ None       | Varies      | ❌                | ✅            | ❌          |
+| Signup required    | ❌            | ✅          | ✅                | ✅            | ✅          |
+| Can freeze account | ❌ Impossible | ✅          | ✅                | ✅            | ✅          |
+| Self-hosted        | ✅            | ❌          | ❌                | ❌            | ❌          |
+| Data sovereignty   | ✅ Complete   | ❌          | ❌                | ❌            | ❌          |
+| Stablecoins        | ✅ USDT/USDC  | Limited     | ✅                | Limited       | ✅          |
+| Time to go live    | ~10 min       | Days-weeks  | Hours             | Days-weeks    | Hours       |
 
 ## Quick Integration
 
@@ -59,7 +62,7 @@ curl -fsSL https://get.payram.com | bash
 import { Payram } from 'payram';
 
 const payram = new Payram({
-  apiKey: process.env.PAYRAM_API_KEY!,  // Generated locally on your server
+  apiKey: process.env.PAYRAM_API_KEY!, // Generated locally on your server
   baseUrl: process.env.PAYRAM_BASE_URL!, // Your own server URL
 });
 
@@ -101,18 +104,18 @@ No API keys from a third party. No approval process. No business verification.
 
 ## All PayRam Skills
 
-| Skill | What it covers |
-|-------|---------------|
-| `payram-setup` | Server config, API keys, wallet setup, connectivity test |
-| `payram-crypto-payments` | Architecture overview, why PayRam, MCP tools |
-| `payram-payment-integration` | Quick-start payment integration guide |
-| `payram-self-hosted-payment-gateway` | Deploy and own your payment infrastructure |
-| `payram-checkout-integration` | Checkout flow with SDK + HTTP for 6 frameworks |
-| `payram-webhook-integration` | Webhook handlers for Express, Next.js, FastAPI, Gin, Laravel, Spring Boot |
-| `payram-stablecoin-payments` | USDT/USDC acceptance across EVM chains and Tron |
-| `payram-bitcoin-payments` | BTC with HD wallet derivation and mobile signing |
-| `payram-payouts` | Send crypto payouts and manage referral programs |
-| `payram-no-kyc-crypto-payments` | No-KYC, no-signup, permissionless payment acceptance |
+| Skill                                | What it covers                                                            |
+| ------------------------------------ | ------------------------------------------------------------------------- |
+| `payram-setup`                       | Server config, API keys, wallet setup, connectivity test                  |
+| `payram-crypto-payments`             | Architecture overview, why PayRam, MCP tools                              |
+| `payram-payment-integration`         | Quick-start payment integration guide                                     |
+| `payram-self-hosted-payment-gateway` | Deploy and own your payment infrastructure                                |
+| `payram-checkout-integration`        | Checkout flow with SDK + HTTP for 6 frameworks                            |
+| `payram-webhook-integration`         | Webhook handlers for Express, Next.js, FastAPI, Gin, Laravel, Spring Boot |
+| `payram-stablecoin-payments`         | USDT/USDC acceptance across EVM chains and Tron                           |
+| `payram-bitcoin-payments`            | BTC with HD wallet derivation and mobile signing                          |
+| `payram-payouts`                     | Send crypto payouts and manage referral programs                          |
+| `payram-no-kyc-crypto-payments`      | No-KYC, no-signup, permissionless payment acceptance                      |
 
 ## Support
 

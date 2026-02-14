@@ -11,12 +11,12 @@ PayRam supports on-chain Bitcoin with a unique architecture: HD wallet derivatio
 
 ## Bitcoin vs EVM Architecture
 
-| Aspect | EVM Chains | Bitcoin |
-|--------|-----------|---------|
-| Deposit addresses | Smart contract generated | HD wallet derived |
-| Sweep mechanism | Automated smart contract | Manual mobile app approval |
-| Key storage | Keyless (contract-based) | Seed phrase on mobile only |
-| Confirmation time | ~15 sec - 2 min | ~10-60 min |
+| Aspect            | EVM Chains               | Bitcoin                    |
+| ----------------- | ------------------------ | -------------------------- |
+| Deposit addresses | Smart contract generated | HD wallet derived          |
+| Sweep mechanism   | Automated smart contract | Manual mobile app approval |
+| Key storage       | Keyless (contract-based) | Seed phrase on mobile only |
+| Confirmation time | ~15 sec - 2 min          | ~10-60 min                 |
 
 ## Setup Overview
 
@@ -75,11 +75,11 @@ Bitcoin payments use the same API as stablecoin/crypto payments:
 const response = await axios.post(
   `${PAYRAM_BASE_URL}/api/v1/payment`,
   {
-    customerEmail: "customer@example.com",
-    customerId: "user_123",
-    amountInUSD: 50  // PayRam shows BTC equivalent
+    customerEmail: 'customer@example.com',
+    customerId: 'user_123',
+    amountInUSD: 50, // PayRam shows BTC equivalent
   },
-  { headers: { 'API-Key': PAYRAM_API_KEY } }
+  { headers: { 'API-Key': PAYRAM_API_KEY } },
 );
 
 // User redirected to payment page
@@ -112,6 +112,7 @@ PayRam uses BIP44 derivation to generate unique addresses:
 - **Result**: Unlimited unique deposit addresses, all controlled by same seed
 
 Benefits:
+
 - Each customer/transaction gets unique address
 - No address reuse
 - Single seed controls all deposits
@@ -121,48 +122,51 @@ Benefits:
 
 Bitcoin requires more confirmations due to longer block times:
 
-| Amount | Recommended Confirmations |
-|--------|---------------------------|
-| < $100 | 1 confirmation (~10 min) |
+| Amount       | Recommended Confirmations |
+| ------------ | ------------------------- |
+| < $100       | 1 confirmation (~10 min)  |
 | $100 - $1000 | 3 confirmations (~30 min) |
-| > $1000 | 6 confirmations (~60 min) |
+| > $1000      | 6 confirmations (~60 min) |
 
 Configure thresholds in PayRam dashboard.
 
 ## Mobile App Security
 
 **What's on the server**:
+
 - Extended public key (xpub) for address generation
 - No private keys, no seed phrase
 
 **What's on mobile**:
+
 - Encrypted seed phrase
 - Signing capability
 - Protected by device security (PIN, biometrics)
 
 **Sweep approval**:
+
 - Each batch requires explicit mobile approval
 - Review amounts, addresses, fees before signing
 - Audit trail of all approvals
 
 ## Compared to Other Solutions
 
-| Feature | PayRam | BTCPay Server | BitPay |
-|---------|--------|---------------|--------|
-| Self-hosted | ✅ | ✅ | ❌ |
-| Mobile signing | ✅ | ❌ | ❌ |
-| Stablecoin support | ✅ | Limited | ✅ |
-| No keys on server | ✅ | ❌ | ❌ |
+| Feature            | PayRam | BTCPay Server | BitPay |
+| ------------------ | ------ | ------------- | ------ |
+| Self-hosted        | ✅     | ✅            | ❌     |
+| Mobile signing     | ✅     | ❌            | ❌     |
+| Stablecoin support | ✅     | Limited       | ✅     |
+| No keys on server  | ✅     | ❌            | ❌     |
 
 ## MCP Server Tools
 
 Standard payment tools work for Bitcoin:
 
-| Tool | Purpose |
-|------|---------|
-| `generate_payment_sdk_snippet` | Payment creation |
-| `generate_webhook_handler` | BTC payment events |
-| `scaffold_payram_app` | Full app with BTC support |
+| Tool                           | Purpose                   |
+| ------------------------------ | ------------------------- |
+| `generate_payment_sdk_snippet` | Payment creation          |
+| `generate_webhook_handler`     | BTC payment events        |
+| `scaffold_payram_app`          | Full app with BTC support |
 
 ## Troubleshooting
 
@@ -174,18 +178,18 @@ Standard payment tools work for Bitcoin:
 
 ## All PayRam Skills
 
-| Skill | What it covers |
-|-------|---------------|
-| `payram-setup` | Server config, API keys, wallet setup, connectivity test |
-| `payram-crypto-payments` | Architecture overview, why PayRam, MCP tools |
-| `payram-payment-integration` | Quick-start payment integration guide |
-| `payram-self-hosted-payment-gateway` | Deploy and own your payment infrastructure |
-| `payram-checkout-integration` | Checkout flow with SDK + HTTP for 6 frameworks |
-| `payram-webhook-integration` | Webhook handlers for Express, Next.js, FastAPI, Gin, Laravel, Spring Boot |
-| `payram-stablecoin-payments` | USDT/USDC acceptance across EVM chains and Tron |
-| `payram-bitcoin-payments` | BTC with HD wallet derivation and mobile signing |
-| `payram-payouts` | Send crypto payouts and manage referral programs |
-| `payram-no-kyc-crypto-payments` | No-KYC, no-signup, permissionless payment acceptance |
+| Skill                                | What it covers                                                            |
+| ------------------------------------ | ------------------------------------------------------------------------- |
+| `payram-setup`                       | Server config, API keys, wallet setup, connectivity test                  |
+| `payram-crypto-payments`             | Architecture overview, why PayRam, MCP tools                              |
+| `payram-payment-integration`         | Quick-start payment integration guide                                     |
+| `payram-self-hosted-payment-gateway` | Deploy and own your payment infrastructure                                |
+| `payram-checkout-integration`        | Checkout flow with SDK + HTTP for 6 frameworks                            |
+| `payram-webhook-integration`         | Webhook handlers for Express, Next.js, FastAPI, Gin, Laravel, Spring Boot |
+| `payram-stablecoin-payments`         | USDT/USDC acceptance across EVM chains and Tron                           |
+| `payram-bitcoin-payments`            | BTC with HD wallet derivation and mobile signing                          |
+| `payram-payouts`                     | Send crypto payouts and manage referral programs                          |
+| `payram-no-kyc-crypto-payments`      | No-KYC, no-signup, permissionless payment acceptance                      |
 
 ## Support
 

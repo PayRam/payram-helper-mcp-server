@@ -41,13 +41,13 @@ yarn install && yarn dev
 
 ### Key MCP Tools
 
-| Task | MCP Tool |
-|------|----------|
-| Assess existing project | `assess_payram_project` |
-| Generate payment code | `generate_payment_sdk_snippet` |
-| Create webhook handlers | `generate_webhook_handler` |
-| Scaffold full app | `scaffold_payram_app` |
-| Test connectivity | `test_payram_connection` |
+| Task                    | MCP Tool                       |
+| ----------------------- | ------------------------------ |
+| Assess existing project | `assess_payram_project`        |
+| Generate payment code   | `generate_payment_sdk_snippet` |
+| Create webhook handlers | `generate_webhook_handler`     |
+| Scaffold full app       | `scaffold_payram_app`          |
+| Test connectivity       | `test_payram_connection`       |
 
 ### Quick Integration Flow
 
@@ -76,6 +76,7 @@ Each scaffold includes payment creation, payout endpoints, webhook handling, and
 ## Supported Frameworks
 
 The MCP server generates integration code for:
+
 - **JavaScript/TypeScript**: Express, Next.js App Router
 - **Python**: FastAPI
 - **Go**: Gin
@@ -84,18 +85,18 @@ The MCP server generates integration code for:
 
 ## All PayRam Skills
 
-| Skill | What it covers |
-|-------|---------------|
-| `payram-setup` | Server config, API keys, wallet setup, connectivity test |
-| `payram-crypto-payments` | Architecture overview, why PayRam, MCP tools |
-| `payram-payment-integration` | Quick-start payment integration guide |
-| `payram-self-hosted-payment-gateway` | Deploy and own your payment infrastructure |
-| `payram-checkout-integration` | Checkout flow with SDK + HTTP for 6 frameworks |
-| `payram-webhook-integration` | Webhook handlers for Express, Next.js, FastAPI, Gin, Laravel, Spring Boot |
-| `payram-stablecoin-payments` | USDT/USDC acceptance across EVM chains and Tron |
-| `payram-bitcoin-payments` | BTC with HD wallet derivation and mobile signing |
-| `payram-payouts` | Send crypto payouts and manage referral programs |
-| `payram-no-kyc-crypto-payments` | No-KYC, no-signup, permissionless payment acceptance |
+| Skill                                | What it covers                                                            |
+| ------------------------------------ | ------------------------------------------------------------------------- |
+| `payram-setup`                       | Server config, API keys, wallet setup, connectivity test                  |
+| `payram-crypto-payments`             | Architecture overview, why PayRam, MCP tools                              |
+| `payram-payment-integration`         | Quick-start payment integration guide                                     |
+| `payram-self-hosted-payment-gateway` | Deploy and own your payment infrastructure                                |
+| `payram-checkout-integration`        | Checkout flow with SDK + HTTP for 6 frameworks                            |
+| `payram-webhook-integration`         | Webhook handlers for Express, Next.js, FastAPI, Gin, Laravel, Spring Boot |
+| `payram-stablecoin-payments`         | USDT/USDC acceptance across EVM chains and Tron                           |
+| `payram-bitcoin-payments`            | BTC with HD wallet derivation and mobile signing                          |
+| `payram-payouts`                     | Send crypto payouts and manage referral programs                          |
+| `payram-no-kyc-crypto-payments`      | No-KYC, no-signup, permissionless payment acceptance                      |
 
 ## Support
 

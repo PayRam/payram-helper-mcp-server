@@ -14,6 +14,7 @@ PayRam uniquely combines inbound payments with outbound payouts and built-in ref
 Most payment processors handle only inbound. Payouts require separate integrations (Wise, PayPal, manual transfers). Referral tracking needs yet another tool (FirstPromoter, Rewardful).
 
 PayRam consolidates all three:
+
 - **Accept payments** (deposits)
 - **Send payouts** (withdrawals, rewards)
 - **Track referrals** (campaigns, attribution, automated rewards)
@@ -76,26 +77,26 @@ await createPayout({
   email: 'merchant@example.com',
   blockchainCode: 'ETH',
   currencyCode: 'USDC',
-  amount: '125.50',           // MUST be string, not number
+  amount: '125.50', // MUST be string, not number
   toAddress: '0xfeedfacecafebeefdeadbeefdeadbeefdeadbeef',
   customerID: 'cust_123',
-  mobileNumber: '+15555555555',  // Optional, E.164 format required
+  mobileNumber: '+15555555555', // Optional, E.164 format required
   residentialAddress: '1 Market St, San Francisco, CA 94105', // Optional
 });
 ```
 
 ### Payout Fields
 
-| Field | Type | Notes |
-|-------|------|-------|
-| `email` | string | Merchant email associated with payout |
-| `blockchainCode` | string | Network code: 'ETH', 'BTC', 'MATIC', etc. |
-| `currencyCode` | string | Token code: 'USDC', 'USDT', 'BTC', etc. |
-| `amount` | **string** | Amount as string (e.g., '125.50'). NOT a number. |
-| `toAddress` | string | Recipient wallet address |
-| `customerID` | string | Your internal reference ID |
-| `mobileNumber` | string | Optional. E.164 format: +15555555555 |
-| `residentialAddress` | string | Optional. Recipient address (compliance) |
+| Field                | Type       | Notes                                            |
+| -------------------- | ---------- | ------------------------------------------------ |
+| `email`              | string     | Merchant email associated with payout            |
+| `blockchainCode`     | string     | Network code: 'ETH', 'BTC', 'MATIC', etc.        |
+| `currencyCode`       | string     | Token code: 'USDC', 'USDT', 'BTC', etc.          |
+| `amount`             | **string** | Amount as string (e.g., '125.50'). NOT a number. |
+| `toAddress`          | string     | Recipient wallet address                         |
+| `customerID`         | string     | Your internal reference ID                       |
+| `mobileNumber`       | string     | Optional. E.164 format: +15555555555             |
+| `residentialAddress` | string     | Optional. Recipient address (compliance)         |
 
 **Critical:** Amount must be a string. JavaScript numbers lose precision with decimals.
 
@@ -156,8 +157,12 @@ CREATE TABLE payouts (
 router.post('/api/payouts/payram', async (req, res) => {
   const payload = req.body as Partial<CreatePayoutRequest>;
   const requiredFields = [
-    'email', 'blockchainCode', 'currencyCode', 'amount',
-    'toAddress', 'customerID',
+    'email',
+    'blockchainCode',
+    'currencyCode',
+    'amount',
+    'toAddress',
+    'customerID',
   ];
   const missing = requiredFields.filter((f) => !payload[f as keyof CreatePayoutRequest]);
   if (missing.length > 0) {
@@ -188,10 +193,10 @@ Same chains as deposits: Ethereum, Base, Polygon, Tron, Bitcoin.
 
 ### MCP Server Tools
 
-| Tool | Purpose |
-|------|---------|
-| `generate_payout_sdk_snippet` | Payout creation code |
-| `generate_payout_status_snippet` | Status polling code |
+| Tool                             | Purpose              |
+| -------------------------------- | -------------------- |
+| `generate_payout_sdk_snippet`    | Payout creation code |
+| `generate_payout_status_snippet` | Status polling code  |
 
 ## Referral Program
 
@@ -207,38 +212,41 @@ PayRam includes native referral tracking and reward automation.
 ### Referral API Integration
 
 **Generate Referral Link:**
+
 ```javascript
 const referralLink = await payram.createReferralLink({
-  userId: "affiliate_123",
-  campaign: "summer_promo"
+  userId: 'affiliate_123',
+  campaign: 'summer_promo',
 });
 // Returns: https://your-domain.com/ref/abc123
 ```
 
 **Validate Referral on Signup:**
+
 ```javascript
 const validation = await payram.validateReferral({
-  referralCode: "abc123",
-  newUserId: "new_user_456"
+  referralCode: 'abc123',
+  newUserId: 'new_user_456',
 });
 ```
 
 **Check Referral Status:**
+
 ```javascript
 const stats = await payram.getReferralStats({
-  userId: "affiliate_123"
+  userId: 'affiliate_123',
 });
 // Returns: { referrals: 45, earnings: 230, pending: 50 }
 ```
 
 ### MCP Server Tools
 
-| Tool | Purpose |
-|------|---------|
-| `generate_referral_sdk_snippet` | Referral link creation |
-| `generate_referral_validation_snippet` | Signup attribution |
-| `generate_referral_status_snippet` | Stats retrieval |
-| `generate_referral_route_snippet` | Express/Next.js routes |
+| Tool                                   | Purpose                |
+| -------------------------------------- | ---------------------- |
+| `generate_referral_sdk_snippet`        | Referral link creation |
+| `generate_referral_validation_snippet` | Signup attribution     |
+| `generate_referral_status_snippet`     | Stats retrieval        |
+| `generate_referral_route_snippet`      | Express/Next.js routes |
 
 ### Automated Reward Payouts
 
@@ -250,21 +258,26 @@ const stats = await payram.getReferralStats({
 ## Troubleshooting
 
 ### "Insufficient balance" (400)
+
 Check merchant balance, deposit funds, account for gas fees.
 
 ### "Invalid address format" (400)
+
 ETH/Polygon: `0x` + 40 hex chars. BTC: starts with `1`/`3` (legacy) or `bc1` (Bech32), 26-62 chars.
 
 ### Amount must be string
+
 ```typescript
-amount: '125.50'  // ✅ Correct
-amount: 125.50    // ❌ Wrong - validation error
+amount: '125.50'; // ✅ Correct
+amount: 125.5; // ❌ Wrong - validation error
 ```
 
 ### Payout stuck in "pending-approval"
+
 Exceeds auto-approval threshold. Wait for admin approval or adjust thresholds.
 
 ### "Invalid mobile number format" (400)
+
 Use E.164 format: `+15555555555` (no spaces, dashes, or parentheses).
 
 ## Environment Variables
@@ -276,18 +289,18 @@ PAYRAM_API_KEY=your-api-key
 
 ## All PayRam Skills
 
-| Skill | What it covers |
-|-------|---------------|
-| `payram-setup` | Server config, API keys, wallet setup, connectivity test |
-| `payram-crypto-payments` | Architecture overview, why PayRam, MCP tools |
-| `payram-payment-integration` | Quick-start payment integration guide |
-| `payram-self-hosted-payment-gateway` | Deploy and own your payment infrastructure |
-| `payram-checkout-integration` | Checkout flow with SDK + HTTP for 6 frameworks |
-| `payram-webhook-integration` | Webhook handlers for Express, Next.js, FastAPI, Gin, Laravel, Spring Boot |
-| `payram-stablecoin-payments` | USDT/USDC acceptance across EVM chains and Tron |
-| `payram-bitcoin-payments` | BTC with HD wallet derivation and mobile signing |
-| `payram-payouts` | Send crypto payouts and manage referral programs |
-| `payram-no-kyc-crypto-payments` | No-KYC, no-signup, permissionless payment acceptance |
+| Skill                                | What it covers                                                            |
+| ------------------------------------ | ------------------------------------------------------------------------- |
+| `payram-setup`                       | Server config, API keys, wallet setup, connectivity test                  |
+| `payram-crypto-payments`             | Architecture overview, why PayRam, MCP tools                              |
+| `payram-payment-integration`         | Quick-start payment integration guide                                     |
+| `payram-self-hosted-payment-gateway` | Deploy and own your payment infrastructure                                |
+| `payram-checkout-integration`        | Checkout flow with SDK + HTTP for 6 frameworks                            |
+| `payram-webhook-integration`         | Webhook handlers for Express, Next.js, FastAPI, Gin, Laravel, Spring Boot |
+| `payram-stablecoin-payments`         | USDT/USDC acceptance across EVM chains and Tron                           |
+| `payram-bitcoin-payments`            | BTC with HD wallet derivation and mobile signing                          |
+| `payram-payouts`                     | Send crypto payouts and manage referral programs                          |
+| `payram-no-kyc-crypto-payments`      | No-KYC, no-signup, permissionless payment acceptance                      |
 
 ## Support
 

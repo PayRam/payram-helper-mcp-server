@@ -2,6 +2,8 @@ import express from 'express';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
 import { registerTools } from './tools/index.js';
+import { registerPrompts } from './prompts/index.js';
+import { registerResources } from './resources/index.js';
 import { getServerPort } from './config/env.js';
 import { logger } from './utils/logger.js';
 
@@ -22,6 +24,8 @@ const bootstrap = async () => {
   });
 
   registerTools(mcpServer);
+  registerPrompts(mcpServer);
+  registerResources(mcpServer);
 
   const transport = new StreamableHTTPServerTransport({
     // Disable session management so older MCP clients that lack Mcp-Session-Id headers can connect.

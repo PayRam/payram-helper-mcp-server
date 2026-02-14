@@ -28,7 +28,7 @@ const snippetResponseSchema = z.object({
 
 const sdkInputSchema = z
   .object({
-    framework: z.enum(supportedFrameworks),
+    framework: z.enum(supportedFrameworks).describe('Target framework for the payout SDK snippet'),
   })
   .strict();
 

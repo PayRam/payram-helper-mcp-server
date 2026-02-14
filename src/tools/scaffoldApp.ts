@@ -20,10 +20,24 @@ interface ScaffoldResult extends Record<string, unknown> {
 
 const scaffoldInputSchema = z
   .object({
-    language: z.enum(['node', 'python', 'php', 'go', 'java'] as const),
-    framework: z.enum(['express', 'nextjs', 'fastapi', 'laravel', 'gin', 'spring-boot'] as const),
-    appName: z.string().min(1).optional(),
-    includeWebhooks: z.boolean().optional().default(true),
+    language: z
+      .enum(['node', 'python', 'php', 'go', 'java'] as const)
+      .describe('Programming language for the application (node for JavaScript/TypeScript)'),
+    framework: z
+      .enum(['express', 'nextjs', 'fastapi', 'laravel', 'gin', 'spring-boot'] as const)
+      .describe('Web framework to use for scaffolding the application'),
+    appName: z
+      .string()
+      .min(1)
+      .optional()
+      .describe(
+        'Name for the generated application. If not provided, defaults to payram-{framework}-starter',
+      ),
+    includeWebhooks: z
+      .boolean()
+      .optional()
+      .default(true)
+      .describe('Whether to include webhook handler code in the scaffolded application'),
   })
   .strict();
 

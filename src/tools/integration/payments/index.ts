@@ -40,7 +40,11 @@ const snippetResponseSchema = z.object({
 
 const sdkInputSchema = z
   .object({
-    framework: z.enum(['generic-http', 'express', 'nextjs'] as const),
+    framework: z
+      .enum(['generic-http', 'express', 'nextjs'] as const)
+      .describe(
+        'Target framework for the SDK payment snippet. generic-http provides a framework-agnostic example.',
+      ),
   })
   .strict();
 
@@ -51,7 +55,9 @@ const sdkSchemas = buildToolSchemas({
 
 const httpInputSchema = z
   .object({
-    language: z.enum(['python', 'go', 'php', 'java'] as const),
+    language: z
+      .enum(['python', 'go', 'php', 'java'] as const)
+      .describe('Programming language for the HTTP payment creation snippet'),
   })
   .strict();
 
@@ -62,7 +68,9 @@ const httpSchemas = buildToolSchemas({
 
 const statusInputSchema = z
   .object({
-    style: z.enum(['sdk', 'http'] as const),
+    style: z
+      .enum(['sdk', 'http'] as const)
+      .describe('Style of code snippet: sdk uses the Payram SDK, http uses raw HTTP requests'),
   })
   .strict();
 
@@ -73,7 +81,9 @@ const statusSchemas = buildToolSchemas({
 
 const routeInputSchema = z
   .object({
-    framework: z.enum(['express', 'nextjs'] as const),
+    framework: z
+      .enum(['express', 'nextjs'] as const)
+      .describe('Web framework for the payment route handler (Express.js or Next.js)'),
   })
   .strict();
 

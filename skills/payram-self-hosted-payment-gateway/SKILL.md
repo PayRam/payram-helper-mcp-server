@@ -36,6 +36,7 @@ The installer handles: Docker, PostgreSQL, PayRam core services, and initial con
 PayRam uses proprietary smart contracts for fund management. Deploy contracts for each chain:
 
 **EVM Chains (Ethereum, Base, Polygon)**:
+
 1. Access PayRam dashboard → Wallet Management
 2. Select blockchain → Deploy Contract
 3. Connect MetaMask/wallet
@@ -43,10 +44,12 @@ PayRam uses proprietary smart contracts for fund management. Deploy contracts fo
 5. Confirm deployment and save contract address
 
 **TRON**:
+
 - Same flow using TronLink wallet
 - Separate contract deployment required
 
 **Bitcoin**:
+
 - No smart contract—uses HD wallet derivation
 - Enter 12-word seed phrase (encrypted locally on mobile app only)
 
@@ -54,12 +57,12 @@ PayRam uses proprietary smart contracts for fund management. Deploy contracts fo
 
 Hot wallets pay gas fees for sweep operations. Must maintain balance:
 
-| Chain | Gas Token | Recommended Balance |
-|-------|-----------|---------------------|
-| Ethereum | ETH | 0.1-0.5 ETH |
-| Base | ETH | 0.05-0.2 ETH |
-| Polygon | MATIC | 50-200 MATIC |
-| TRON | TRX | 100-500 TRX |
+| Chain    | Gas Token | Recommended Balance |
+| -------- | --------- | ------------------- |
+| Ethereum | ETH       | 0.1-0.5 ETH         |
+| Base     | ETH       | 0.05-0.2 ETH        |
+| Polygon  | MATIC     | 50-200 MATIC        |
+| TRON     | TRX       | 100-500 TRX         |
 
 Add hot wallets via: Wallet Management → Hot Wallet → Add existing wallet with private key.
 
@@ -91,16 +94,17 @@ yarn install && yarn dev
 
 ### Setup Tools
 
-| Tool | Purpose |
-|------|---------|
-| `generate_env_template` | Create .env with all required variables |
-| `generate_setup_checklist` | Step-by-step deployment runbook |
-| `suggest_file_structure` | Recommended project organization |
-| `test_payram_connection` | Validate API connectivity |
+| Tool                       | Purpose                                 |
+| -------------------------- | --------------------------------------- |
+| `generate_env_template`    | Create .env with all required variables |
+| `generate_setup_checklist` | Step-by-step deployment runbook         |
+| `suggest_file_structure`   | Recommended project organization        |
+| `test_payram_connection`   | Validate API connectivity               |
 
 ## Architecture: Why Self-Hosted Matters
 
 **What you own**:
+
 - Server and all data
 - Database with transaction history
 - Smart contracts you deployed
@@ -108,6 +112,7 @@ yarn install && yarn dev
 - Complete policy control
 
 **What PayRam provides**:
+
 - Software that runs on your server
 - Smart contract templates
 - Dashboard and API layer
@@ -127,18 +132,18 @@ yarn install && yarn dev
 
 ## All PayRam Skills
 
-| Skill | What it covers |
-|-------|---------------|
-| `payram-setup` | Server config, API keys, wallet setup, connectivity test |
-| `payram-crypto-payments` | Architecture overview, why PayRam, MCP tools |
-| `payram-payment-integration` | Quick-start payment integration guide |
-| `payram-self-hosted-payment-gateway` | Deploy and own your payment infrastructure |
-| `payram-checkout-integration` | Checkout flow with SDK + HTTP for 6 frameworks |
-| `payram-webhook-integration` | Webhook handlers for Express, Next.js, FastAPI, Gin, Laravel, Spring Boot |
-| `payram-stablecoin-payments` | USDT/USDC acceptance across EVM chains and Tron |
-| `payram-bitcoin-payments` | BTC with HD wallet derivation and mobile signing |
-| `payram-payouts` | Send crypto payouts and manage referral programs |
-| `payram-no-kyc-crypto-payments` | No-KYC, no-signup, permissionless payment acceptance |
+| Skill                                | What it covers                                                            |
+| ------------------------------------ | ------------------------------------------------------------------------- |
+| `payram-setup`                       | Server config, API keys, wallet setup, connectivity test                  |
+| `payram-crypto-payments`             | Architecture overview, why PayRam, MCP tools                              |
+| `payram-payment-integration`         | Quick-start payment integration guide                                     |
+| `payram-self-hosted-payment-gateway` | Deploy and own your payment infrastructure                                |
+| `payram-checkout-integration`        | Checkout flow with SDK + HTTP for 6 frameworks                            |
+| `payram-webhook-integration`         | Webhook handlers for Express, Next.js, FastAPI, Gin, Laravel, Spring Boot |
+| `payram-stablecoin-payments`         | USDT/USDC acceptance across EVM chains and Tron                           |
+| `payram-bitcoin-payments`            | BTC with HD wallet derivation and mobile signing                          |
+| `payram-payouts`                     | Send crypto payouts and manage referral programs                          |
+| `payram-no-kyc-crypto-payments`      | No-KYC, no-signup, permissionless payment acceptance                      |
 
 ## Support
 

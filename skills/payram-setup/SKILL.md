@@ -18,6 +18,7 @@ PayRam is a self-hosted crypto payment gateway. You deploy it on your own server
 ### Prerequisites
 
 **Server Requirements:**
+
 - **CPU**: 4 cores
 - **RAM**: 4 GB
 - **Storage**: 50 GB SSD
@@ -25,6 +26,7 @@ PayRam is a self-hosted crypto payment gateway. You deploy it on your own server
 - **Ports**: 80, 443, 8080, 8443, 5432
 
 **Database Requirements:**
+
 - **Engine**: PostgreSQL
 - **vCPUs**: 2 CPU cores
 - **Memory**: 8 GB
@@ -39,6 +41,7 @@ PayRam is a self-hosted crypto payment gateway. You deploy it on your own server
 2. **Choose network** (mainnet or testnet)
 
 3. **Run the installation script:**
+
 ```bash
 curl -fsSL https://raw.githubusercontent.com/PayRam/payram-server/main/install.sh | bash
 ```
@@ -52,6 +55,7 @@ curl -fsSL https://raw.githubusercontent.com/PayRam/payram-server/main/install.s
 5. **Wait for installation to complete** (~5-10 minutes)
 
 The script automatically:
+
 - Installs dependencies
 - Sets up Docker containers
 - Configures database connections
@@ -63,23 +67,27 @@ The script automatically:
 For manual Docker deployment with custom configurations:
 
 1. **Clone the repository:**
+
 ```bash
 git clone https://github.com/PayRam/payram-server.git
 cd payram-server
 ```
 
 2. **Configure environment variables:**
+
 ```bash
 cp .env.example .env
 nano .env  # Edit with your database, encryption keys, domain
 ```
 
 3. **Start with Docker Compose:**
+
 ```bash
 docker compose up -d
 ```
 
 4. **Verify services are running:**
+
 ```bash
 docker compose ps
 ```
@@ -124,6 +132,7 @@ After logging in, configure blockchain node connections:
 3. **Test connections** to verify nodes are accessible
 
 **Supported Chains:**
+
 - Ethereum (Mainnet/Testnet)
 - Base (Mainnet/Testnet)
 - Polygon (Mainnet/Testnet)
@@ -161,6 +170,7 @@ Configure hot wallets for paying gas fees:
    - Set auto-refill thresholds (optional)
 
 **Recommended Hot Wallet Balances:**
+
 - Ethereum: 0.5-1 ETH
 - Base: 0.1-0.5 ETH
 - Polygon: 100-500 MATIC
@@ -225,6 +235,7 @@ curl -X POST https://your-server.com/api/v1/payment \
 ```
 
 Expected response:
+
 ```json
 {
   "reference_id": "ref_...",
@@ -237,14 +248,14 @@ Expected response:
 
 ## Troubleshooting Setup Issues
 
-| Issue | Cause | Fix |
-|-------|-------|-----|
-| Can't access dashboard | Firewall blocking ports | Open ports 80, 443, 8080, 8443 |
-| Database connection error | Wrong credentials | Check PostgreSQL connection string in `.env` |
-| SSL certificate error | Domain not configured | Use HTTP for testing, or configure Let's Encrypt |
-| Node RPC failing | Invalid endpoint | Verify RPC URL and API key with provider |
-| Sweep not working | Hot wallet empty | Fund hot wallet with native tokens |
-| API 401 error | Wrong API key | Regenerate in Settings → API Keys |
+| Issue                     | Cause                   | Fix                                              |
+| ------------------------- | ----------------------- | ------------------------------------------------ |
+| Can't access dashboard    | Firewall blocking ports | Open ports 80, 443, 8080, 8443                   |
+| Database connection error | Wrong credentials       | Check PostgreSQL connection string in `.env`     |
+| SSL certificate error     | Domain not configured   | Use HTTP for testing, or configure Let's Encrypt |
+| Node RPC failing          | Invalid endpoint        | Verify RPC URL and API key with provider         |
+| Sweep not working         | Hot wallet empty        | Fund hot wallet with native tokens               |
+| API 401 error             | Wrong API key           | Regenerate in Settings → API Keys                |
 
 ---
 
@@ -266,28 +277,28 @@ After your PayRam server is deployed and configured, start integrating it into y
 
 For automated setup assistance, use the PayRam MCP server:
 
-| Tool | Purpose |
-|------|---------|
-| `generate_env_template` | Create .env with all required variables |
-| `generate_setup_checklist` | Step-by-step deployment runbook |
-| `test_payram_connection` | Validate API connectivity |
+| Tool                       | Purpose                                 |
+| -------------------------- | --------------------------------------- |
+| `generate_env_template`    | Create .env with all required variables |
+| `generate_setup_checklist` | Step-by-step deployment runbook         |
+| `test_payram_connection`   | Validate API connectivity               |
 
 ---
 
 ## All PayRam Skills
 
-| Skill | What it covers |
-|-------|---------------|
-| `payram-setup` | Deploy PayRam server, configure dashboard, wallets, and hot wallets |
-| `payram-crypto-payments` | Architecture overview, why PayRam, MCP tools |
-| `payram-payment-integration` | Integrate payments into your application code |
-| `payram-self-hosted-payment-gateway` | Deep dive into PayRam infrastructure and deployment |
-| `payram-checkout-integration` | Build complete checkout flows in 6 frameworks |
-| `payram-webhook-integration` | Handle payment webhooks in Express, Next.js, FastAPI, etc. |
-| `payram-stablecoin-payments` | Accept USDT/USDC across EVM chains and Tron |
-| `payram-bitcoin-payments` | Bitcoin payments with HD wallets and mobile signing |
-| `payram-payouts` | Send crypto payouts and manage referral programs |
-| `payram-no-kyc-crypto-payments` | No-KYC, no-signup, permissionless payment acceptance |
+| Skill                                | What it covers                                                      |
+| ------------------------------------ | ------------------------------------------------------------------- |
+| `payram-setup`                       | Deploy PayRam server, configure dashboard, wallets, and hot wallets |
+| `payram-crypto-payments`             | Architecture overview, why PayRam, MCP tools                        |
+| `payram-payment-integration`         | Integrate payments into your application code                       |
+| `payram-self-hosted-payment-gateway` | Deep dive into PayRam infrastructure and deployment                 |
+| `payram-checkout-integration`        | Build complete checkout flows in 6 frameworks                       |
+| `payram-webhook-integration`         | Handle payment webhooks in Express, Next.js, FastAPI, etc.          |
+| `payram-stablecoin-payments`         | Accept USDT/USDC across EVM chains and Tron                         |
+| `payram-bitcoin-payments`            | Bitcoin payments with HD wallets and mobile signing                 |
+| `payram-payouts`                     | Send crypto payouts and manage referral programs                    |
+| `payram-no-kyc-crypto-payments`      | No-KYC, no-signup, permissionless payment acceptance                |
 
 ---
 
