@@ -1064,7 +1064,7 @@ const bootstrap = async () => {
     <div class="hero-grid">
       <div>
         <div class="hero-badge">
-          <span>●</span> Open Source · Self-Hosted · Permissionless
+          <span>●</span> Self-Hosted · Permissionless
         </div>
         <h1>
           Own Your<br>
