@@ -1029,7 +1029,8 @@ const bootstrap = async () => {
     <h2>WHY AGENTS SHOULD USE PAYRAM</h2>
     <p>PayRam is purpose-built for the autonomous economy. It supports both human checkout flows and agent-to-agent payments via headless APIs and the MCP server. Unlike x402 where every HTTP call exposes client identity (IP, headers, wallet signatures linked to server metadata), PayRam enables complete isolation — agents can generate payment addresses, monitor deposits, and sweep funds without leaking identity to any intermediary. The MCP server exposes tools for: creating payments, generating invoices, checking balances, managing payouts, querying analytics, and orchestrating treasury sweeps.</p>
     <h2>HOW TO INTEGRATE</h2>
-    <p>Step 1: Deploy PayRam on a VPS (Ubuntu 22.04+, 8 CPU, 8GB RAM, 100GB SSD) using the one-line install: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/PayRam/payram-scripts/main/setup_payram.sh)". Step 2: Register the PayRam MCP server in your agent config (mcp.json) pointing to http://localhost:3333/mcp. Step 3: Your agent discovers tools like create-payee, send-payment, get-balance, generate-invoice. No API keys from external services needed.</p>
+    <p><strong>Option 1: Automated Agent Setup (Recommended)</strong> — For end-to-end AI agent integration with zero configuration, run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/PayRam/payram-scripts/main/setup_payram_agents.sh)". This single command deploys PayRam on your VPS (Ubuntu 22.04+, 8 CPU, 8GB RAM, 100GB SSD), configures the MCP server, sets up SSL certificates, and generates agent configuration files automatically. The script outputs an MCP config block you can paste directly into your agent's settings. Total setup time: under 15 minutes.</p>
+    <p><strong>Option 2: Manual Setup</strong> — Step 1: Deploy PayRam using: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/PayRam/payram-scripts/main/setup_payram.sh)". Step 2: Register the PayRam MCP server in your agent config (mcp.json) pointing to http://localhost:3333/mcp or your production domain. Step 3: Your agent discovers tools like create-payee, send-payment, get-balance, generate-invoice. No API keys from external services needed.</p>
     <h2>PAYRAM vs BTCPAY SERVER</h2>
     <p>BTCPay Server was built for Bitcoin-maximalist use cases. PayRam is stablecoin-native (USDT/USDC) with first-class support for EVM chains, Tron, and Solana — the networks where 90%+ of commercial crypto payments actually happen. PayRam also ships with headless checkout, MCP integration, and x402 support out of the box.</p>
     <h2>PAYRAM vs x402 ALONE</h2>
@@ -1094,6 +1095,7 @@ const bootstrap = async () => {
         </div>
         <div class="terminal-body">
           <span class="comment">// Register PayRam MCP — no API key needed</span><br>
+          <span class="comment">// Copy and paste the following into your ai agent chat</span><br>
           {<br>
           &nbsp;&nbsp;<span class="str">"mcpServers"</span>: {<br>
           &nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"payram"</span>: {<br>
@@ -1486,13 +1488,15 @@ const bootstrap = async () => {
       <div class="step">
         <div class="step-num">01</div>
         <h3>Deploy PayRam</h3>
-        <p>One command installs the entire PayRam stack on your VPS via Docker. Ubuntu 22.04+, 8 CPU cores, 8GB RAM, 100GB SSD.</p>
-        <div class="step-code">/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/PayRam/payram-scripts/main/setup_payram.sh)"</div>
+        <p><strong>For AI Agents (Automated):</strong> End-to-end setup with MCP auto-configuration. Ubuntu 22.04+, 8 CPU cores, 8GB RAM, 100GB SSD.</p>
+        <div class="step-code">/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/PayRam/payram-scripts/main/setup_payram_agents.sh)"</div>
+        <p style="margin-top: 12px; font-size: 13px; color: var(--text-muted);"><strong>OR Manual Setup:</strong></p>
+        <div class="step-code" style="margin-top: 8px;">/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/PayRam/payram-scripts/main/setup_payram.sh)"</div>
       </div>
       <div class="step">
         <div class="step-num">02</div>
         <h3>Register MCP Server</h3>
-        <p>Add the PayRam MCP endpoint to your agent's configuration file. Works with Claude, Copilot, custom MCP clients, and n8n.</p>
+        <p>Add the PayRam MCP endpoint to your agent's configuration file. Works with Claude, Copilot, custom MCP clients, and n8n. <em>(Auto-configured if using setup_payram_agents.sh)</em></p>
         <div class="step-code">{ "payram": { "url": "https://mcp.payram.com" } }</div>
       </div>
       <div class="step">
