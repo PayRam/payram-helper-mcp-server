@@ -1,5 +1,7 @@
 # Payram Helper MCP Server
 
+> **Hosted MCP server:** https://mcp.payram.com
+
 An **MCP (Model Context Protocol) server** that teaches GitHub Copilot (and any MCP-aware client) how to integrate with a self-hosted Payram stack. It exposes one-click tools for assessing an existing codebase, scaffolding new starter apps, generating multi-language snippets, reading inline docs, and validating connectivity against your Payram deployment.
 
 ---
@@ -77,7 +79,8 @@ npx skills add payram/payram-helper-mcp-server/compare-crypto-payments
    # exposes HTTP + SSE transports on http://localhost:3333/mcp and /mcp/sse
    ```
 4. **Add the MCP server to Copilot / your MCP client**
-   - Point the client to `http://localhost:3333/mcp` (or `/mcp/sse` if it supports streaming).
+   - Hosted MCP server: `https://mcp.payram.com`.
+   - Local dev server: `http://localhost:3333/mcp` (or `/mcp/sse` if it supports streaming).
 5. **Health check**
    ```bash
    curl http://localhost:3333/healthz
