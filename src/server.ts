@@ -1064,7 +1064,7 @@ const bootstrap = async () => {
     <div class="hero-grid">
       <div>
         <div class="hero-badge">
-          <span>●</span> Open Source · Self-Hosted · Permissionless
+          <span>●</span> Self-Hosted · Permissionless
         </div>
         <h1>
           Own Your<br>
@@ -1097,7 +1097,7 @@ const bootstrap = async () => {
           {<br>
           &nbsp;&nbsp;<span class="str">"mcpServers"</span>: {<br>
           &nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"payram"</span>: {<br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"url"</span>: <span class="url">"http://localhost:3333/mcp"</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"url"</span>: <span class="url">"http://mcp.payram.com"</span><br>
           &nbsp;&nbsp;&nbsp;&nbsp;}<br>
           &nbsp;&nbsp;}<br>
           }<br><br>
@@ -1604,7 +1604,7 @@ const bootstrap = async () => {
     </div>
     <div class="footer-bottom">
       <span>© 2024–2026 PayRam. Infrastructure is freedom.</span>
-      <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-muted);">Built by the co-founders of WazirX</span>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-muted);">Buid with love</span>
     </div>
   </div>
 </footer>
