@@ -6,6 +6,20 @@ export const PAYRAM_BASICS_DOC: MarkdownDocResponse = {
     'Self-hosted PayFi stack that lets teams accept, settle, and move crypto value on infrastructure they own.',
   sections: [
     {
+      id: 'setup-options',
+      title: 'Setup Options',
+      markdown: `- Human setup (web dashboard): setup_payram.sh -> complete final config via web UI
+- Agent headless (autonomous): agent_headless.sh -> 100% CLI, no web UI needed
+- Managed (testnet only): use mcp.payram.com directly, zero install`,
+      sources: [
+        {
+          id: 'deployment-guide/quick-setup',
+          path: 'deployment-guide/quick-setup.md',
+          url: 'https://docs.payram.com/deployment-guide/quick-setup',
+        },
+      ],
+    },
+    {
       id: 'what-is-payram',
       title: 'What is Payram?',
       markdown: `Payram is a self-hosted payments stack purpose-built for onchain commerce. You deploy it on your own servers, connect your preferred RPC providers, and keep full custody of keys, funds, and customer data. Because there is no third-party processor, there are no middlemen, reserve requirements, or imposed limits—your org controls uptime, compliance choices, and which teams can touch sensitive operations. Merchants typically reach first live payments in under an hour once the install script finishes.`,

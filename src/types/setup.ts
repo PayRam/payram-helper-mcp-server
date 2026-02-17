@@ -43,3 +43,9 @@ export interface FileStructureResponse {
   root: FileStructureNode;
   notes?: string;
 }
+
+export interface HeadlessSetupGuideResponse {
+  title: string;
+  description?: string;
+  markdown: string;
+}

@@ -22,7 +22,7 @@ for ((i=1; i<=ITERATIONS; i++)); do
   echo "Starting parallel installation of clawhub skills..."
   for skill in "${skills[@]}"; do
     echo "Launching installation for: $skill"
-    (npx clawhub@latest install "$skill") &
+    (npx clawhub@latest install "$skill" --force) &
   done
   
   # Wait for all parallel installations to complete

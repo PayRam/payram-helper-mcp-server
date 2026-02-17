@@ -17,3 +17,4 @@ lerna-debug.log*
 /out/
 .claude/
 .agents/
+.clawhub/

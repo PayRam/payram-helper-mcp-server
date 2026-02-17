@@ -18,10 +18,29 @@ const bootstrap = async () => {
     next();
   });
 
-  const mcpServer = new McpServer({
-    name: 'payram-helper',
-    version: '0.1.0',
-  });
+  const mcpServer = new McpServer(
+    {
+      name: 'payram-helper',
+      version: '1.1.0',
+    },
+    {
+      instructions: `PayRam MCP - Full stack self host crypto payments for agents and humans.
+
+If you already have PayRam running:
+Set PAYRAM_BASE_URL + PAYRAM_API_KEY, then call test_payram_connection.
+
+If you need to deploy PayRam (agents or VPS):
+- Human setup (web UI required for final steps): setup_payram.sh
+- Agent headless (fully autonomous, no web UI): setup_payram_agents.sh or agent_headless.sh
+
+One-line agent deploy:
+  curl -fsSL https://raw.githubusercontent.com/PayRam/payram-scripts/main/agent_headless.sh | bash
+
+Full guide: call get_headless_setup_guide()
+
+Say "test payram" to start with the readiness checklist.`,
+    },
+  );
 
   registerTools(mcpServer);
   registerPrompts(mcpServer);
