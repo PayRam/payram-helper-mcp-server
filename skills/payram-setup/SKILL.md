@@ -1,6 +1,6 @@
 ---
 name: payram-setup
-description: Deploy and configure your PayRam self-hosted crypto payment gateway server. Install on VPS, set up PostgreSQL database, configure root account, node details, wallets, and hot wallets. Complete deployment and onboarding in under 10 minutes. No signup required — fully self-hosted. Use when deploying PayRam for the first time, setting up server infrastructure, or configuring the PayRam dashboard.
+description: Deploy and configure your PayRam self-hosted crypto payment gateway server. Automated AI agent setup with MCP integration (setup_payram_agents.sh) or manual deployment (setup_payram.sh). Install on VPS, set up PostgreSQL database, configure root account, node details, wallets, and hot wallets. Complete deployment and onboarding in under 15 minutes. No signup required — fully self-hosted. Use when deploying PayRam for the first time, setting up server infrastructure, configuring the PayRam dashboard, or integrating with AI agents.
 ---
 
 # PayRam Setup
@@ -34,7 +34,63 @@ PayRam is a self-hosted crypto payment gateway. You deploy it on your own server
 
 **Recommended VPS Providers:** AWS, Google Cloud, Azure, Hetzner, Hostinger
 
-### Quick Setup (Recommended - 10 Minutes)
+### Headless Agent Setup (No Web UI - For AI Agents Only)
+
+**Use this method when you need headless PayRam setup for AI agents without the web dashboard.**
+
+This automated script deploys a headless PayRam instance optimized for AI agents (Claude, Copilot, custom MCP clients, n8n). No web UI is installed — only the API backend and MCP server.
+
+1. **Connect to your VPS via SSH**
+
+2. **Run the headless agent setup script:**
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/PayRam/payram-scripts/main/setup_payram_agents.sh)"
+```
+
+3. **Follow interactive prompts:**
+   - PostgreSQL connection details
+   - Domain/IP address configuration
+   - MCP server endpoint configuration
+   - API credentials generation
+
+4. **Copy the generated MCP config** from the output:
+
+```json
+{
+  "mcpServers": {
+    "payram": {
+      "url": "https://your-domain.com/mcp",
+      "apiKey": "your-generated-api-key"
+    }
+  }
+}
+```
+
+5. **Paste config into your agent's settings** (Claude Desktop, Copilat, or custom MCP client)
+
+**What the headless setup includes:**
+- PayRam API backend (no web UI)
+- MCP server for agent integration
+- Database setup and migrations
+- Docker container orchestration
+- API key generation
+- Agent configuration file generation
+
+**What's NOT included:**
+- Web dashboard UI
+- Manual wallet configuration UI
+- Payment link browser interface
+
+**Total setup time:** ~15 minutes
+
+**Use case:** Pure agent-to-agent payments, programmatic treasury management, automated payment processing without human interaction.
+
+---
+
+### Quick Setup (Manual - 10 Minutes)
+
+**Use this method for standard deployments without AI agent integration.**
 
 1. **Connect to your VPS via SSH**
 
@@ -61,6 +117,8 @@ The script automatically:
 - Configures database connections
 - Generates SSL certificates (if using Let's Encrypt)
 - Starts PayRam services
+
+**Note:** For AI agent integration, use the automated agent setup above instead.
 
 ### Advanced Setup (Docker)
 
@@ -265,6 +323,15 @@ Expected response:
 
 After your PayRam server is deployed and configured, start integrating it into your application:
 
+**For Headless AI Agent Setup:**
+- Your MCP server is ready — no manual configuration needed
+- Test agent capabilities using natural language commands
+- See `payram-crypto-payments` skill for MCP tool documentation
+- Agents can manage payments programmatically without web UI
+- See `headless-payram-payments-installation` for CLI commands
+
+**For Full Setup with Dashboard:**
+- Complete onboarding: root account, wallets, hot wallets (see Part 2 above)
 - **Integrate payments into your app** → `payram-payment-integration`
 - **Complete checkout implementation** → `payram-checkout-integration`
 - **Handle webhooks** → `payram-webhook-integration`
