@@ -21,12 +21,14 @@ An **MCP (Model Context Protocol) server** that teaches GitHub Copilot (and any 
 
 ## Agent Skills
 
-This repository includes 11 Agent Skills for AI coding assistants. Install them via [skills.sh](https://skills.sh):
+This repository includes 13 Agent Skills for AI coding assistants. Install them via [skills.sh](https://skills.sh):
 
 ### Install individually
 
 ```bash
 npx skills add payram/payram-helper-mcp-server/payram-setup
+npx skills add payram/payram-helper-mcp-server/payram-headless-setup
+npx skills add payram/payram-helper-mcp-server/payram-analytics
 npx skills add payram/payram-helper-mcp-server/payram-crypto-payments
 npx skills add payram/payram-helper-mcp-server/payram-payment-integration
 npx skills add payram/payram-helper-mcp-server/payram-self-hosted-payment-gateway
@@ -41,7 +43,9 @@ npx skills add payram/payram-helper-mcp-server/compare-crypto-payments
 
 | Skill                                | Purpose                                                                       |
 | ------------------------------------ | ----------------------------------------------------------------------------- |
-| `payram-setup`                       | Server config, API keys, wallet setup, connectivity test                      |
+| `payram-setup`                       | Server deployment with web dashboard, manual wallet configuration UI          |
+| `payram-headless-setup`              | Headless CLI-only deployment for AI agents, no web UI                         |
+| `payram-analytics`                   | Analytics dashboards, reports, and payment insights via MCP tools             |
 | `payram-crypto-payments`             | Architecture overview, why PayRam, MCP tools                                  |
 | `payram-payment-integration`         | Quick-start payment integration guide                                         |
 | `payram-self-hosted-payment-gateway` | Deploy and own your payment infrastructure                                    |
