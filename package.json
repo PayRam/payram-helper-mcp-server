@@ -2,7 +2,7 @@
   "name": "payram-mcp-server",
   "version": "1.1.0",
   "private": true,
-  "mcpName": "io.github.PayRam/mcp",
+  "mcpName": "io.github.payram/payram-helper-mcp",
   "type": "module",
   "scripts": {
     "dev": "tsx src/server.ts",
