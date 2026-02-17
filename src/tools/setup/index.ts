@@ -6,6 +6,7 @@ import { safeHandler } from '../common/errors.js';
 import { PAYRAM_ENV_TEMPLATE } from './content/envTemplateContent.js';
 import { PAYRAM_SETUP_CHECKLIST } from './content/setupChecklistContent.js';
 import { PAYRAM_FILE_STRUCTURE } from './content/fileStructureContent.js';
+import { loadRepoMarkdown } from '../../utils/markdownLoader.js';
 
 const textContent = (text: string) => ({ type: 'text' as const, text });
 const toStructuredContent = <T extends object>(value: T) => value as T & Record<string, unknown>;
@@ -78,6 +79,31 @@ const fileStructureSchemas = buildToolSchemas({
   output: fileStructureResponseSchema,
 });
 
+const headlessGuideResponseSchema = z.object({
+  title: z.string(),
+  description: z.string().optional(),
+  markdown: z.string(),
+});
+
+const headlessGuideSchemas = buildToolSchemas({
+  input: z.object({}).strict(),
+  output: headlessGuideResponseSchema,
+});
+
+const formatChecklistMarkdown = () => {
+  const header = `## ${PAYRAM_SETUP_CHECKLIST.title}`;
+  const description = PAYRAM_SETUP_CHECKLIST.description
+    ? `\n${PAYRAM_SETUP_CHECKLIST.description}`
+    : '';
+  const items = PAYRAM_SETUP_CHECKLIST.items.map((item, index) => {
+    const optional = item.optional ? ' (optional)' : '';
+    const refs = item.docsRefs?.length ? `\n   Docs: ${item.docsRefs.join(', ')}` : '';
+    return `${index + 1}. **${item.label}**${optional} - ${item.description}${refs}`;
+  }).join('\n');
+  const notes = PAYRAM_SETUP_CHECKLIST.notes ? `\n\nNotes: ${PAYRAM_SETUP_CHECKLIST.notes}` : '';
+  return `${header}${description}\n\n${items}${notes}`;
+};
+
 export const registerSetupTools = (server: McpServer) => {
   logger.info('Registering merchant setup tools...');
 
@@ -110,7 +136,10 @@ export const registerSetupTools = (server: McpServer) => {
     },
     safeHandler(
       async () => ({
-        content: [textContent('Delivered merchant setup checklist.')],
+        content: [
+          textContent('Delivered merchant setup checklist.'),
+          textContent(formatChecklistMarkdown()),
+        ],
         structuredContent: toStructuredContent(PAYRAM_SETUP_CHECKLIST),
       }),
       { toolName: 'generate_setup_checklist' },
@@ -131,6 +160,36 @@ export const registerSetupTools = (server: McpServer) => {
         structuredContent: toStructuredContent(PAYRAM_FILE_STRUCTURE),
       }),
       { toolName: 'suggest_file_structure' },
+    ),
+  );
+
+  server.registerTool(
+    'get_headless_setup_guide',
+    {
+      title: 'Get Payram Headless Setup Guide',
+      description:
+        'Returns the complete autonomous agent setup guide for deploying Payram without any web UI or human interaction.',
+      inputSchema: headlessGuideSchemas.input,
+      outputSchema: headlessGuideSchemas.output,
+    },
+    safeHandler(
+      async () => {
+        const markdown = await loadRepoMarkdown('docs/PAYRAM_HEADLESS_AGENT.md');
+        const response = {
+          title: 'PayRam Headless - Agent Guide',
+          description: 'CLI-only setup flow for autonomous Payram deployment without web UI.',
+          markdown,
+        };
+
+        return {
+          content: [
+            textContent('Delivered Payram headless setup guide.'),
+            textContent(markdown),
+          ],
+          structuredContent: toStructuredContent(response),
+        };
+      },
+      { toolName: 'get_headless_setup_guide' },
     ),
   );
 };
