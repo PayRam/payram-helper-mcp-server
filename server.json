@@ -1,6 +1,6 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-10-17/server.schema.json",
-  "name": "@PayRam/mcp",
+  "name": "PayRam/mcp",
   "title": "PayRam Helper MCP Server",
   "description": "Remote MCP server to integrate and validate self-hosted PayRam deployments.",
   "version": "1.0.0",
