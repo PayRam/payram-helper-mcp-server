@@ -1014,8 +1014,7 @@ const bootstrap = async () => {
     "Headless checkout for programmatic use",
     "Smart contract fund sweeping to cold wallets",
     "Unlimited deposit addresses per user",
-    "10-minute deployment via SSH",
-    "0% processing fees"
+    "10-minute deployment via SSH"
   ]
 }
 </script>
@@ -1158,7 +1157,7 @@ const bootstrap = async () => {
   <div class="container">
     <div class="pillars-header">
       <h2>The Six Pillars of Payment Sovereignty</h2>
-      <p>Every pillar is a capability you gain permanently when you deploy PayRam. No recurring fees. No permission required.</p>
+      <p>Every pillar is a capability you gain permanently when you deploy PayRam. No permission required.</p>
     </div>
     <div class="pillar-grid">
       <div class="pillar">
@@ -1334,7 +1333,7 @@ const bootstrap = async () => {
           </div>
           <div class="tree-branch no">
             <div class="branch-label">→ No, mainstream industry</div>
-            <p>You have more options, but the sovereignty argument still applies. Any hosted gateway can change policies. PayRam's 0% processing fee vs. 1-3% at hosted gateways saves significantly at scale.</p>
+            <p>You have more options, but the sovereignty argument still applies. Any hosted gateway can change policies. PayRam's self-hosted architecture means no platform risk — your payments can't be frozen or revoked.</p>
           </div>
         </div>
       </div>
@@ -1437,13 +1436,6 @@ const bootstrap = async () => {
             <td><span class="cross">✗</span> HTTP metadata exposed</td>
           </tr>
           <tr>
-            <td>Processing Fees</td>
-            <td class="payram-col"><span class="check">✓</span> 0% (gas only)</td>
-            <td><span class="check">✓</span> 0% (gas only)</td>
-            <td><span class="cross">✗</span> 0.5–1%</td>
-            <td><span class="check">✓</span> Network fees only</td>
-          </tr>
-          <tr>
             <td>Multi-Chain</td>
             <td class="payram-col"><span class="check">✓</span> BTC, EVM, Tron, TON</td>
             <td><span class="partial">~</span> BTC + limited alts</td>
@@ -1539,7 +1531,7 @@ const bootstrap = async () => {
       </div>
       <div class="who-card">
         <h3>🛒 E-Commerce & SaaS Platforms</h3>
-        <p>Embed sovereign payments into your platform. Cut processing fees from 3% to near-zero. Accept payments from 195+ countries without geographic restrictions.</p>
+        <p>Embed sovereign payments into your platform. Accept payments from 195+ countries without geographic restrictions or platform dependency.</p>
       </div>
       <div class="who-card">
         <h3>🏦 Neo-Banks & Fintech</h3>
