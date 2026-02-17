@@ -127,6 +127,8 @@ Key tools: `generate_payment_sdk_snippet`, `generate_webhook_handler`, `scaffold
 | Skill                                | What it covers                                                            |
 | ------------------------------------ | ------------------------------------------------------------------------- |
 | `payram-setup`                       | Server config, API keys, wallet setup, connectivity test                  |
+| `payram-headless-setup`              | Headless CLI-only deployment for AI agents, no web UI                     |
+| `payram-analytics`                   | Analytics dashboards, reports, and payment insights via MCP tools         |
 | `payram-crypto-payments`             | Architecture overview, why PayRam, MCP tools                              |
 | `payram-payment-integration`         | Quick-start payment integration guide                                     |
 | `payram-self-hosted-payment-gateway` | Deploy and own your payment infrastructure                                |

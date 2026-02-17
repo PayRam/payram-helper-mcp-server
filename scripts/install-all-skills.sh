@@ -6,6 +6,8 @@ ITERATIONS=${1:-10}
 
 skills=(
   payram-setup
+  payram-headless-setup
+  payram-analytics
   payram-crypto-payments
   payram-payment-integration
   payram-self-hosted-payment-gateway
