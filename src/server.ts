@@ -106,6 +106,14 @@ Say "test payram" to start with the readiness checklist.`,
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GGW57ME89J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-GGW57ME89J');
+</script>
 <title>PayRam MCP — Sovereign Crypto Payments for Agents & Humans setup</title>
 <meta name="description" content="The world's first self-hosted stablecoin payment gateway with MCP integration. No signup. No KYC. No middleman. Own your payment stack permanently.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1162,7 +1170,7 @@ Say "test payram" to start with the readiness checklist.`,
         <h3>Multi-Chain, Stablecoin-Native</h3>
         <p>While BTCPay Server requires complex plugins for non-Bitcoin assets, PayRam supports USDT/USDC natively across Ethereum, Base, Polygon, Tron, and TON — the chains where real commercial volume flows. Bitcoin is also supported. Agents can specify chain preference per transaction.</p>
       </div>
-      <div class="brief-card">
+      <div class="brief-card full-width">
         <div class="icon">⚡</div>
         <h3>Integrate With Your Store in Minutes</h3>
         <p>Drop PayRam into any stack — Express, Next.js, FastAPI, Laravel, Go, Spring Boot. The MCP server generates ready-to-use payment routes, webhook handlers, and status-checking endpoints for your framework. Real-time deposit detection, automatic webhook callbacks on payment confirmation, payout tracking, and full payment lifecycle visibility — all wired up in minutes, not weeks.</p>
