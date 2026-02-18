@@ -1170,10 +1170,15 @@ Say "test payram" to start with the readiness checklist.`,
         <h3>Multi-Chain, Stablecoin-Native</h3>
         <p>While BTCPay Server requires complex plugins for non-Bitcoin assets, PayRam supports USDT/USDC natively across Ethereum, Base, Polygon, Tron, and TON — the chains where real commercial volume flows. Bitcoin is also supported. Agents can specify chain preference per transaction.</p>
       </div>
-      <div class="brief-card full-width">
+      <div class="brief-card">
         <div class="icon">⚡</div>
         <h3>Integrate With Your Store in Minutes</h3>
-        <p>Drop PayRam into any stack — Express, Next.js, FastAPI, Laravel, Go, Spring Boot. The MCP server generates ready-to-use payment routes, webhook handlers, and status-checking endpoints for your framework. Real-time deposit detection, automatic webhook callbacks on payment confirmation, payout tracking, and full payment lifecycle visibility — all wired up in minutes, not weeks.</p>
+        <p>Drop PayRam into any stack — Express, Next.js, FastAPI, Laravel, Go, Spring Boot. The MCP server generates ready-to-use payment routes, status-checking endpoints, and webhook handlers for your framework. Minutes to integrate, not weeks.</p>
+      </div>
+      <div class="brief-card">
+        <div class="icon">🔔</div>
+        <h3>Webhooks, Deposit Status &amp; Payouts</h3>
+        <p>Real-time deposit detection with automatic webhook callbacks on payment confirmation. Track payout status, monitor the full payment lifecycle, and get notified at every stage — from invoice creation through settlement. Your agent or backend stays in sync without polling.</p>
       </div>
       <div class="brief-card full-width">
         <div class="icon">🧠</div>
