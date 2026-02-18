@@ -9,7 +9,7 @@ export const PAYRAM_BASICS_DOC: MarkdownDocResponse = {
       id: 'setup-options',
       title: 'Setup Options',
       markdown: `- Human setup (web dashboard): setup_payram.sh -> complete final config via web UI
-- Agent headless (autonomous): agent_headless.sh -> 100% CLI, no web UI needed
+- Agent setup (autonomous): agent_headless.sh -> 100% CLI, no web UI needed
 - Managed (testnet only): use mcp.payram.com directly, zero install`,
       sources: [
         {

@@ -1,6 +1,6 @@
-# PayRam Headless - Agent Guide
+# PayRam Agent Onboarding Guide
 
-Use this guide when running or automating PayRam headless (CLI-only, no web UI). Only this repo may be modified; payram-core, payram-frontend, etc. are read-only.
+Use this guide when running or automating PayRam for agents (CLI-only, no web UI). Only this repo may be modified; payram-core, payram-frontend, etc. are read-only.
 
 ---
 
@@ -18,9 +18,9 @@ Run from repo root: `./setup_payram_agents.sh [command]`
 
 **Entrypoint modes:**
 
-- **One-step flow (install + headless):**
+- **One-step flow (install + agent setup):**
   - `./setup_payram_agents.sh` (prompts for network, then runs setup/signin/config/wallet/payment)
-- **Headless-only commands:**
+- **Agent-only commands:**
   - `./setup_payram_agents.sh status|setup|signin|ensure-config|ensure-wallet|deploy-scw|deploy-scw-flow|setup-eth|setup-base|create-payment-link|reset-local|menu|run`
 
 | Command | Purpose |

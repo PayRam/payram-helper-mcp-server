@@ -1,6 +1,6 @@
 ---
 name: payram-setup
-description: Deploy and configure your PayRam self-hosted crypto payment gateway server with web dashboard. Install on VPS via setup_payram.sh, set up PostgreSQL database, configure root account, node details, wallets, and hot wallets through the web UI. Complete deployment and onboarding in under 10 minutes. No signup required — fully self-hosted. For headless/CLI-only deployment optimized for AI agents without web UI, see payram-headless-setup. Use when deploying PayRam with dashboard interface, setting up server infrastructure with web-based configuration, or requiring manual wallet management UI.
+description: Deploy and configure your PayRam self-hosted crypto payment gateway server with web dashboard. Install on VPS via setup_payram.sh, set up PostgreSQL database, configure root account, node details, wallets, and hot wallets through the web UI. Complete deployment and onboarding in under 10 minutes. No signup required — fully self-hosted. For CLI-only deployment optimized for AI agents without web UI, see payram-agent-onboarding. Use when deploying PayRam with dashboard interface, setting up server infrastructure with web-based configuration, or requiring manual wallet management UI.
 ---
 
 # PayRam Setup
@@ -11,7 +11,7 @@ description: Deploy and configure your PayRam self-hosted crypto payment gateway
 
 PayRam is a self-hosted crypto payment gateway. You deploy it on your own server — no signup, no KYC, no third-party custody. Accept USDT, USDC, Bitcoin, and ETH across Ethereum, Base, Polygon, and Tron.
 
-> **Need headless deployment for AI agents?** See [`payram-headless-setup`](https://github.com/PayRam/payram-helper-mcp-server/tree/main/skills/payram-headless-setup) for CLI-only installation without web UI, optimized for agent automation and programmatic control.
+> **Need CLI-only deployment for AI agents?** See [`payram-agent-onboarding`](https://github.com/PayRam/payram-helper-mcp-server/tree/main/skills/payram-agent-onboarding) for CLI-only installation without web UI, optimized for agent automation and programmatic control.
 
 ---
 
@@ -36,15 +36,15 @@ PayRam is a self-hosted crypto payment gateway. You deploy it on your own server
 
 **Recommended VPS Providers:** AWS, Google Cloud, Azure, Hetzner, Hostinger
 
-### Headless Agent Setup (No Web UI - For AI Agents Only)
+### Agent Onboarding Setup (No Web UI - For AI Agents Only)
 
-**Use this method when you need headless PayRam setup for AI agents without the web dashboard.**
+**Use this method when you need agent-only PayRam setup for AI agents without the web dashboard.**
 
-This automated script deploys a headless PayRam instance optimized for AI agents (Claude, Copilot, custom MCP clients, n8n). No web UI is installed — only the API backend and MCP server.
+This automated script deploys a PayRam instance optimized for AI agents (Claude, Copilot, custom MCP clients, n8n). No web UI is installed — only the API backend and MCP server.
 
 1. **Connect to your VPS via SSH**
 
-2. **Run the headless agent setup script:**
+2. **Run the agent onboarding setup script:**
 
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/PayRam/payram-scripts/main/setup_payram_agents.sh)"
@@ -71,7 +71,7 @@ This automated script deploys a headless PayRam instance optimized for AI agents
 
 5. **Paste config into your agent's settings** (Claude Desktop, Copilat, or custom MCP client)
 
-**What the headless setup includes:**
+**What the agent onboarding setup includes:**
 - PayRam API backend (no web UI)
 - MCP server for agent integration
 - Database setup and migrations
@@ -325,12 +325,12 @@ Expected response:
 
 After your PayRam server is deployed and configured, start integrating it into your application:
 
-**For Headless AI Agent Setup:**
+**For AI Agent Onboarding Setup:**
 - Your MCP server is ready — no manual configuration needed
 - Test agent capabilities using natural language commands
 - See `payram-crypto-payments` skill for MCP tool documentation
 - Agents can manage payments programmatically without web UI
-- See `headless-payram-payments-installation` for CLI commands
+- See `payram-agent-onboarding` for CLI commands
 
 **For Full Setup with Dashboard:**
 - Complete onboarding: root account, wallets, hot wallets (see Part 2 above)
@@ -359,7 +359,7 @@ For automated setup assistance, use the PayRam MCP server:
 | Skill                                | What it covers                                                      |
 | ------------------------------------ | ------------------------------------------------------------------- |
 | `payram-setup`                       | Deploy PayRam server, configure dashboard, wallets, and hot wallets |
-| `payram-headless-setup`              | Headless CLI-only deployment for AI agents, no web UI               |
+| `payram-agent-onboarding`            | Agent onboarding — CLI-only deployment for AI agents, no web UI     |
 | `payram-analytics`                   | Analytics dashboards, reports, and payment insights via MCP tools   |
 | `payram-crypto-payments`             | Architecture overview, why PayRam, MCP tools                        |
 | `payram-payment-integration`         | Integrate payments into your application code                       |

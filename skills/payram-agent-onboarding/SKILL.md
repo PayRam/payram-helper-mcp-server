@@ -1,15 +1,15 @@
 ---
-name: payram-headless-setup
-description: Deploy and automate PayRam in headless mode for AI agents and CLI-only environments. No web UI required — pure API-driven payment infrastructure. Install via setup_payram_agents.sh, configure through environment variables, and run non-interactive payment flows. Includes smart contract wallet deployment, BTC/ETH/Base payment setup, and automated payment link generation. Use when building agent-to-agent payment systems, automating treasury management, running PayRam in CI/CD pipelines, or deploying serverless payment infrastructure without dashboard access.
+name: payram-agent-onboarding
+description: Deploy and automate PayRam for AI agents and CLI-only environments. No web UI required — pure API-driven payment infrastructure. Install via setup_payram_agents.sh, configure through environment variables, and run non-interactive payment flows. Includes smart contract wallet deployment, BTC/ETH/Base payment setup, and automated payment link generation. Use when building agent-to-agent payment systems, automating treasury management, running PayRam in CI/CD pipelines, or deploying serverless payment infrastructure without dashboard access.
 ---
 
-# PayRam Headless Setup
+# PayRam Agent Onboarding
 
 > **Looking for standard deployment with web UI?** See [`payram-setup`](https://github.com/PayRam/payram-helper-mcp-server/tree/main/skills/payram-setup) for the full dashboard installation.
 
-PayRam Headless enables fully automated, CLI-driven payment infrastructure for AI agents, automation pipelines, and serverless environments. No web dashboard — pure API interactions controlled via environment variables and shell commands.
+PayRam Agent Onboarding enables fully automated, CLI-driven payment infrastructure for AI agents, automation pipelines, and serverless environments. No web dashboard — pure API interactions controlled via environment variables and shell commands.
 
-## When to Use Headless Mode
+## When to Use Agent Mode
 
 - **AI Agent Payments**: Claude, Copilot, custom MCP clients processing payments autonomously
 - **CI/CD Integration**: Automated payment testing in deployment pipelines
@@ -369,7 +369,7 @@ Ensure Docker has access to host networking:
 
 ## Integration with MCP Clients
 
-Connect your AI agent to PayRam Headless:
+Connect your AI agent to PayRam:
 
 ```json
 {
@@ -384,7 +384,7 @@ Connect your AI agent to PayRam Headless:
 
 **Agent Workflow:**
 1. Agent calls PayRam MCP tools for payment operations
-2. PayRam Headless processes API requests without UI interaction
+2. PayRam processes API requests without UI interaction
 3. Webhooks notify agent of payment status changes
 4. Agent continues workflow based on payment outcomes
 

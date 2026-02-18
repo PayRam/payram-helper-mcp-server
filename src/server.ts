@@ -29,14 +29,14 @@ const bootstrap = async () => {
 If you already have PayRam running:
 Set PAYRAM_BASE_URL + PAYRAM_API_KEY, then call test_payram_connection.
 
-If you need to deploy PayRam (agents or VPS):
+Setup PayRam locally in 1min for agents or humans:
 - Human setup (web UI required for final steps): setup_payram.sh
-- Agent headless (fully autonomous, no web UI): setup_payram_agents.sh or agent_headless.sh
+- Agent setup (fully autonomous, no web UI): setup_payram_agents.sh
 
 One-line agent deploy:
-  curl -fsSL https://raw.githubusercontent.com/PayRam/payram-scripts/main/agent_headless.sh | bash
+  curl -fsSL https://raw.githubusercontent.com/PayRam/payram-scripts/refs/heads/main/setup_payram_agents.sh | bash
 
-Full guide: call get_headless_setup_guide()
+Full guide: call onboard_agent_setup()
 
 Say "test payram" to start with the readiness checklist.`,
     },
@@ -106,7 +106,7 @@ Say "test payram" to start with the readiness checklist.`,
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PayRam MCP — Sovereign Crypto Payments for Agents & Humans</title>
+<title>PayRam MCP — Sovereign Crypto Payments for Agents & Humans setup</title>
 <meta name="description" content="The world's first self-hosted stablecoin payment gateway with MCP integration. No signup. No KYC. No middleman. Own your payment stack permanently.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1083,7 +1083,7 @@ Say "test payram" to start with the readiness checklist.`,
     <div class="hero-grid">
       <div>
         <div class="hero-badge">
-          <span>●</span> Self-Hosted · Permissionless
+          <span>●</span> Self-Hosted · No Signup · Permissionless
         </div>
         <h1>
           Own Your<br>
@@ -1113,7 +1113,7 @@ Say "test payram" to start with the readiness checklist.`,
         </div>
         <div class="terminal-body">
           <span class="comment">// Register PayRam MCP — no API key needed</span><br>
-          <span class="comment">// Copy and paste the following into your ai agent chat</span><br>
+          <span class="comment">// Paste this into your ai agent, its hosted MCP</span><br>
           {<br>
           &nbsp;&nbsp;<span class="str">"mcpServers"</span>: {<br>
           &nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"payram"</span>: {<br>
@@ -1161,6 +1161,11 @@ Say "test payram" to start with the readiness checklist.`,
         <div class="icon">⛓️</div>
         <h3>Multi-Chain, Stablecoin-Native</h3>
         <p>While BTCPay Server requires complex plugins for non-Bitcoin assets, PayRam supports USDT/USDC natively across Ethereum, Base, Polygon, Tron, and TON — the chains where real commercial volume flows. Bitcoin is also supported. Agents can specify chain preference per transaction.</p>
+      </div>
+      <div class="brief-card">
+        <div class="icon">⚡</div>
+        <h3>Integrate With Your Store in Minutes</h3>
+        <p>Drop PayRam into any stack — Express, Next.js, FastAPI, Laravel, Go, Spring Boot. The MCP server generates ready-to-use payment routes, webhook handlers, and status-checking endpoints for your framework. Real-time deposit detection, automatic webhook callbacks on payment confirmation, payout tracking, and full payment lifecycle visibility — all wired up in minutes, not weeks.</p>
       </div>
       <div class="brief-card full-width">
         <div class="icon">🧠</div>

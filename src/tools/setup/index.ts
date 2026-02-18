@@ -79,15 +79,15 @@ const fileStructureSchemas = buildToolSchemas({
   output: fileStructureResponseSchema,
 });
 
-const headlessGuideResponseSchema = z.object({
+const agentSetupGuideResponseSchema = z.object({
   title: z.string(),
   description: z.string().optional(),
   markdown: z.string(),
 });
 
-const headlessGuideSchemas = buildToolSchemas({
+const agentSetupGuideSchemas = buildToolSchemas({
   input: z.object({}).strict(),
-  output: headlessGuideResponseSchema,
+  output: agentSetupGuideResponseSchema,
 });
 
 const formatChecklistMarkdown = () => {
@@ -164,32 +164,32 @@ export const registerSetupTools = (server: McpServer) => {
   );
 
   server.registerTool(
-    'get_headless_setup_guide',
+    'onboard_agent_setup',
     {
-      title: 'Get Payram Headless Setup Guide',
+      title: 'Get Payram Agent Onboarding Guide',
       description:
         'Returns the complete autonomous agent setup guide for deploying Payram without any web UI or human interaction.',
-      inputSchema: headlessGuideSchemas.input,
-      outputSchema: headlessGuideSchemas.output,
+      inputSchema: agentSetupGuideSchemas.input,
+      outputSchema: agentSetupGuideSchemas.output,
     },
     safeHandler(
       async () => {
-        const markdown = await loadRepoMarkdown('docs/PAYRAM_HEADLESS_AGENT.md');
+        const markdown = await loadRepoMarkdown('docs/PAYRAM_AGENT_ONBOARDING.md');
         const response = {
-          title: 'PayRam Headless - Agent Guide',
+          title: 'PayRam Agent Onboarding Guide',
           description: 'CLI-only setup flow for autonomous Payram deployment without web UI.',
           markdown,
         };
 
         return {
           content: [
-            textContent('Delivered Payram headless setup guide.'),
+            textContent('Delivered Payram agent onboarding guide.'),
             textContent(markdown),
           ],
           structuredContent: toStructuredContent(response),
         };
       },
-      { toolName: 'get_headless_setup_guide' },
+      { toolName: 'onboard_agent_setup' },
     ),
   );
 };

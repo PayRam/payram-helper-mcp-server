@@ -44,7 +44,7 @@ export interface FileStructureResponse {
   notes?: string;
 }
 
-export interface HeadlessSetupGuideResponse {
+export interface AgentSetupGuideResponse {
   title: string;
   description?: string;
   markdown: string;

@@ -25,7 +25,7 @@ export const registerPrompts = (server: McpServer) => {
               type: 'text',
               text: `I want to set up Payram in my project. Please help me:
 1. If Payram is not running yet, offer two setup paths:
-   - Headless agent setup (call get_headless_setup_guide)
+   - Agent onboarding setup (call onboard_agent_setup)
    - Human setup with web UI (setup_payram.sh)
 2. Test my Payram connection (use test_payram_connection tool)
 3. If not configured, guide me through creating a .env file with PAYRAM_BASE_URL and PAYRAM_API_KEY
@@ -42,9 +42,9 @@ Walk me through each step interactively.`,
   );
 
   server.registerPrompt(
-    'setup-payram-headless',
+    'setup-payram-agent',
     {
-      title: 'Setup Payram Headless',
+      title: 'Setup Payram Agent',
       description: 'Autonomous agent guide to deploy and configure Payram with no web UI',
     },
     async () => {
@@ -54,7 +54,7 @@ Walk me through each step interactively.`,
             role: 'user',
             content: {
               type: 'text',
-              text: 'I am an autonomous agent. I need to deploy Payram on a VPS without any web UI or human steps. Call get_headless_setup_guide and walk me through the complete automated setup.',
+              text: 'I am an autonomous agent. I need to deploy Payram on a VPS without any web UI or human steps. Call onboard_agent_setup and walk me through the complete automated setup.',
             },
           },
         ],

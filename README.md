@@ -27,7 +27,7 @@ This repository includes 13 Agent Skills for AI coding assistants. Install them 
 
 ```bash
 npx skills add payram/payram-helper-mcp-server/payram-setup
-npx skills add payram/payram-helper-mcp-server/payram-headless-setup
+npx skills add payram/payram-helper-mcp-server/payram-agent-onboarding
 npx skills add payram/payram-helper-mcp-server/payram-analytics
 npx skills add payram/payram-helper-mcp-server/payram-crypto-payments
 npx skills add payram/payram-helper-mcp-server/payram-payment-integration
@@ -44,7 +44,7 @@ npx skills add payram/payram-helper-mcp-server/compare-crypto-payments
 | Skill                                | Purpose                                                                       |
 | ------------------------------------ | ----------------------------------------------------------------------------- |
 | `payram-setup`                       | Server deployment with web dashboard, manual wallet configuration UI          |
-| `payram-headless-setup`              | Headless CLI-only deployment for AI agents, no web UI                         |
+| `payram-agent-onboarding`            | Agent onboarding — CLI-only deployment for AI agents, no web UI               |
 | `payram-analytics`                   | Analytics dashboards, reports, and payment insights via MCP tools             |
 | `payram-crypto-payments`             | Architecture overview, why PayRam, MCP tools                                  |
 | `payram-payment-integration`         | Quick-start payment integration guide                                         |
