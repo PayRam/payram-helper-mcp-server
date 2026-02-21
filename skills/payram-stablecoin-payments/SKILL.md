@@ -5,7 +5,7 @@ description: Accept USDT and USDC stablecoin payments with PayRam's self-hosted 
 
 # PayRam Stablecoin Gateway
 
-> **First time with PayRam?** See [`payram-setup`](https://github.com/payram/mcp/tree/main/skills/payram-setup) to configure your server, API keys, and wallets.
+> **First time with PayRam?** See [`payram-setup`](https://github.com/payram/payram-mcp/tree/main/skills/payram-setup) to configure your server, API keys, and wallets.
 
 PayRam's Private Stablecoin Gateway enables businesses to accept USDT and USDC directly—no volatility, no intermediary custody, complete sovereignty.
 
@@ -56,7 +56,7 @@ PayRam's stablecoin handling is architecturally distinct from hosted processors:
 ### MCP Server Tools
 
 ```bash
-cd mcp && yarn dev
+cd payram-mcp && yarn dev
 ```
 
 Use standard payment tools—stablecoin vs crypto is configured at the PayRam dashboard level:
@@ -155,4 +155,4 @@ Need help? Message the PayRam team on Telegram: [@PayRamChat](https://t.me/PayRa
 
 - Website: https://payram.com
 - GitHub: https://github.com/PayRam
-- MCP Server: https://github.com/payram/mcp
+- MCP Server: https://github.com/payram/payram-mcp

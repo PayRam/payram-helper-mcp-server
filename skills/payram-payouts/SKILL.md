@@ -5,7 +5,7 @@ description: Send crypto payouts and manage referral programs with PayRam. Self-
 
 # PayRam Payouts & Referrals
 
-> **First time with PayRam?** See [`payram-setup`](https://github.com/payram/mcp/tree/main/skills/payram-setup) to configure your server, API keys, and wallets.
+> **First time with PayRam?** See [`payram-setup`](https://github.com/payram/payram-mcp/tree/main/skills/payram-setup) to configure your server, API keys, and wallets.
 
 PayRam uniquely combines inbound payments with outbound payouts and built-in referral tracking—a complete payment + growth stack in one self-hosted platform.
 
@@ -310,4 +310,4 @@ Need help? Message the PayRam team on Telegram: [@PayRamChat](https://t.me/PayRa
 
 - Website: https://payram.com
 - GitHub: https://github.com/PayRam
-- MCP Server: https://github.com/payram/mcp
+- MCP Server: https://github.com/payram/payram-mcp

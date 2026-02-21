@@ -5,7 +5,7 @@ description: Deploy and automate PayRam for AI agents and CLI-only environments.
 
 # PayRam Agent Onboarding
 
-> **Looking for standard deployment with web UI?** See [`payram-setup`](https://github.com/payram/mcp/tree/main/skills/payram-setup) for the full dashboard installation.
+> **Looking for standard deployment with web UI?** See [`payram-setup`](https://github.com/payram/payram-mcp/tree/main/skills/payram-setup) for the full dashboard installation.
 
 PayRam Agent Onboarding enables fully automated, CLI-driven payment infrastructure for AI agents, automation pipelines, and serverless environments. No web dashboard — pure API interactions controlled via environment variables and shell commands.
 
@@ -394,7 +394,7 @@ Connect your AI agent to PayRam:
 
 | Skill | Purpose |
 |-------|---------|
-| [`payram-setup`](https://github.com/payram/mcp/tree/main/skills/payram-setup) | Standard deployment with web dashboard |
-| [`payram-payment-integration`](https://github.com/payram/mcp/tree/main/skills/payram-payment-integration) | Integrate payments into applications |
-| [`payram-webhook-integration`](https://github.com/payram/mcp/tree/main/skills/payram-webhook-integration) | Handle payment event callbacks |
-| [`payram-checkout-integration`](https://github.com/payram/mcp/tree/main/skills/payram-checkout-integration) | Checkout flow implementation |
+| [`payram-setup`](https://github.com/payram/payram-mcp/tree/main/skills/payram-setup) | Standard deployment with web dashboard |
+| [`payram-payment-integration`](https://github.com/payram/payram-mcp/tree/main/skills/payram-payment-integration) | Integrate payments into applications |
+| [`payram-webhook-integration`](https://github.com/payram/payram-mcp/tree/main/skills/payram-webhook-integration) | Handle payment event callbacks |
+| [`payram-checkout-integration`](https://github.com/payram/payram-mcp/tree/main/skills/payram-checkout-integration) | Checkout flow implementation |

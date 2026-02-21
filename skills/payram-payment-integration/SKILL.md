@@ -5,7 +5,7 @@ description: Integrate crypto payments into any web application with PayRam. Sel
 
 # PayRam Payment Integration
 
-> **First time with PayRam?** See [`payram-setup`](https://github.com/payram/mcp/tree/main/skills/payram-setup) to configure your server, API keys, and wallets.
+> **First time with PayRam?** See [`payram-setup`](https://github.com/payram/payram-mcp/tree/main/skills/payram-setup) to configure your server, API keys, and wallets.
 
 PayRam is a self-hosted crypto payment gateway. No signup, no KYC, no intermediaries. Deploy on your server and start accepting payments in 10 minutes.
 
@@ -116,8 +116,8 @@ For complete code with error handling, all frameworks, and production patterns:
 For dynamic code generation, use the PayRam MCP server:
 
 ```bash
-git clone https://github.com/payram/mcp
-cd mcp && yarn install && yarn dev
+git clone https://github.com/payram/payram-mcp
+cd payram-mcp && yarn install && yarn dev
 ```
 
 Key tools: `generate_payment_sdk_snippet`, `generate_webhook_handler`, `scaffold_payram_app`, `assess_payram_project`
@@ -145,4 +145,4 @@ Need help? Message the PayRam team on Telegram: [@PayRamChat](https://t.me/PayRa
 
 - Website: https://payram.com
 - GitHub: https://github.com/PayRam
-- MCP Server: https://github.com/payram/mcp
+- MCP Server: https://github.com/payram/payram-mcp

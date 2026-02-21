@@ -33,7 +33,7 @@ for ((i=1; i<=ITERATIONS; i++)); do
   echo "Starting parallel installation of all skills..."
   for skill in "${skills[@]}"; do
     echo "Launching installation for: $skill"
-    (npx skills add https://github.com/payram/mcp --skill "$skill" -a claude-code --scope project -y) &
+    (npx skills add https://github.com/payram/payram-mcp --skill "$skill" -a claude-code --scope project -y) &
   done
   
   # Wait for all parallel installations to complete

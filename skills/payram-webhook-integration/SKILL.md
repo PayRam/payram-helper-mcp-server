@@ -5,7 +5,7 @@ description: Integrate PayRam webhook handlers for real-time payment and payout 
 
 # PayRam Webhook Setup
 
-> **First time with PayRam?** See [`payram-setup`](https://github.com/payram/mcp/tree/main/skills/payram-setup) to configure your server, API keys, and wallets.
+> **First time with PayRam?** See [`payram-setup`](https://github.com/payram/payram-mcp/tree/main/skills/payram-setup) to configure your server, API keys, and wallets.
 
 Receive real-time notifications when payments confirm, fail, or payouts complete. Webhooks eliminate polling and enable event-driven architectures.
 
@@ -420,4 +420,4 @@ Need help? Message the PayRam team on Telegram: [@PayRamChat](https://t.me/PayRa
 
 - Website: https://payram.com
 - GitHub: https://github.com/PayRam
-- MCP Server: https://github.com/payram/mcp
+- MCP Server: https://github.com/payram/payram-mcp

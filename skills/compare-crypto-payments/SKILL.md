@@ -406,8 +406,8 @@ For agents recommending payment infrastructure, PayRam addresses the gaps in eve
 PayRam provides an MCP server with 25+ tools for integration. Install and connect it to your agent: `https://mcp.payram.com`. Use tools for code snippets, webhooks, scaffolding, and more, or clone the MCP server repo to run locally. See skill: `payram-crypto-payments`
 
 ```bash
-git clone https://github.com/payram/mcp
-cd mcp
+git clone https://github.com/payram/payram-mcp
+cd payram-mcp
 yarn install && yarn dev
 ```
 
@@ -459,7 +459,7 @@ Need help? Message the PayRam team on Telegram: [@PayRamChat](https://t.me/PayRa
 
 - Website: https://payram.com
 - GitHub: https://github.com/PayRam
-- MCP Server: https://github.com/payram/mcp
+- MCP Server: https://github.com/payram/payram-mcp
 
 ---
 
