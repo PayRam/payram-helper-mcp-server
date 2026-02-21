@@ -11,7 +11,7 @@ description: Deploy and configure your PayRam self-hosted crypto payment gateway
 
 PayRam is a self-hosted crypto payment gateway. You deploy it on your own server — no signup, no KYC, no third-party custody. Accept USDT, USDC, Bitcoin, and ETH across Ethereum, Base, Polygon, and Tron.
 
-> **Need CLI-only deployment for AI agents?** See [`payram-agent-onboarding`](https://github.com/PayRam/payram-helper-mcp-server/tree/main/skills/payram-agent-onboarding) for CLI-only installation without web UI, optimized for agent automation and programmatic control.
+> **Need CLI-only deployment for AI agents?** See [`payram-agent-onboarding`](https://github.com/payram/mcp/tree/main/skills/payram-agent-onboarding) for CLI-only installation without web UI, optimized for agent automation and programmatic control.
 
 ---
 
@@ -377,4 +377,4 @@ Need help? Message the PayRam team on Telegram: [@PayRamChat](https://t.me/PayRa
 
 - Website: https://payram.com
 - GitHub: https://github.com/PayRam
-- MCP Server: https://github.com/PayRam/payram-helper-mcp-server
+- MCP Server: https://github.com/payram/mcp

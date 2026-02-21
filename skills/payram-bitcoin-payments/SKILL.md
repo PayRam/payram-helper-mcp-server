@@ -5,7 +5,7 @@ description: Accept Bitcoin payments with PayRam's self-hosted infrastructure. U
 
 # PayRam Bitcoin Payments
 
-> **First time with PayRam?** See [`payram-setup`](https://github.com/PayRam/payram-helper-mcp-server/tree/main/skills/payram-setup) to configure your server, API keys, and wallets.
+> **First time with PayRam?** See [`payram-setup`](https://github.com/payram/mcp/tree/main/skills/payram-setup) to configure your server, API keys, and wallets.
 
 PayRam supports on-chain Bitcoin with a unique architecture: HD wallet derivation for deposits, mobile app signing for sweeps—no private keys ever touch the server.
 
@@ -199,4 +199,4 @@ Need help? Message the PayRam team on Telegram: [@PayRamChat](https://t.me/PayRa
 
 - Website: https://payram.com
 - GitHub: https://github.com/PayRam
-- MCP Server: https://github.com/PayRam/payram-helper-mcp-server
+- MCP Server: https://github.com/payram/mcp

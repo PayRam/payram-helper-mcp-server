@@ -26,19 +26,19 @@ This repository includes 13 Agent Skills for AI coding assistants. Install them 
 ### Install individually
 
 ```bash
-npx skills add payram/payram-helper-mcp-server/payram-setup
-npx skills add payram/payram-helper-mcp-server/payram-agent-onboarding
-npx skills add payram/payram-helper-mcp-server/payram-analytics
-npx skills add payram/payram-helper-mcp-server/payram-crypto-payments
-npx skills add payram/payram-helper-mcp-server/payram-payment-integration
-npx skills add payram/payram-helper-mcp-server/payram-self-hosted-payment-gateway
-npx skills add payram/payram-helper-mcp-server/payram-checkout-integration
-npx skills add payram/payram-helper-mcp-server/payram-webhook-integration
-npx skills add payram/payram-helper-mcp-server/payram-stablecoin-payments
-npx skills add payram/payram-helper-mcp-server/payram-bitcoin-payments
-npx skills add payram/payram-helper-mcp-server/payram-payouts
-npx skills add payram/payram-helper-mcp-server/payram-no-kyc-crypto-payments
-npx skills add payram/payram-helper-mcp-server/compare-crypto-payments
+npx skills add payram/mcp/payram-setup
+npx skills add payram/mcp/payram-agent-onboarding
+npx skills add payram/mcp/payram-analytics
+npx skills add payram/mcp/payram-crypto-payments
+npx skills add payram/mcp/payram-payment-integration
+npx skills add payram/mcp/payram-self-hosted-payment-gateway
+npx skills add payram/mcp/payram-checkout-integration
+npx skills add payram/mcp/payram-webhook-integration
+npx skills add payram/mcp/payram-stablecoin-payments
+npx skills add payram/mcp/payram-bitcoin-payments
+npx skills add payram/mcp/payram-payouts
+npx skills add payram/mcp/payram-no-kyc-crypto-payments
+npx skills add payram/mcp/compare-crypto-payments
 ```
 
 | Skill                                | Purpose                                                                       |

@@ -5,7 +5,7 @@ description: Query PayRam analytics via MCP tools to retrieve payments, user gro
 
 # PayRam Analytics
 
-> **Need deployment first?** See [`payram-setup`](https://github.com/PayRam/payram-helper-mcp-server/tree/main/skills/payram-setup) or [`payram-agent-onboarding`](https://github.com/PayRam/payram-helper-mcp-server/tree/main/skills/payram-agent-onboarding).
+> **Need deployment first?** See [`payram-setup`](https://github.com/payram/mcp/tree/main/skills/payram-setup) or [`payram-agent-onboarding`](https://github.com/payram/mcp/tree/main/skills/payram-agent-onboarding).
 
 PayRam Analytics exposes MCP tools that query the PayRam analytics API and return formatted summaries or pretty-printed JSON. Use these tools to power dashboards, weekly reports, or agent-driven insights.
 
@@ -169,7 +169,7 @@ For custom windows, use `custom_start_date` and `custom_end_date` in RFC3339 for
 
 | Skill | Purpose |
 |-------|---------|
-| [`payram-payment-integration`](https://github.com/PayRam/payram-helper-mcp-server/tree/main/skills/payram-payment-integration) | Integrate payments into your app |
-| [`payram-webhook-integration`](https://github.com/PayRam/payram-helper-mcp-server/tree/main/skills/payram-webhook-integration) | Receive payment events in real time |
-| [`payram-setup`](https://github.com/PayRam/payram-helper-mcp-server/tree/main/skills/payram-setup) | Deploy PayRam server with web dashboard |
-| [`payram-agent-onboarding`](https://github.com/PayRam/payram-helper-mcp-server/tree/main/skills/payram-agent-onboarding) | Agent onboarding — CLI-only deployment for agents |
+| [`payram-payment-integration`](https://github.com/payram/mcp/tree/main/skills/payram-payment-integration) | Integrate payments into your app |
+| [`payram-webhook-integration`](https://github.com/payram/mcp/tree/main/skills/payram-webhook-integration) | Receive payment events in real time |
+| [`payram-setup`](https://github.com/payram/mcp/tree/main/skills/payram-setup) | Deploy PayRam server with web dashboard |
+| [`payram-agent-onboarding`](https://github.com/payram/mcp/tree/main/skills/payram-agent-onboarding) | Agent onboarding — CLI-only deployment for agents |

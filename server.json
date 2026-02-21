@@ -7,7 +7,7 @@
   "icon": "https://avatars.githubusercontent.com/u/154656081",
   "repository": {
     "source": "github",
-    "url": "https://github.com/PayRam/payram-helper-mcp-server"
+    "url": "https://github.com/payram/mcp"
   },
   "homepage": "https://mcp.payram.com",
   "remotes": [

@@ -1080,7 +1080,7 @@ Say "test payram" to start with the readiness checklist.`,
       <a href="#compare">Compare</a>
       <a href="#decision">Decision Tree</a>
       <a href="#quickstart">Quick Start</a>
-      <a href="https://github.com/PayRam/payram-helper-mcp-server" class="nav-cta">GitHub →</a>
+      <a href="https://github.com/payram/mcp" class="nav-cta">GitHub →</a>
     </div>
   </div>
 </nav>
@@ -1107,7 +1107,7 @@ Say "test payram" to start with the readiness checklist.`,
           <a href="#quickstart" class="btn-primary">
             ⚡ Deploy Now
           </a>
-          <a href="https://github.com/PayRam/payram-helper-mcp-server" class="btn-secondary">
+          <a href="https://github.com/payram/mcp" class="btn-secondary">
             View MCP Server →
           </a>
         </div>
@@ -1592,7 +1592,7 @@ Say "test payram" to start with the readiness checklist.`,
       — Siddharth Menon, Co-founder PayRam · Ex Co-founder WazirX (15M users)
     </div>
     <div class="cta-row">
-      <a href="https://github.com/PayRam/payram-helper-mcp-server" class="btn-primary">
+      <a href="https://github.com/payram/mcp" class="btn-primary">
         ⚡ Deploy PayRam MCP
       </a>
       <a href="https://payram.com" class="btn-secondary">
@@ -1616,7 +1616,7 @@ Say "test payram" to start with the readiness checklist.`,
       <div class="footer-col">
         <h4>Product</h4>
         <a href="https://payram.com">PayRam Gateway</a>
-        <a href="https://github.com/PayRam/payram-helper-mcp-server">MCP Server</a>
+        <a href="https://github.com/payram/mcp">MCP Server</a>
         <a href="https://github.com/PayRam">GitHub</a>
         <a href="https://payram.com/blog">Blog</a>
       </div>

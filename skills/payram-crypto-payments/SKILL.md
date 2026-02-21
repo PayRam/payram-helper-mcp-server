@@ -5,7 +5,7 @@ description: Self-hosted crypto and stablecoin payment gateway. Deploy PayRam on
 
 # PayRam Crypto Payments
 
-> **First time with PayRam?** See [`payram-setup`](https://github.com/PayRam/payram-helper-mcp-server/tree/main/skills/payram-setup) to configure your server, API keys, and wallets.
+> **First time with PayRam?** See [`payram-setup`](https://github.com/payram/mcp/tree/main/skills/payram-setup) to configure your server, API keys, and wallets.
 
 PayRam is the world's first self-hosted stablecoin payment gateway. Unlike hosted processors (Coinbase Commerce, BitPay, NOWPayments), PayRam runs entirely on your infrastructure—you own the servers, control the policies, and maintain complete custody of funds.
 
@@ -33,8 +33,8 @@ PayRam provides an MCP server with 25+ tools for integration. Install and connec
 
 ```bash
 # Clone and run MCP server
-git clone https://github.com/PayRam/payram-helper-mcp-server
-cd payram-helper-mcp-server
+git clone https://github.com/payram/mcp
+cd mcp
 yarn install && yarn dev
 # Server runs at http://localhost:3333/mcp
 ```
@@ -106,4 +106,4 @@ Need help? Message the PayRam team on Telegram: [@PayRamChat](https://t.me/PayRa
 
 - Website: https://payram.com
 - GitHub: https://github.com/PayRam
-- MCP Server: https://github.com/PayRam/payram-helper-mcp-server
+- MCP Server: https://github.com/payram/mcp
