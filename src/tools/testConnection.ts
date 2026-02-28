@@ -50,7 +50,9 @@ export const registerTestConnectionTool = (server: McpServer) => {
     },
     safeHandler(
       async (args: TestConnectionInput) => {
-        if (!args.baseUrl || !args.apiKey) {
+        const baseUrl = args.baseUrl || process.env.PAYRAM_BASE_URL;
+        const apiKey = args.apiKey || process.env.PAYRAM_API_KEY;
+        if (!baseUrl || !apiKey) {
           const envTemplate = [
             '# Payram REST base URL (include protocol)',
             'PAYRAM_BASE_URL=https://your-payram-server.example  # TODO: replace',
@@ -81,10 +83,10 @@ export const registerTestConnectionTool = (server: McpServer) => {
           };
         }
 
-        const baseUrl = normalizeBaseUrl(args.baseUrl);
-        const endpoint = `${baseUrl}/api/v1/payment`;
+        const normalizedBaseUrl = normalizeBaseUrl(baseUrl);
+        const endpoint = `${normalizedBaseUrl}/api/v1/payment`;
         const headers = {
-          'API-Key': args.apiKey,
+          'API-Key': apiKey,
           Accept: 'application/json',
           'Content-Type': 'application/json',
         };
@@ -124,7 +126,7 @@ export const registerTestConnectionTool = (server: McpServer) => {
               structuredContent: {
                 ok: false,
                 statusCode,
-                baseUrl,
+                baseUrl: normalizedBaseUrl,
                 errorMessage: errorText,
                 payramVersion,
               },
@@ -136,11 +138,11 @@ export const registerTestConnectionTool = (server: McpServer) => {
 
           const host = typeof responseJson?.host === 'string' ? responseJson.host : undefined;
           const url = typeof responseJson?.url === 'string' ? responseJson.url : undefined;
-          logger.info('Payram connectivity succeeded', { baseUrl, statusCode, host, url });
+          logger.info('Payram connectivity succeeded', { baseUrl: normalizedBaseUrl, statusCode, host, url });
           return {
             content: [
               textContent(
-                `Successfully created a Payram checkout at ${baseUrl} (status ${statusCode}).` +
+                `Successfully created a Payram checkout at ${normalizedBaseUrl} (status ${statusCode}).` +
                   (host ? ` Host: ${host}.` : '') +
                   (url ? ` Checkout URL: ${url}` : ''),
               ),
@@ -148,7 +150,7 @@ export const registerTestConnectionTool = (server: McpServer) => {
             structuredContent: {
               ok: true,
               statusCode,
-              baseUrl,
+              baseUrl: normalizedBaseUrl,
               payramVersion,
             },
           };
@@ -160,7 +162,7 @@ export const registerTestConnectionTool = (server: McpServer) => {
             structuredContent: {
               ok: false,
               statusCode,
-              baseUrl,
+              baseUrl: normalizedBaseUrl,
               errorMessage,
             },
           };
