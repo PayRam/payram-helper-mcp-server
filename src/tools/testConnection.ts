@@ -52,6 +52,17 @@ export const registerTestConnectionTool = (server: McpServer) => {
       async (args: TestConnectionInput) => {
         const baseUrl = args.baseUrl || process.env.PAYRAM_BASE_URL;
         const apiKey = args.apiKey || process.env.PAYRAM_API_KEY;
+
+        if (baseUrl && !args.baseUrl) {
+          try {
+            new URL(baseUrl);
+          } catch {
+            throw new Error(
+              `PAYRAM_BASE_URL ("${baseUrl}") is not a valid URL. It must include the protocol, e.g. https://your-server.example`,
+            );
+          }
+        }
+
         if (!baseUrl || !apiKey) {
           const envTemplate = [
             '# Payram REST base URL (include protocol)',
