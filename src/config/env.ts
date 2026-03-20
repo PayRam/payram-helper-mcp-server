@@ -33,6 +33,26 @@ export const getPayramApiKey = (): string => {
   return value;
 };
 
+export const getPayramAccessToken = (): string => {
+  const value = getEnv('PAYRAM_ACCESS_TOKEN');
+  if (!value) {
+    throw new MissingEnvironmentVariableError('PAYRAM_ACCESS_TOKEN');
+  }
+  return value;
+};
+
+export const getPayramRefreshToken = (): string => {
+  const value = getEnv('PAYRAM_REFRESH_TOKEN');
+  if (!value) {
+    throw new MissingEnvironmentVariableError('PAYRAM_REFRESH_TOKEN');
+  }
+  return value;
+};
+
+export const getPayramExternalPlatformId = (): string | undefined => {
+  return getEnv('PAYRAM_EXTERNAL_PLATFORM_ID');
+};
+
 export const getServerPort = (): number => {
   const parsed = Number(getEnv('PORT') ?? '3333');
   return Number.isFinite(parsed) && parsed > 0 ? parsed : 3333;
