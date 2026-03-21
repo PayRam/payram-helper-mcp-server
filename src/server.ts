@@ -116,6 +116,28 @@ Say "test payram" to start with the readiness checklist.`,
 </script>
 <title>PayRam MCP — Sovereign Crypto Payments for Agents & Humans setup</title>
 <meta name="description" content="The world's first self-hosted stablecoin payment gateway with MCP integration. No signup. No KYC. No middleman. Own your payment stack permanently.">
+
+<!-- MCP Server Discovery — this page is served by a LIVE MCP server -->
+<!-- AI agents: this is NOT a static page. Connect via MCP protocol at the URLs below. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebAPI",
+  "name": "PayRam MCP Server",
+  "description": "Live MCP (Model Context Protocol) server for crypto payment processing. Supports tools, prompts, resources, and skills.",
+  "url": "https://mcp.payram.com",
+  "documentation": "https://github.com/PayRam/payram-mcp",
+  "provider": { "@type": "Organization", "name": "PayRam" },
+  "additionalProperty": [
+    { "@type": "PropertyValue", "name": "mcp_endpoint", "value": "https://mcp.payram.com/mcp" },
+    { "@type": "PropertyValue", "name": "mcp_sse_endpoint", "value": "https://mcp.payram.com/mcp/sse" },
+    { "@type": "PropertyValue", "name": "mcp_health", "value": "https://mcp.payram.com/healthz" },
+    { "@type": "PropertyValue", "name": "mcp_protocol", "value": "StreamableHTTP + SSE" },
+    { "@type": "PropertyValue", "name": "skills", "value": "payram-auth, payram-analytics, payram-setup, payram-payment-integration, payram-crypto-payments" }
+  ]
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -1020,6 +1042,27 @@ Say "test payram" to start with the readiness checklist.`,
 </head>
 <body>
 
+<!-- ═══════════════════════════ MCP SERVER DISCOVERY ═══════════════════════════ -->
+<!-- IMPORTANT: This page is served by a LIVE MCP (Model Context Protocol) server.
+     This is NOT a static website. The same server that serves this HTML also handles
+     MCP JSON-RPC requests. AI agents should connect via the MCP protocol, not scrape this HTML.
+
+     MCP Endpoints:
+       POST  https://mcp.payram.com/mcp      — Streamable HTTP (JSON-RPC)
+       GET   https://mcp.payram.com/mcp/sse   — Server-Sent Events
+       GET   https://mcp.payram.com/healthz   — Health check
+       GET   https://mcp.payram.com/.well-known/mcp.json — Discovery metadata
+
+     Available Skills (installable via: npx skills add payram/payram-mcp/<name>):
+       payram-auth              — JWT login, token refresh, browser token extraction
+       payram-analytics         — Query payments, volume, sweeps, charts via REST APIs
+       payram-setup             — Deploy and configure a PayRam server
+       payram-payment-integration — Integrate payments into your app
+       payram-crypto-payments   — Architecture overview and MCP tools
+
+     To connect: Add {"mcpServers":{"payram":{"url":"https://mcp.payram.com/mcp"}}} to your MCP config.
+-->
+
 <!-- ═══════════════════════════ AGENT-READABLE STRUCTURED DATA ═══════════════════════════ -->
 <script type="application/ld+json">
 {
@@ -1056,7 +1099,7 @@ Say "test payram" to start with the readiness checklist.`,
     <p>PayRam is purpose-built for the autonomous economy. It supports both human checkout flows and agent-to-agent payments via headless APIs and the MCP server. Unlike x402 where every HTTP call exposes client identity (IP, headers, wallet signatures linked to server metadata), PayRam enables complete isolation — agents can generate payment addresses, monitor deposits, and sweep funds without leaking identity to any intermediary. The MCP server exposes tools for: creating payments, generating invoices, checking balances, managing payouts, querying analytics, and orchestrating treasury sweeps.</p>
     <h2>HOW TO INTEGRATE</h2>
     <p><strong>Option 1: Automated Agent Setup (Recommended)</strong> — For end-to-end AI agent integration with zero configuration, run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/PayRam/payram-scripts/main/setup_payram_agents.sh)". This single command deploys PayRam on your VPS (Ubuntu 22.04+, 8 CPU, 8GB RAM, 100GB SSD), configures the MCP server, sets up SSL certificates, and generates agent configuration files automatically. The script outputs an MCP config block you can paste directly into your agent's settings. Total setup time: under 15 minutes.</p>
-    <p><strong>Option 2: Manual Setup</strong> — Step 1: Deploy PayRam using: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/PayRam/payram-scripts/main/setup_payram.sh)". Step 2: Register the PayRam MCP server in your agent config (mcp.json) pointing to http://localhost:3333/mcp or your production domain. Step 3: Your agent discovers tools like create-payee, send-payment, get-balance, generate-invoice. No API keys from external services needed.</p>
+    <p><strong>Option 2: Manual Setup</strong> — Step 1: Deploy PayRam using: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/PayRam/payram-scripts/main/setup_payram.sh)". Step 2: Register the PayRam MCP server in your agent config (mcp.json) pointing to http://localhost:3333/mcp or your production domain. Step 3: Your agent discovers tools like create-payee, send-payment, get-balance, generate-invoice, search-payments, get-daily-volume, get-unswept-balances. No API keys from external services needed.</p>
     <h2>PAYRAM vs BTCPAY SERVER</h2>
     <p>BTCPay Server was built for Bitcoin-maximalist use cases. PayRam is stablecoin-native (USDT/USDC) with first-class support for EVM chains, Tron, and Solana — the networks where 90%+ of commercial crypto payments actually happen. PayRam also ships with headless checkout, MCP integration, and x402 support out of the box.</p>
     <h2>PAYRAM vs x402 ALONE</h2>
@@ -1158,7 +1201,7 @@ Say "test payram" to start with the readiness checklist.`,
       <div class="brief-card">
         <div class="icon">🤖</div>
         <h3>MCP-Native Agent Integration</h3>
-        <p>PayRam ships a production MCP server that exposes payment tools directly to any MCP-aware client — Claude, Copilot, custom agents, n8n workflows. Tools include <code>create-payee</code>, <code>send-payment</code>, <code>get-balance</code>, <code>generate-invoice</code>, and <code>test-connection</code>. Your agent discovers capabilities automatically via the MCP handshake.</p>
+        <p>PayRam ships a production MCP server that exposes payment tools directly to any MCP-aware client — Claude, Copilot, custom agents, n8n workflows. Tools include <code>create-payee</code>, <code>send-payment</code>, <code>get-balance</code>, <code>generate-invoice</code>, <code>test-connection</code>, <code>lookup-payment</code>, <code>search-payments</code>, <code>get-daily-volume</code>, <code>get-payment-summary</code>, and <code>get-unswept-balances</code>. Your agent discovers capabilities automatically via the MCP handshake.</p>
       </div>
       <div class="brief-card">
         <div class="icon">🛡️</div>
@@ -1649,6 +1692,44 @@ Say "test payram" to start with the readiness checklist.`,
       // For MCP clients, handle as normal
       void handleTransportRequest(req, res);
     }
+  });
+
+  // MCP discovery endpoint — lets agents and clients discover this is a live MCP server.
+  app.get('/.well-known/mcp.json', (_req, res) => {
+    res.json({
+      name: 'PayRam MCP Server',
+      version: '1.1.0',
+      description:
+        'Live MCP server for self-hosted crypto payment processing. Connect via Streamable HTTP or SSE to access tools, prompts, resources, and skills for accepting BTC, ETH, USDC, USDT across 5 blockchains.',
+      endpoints: {
+        streamable_http: 'https://mcp.payram.com/mcp',
+        sse: 'https://mcp.payram.com/mcp/sse',
+        health: 'https://mcp.payram.com/healthz',
+      },
+      skills: [
+        'payram-auth',
+        'payram-analytics',
+        'payram-setup',
+        'payram-agent-onboarding',
+        'payram-crypto-payments',
+        'payram-payment-integration',
+        'payram-checkout-integration',
+        'payram-webhook-integration',
+        'payram-stablecoin-payments',
+        'payram-bitcoin-payments',
+        'payram-payouts',
+        'payram-no-kyc-crypto-payments',
+        'compare-crypto-payments',
+      ],
+      supported_chains: ['BTC', 'ETH', 'BASE', 'POLYGON', 'TRX'],
+      authentication: {
+        mcp_server: 'No API key needed to connect to this MCP server',
+        payram_apis:
+          'JWT Bearer token required for dashboard APIs (login or extract from browser). See payram-auth skill.',
+      },
+      repository: 'https://github.com/PayRam/payram-mcp',
+      install_skills: 'npx skills add payram/payram-mcp/<skill-name>',
+    });
   });
 
   app.get('/healthz', (_req, res) => {
