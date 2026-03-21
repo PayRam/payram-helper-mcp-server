@@ -23,6 +23,9 @@
   },
   "skills": [
     "./skills/payram-setup",
+    "./skills/payram-agent-onboarding",
+    "./skills/payram-auth",
+    "./skills/payram-analytics",
     "./skills/payram-crypto-payments",
     "./skills/payram-payment-integration",
     "./skills/payram-self-hosted-payment-gateway",
