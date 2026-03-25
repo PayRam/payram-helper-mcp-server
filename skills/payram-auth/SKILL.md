@@ -159,6 +159,30 @@ Once you have an access token, include it in every API request:
 Authorization: Bearer eyJhbGciOiJIUzI1NiIs...
 ```
 
+### Discovering Your Project ID
+
+Most PayRam data APIs require a `PROJECT_ID` (external platform ID). **You do not need to ask the user for this** — discover it automatically:
+
+```
+GET {BASE_URL}/api/v1/external-platform/details
+Authorization: Bearer <ACCESS_TOKEN>
+```
+
+**Response:**
+
+```json
+[
+  {
+    "id": 1,
+    "name": "My Store",
+    "referenceId": "ref_abc",
+    "createdAt": "2025-01-15T10:00:00Z"
+  }
+]
+```
+
+Use the `id` from the first platform (most merchants have one). If multiple platforms exist, pick the one matching the user's context or list them and ask.
+
 ### Example: Call Payment Summary
 
 ```bash

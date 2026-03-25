@@ -13,7 +13,7 @@ const schemas = buildToolSchemas({
       externalPlatformId: z
         .string()
         .optional()
-        .describe('External platform ID. Falls back to PAYRAM_EXTERNAL_PLATFORM_ID env var.'),
+        .describe('Optional. Auto-discovered from your account if omitted.'),
       query: z
         .string()
         .optional()
@@ -108,7 +108,7 @@ export const registerSearchPaymentsTool = (server: McpServer) => {
     },
     safeHandler(
       async (args: Input) => {
-        const platformId = resolveExternalPlatformId(args.externalPlatformId);
+        const platformId = await resolveExternalPlatformId(args.externalPlatformId);
         const limit = args.limit ?? 50;
         const offset = args.offset ?? 0;
 

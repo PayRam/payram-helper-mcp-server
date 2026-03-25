@@ -4,7 +4,25 @@ import type {
   PaymentSearchResponse,
   PaymentSummaryResponse,
   AddressBalanceEntry,
+  ExternalPlatform,
 } from './types.js';
+
+/**
+ * List all external platforms (projects) for the authenticated user.
+ * GET /api/v1/external-platform/details
+ */
+export const listPlatforms = async (): Promise<ExternalPlatform[]> => {
+  const response = await authenticatedFetch('/api/v1/external-platform/details', {
+    method: 'GET',
+  });
+
+  if (!response.ok) {
+    const body = await response.text();
+    throw new Error(`List platforms failed (HTTP ${response.status}): ${body}`);
+  }
+
+  return (await response.json()) as ExternalPlatform[];
+};
 
 /**
  * Search payments with filters.

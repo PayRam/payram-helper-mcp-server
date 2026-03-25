@@ -13,9 +13,9 @@ This skill teaches you to call PayRam dashboard APIs directly — no MCP server 
 
 Before using these APIs, you need:
 
-1. **`BASE_URL`** — Your PayRam server URL (e.g., `https://api.payram.com`)
+1. **`BASE_URL`** — Your PayRam server URL (e.g., `https://bedpayments.com:8443`)
 2. **`ACCESS_TOKEN`** — JWT Bearer token (see [`payram-auth`](https://github.com/payram/payram-mcp/tree/main/skills/payram-auth))
-3. **`PROJECT_ID`** — Your external platform / project ID (visible in dashboard URL or settings)
+3. **`PROJECT_ID`** — Auto-discovered (see below)
 
 Every request below uses this header:
 
@@ -24,6 +24,17 @@ Authorization: Bearer <ACCESS_TOKEN>
 ```
 
 > **Token expired?** If you get a 401, refresh using `POST /api/v1/refresh` — see [`payram-auth`](https://github.com/payram/payram-mcp/tree/main/skills/payram-auth) for the full refresh flow.
+
+### Auto-Discover PROJECT_ID
+
+**Do not ask the user for a project ID.** Discover it automatically:
+
+```
+GET {BASE_URL}/api/v1/external-platform/details
+Authorization: Bearer <ACCESS_TOKEN>
+```
+
+Returns an array of platforms. Use `id` from the first entry. Most merchants have a single platform.
 
 ---
 
@@ -475,15 +486,17 @@ If you have referral campaigns configured:
 
 When a user asks about their PayRam data, follow this sequence:
 
-1. **Ensure you have auth** — check for `BASE_URL` and `ACCESS_TOKEN`. If not available, ask the user (see [`payram-auth`](https://github.com/payram/payram-mcp/tree/main/skills/payram-auth)).
+1. **Ensure you have auth** — check for `BASE_URL` and `ACCESS_TOKEN` (or `REFRESH_TOKEN`). If you have a refresh token but no access token, call `POST /api/v1/refresh` first. See [`payram-auth`](https://github.com/payram/payram-mcp/tree/main/skills/payram-auth).
 
-2. **Identify the question type** — use the [Common Questions table](#common-questions--which-api-to-call) above.
+2. **Discover PROJECT_ID** — call `GET /api/v1/external-platform/details` and use the `id` from the first platform. Do not ask the user for this.
 
-3. **Make the API call** — use `curl`, `fetch`, or any HTTP client with `Authorization: Bearer <token>`.
+3. **Identify the question type** — use the [Common Questions table](#common-questions--which-api-to-call) above.
 
-4. **Handle 401** — if you get a 401, refresh the token using `POST /api/v1/refresh` and retry.
+4. **Make the API call** — use `curl`, `fetch`, or any HTTP client with `Authorization: Bearer <token>`.
 
-5. **Format the response** — present data in a readable format (tables, summaries, breakdowns).
+5. **Handle 401** — if you get a 401, refresh the token using `POST /api/v1/refresh` and retry.
+
+6. **Format the response** — present data in a readable format (tables, summaries, breakdowns).
 
 ### Example Agent Conversation
 

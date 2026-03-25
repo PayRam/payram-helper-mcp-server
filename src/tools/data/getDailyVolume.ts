@@ -23,7 +23,7 @@ const schemas = buildToolSchemas({
       externalPlatformId: z
         .string()
         .optional()
-        .describe('External platform ID. Falls back to PAYRAM_EXTERNAL_PLATFORM_ID env var.'),
+        .describe('Optional. Auto-discovered from your account if omitted.'),
     })
     .strict(),
   output: z.object({
@@ -118,7 +118,7 @@ export const registerGetDailyVolumeTool = (server: McpServer) => {
     },
     safeHandler(
       async (args: Input) => {
-        const platformId = resolveExternalPlatformId(args.externalPlatformId);
+        const platformId = await resolveExternalPlatformId(args.externalPlatformId);
 
         // Resolve date
         const date = args.date ?? new Date().toISOString().slice(0, 10);

@@ -66,6 +66,14 @@ export interface AddressBalanceEntry {
   action: string;
 }
 
+/** External platform (project) returned by GET /api/v1/external-platform/details */
+export interface ExternalPlatform {
+  id: number;
+  name: string;
+  referenceId?: string;
+  createdAt?: string;
+}
+
 /** Request body for payment search */
 export interface SearchParams {
   query?: string;

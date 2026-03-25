@@ -13,7 +13,7 @@ const schemas = buildToolSchemas({
         .string()
         .optional()
         .describe(
-          'External platform ID. Falls back to PAYRAM_EXTERNAL_PLATFORM_ID env var if not provided.',
+          'Optional. Auto-discovered from your account if omitted.',
         ),
     })
     .strict(),
@@ -43,7 +43,7 @@ export const registerGetPaymentSummaryTool = (server: McpServer) => {
     },
     safeHandler(
       async (args: Input) => {
-        const platformId = resolveExternalPlatformId(args.externalPlatformId);
+        const platformId = await resolveExternalPlatformId(args.externalPlatformId);
         const summary = await getPaymentSummary(platformId);
 
         const message =
