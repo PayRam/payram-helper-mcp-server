@@ -21,7 +21,7 @@ Commands
     Copy
     
     ```
-    /bin/bash -c "$(curl -fsSL <https://raw.githubusercontent.com/PayRam/payram-scripts/main/setup_payram.sh>)" bash --mainnet
+    /bin/bash -c "$(curl -fsSL <https://payram.com/setup_payram.sh>)" bash --mainnet
     ```
     
 
@@ -38,7 +38,7 @@ Commands
     Copy
     
     ```
-    /bin/bash -c "$(curl -fsSL <https://raw.githubusercontent.com/PayRam/payram-scripts/main/setup_payram.sh>)" bash --testnet
+    /bin/bash -c "$(curl -fsSL <https://payram.com/setup_payram.sh>)" bash --testnet
     ```
     
 
@@ -55,7 +55,7 @@ Update
     Copy
     
     ```
-    /bin/bash -c "$(curl -fsSL <https://raw.githubusercontent.com/PayRam/payram-scripts/main/setup_payram.sh>)" bash --update
+    /bin/bash -c "$(curl -fsSL <https://payram.com/setup_payram.sh>)" bash --update
     ```
     
 -   To update the PayRam server to a specific version using a tag, run the following command:
@@ -63,7 +63,7 @@ Update
     Copy
     
     ```
-    /bin/bash -c "$(curl -fsSL <https://raw.githubusercontent.com/PayRam/payram-scripts/main/setup_payram.sh>)" bash --update --tag="version"
+    /bin/bash -c "$(curl -fsSL <https://payram.com/setup_payram.sh>)" bash --update --tag="version"
     ```
     
 

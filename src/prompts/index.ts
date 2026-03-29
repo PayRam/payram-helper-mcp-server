@@ -54,7 +54,7 @@ Walk me through each step interactively.`,
             role: 'user',
             content: {
               type: 'text',
-              text: 'I am an autonomous agent. I need to deploy Payram on a VPS without any web UI or human steps. Call onboard_agent_setup and walk me through the complete automated setup.',
+              text: 'I am an autonomous agent. I need to deploy PayRam on a VPS without any web UI. Call get_agent_setup_flow for the step-by-step deployment flow with chain recommendations and faucet URLs, or onboard_agent_setup for the complete reference guide. Walk me through the automated setup.',
             },
           },
         ],

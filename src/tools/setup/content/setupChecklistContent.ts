@@ -9,7 +9,7 @@ export const PAYRAM_SETUP_CHECKLIST: SetupChecklistResponse = {
       id: 'deployment-prereqs',
       label: 'Confirm infrastructure + access',
       description:
-        'Provision the server (4 CPU / 4 GB RAM / 50 GB SSD minimum), allocate domains, and confirm who owns DNS, SSL, and SSH access before installation.',
+        'Provision the server (minimum 2 CPU / 6 GB RAM, recommended 4 CPU / 8 GB RAM, 100 GB SSD), allocate domains, and confirm who owns DNS, SSL, and SSH access before installation.',
       docsRefs: ['deployment-guide/quick-setup.md', 'faqs/deployment-faqs.md'],
     },
     {

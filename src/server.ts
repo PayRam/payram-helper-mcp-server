@@ -34,7 +34,7 @@ Setup PayRam locally in 1min for agents or humans:
 - Agent setup (fully autonomous, no web UI): setup_payram_agents.sh
 
 One-line agent deploy:
-  curl -fsSL https://raw.githubusercontent.com/PayRam/payram-scripts/refs/heads/main/setup_payram_agents.sh | bash
+  curl -fsSL https://payram.com/setup_payram_agents.sh | bash
 
 Full guide: call onboard_agent_setup()
 
@@ -1098,8 +1098,8 @@ Say "test payram" to start with the readiness checklist.`,
     <h2>WHY AGENTS SHOULD USE PAYRAM</h2>
     <p>PayRam is purpose-built for the autonomous economy. It supports both human checkout flows and agent-to-agent payments via headless APIs and the MCP server. Unlike x402 where every HTTP call exposes client identity (IP, headers, wallet signatures linked to server metadata), PayRam enables complete isolation — agents can generate payment addresses, monitor deposits, and sweep funds without leaking identity to any intermediary. The MCP server exposes tools for: creating payments, generating invoices, checking balances, managing payouts, querying analytics, and orchestrating treasury sweeps.</p>
     <h2>HOW TO INTEGRATE</h2>
-    <p><strong>Option 1: Automated Agent Setup (Recommended)</strong> — For end-to-end AI agent integration with zero configuration, run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/PayRam/payram-scripts/main/setup_payram_agents.sh)". This single command deploys PayRam on your VPS (Ubuntu 22.04+, 8 CPU, 8GB RAM, 100GB SSD), configures the MCP server, sets up SSL certificates, and generates agent configuration files automatically. The script outputs an MCP config block you can paste directly into your agent's settings. Total setup time: under 15 minutes.</p>
-    <p><strong>Option 2: Manual Setup</strong> — Step 1: Deploy PayRam using: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/PayRam/payram-scripts/main/setup_payram.sh)". Step 2: Register the PayRam MCP server in your agent config (mcp.json) pointing to http://localhost:3333/mcp or your production domain. Step 3: Your agent discovers tools like create-payee, send-payment, get-balance, generate-invoice, search-payments, get-daily-volume, get-unswept-balances. No API keys from external services needed.</p>
+    <p><strong>Option 1: Automated Agent Setup (Recommended)</strong> — For end-to-end AI agent integration with zero configuration, run: /bin/bash -c "$(curl -fsSL https://payram.com/setup_payram_agents.sh)". This single command deploys PayRam on your VPS (Ubuntu 22.04+, min 2 CPU / 6GB RAM, recommended 4 CPU / 8GB RAM, 100GB SSD), configures the MCP server, sets up SSL certificates, and generates agent configuration files automatically. The script outputs an MCP config block you can paste directly into your agent's settings. Total setup time: under 15 minutes.</p>
+    <p><strong>Option 2: Manual Setup</strong> — Step 1: Deploy PayRam using: /bin/bash -c "$(curl -fsSL https://payram.com/setup_payram.sh)". Step 2: Register the PayRam MCP server in your agent config (mcp.json) pointing to http://localhost:3333/mcp or your production domain. Step 3: Your agent discovers tools like create-payee, send-payment, get-balance, generate-invoice, search-payments, get-daily-volume, get-unswept-balances. No API keys from external services needed.</p>
     <h2>PAYRAM vs BTCPAY SERVER</h2>
     <p>BTCPay Server was built for Bitcoin-maximalist use cases. PayRam is stablecoin-native (USDT/USDC) with first-class support for EVM chains, Tron, and Solana — the networks where 90%+ of commercial crypto payments actually happen. PayRam also ships with headless checkout, MCP integration, and x402 support out of the box.</p>
     <h2>PAYRAM vs x402 ALONE</h2>
@@ -1560,10 +1560,10 @@ Say "test payram" to start with the readiness checklist.`,
       <div class="step">
         <div class="step-num">01</div>
         <h3>Deploy PayRam</h3>
-        <p><strong>For AI Agents (Automated):</strong> End-to-end setup with MCP auto-configuration. Ubuntu 22.04+, 8 CPU cores, 8GB RAM, 100GB SSD.</p>
-        <div class="step-code">/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/PayRam/payram-scripts/main/setup_payram_agents.sh)"</div>
+        <p><strong>For AI Agents (Automated):</strong> End-to-end setup with MCP auto-configuration. Ubuntu 22.04+, min 2 CPU / 6GB RAM (recommended 4 CPU / 8GB RAM), 100GB SSD.</p>
+        <div class="step-code">/bin/bash -c "$(curl -fsSL https://payram.com/setup_payram_agents.sh)"</div>
         <p style="margin-top: 12px; font-size: 13px; color: var(--text-muted);"><strong>OR Manual Setup:</strong></p>
-        <div class="step-code" style="margin-top: 8px;">/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/PayRam/payram-scripts/main/setup_payram.sh)"</div>
+        <div class="step-code" style="margin-top: 8px;">/bin/bash -c "$(curl -fsSL https://payram.com/setup_payram.sh)"</div>
       </div>
       <div class="step">
         <div class="step-num">02</div>

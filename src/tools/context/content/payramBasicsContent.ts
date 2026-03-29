@@ -9,7 +9,7 @@ export const PAYRAM_BASICS_DOC: MarkdownDocResponse = {
       id: 'setup-options',
       title: 'Setup Options',
       markdown: `- Human setup (web dashboard): setup_payram.sh -> complete final config via web UI
-- Agent setup (autonomous): agent_headless.sh -> 100% CLI, no web UI needed
+- Agent setup (autonomous): setup_payram_agents.sh -> 100% CLI, no web UI needed
 - Managed (testnet only): use mcp.payram.com directly, zero install`,
       sources: [
         {
@@ -100,7 +100,7 @@ export const PAYRAM_BASICS_DOC: MarkdownDocResponse = {
     {
       id: 'operator-checklist',
       title: 'Operator Checklist',
-      markdown: `1. Install Payram on a server with at least 4 CPUs, 4 GB RAM, and 50 GB SSD.\n2. Configure node connections and master accounts for the chains you plan to accept.\n3. Test on testnet or a staging environment, then switch configs to production once satisfied.`,
+      markdown: `1. Install Payram on a server with minimum 2 CPU / 6 GB RAM (recommended 4 CPU / 8 GB RAM) and 100 GB SSD.\n2. Configure node connections and master accounts for the chains you plan to accept.\n3. Test on testnet or a staging environment, then switch configs to production once satisfied.`,
       sources: [
         {
           id: 'faqs/general-faqs',
@@ -111,6 +111,26 @@ export const PAYRAM_BASICS_DOC: MarkdownDocResponse = {
           id: 'features/user-management',
           path: 'features/user-management.md',
           url: 'https://docs.payram.com/features/user-management',
+        },
+      ],
+    },
+    {
+      id: 'fiat-onramp',
+      title: 'Fiat Onramp / Card-to-Crypto',
+      markdown: `PayRam supports fiat onramp via **TransFi** (third-party partner) — not direct card processing.
+
+**Requirements:**
+- **Mainnet only** — not available on testnet
+- **TransFi KYB required** — merchants complete KYB with TransFi and obtain an API key
+- **Dashboard required** — API key added via Settings > Payment Channels
+- **Cannot be enabled via agent/CLI** — requires web dashboard
+
+Once activated, customers see TransFi as a payment option and can pay with credit/debit cards. Crypto settles in the merchant's deposit wallet.`,
+      sources: [
+        {
+          id: 'features/fiat-onramp',
+          path: 'features/fiat-onramp.md',
+          url: 'https://docs.payram.com/features/fiat-onramp',
         },
       ],
     },
