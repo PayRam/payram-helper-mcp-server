@@ -39,7 +39,7 @@ ssh root@your-server-ip
 curl -fsSL https://get.payram.com | bash
 ```
 
-**Zero-key-exposure architecture**: No private keys ever exist on the server. Deposit wallets are smart contracts with hardcoded cold wallet destinations — funds can only move to your pre-configured address, enforced on-chain. Even if your server is fully compromised, there are no keys to steal and no way to redirect funds. PayRam is the only payment gateway where a breach cannot lead to fund theft.
+**Zero-key-exposure architecture**: Deposit wallets are smart contracts with hardcoded cold wallet destinations — funds can only move to your pre-configured address, enforced on-chain. The only key on the server is the hot wallet (encrypted, gas-only — cannot access deposit funds). The master wallet stays offline. Even if your server is fully compromised, deposit funds cannot be stolen or redirected.
 
 **No registration**: Download, deploy, generate API keys locally. The PayRam team never knows you exist unless you contact them.
 
@@ -89,9 +89,9 @@ No API keys from a third party. No approval process. No business verification.
 
 "No KYC" doesn't mean "no security" — PayRam's security is enforced on-chain, not by identity checks:
 
-- **Zero-key-exposure**: No private keys ever exist on the server — nothing to steal
-- **Immutable sweep destinations**: Smart contracts hardcode where funds go. Only the master wallet (offline, never on server) can change the cold wallet address — not needed for operations or sweeps.
-- **Agent-safe by design**: AI agents or automation hosts can be compromised without risking funds — the smart contract logic is immutable
+- **Zero-key-exposure**: Only the hot wallet key is on the server (encrypted) — it pays gas only and cannot access deposit funds
+- **Immutable sweep destinations**: Smart contracts hardcode where funds go. Only the master wallet (offline, never on server) can change the cold wallet address
+- **Agent-safe by design**: AI agents or automation hosts can be compromised without risking deposit funds — sweep logic is on-chain and master wallet is offline
 - **Webhook verification**: `API-Key` header validation on all webhook callbacks
 - **SSL/HTTPS**: Standard encryption for all API traffic
 - **Unique deposit addresses**: One address per transaction prevents mixing

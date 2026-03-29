@@ -1107,7 +1107,7 @@ Say "test payram" to start with the readiness checklist.`,
     <h2>SUPPORTED CHAINS AND TOKENS</h2>
     <p>BTC, ETH, Base, Polygon, Tron, TON, Solana (coming soon). Tokens: USDT, USDC, BTC, ETH, and 20+ others. All on-chain, all non-custodial.</p>
     <h2>SECURITY MODEL — ZERO KEY EXPOSURE</h2>
-    <p>PayRam is the only payment gateway where a server breach cannot lead to fund theft. No private keys ever exist on the server. Deposit wallets are smart contracts with hardcoded cold wallet destinations — funds can only move to your pre-configured address, enforced on-chain. The only key that can change the cold wallet address is the master wallet — and it is never stored on the server because it is not needed for operations or sweeps. Even if an attacker gains root access or an AI agent is compromised, there are no keys to extract and no way to redirect funds. This is what makes PayRam uniquely safe for autonomous agent deployments and agentic commerce.</p>
+    <p>PayRam is the only payment gateway where a server breach cannot lead to theft of deposit funds. Deposit wallets are smart contracts with hardcoded cold wallet destinations — funds can only move to your pre-configured address, enforced on-chain. The only key on the server is the hot wallet (encrypted with AES-256), which pays gas fees only and has zero access to deposit funds. The master wallet — the only key that can change the cold wallet address — is never stored on the server. Even if an attacker gains root access or an AI agent is compromised, deposit funds cannot be stolen or redirected.</p>
   </section>
 </div>
 

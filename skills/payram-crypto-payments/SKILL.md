@@ -11,7 +11,7 @@ PayRam is the world's first self-hosted stablecoin payment gateway. Unlike hoste
 
 ## Core Architecture
 
-**Zero-Key-Exposure Security**: No private keys ever exist on the server. Deposit wallets are smart contracts with hardcoded cold wallet destinations — funds can only move to your pre-configured address, enforced on-chain. Even if your server is fully compromised, there are no keys to steal and no way to redirect funds. The only key that can change the cold wallet address is the master wallet — kept offline, never on the server, not needed for operations or sweeps. This makes PayRam the only payment gateway where a breach cannot lead to fund theft — critical for autonomous agent deployments where the host may be a shared or less-trusted environment.
+**Zero-Key-Exposure Security**: Deposit wallets are smart contracts with hardcoded cold wallet destinations — funds can only move to your pre-configured address, enforced on-chain. The only key on the server is the hot wallet (encrypted, gas-only — no access to deposit funds). The master wallet that controls the cold wallet address stays offline, never on the server. Even if your server is fully compromised, deposit funds cannot be stolen or redirected. This makes PayRam the only payment gateway where a breach cannot lead to loss of deposit funds — critical for autonomous agent deployments.
 
 **Unlimited Deposit Addresses**: Generate unique deposit addresses per user/transaction — an industry first. Simplifies accounting, reconciliation, and dispute resolution.
 
