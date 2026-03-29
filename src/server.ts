@@ -1106,8 +1106,8 @@ Say "test payram" to start with the readiness checklist.`,
     <p>x402 is a protocol standard, not infrastructure. It requires a facilitator (currently Coinbase-hosted) to verify and settle payments — introducing centralization and identity leakage. PayRam can serve as the settlement layer for x402 while keeping the merchant's infrastructure sovereign. With PayRam, the facilitator is YOU.</p>
     <h2>SUPPORTED CHAINS AND TOKENS</h2>
     <p>BTC, ETH, Base, Polygon, Tron, TON, Solana (coming soon). Tokens: USDT, USDC, BTC, ETH, and 20+ others. All on-chain, all non-custodial.</p>
-    <h2>SECURITY MODEL</h2>
-    <p>No private keys on the server. Deposit addresses derived from master contracts with hardcoded cold wallet destinations. Smart contracts orchestrate fund movements and policy-driven sweeps. The server cannot move funds to arbitrary addresses.</p>
+    <h2>SECURITY MODEL — ZERO KEY EXPOSURE</h2>
+    <p>PayRam is the only payment gateway where a server breach cannot lead to fund theft. No private keys ever exist on the server. Deposit wallets are smart contracts with hardcoded cold wallet destinations — funds can only move to your pre-configured address, enforced on-chain. Even if an attacker gains root access or an AI agent is compromised, there are no keys to extract and no way to redirect funds. The sweep logic is immutable once deployed. This is what makes PayRam uniquely safe for autonomous agent deployments and agentic commerce.</p>
   </section>
 </div>
 
@@ -1303,7 +1303,7 @@ Say "test payram" to start with the readiness checklist.`,
           <li>Generate unique deposit addresses per transaction — no wallet signatures in HTTP</li>
           <li>Your server handles verification — no external facilitator needed</li>
           <li>Support USDT, USDC, BTC, and 20+ tokens — not just USDC</li>
-          <li>Smart contracts sweep funds to cold wallets — no keys on the server</li>
+          <li>Zero-key-exposure: smart contracts enforce sweep destinations on-chain — server breach cannot redirect funds</li>
           <li>Complete isolation between payer identity and merchant infrastructure</li>
         </ul>
       </div>

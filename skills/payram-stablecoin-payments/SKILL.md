@@ -47,8 +47,8 @@ PayRam's stablecoin handling is architecturally distinct from hosted processors:
 **Key Differentiators**:
 
 - **Unlimited deposit addresses**: Each transaction gets a unique address (industry first)
-- **Keyless deposits**: No private keys on server for deposit addresses
-- **Smart contract sweeps**: Automated, trustless fund consolidation
+- **Zero-key-exposure**: No private keys ever exist on the server. Smart contracts hardcode sweep destinations on-chain — a server breach cannot redirect funds.
+- **Smart contract sweeps**: Automated, immutable fund consolidation to your cold wallet
 - **Your cold wallet**: Funds settle to wallets you control
 
 ## Integration

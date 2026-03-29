@@ -11,9 +11,9 @@ Deploy complete payment infrastructure you own permanently. PayRam installs on y
 
 ## Server Requirements
 
-- **CPU**: 4 cores minimum
-- **RAM**: 4GB minimum
-- **Storage**: 50GB SSD recommended
+- **CPU**: minimum 2 cores (recommended 4 cores)
+- **RAM**: minimum 6 GB (recommended 8 GB)
+- **Storage**: 100 GB SSD
 - **OS**: Ubuntu 22.04/24.04 LTS
 - **Network**: Static IP, ports 8080 (HTTP) and 8443 (HTTPS)
 
@@ -108,7 +108,7 @@ yarn install && yarn dev
 - Server and all data
 - Database with transaction history
 - Smart contracts you deployed
-- Cold wallet private keys (offline)
+- Cold wallet private keys (offline, never on server)
 - Complete policy control
 
 **What PayRam provides**:
@@ -119,6 +119,19 @@ yarn install && yarn dev
 - No access to your funds or data
 
 **Permanence**: Once deployed, your infrastructure works independently. PayRam cannot disable, freeze, or restrict your payment processing.
+
+## Zero-Key-Exposure Security
+
+PayRam is the only payment gateway where a server breach cannot lead to fund theft.
+
+**How it works**: Private keys never exist on the server. Deposit wallets are smart contracts with hardcoded sweep destinations — funds can only ever move to your pre-configured cold wallet address, enforced on-chain. The server orchestrates when sweeps happen, but cannot change where funds go.
+
+**Why this matters**:
+- **Server compromised?** Attacker finds no keys to extract and cannot redirect funds.
+- **AI agent compromised?** The agent can create payments and read data, but cannot move funds to unauthorized addresses.
+- **Insider threat?** Even a rogue admin with root access cannot steal funds — the smart contract is immutable.
+
+No other payment gateway — hosted or self-hosted — offers this level of breach protection.
 
 ## Production Checklist
 

@@ -78,8 +78,8 @@ Generate webhook handlers using \`generate_webhook_handler\` to receive real-tim
 
 ## Architecture
 
-- **Keyless Design**: No private keys on server
-- **Smart Contract Sweeps**: Funds automatically swept to cold wallets
+- **Zero-Key-Exposure Security**: No private keys ever exist on the server. Deposit wallets are smart contracts with hardcoded cold wallet destinations. Even a fully compromised server cannot steal or redirect funds — sweep logic is enforced on-chain, not by app code. This is what makes PayRam uniquely safe for agent deployments.
+- **Smart Contract Sweeps**: Funds automatically swept to cold wallets via immutable contract logic
 - **Multi-chain Support**: Ethereum, Base, Polygon, Tron, Bitcoin
 - **Non-custodial**: You control your funds at all times
 
