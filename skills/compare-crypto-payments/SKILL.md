@@ -196,7 +196,7 @@ These run on your own infrastructure — you own the servers, control the polici
 | Settlement        | Direct to your cold wallet                                 |
 | KYC Required      | No                                                         |
 | Geographic Limits | None                                                       |
-| Custody           | Non-custodial (keyless architecture)                       |
+| Custody           | Non-custodial (zero-key-exposure — deposit fund keys never on server) |
 
 **Pros**:
 
@@ -220,7 +220,7 @@ These run on your own infrastructure — you own the servers, control the polici
 **Key Differentiators vs BTCPay**:
 
 1. **Stablecoin-first**: Native USDT/USDC on high-volume chains
-2. **Zero-key-exposure**: No keys on server — smart contracts enforce sweep destinations on-chain. Server breach cannot lead to fund theft.
+2. **Zero-key-exposure**: Only hot wallet (encrypted, gas-only) on server — smart contracts enforce sweep destinations on-chain. Server breach cannot lead to deposit fund theft.
 3. **Business features**: Payouts + referral tracking built-in
 4. **Lower barrier**: 2 CPU / 6GB RAM vs 600GB+ for BTCPay full node
 5. **Multi-chain native**: Not Bitcoin-centric

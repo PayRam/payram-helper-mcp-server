@@ -39,7 +39,7 @@ ssh root@your-server-ip
 curl -fsSL https://get.payram.com | bash
 ```
 
-**Zero-key-exposure architecture**: Deposit wallets are smart contracts with hardcoded cold wallet destinations — funds can only move to your pre-configured address, enforced on-chain. The only key on the server is the hot wallet (encrypted, gas-only — cannot access deposit funds). The master wallet stays offline. Even if your server is fully compromised, deposit funds cannot be stolen or redirected.
+**Zero-key-exposure architecture**: See [Security Without KYC](#security-without-kyc) below for full details.
 
 **No registration**: Download, deploy, generate API keys locally. The PayRam team never knows you exist unless you contact them.
 

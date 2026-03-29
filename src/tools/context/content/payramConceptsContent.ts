@@ -8,7 +8,10 @@ export const PAYRAM_CONCEPTS_DOC: MarkdownDocResponse = {
     {
       id: 'wallet-roles',
       title: 'Wallet Roles',
-      markdown: `- **Deposit wallet:** Unique address created per customer (and optionally per asset). Customers can reuse it for lifetime payments, making attribution trivial.\n- **Hot wallet:** EOA funded with gas so sweeps can execute. Its private key is stored on the server (encrypted with AES-256) but it only pays gas — it has no access to customer deposit funds or cold wallet balances. Keep a minimum balance or SmartSweep pauses.\n- **Cold wallet:** Merchant treasury vault where swept funds rest. Not exposed to customers and typically sits in hardened custody.\n- **Master account:** Derives every deposit wallet inside a network family and signs deployment transactions for sweep contracts. The master wallet is the only key that can change the cold wallet address in the smart contract. It is never stored on the server — it is not needed for day-to-day operations or sweeps. Keep it offline in cold storage for maximum security.`,
+      markdown: `- **Deposit wallet:** Unique address created per customer (and optionally per asset). Customers can reuse it for lifetime payments, making attribution trivial.
+- **Hot wallet:** EOA funded with gas so sweeps can execute. Its private key is stored on the server (encrypted with AES-256) but it only pays gas — it has no access to customer deposit funds or cold wallet balances. Keep a minimum balance or SmartSweep pauses.
+- **Cold wallet:** Merchant treasury vault where swept funds rest. Not exposed to customers and typically sits in hardened custody.
+- **Master account:** Derives every deposit wallet inside a network family and signs deployment transactions for sweep contracts. The master wallet is the only key that can change the cold wallet address in the smart contract. It is never stored on the server — it is not needed for day-to-day operations or sweeps. Keep it offline in cold storage for maximum security.`,
       sources: [
         {
           id: 'support/glossary',

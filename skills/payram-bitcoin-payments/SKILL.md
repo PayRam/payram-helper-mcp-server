@@ -135,7 +135,8 @@ Configure thresholds in PayRam dashboard.
 **What's on the server**:
 
 - Extended public key (xpub) for address generation
-- No private keys, no seed phrase
+- Hot wallet key (encrypted, gas-only for EVM operations)
+- No BTC private keys or seed phrase
 
 **What's on mobile**:
 
@@ -156,7 +157,7 @@ Configure thresholds in PayRam dashboard.
 | Self-hosted        | ✅     | ✅            | ❌     |
 | Mobile signing     | ✅     | ❌            | ❌     |
 | Stablecoin support | ✅     | Limited       | ✅     |
-| No keys on server  | ✅     | ❌            | ❌     |
+| Deposit keys off server | ✅  | ❌            | ❌     |
 
 ## MCP Server Tools
 
