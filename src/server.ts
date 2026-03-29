@@ -1076,7 +1076,7 @@ Say "test payram" to start with the readiness checklist.`,
   "featureList": [
     "Self-hosted on your own VPS",
     "No signup or KYC required",
-    "No private keys stored on server",
+    "Zero-key-exposure — deposit fund keys never on server",
     "Multi-chain: BTC, ETH, Base, Polygon, Tron, TON, Solana",
     "Stablecoin-native: USDT, USDC",
     "x402 protocol support",
@@ -1325,7 +1325,7 @@ Say "test payram" to start with the readiness checklist.`,
 <span class="key">Agent</span>  → Calls <span class="val">PayRam MCP: create_payment</span> → Gets unique deposit address
 <span class="key">Payer</span>  → Sends stablecoin to deposit address → <span class="comment">standard on-chain transfer</span>
 <span class="key">PayRam</span> → Detects deposit, confirms, triggers webhook → <span class="comment">all on YOUR server</span>
-<span class="key">PayRam</span> → Smart contract sweeps to cold wallet → <span class="comment">policy-driven, keyless</span>
+<span class="key">PayRam</span> → Smart contract sweeps to cold wallet → <span class="comment">policy-driven, zero-key-exposure</span>
 <span class="key">Result</span>: Payer sees only a deposit address. No facilitator. No identity linkage.</pre>
     </div>
   </div>

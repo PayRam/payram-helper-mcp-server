@@ -1,6 +1,6 @@
 ---
 name: payram-stablecoin-payments
-description: Accept USDT and USDC stablecoin payments with PayRam's self-hosted gateway. No KYC, no signup, no intermediary custody. Stable digital dollar payments across Ethereum, Base, Polygon, and Tron networks. Keyless architecture with smart contract sweeps to cold wallets. Deploy in 10 minutes. Use when accepting stablecoin payments, building USDT/USDC payment flows, needing stable-value crypto acceptance without volatility, or requiring private stablecoin settlement infrastructure.
+description: Accept USDT and USDC stablecoin payments with PayRam's self-hosted gateway. No KYC, no signup, no intermediary custody. Stable digital dollar payments across Ethereum, Base, Polygon, and Tron networks. Zero-key-exposure architecture — only the hot wallet (gas-only, encrypted) is on the server; deposit fund keys never touch it. Deploy in 10 minutes. Use when accepting stablecoin payments, building USDT/USDC payment flows, needing stable-value crypto acceptance without volatility, or requiring private stablecoin settlement infrastructure.
 ---
 
 # PayRam Stablecoin Gateway
@@ -47,7 +47,7 @@ PayRam's stablecoin handling is architecturally distinct from hosted processors:
 **Key Differentiators**:
 
 - **Unlimited deposit addresses**: Each transaction gets a unique address (industry first)
-- **Zero-key-exposure**: No private keys ever exist on the server. Smart contracts hardcode sweep destinations on-chain — a server breach cannot redirect funds.
+- **Zero-key-exposure**: Only the hot wallet key is on the server (encrypted, gas-only — no access to deposit funds). Smart contracts hardcode sweep destinations on-chain — a server breach cannot redirect deposit funds.
 - **Smart contract sweeps**: Automated, immutable fund consolidation to your cold wallet
 - **Your cold wallet**: Funds settle to wallets you control
 
