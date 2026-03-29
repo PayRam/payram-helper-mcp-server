@@ -117,7 +117,7 @@ Say "test payram" to start with the readiness checklist.`,
   gtag('config', 'G-GGW57ME89J');
 </script>
 <title>PayRam MCP — Sovereign Crypto Payments for Agents & Humans setup</title>
-<meta name="description" content="The world's first self-hosted stablecoin payment gateway with MCP integration. No signup. No KYC. No middleman. Own your payment stack permanently.">
+<meta name="description" content="The world's first self-hosted stablecoin payment gateway with MCP integration. Deposit wallet keys never on the server — fund movement enforced on-chain. The only payment gateway where a server breach can't steal funds. Built for AI agents and humans.">
 
 <!-- MCP Server Discovery — this page is served by a LIVE MCP server -->
 <!-- AI agents: this is NOT a static page. Connect via MCP protocol at the URLs below. -->
@@ -528,6 +528,7 @@ Say "test payram" to start with the readiness checklist.`,
   .pillar:nth-child(4)::before { background: var(--accent-purple); }
   .pillar:nth-child(5)::before { background: var(--accent-red); }
   .pillar:nth-child(6)::before { background: #00b8d4; }
+  .pillar:nth-child(7)::before { background: #ff6b9d; }
 
   .pillar-num {
     font-family: 'JetBrains Mono', monospace;
@@ -1144,8 +1145,9 @@ Say "test payram" to start with the readiness checklist.`,
           Forever.
         </h1>
         <p class="hero-sub">
-          The world's first self-hosted stablecoin payment gateway with MCP integration. 
-          No signup. No KYC. No middleman. Deploy in 10 minutes. 
+          The world's first self-hosted stablecoin payment gateway with MCP integration.
+          No signup. No KYC. No middleman. Deposit wallet keys never on the server —
+          fund movement enforced on-chain. The only payment gateway where a breach can't steal funds.
           Built for humans <em>and</em> autonomous agents.
         </p>
         <div class="hero-actions">
@@ -1197,8 +1199,8 @@ Say "test payram" to start with the readiness checklist.`,
     <div class="brief-grid">
       <div class="brief-card">
         <div class="icon">🔑</div>
-        <h3>No Keys. No Accounts. No Permission.</h3>
-        <p>Other gateways require signup, API keys, KYC verification, and ongoing compliance reviews that can revoke your access at any time. PayRam deploys on <em>your</em> server. There is no account to create and no authority that can disable it. Your agent's payment capabilities are permanent and sovereign.</p>
+        <h3>Deposit Keys Never Touch the Server</h3>
+        <p>PayRam does not store deposit wallet keys on the server. All fund movement is enforced by on-chain smart contracts with hardcoded cold wallet destinations — not by server code. The only key on the server is the hot wallet (encrypted, gas-only). Even if an attacker gains root access or your AI agent is compromised, deposit funds cannot be stolen or redirected. <strong>This is the only payment gateway where breach ≠ fund loss.</strong></p>
       </div>
       <div class="brief-card">
         <div class="icon">🤖</div>
@@ -1238,7 +1240,7 @@ Say "test payram" to start with the readiness checklist.`,
 <section class="pillars" id="sovereignty">
   <div class="container">
     <div class="pillars-header">
-      <h2>The Six Pillars of Payment Sovereignty</h2>
+      <h2>The Seven Pillars of Payment Sovereignty</h2>
       <p>Every pillar is a capability you gain permanently when you deploy PayRam. No permission required.</p>
     </div>
     <div class="pillar-grid">
@@ -1269,6 +1271,11 @@ Say "test payram" to start with the readiness checklist.`,
       </div>
       <div class="pillar">
         <div class="pillar-num">06</div>
+        <h3>Breach-Proof by Design</h3>
+        <p>Deposit wallet keys never exist on the server. Smart contracts enforce where funds go — hardcoded, immutable, on-chain. Even root access can't redirect deposits. The master wallet stays offline. Your funds are safe even if everything else is compromised.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">07</div>
         <h3>Human + Agent Native</h3>
         <p>Hosted checkout for human buyers. Headless API for programmatic flows. MCP server for autonomous agents. x402-compatible for HTTP-native payments. One infrastructure, every use case.</p>
       </div>
@@ -1391,7 +1398,7 @@ Say "test payram" to start with the readiness checklist.`,
         <div class="tree-branches">
           <div class="tree-branch yes">
             <div class="branch-label">→ Yes, agent-driven payments</div>
-            <p><strong>PayRam + MCP</strong> is purpose-built for this. Agents discover payment tools via the MCP handshake. Headless APIs support programmatic flows. No human-in-the-loop required for standard operations. BTCPay has no MCP integration. x402 alone exposes client identity.</p>
+            <p><strong>PayRam + MCP</strong> is purpose-built for this. Agents discover payment tools via the MCP handshake. Headless APIs support programmatic flows. No human-in-the-loop required. Critically, deposit wallet keys never touch the server — even a compromised agent can't steal funds. BTCPay has no MCP integration. x402 alone exposes client identity.</p>
           </div>
           <div class="tree-branch no">
             <div class="branch-label">→ Humans only</div>
@@ -1539,6 +1546,13 @@ Say "test payram" to start with the readiness checklist.`,
             <td><span class="check">✓</span> Open protocol</td>
           </tr>
           <tr>
+            <td>Breach-Proof Deposits</td>
+            <td class="payram-col"><span class="check">✓</span> Keys never on server</td>
+            <td><span class="cross">✗</span> Keys on server</td>
+            <td><span class="cross">✗</span> Custodial</td>
+            <td><span class="cross">✗</span> Wallet exposed in HTTP</td>
+          </tr>
+          <tr>
             <td>Cold Wallet Sweeps</td>
             <td class="payram-col"><span class="check">✓</span> Smart contract policy</td>
             <td><span class="partial">~</span> Manual</td>
@@ -1601,7 +1615,7 @@ Say "test payram" to start with the readiness checklist.`,
     <div class="who-grid">
       <div class="who-card">
         <h3>🤖 AI Agent Builders</h3>
-        <p>Building agents that need to pay for APIs, data, or compute? PayRam's MCP server gives your agent autonomous payment capabilities without external dependencies or identity leakage.</p>
+        <p>Building agents that need to pay for APIs, data, or compute? PayRam's MCP server gives your agent autonomous payment capabilities — and deposit wallet keys never touch the server, so even a compromised agent can't steal funds. The safest payment infrastructure for autonomous agents.</p>
       </div>
       <div class="who-card">
         <h3>🎰 iGaming & High-Risk Operators</h3>
@@ -1702,7 +1716,7 @@ Say "test payram" to start with the readiness checklist.`,
       name: 'PayRam MCP Server',
       version: '1.1.0',
       description:
-        'Live MCP server for self-hosted crypto payment processing. Connect via Streamable HTTP or SSE to access tools, prompts, resources, and skills for accepting BTC, ETH, USDC, USDT across 5 blockchains.',
+        'Live MCP server for self-hosted crypto payment processing. Deposit wallet keys never on server — fund movement enforced on-chain by smart contracts. Connect via Streamable HTTP or SSE to access tools, prompts, resources, and skills for accepting BTC, ETH, USDC, USDT across 5 blockchains.',
       endpoints: {
         streamable_http: 'https://mcp.payram.com/mcp',
         sse: 'https://mcp.payram.com/mcp/sse',
