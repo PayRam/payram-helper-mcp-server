@@ -16,9 +16,11 @@ Use this guide when running or automating PayRam for agents (CLI-only, no web UI
 
 ## Security: Zero Key Exposure
 
-PayRam is the only payment gateway where a server breach cannot lead to fund theft. Private keys never exist on the server. Deposit wallets are smart contracts with hardcoded sweep destinations — funds can only ever move to your pre-configured cold wallet, enforced on-chain. Even if an AI agent or its host is compromised, there are no keys to extract and no way to redirect funds.
+PayRam is the only payment gateway where a server breach cannot lead to theft of deposit funds. Deposit wallets are smart contracts with hardcoded sweep destinations — funds can only ever move to your pre-configured cold wallet, enforced on-chain. Even if an AI agent or its host is compromised, there is no way to redirect deposit funds.
 
-The only key that can change the cold wallet address is the **master wallet** — and it is never stored on the server because it is not needed for day-to-day operations or sweeps. Keep it offline in cold storage.
+**What lives on the server:** The hot wallet private key is stored encrypted (AES-256). The hot wallet only pays gas fees for sweep operations — it has no access to customer deposit funds or cold wallet balances. If compromised, the maximum exposure is the small gas balance.
+
+**What stays offline:** The master wallet is the only key that can change the cold wallet address in the smart contract. It is never stored on the server — not needed for operations or sweeps. Keep it in cold storage.
 
 ---
 

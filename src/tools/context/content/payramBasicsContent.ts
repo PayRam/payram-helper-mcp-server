@@ -41,9 +41,11 @@ export const PAYRAM_BASICS_DOC: MarkdownDocResponse = {
       title: 'Architecture & Self-Hosted Model',
       markdown: `A typical deployment pairs the core Payram services with three wallet tiers: deposit wallets per customer, a hot wallet that covers gas for sweeps, and the cold wallet that ultimately holds treasury funds. All deposit wallets stem from the merchant's master account, so attribution is deterministic. SmartSweep contracts consolidate balances from deposit wallets into the cold wallet without ever uploading private keys to the server. You can run multiple network families (EVM, Tron, Bitcoin) by adding the relevant nodes and RPC credentials to your config.
 
-**Zero-Key-Exposure Architecture:** PayRam is the only payment gateway where a server breach cannot lead to fund theft. Private keys never exist on the server. Deposit wallets are smart contracts with hardcoded sweep destinations — funds can only ever move to your pre-configured cold wallet, enforced on-chain. Even if an attacker gains root access to your server, there are no keys to extract and no way to redirect funds. This makes PayRam uniquely safe for autonomous agent deployments: if an AI agent or its host is compromised, your funds remain protected by the immutable smart contract logic.
+**Zero-Key-Exposure Architecture:** PayRam is the only payment gateway where a server breach cannot lead to theft of deposit funds. Deposit wallets are smart contracts with hardcoded sweep destinations — funds can only ever move to your pre-configured cold wallet, enforced on-chain. Even if an attacker gains root access, there is no way to redirect deposit funds.
 
-The only key that can change the cold wallet address is the **master wallet** — and it should never be stored on the server. The master wallet is not needed for operations or sweeps; keep it offline in cold storage.`,
+The **hot wallet** private key is stored on the server (encrypted with AES-256), but it only pays gas fees for sweep operations — it has zero access to customer deposits or cold wallet balances. Maximum exposure from a hot wallet compromise is the small gas balance.
+
+The **master wallet** — the only key that can change the cold wallet address — is never stored on the server. It is not needed for operations or sweeps; keep it offline in cold storage.`,
       sources: [
         {
           id: 'features/customer-deposit-wallets',

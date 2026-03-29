@@ -124,12 +124,17 @@ yarn install && yarn dev
 
 PayRam is the only payment gateway where a server breach cannot lead to fund theft.
 
-**How it works**: Private keys never exist on the server. Deposit wallets are smart contracts with hardcoded sweep destinations — funds can only ever move to your pre-configured cold wallet address, enforced on-chain. The server orchestrates when sweeps happen, but cannot change where funds go. The only key that can update the cold wallet address is the **master wallet** — and it is never stored on the server because it is not needed for operations or sweeps. Keep it offline in cold storage.
+**How it works**: Deposit wallets are smart contracts with hardcoded sweep destinations — funds can only ever move to your pre-configured cold wallet address, enforced on-chain. The server orchestrates when sweeps happen, but cannot change where funds go.
+
+**Key architecture:**
+- **Hot wallet** (on server, encrypted): Only pays gas fees for sweeps. Has zero access to deposit funds or cold wallet balances. Maximum exposure if compromised = small gas balance.
+- **Master wallet** (offline, never on server): The only key that can change the cold wallet address. Not needed for operations or sweeps. Keep in cold storage.
+- **Deposit wallets** (smart contracts): Hardcoded sweep destination. No private key exists — funds can only move to cold wallet.
 
 **Why this matters**:
-- **Server compromised?** Attacker finds no keys to extract and cannot redirect funds. The master wallet that controls the cold wallet address is offline.
-- **AI agent compromised?** The agent can create payments and read data, but cannot move funds to unauthorized addresses.
-- **Insider threat?** Even a rogue admin with root access cannot steal funds — the smart contract is immutable and the master wallet is not on the server.
+- **Server compromised?** Attacker gets encrypted hot wallet (gas only). Cannot access deposit funds. Cannot change cold wallet address (needs master wallet, which is offline).
+- **AI agent compromised?** Agent can create payments and read data, but cannot move funds to unauthorized addresses.
+- **Insider threat?** Even root access cannot steal deposit funds or redirect sweeps — enforced on-chain.
 
 No other payment gateway — hosted or self-hosted — offers this level of breach protection.
 
