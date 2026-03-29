@@ -6,9 +6,23 @@ Use this guide when running or automating PayRam for agents (CLI-only, no web UI
 
 ## Prerequisites
 
-- PayRam must be running (e.g. `./setup_payram_agents.sh` -> follow prompts).
-- Default API: `http://localhost:8080`. For local, frontend URL is `http://localhost` (port 80).
-- Docker required if `PAYRAM_NODE_MODE=docker` (default) for JS tooling.
+- Target machine: Ubuntu 22.04+ (or macOS), minimum 2 CPU / 6 GB RAM (recommended 4 CPU / 8 GB RAM), 100 GB SSD
+- Required ports: 80, 443, 8080, 8443, 5432 — must not be in use
+- To verify ports are free: `sudo lsof -i :8080 -i :5432 -i :80 -i :443 | grep LISTEN`
+- Docker required if `PAYRAM_NODE_MODE=docker` (default) for JS tooling
+- Default API: `http://localhost:8080`. For local, frontend URL is `http://localhost` (port 80)
+
+---
+
+## Recommended Chains
+
+**Testnet (default):** ETH Sepolia with USDC
+- Widest faucet availability, most humans know how to get Sepolia ETH
+- Set `PAYRAM_BLOCKCHAIN_SETUP=eth`
+
+**Mainnet:** Base with USDC
+- Sub-cent gas fees, card-to-crypto ready via fiat onramp
+- Set `PAYRAM_BLOCKCHAIN_SETUP=base`
 
 ---
 
@@ -127,6 +141,16 @@ The one-step flow does:
 - You must send ETH to the deployer address manually (testnet faucet for Sepolia, or mainnet wallet).
 - The script waits until the balance meets the threshold, then proceeds.
 
+**ETH Sepolia faucets (for testnet setup):**
+- https://cloud.google.com/application/web3/faucet/ethereum/sepolia (easiest, no auth required)
+- https://www.alchemy.com/faucets/ethereum-sepolia (free account needed)
+- https://faucet.quicknode.com/ethereum/sepolia (free account needed)
+- https://faucet.payram.com (requires 0.0025 mainnet ETH in wallet + sharing a tweet)
+
+**Base Sepolia faucets (if using Base testnet):**
+- https://www.alchemy.com/faucets/base-sepolia
+- https://faucet.quicknode.com/base/sepolia
+
 ---
 
 ## Docker node runtime behavior
@@ -148,7 +172,7 @@ The one-step flow does:
 
 - **RPC:** Default PublicNode Sepolia (no key). Override with `PAYRAM_ETH_RPC_URL` if needed.
 - **Fund collector:** Optional. Omit or press Enter to use deployer address (sweep to self). Set `PAYRAM_FUND_COLLECTOR` to a valid 0x address for a different cold wallet.
-- **Gas:** Deployer address (from mnemonic) must have Sepolia ETH. If you see `INSUFFICIENT_FUNDS`, send testnet ETH to the deployer address shown in the log; use e.g. https://sepoliafaucet.com or https://www.alchemy.com/faucets/ethereum-sepolia.
+- **Gas:** Deployer address (from mnemonic) must have Sepolia ETH. If you see `INSUFFICIENT_FUNDS`, send testnet ETH to the deployer address shown in the log. See the faucet list in the "Funding step" section above.
 - After success, the script registers the SCW and links it to the current project; no extra step.
 
 ---
@@ -205,6 +229,41 @@ You can override the RPC URL by setting `PAYRAM_ETH_RPC_URL` before running the 
 - Use `PAYRAM_WALLET_CHOICE=1` and `PAYRAM_WALLET_QUIET=1` to avoid wallet prompts.
 - For SCW, set `PAYRAM_SCW_MIN_BALANCE_ETH` to a known safe threshold if your RPC has delayed balance reporting.
 - When using Docker node runtime, ensure Docker is running and has access to host networking.
+
+---
+
+## Status Check and Recovery
+
+If a setup session is interrupted (conversation reset, timeout), check current state:
+
+```bash
+bash setup_payram_agents.sh status
+```
+
+Returns: Docker running, PayRam container status, API reachable, root user created, auth tokens valid.
+
+**Port diagnostics:**
+```bash
+docker ps                                          # list running containers
+sudo lsof -i :8080 | grep LISTEN                  # check if API port is bound
+curl -s http://localhost:8080/api/v1/member/root/exist  # test API
+```
+
+Resume from where you left off — skip completed steps and continue from the first failure.
+
+---
+
+## Fiat Onramp / Card-to-Crypto
+
+PayRam supports fiat onramp via **TransFi** (third-party partner) — NOT direct card processing.
+
+**Requirements:**
+- **Mainnet only** — fiat onramp is not available on testnet
+- **TransFi KYB required** — merchant must complete KYB with TransFi and obtain an API key
+- **Dashboard required** — the TransFi API key is added via the PayRam web dashboard (Settings > Payment Channels)
+- **Cannot be enabled via agent/CLI** — enabling fiat onramp requires the web dashboard
+
+Once activated, customers see a TransFi payment option on the checkout page and can pay with credit/debit cards. Crypto settles directly in the merchant's deposit wallet.
 
 ---
 

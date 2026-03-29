@@ -21,9 +21,9 @@ PayRam is a self-hosted crypto payment gateway. You deploy it on your own server
 
 **Server Requirements:**
 
-- **CPU**: 4 cores
-- **RAM**: 4 GB
-- **Storage**: 50 GB SSD
+- **CPU**: minimum 2 cores (recommended 4 cores)
+- **RAM**: minimum 6 GB (recommended 8 GB)
+- **Storage**: 100 GB SSD
 - **OS**: Ubuntu 22.04
 - **Ports**: 80, 443, 8080, 8443, 5432
 
@@ -47,7 +47,7 @@ This automated script deploys a PayRam instance optimized for AI agents (Claude,
 2. **Run the agent onboarding setup script:**
 
 ```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/PayRam/payram-scripts/main/setup_payram_agents.sh)"
+/bin/bash -c "$(curl -fsSL https://payram.com/setup_payram_agents.sh)"
 ```
 
 3. **Follow interactive prompts:**

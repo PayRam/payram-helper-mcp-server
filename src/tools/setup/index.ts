@@ -164,6 +164,42 @@ export const registerSetupTools = (server: McpServer) => {
   );
 
   server.registerTool(
+    'get_agent_setup_flow',
+    {
+      title: 'Get Agent Setup Flow',
+      description:
+        'Returns the step-by-step setup flow for deploying PayRam as an agent. ' +
+        'Covers install, wallet creation, faucet funding, contract deployment, ' +
+        'and first payment. Includes chain recommendations (ETH Sepolia for testnet, ' +
+        'Base for mainnet), faucet URLs, card-to-crypto prerequisites, and ' +
+        'status/recovery commands for interrupted sessions.',
+      inputSchema: agentSetupGuideSchemas.input,
+      outputSchema: agentSetupGuideSchemas.output,
+    },
+    safeHandler(
+      async () => {
+        const markdown = await loadRepoMarkdown('docs/PAYRAM_AGENT_ONBOARDING.md');
+        const response = {
+          title: 'PayRam Agent Setup Flow',
+          description:
+            'Step-by-step flow: install → wallet → fund → deploy → payment. ' +
+            'Includes faucet URLs and chain recommendations.',
+          markdown,
+        };
+
+        return {
+          content: [
+            textContent('Delivered agent setup flow.'),
+            textContent(markdown),
+          ],
+          structuredContent: toStructuredContent(response),
+        };
+      },
+      { toolName: 'get_agent_setup_flow' },
+    ),
+  );
+
+  server.registerTool(
     'onboard_agent_setup',
     {
       title: 'Get Payram Agent Onboarding Guide',

@@ -24,12 +24,12 @@ PayRam Agent Onboarding enables fully automated, CLI-driven payment infrastructu
 **System Requirements:**
 - Ubuntu 22.04 or compatible Linux
 - Docker (for `PAYRAM_NODE_MODE=docker`, default)
-- 4 CPU cores, 4GB RAM minimum
+- Minimum 2 CPU, 6 GB RAM (recommended 4 CPU, 8 GB RAM)
 - PostgreSQL database (configured during installation)
 
 **Installation Script:**
 ```bash
-curl -fsSL https://raw.githubusercontent.com/PayRam/payram-scripts/main/setup_payram_agents.sh -o setup_payram_agents.sh
+curl -fsSL https://payram.com/setup_payram_agents.sh -o setup_payram_agents.sh
 chmod +x setup_payram_agents.sh
 ```
 
@@ -175,9 +175,12 @@ export PAYRAM_WALLET_QUIET="1"
 # Script will display deployer address like:
 # "Send testnet ETH to: 0x742d35Cc6634C0532925a3b844Bc9e7595f0bEeB"
 
-# Fund the address using testnet faucet:
-# - https://sepoliafaucet.com
-# - https://www.alchemy.com/faucets/ethereum-sepolia
+# Fund the address using a testnet faucet:
+# ETH Sepolia:
+# - https://cloud.google.com/application/web3/faucet/ethereum/sepolia (easiest, no auth)
+# - https://www.alchemy.com/faucets/ethereum-sepolia (free account)
+# - https://faucet.quicknode.com/ethereum/sepolia (free account)
+# - https://faucet.payram.com (requires 0.0025 mainnet ETH + tweet)
 
 # Script automatically polls for balance and deploys when funded
 ```
@@ -218,8 +221,15 @@ http://localhost/payment?reference_id=ref_abc123&host=http://localhost:8080
 ### Funding the Deployer
 
 **Testnet (Sepolia):**
-- Use faucets: [Alchemy Sepolia Faucet](https://www.alchemy.com/faucets/ethereum-sepolia) or [SepoliaFaucet.com](https://sepoliafaucet.com)
 - Minimum: 0.01 ETH (configurable via `PAYRAM_SCW_MIN_BALANCE_ETH`)
+- ETH Sepolia faucets:
+  - https://cloud.google.com/application/web3/faucet/ethereum/sepolia (easiest, no auth required)
+  - https://www.alchemy.com/faucets/ethereum-sepolia (free account needed)
+  - https://faucet.quicknode.com/ethereum/sepolia (free account needed)
+  - https://faucet.payram.com (requires 0.0025 mainnet ETH + tweet)
+- Base Sepolia faucets:
+  - https://www.alchemy.com/faucets/base-sepolia
+  - https://faucet.quicknode.com/base/sepolia
 
 **Mainnet:**
 - Send real ETH to deployer address
