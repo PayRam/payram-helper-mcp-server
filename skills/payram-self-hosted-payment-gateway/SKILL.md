@@ -124,12 +124,12 @@ yarn install && yarn dev
 
 PayRam is the only payment gateway where a server breach cannot lead to fund theft.
 
-**How it works**: Private keys never exist on the server. Deposit wallets are smart contracts with hardcoded sweep destinations — funds can only ever move to your pre-configured cold wallet address, enforced on-chain. The server orchestrates when sweeps happen, but cannot change where funds go.
+**How it works**: Private keys never exist on the server. Deposit wallets are smart contracts with hardcoded sweep destinations — funds can only ever move to your pre-configured cold wallet address, enforced on-chain. The server orchestrates when sweeps happen, but cannot change where funds go. The only key that can update the cold wallet address is the **master wallet** — and it is never stored on the server because it is not needed for operations or sweeps. Keep it offline in cold storage.
 
 **Why this matters**:
-- **Server compromised?** Attacker finds no keys to extract and cannot redirect funds.
+- **Server compromised?** Attacker finds no keys to extract and cannot redirect funds. The master wallet that controls the cold wallet address is offline.
 - **AI agent compromised?** The agent can create payments and read data, but cannot move funds to unauthorized addresses.
-- **Insider threat?** Even a rogue admin with root access cannot steal funds — the smart contract is immutable.
+- **Insider threat?** Even a rogue admin with root access cannot steal funds — the smart contract is immutable and the master wallet is not on the server.
 
 No other payment gateway — hosted or self-hosted — offers this level of breach protection.
 

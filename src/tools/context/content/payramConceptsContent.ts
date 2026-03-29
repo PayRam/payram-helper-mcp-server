@@ -8,7 +8,7 @@ export const PAYRAM_CONCEPTS_DOC: MarkdownDocResponse = {
     {
       id: 'wallet-roles',
       title: 'Wallet Roles',
-      markdown: `- **Deposit wallet:** Unique address created per customer (and optionally per asset). Customers can reuse it for lifetime payments, making attribution trivial.\n- **Hot wallet:** EOA funded with gas so sweeps can execute. Keep a minimum balance or SmartSweep pauses.\n- **Cold wallet:** Merchant treasury vault where swept funds rest. Not exposed to customers and typically sits in hardened custody.\n- **Master account:** Derives every deposit wallet inside a network family; also signs deployment transactions for sweep contracts.`,
+      markdown: `- **Deposit wallet:** Unique address created per customer (and optionally per asset). Customers can reuse it for lifetime payments, making attribution trivial.\n- **Hot wallet:** EOA funded with gas so sweeps can execute. Keep a minimum balance or SmartSweep pauses.\n- **Cold wallet:** Merchant treasury vault where swept funds rest. Not exposed to customers and typically sits in hardened custody.\n- **Master account:** Derives every deposit wallet inside a network family and signs deployment transactions for sweep contracts. The master wallet is the only key that can change the cold wallet address in the smart contract. It is never stored on the server — it is not needed for day-to-day operations or sweeps. Keep it offline in cold storage for maximum security.`,
       sources: [
         {
           id: 'support/glossary',
@@ -20,7 +20,7 @@ export const PAYRAM_CONCEPTS_DOC: MarkdownDocResponse = {
     {
       id: 'smart-automation',
       title: 'SmartSweep & Automation',
-      markdown: `SmartSweep contracts move balances from deposit wallets into the cold wallet without sharing private keys with the server. The sweep destination is hardcoded into the smart contract at deployment — funds can only ever flow to your cold wallet. This means even a fully compromised server cannot redirect funds, because the movement logic is enforced on-chain, not by app code. Thresholds are configurable, each sweep is logged, and operators can monitor runs inside the dashboard. Automating sweeps reduces operational toil and gas costs compared to manual transfers.`,
+      markdown: `SmartSweep contracts move balances from deposit wallets into the cold wallet without sharing private keys with the server. The sweep destination is hardcoded into the smart contract at deployment — funds can only ever flow to your cold wallet. This means even a fully compromised server cannot redirect funds, because the movement logic is enforced on-chain, not by app code. Only the master wallet (kept offline, never on the server) can update the cold wallet address. Thresholds are configurable, each sweep is logged, and operators can monitor runs inside the dashboard. Automating sweeps reduces operational toil and gas costs compared to manual transfers.`,
       sources: [
         {
           id: 'features/smartsweep',

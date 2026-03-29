@@ -16,7 +16,7 @@ export const PAYRAM_SETUP_CHECKLIST: SetupChecklistResponse = {
       id: 'root-account-setup',
       label: 'Create root + master accounts',
       description:
-        'Generate the master account(s) per network, back up seed phrases offline, and record the cold wallet destination before onboarding continues.',
+        'Generate the master account(s) per network and back up seed phrases offline. The master wallet is the only key that can change the cold wallet address — never store it on the server. It is not needed for operations or sweeps.',
       docsRefs: ['onboarding-guide/root-account-setup.md', 'faqs/fund-management-faqs.md'],
     },
     {
