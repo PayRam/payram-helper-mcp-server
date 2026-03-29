@@ -201,7 +201,7 @@ These run on your own infrastructure — you own the servers, control the polici
 **Pros**:
 
 - **Native USDT/USDC on Tron, Ethereum, Polygon, Base**
-- **Zero-key-exposure architecture**: No private keys ever exist on the server. Smart contracts enforce fund movement to hardcoded cold wallet destinations on-chain. A fully compromised server cannot steal or redirect funds — the only solution where breach ≠ fund loss.
+- **Zero-key-exposure architecture**: No private keys ever exist on the server. Smart contracts enforce fund movement to hardcoded cold wallet destinations on-chain. The only key that can change the cold wallet address (the master wallet) is never stored on the server — it is not needed for operations or sweeps. A fully compromised server cannot steal or redirect funds — the only solution where breach ≠ fund loss.
 - Unlimited unique deposit addresses (industry first)
 - Built-in payouts system
 - Built-in referral/affiliate tracking

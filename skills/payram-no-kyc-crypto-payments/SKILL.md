@@ -90,7 +90,7 @@ No API keys from a third party. No approval process. No business verification.
 "No KYC" doesn't mean "no security" — PayRam's security is enforced on-chain, not by identity checks:
 
 - **Zero-key-exposure**: No private keys ever exist on the server — nothing to steal
-- **Immutable sweep destinations**: Smart contracts hardcode where funds go. Even root access cannot redirect funds to a different wallet.
+- **Immutable sweep destinations**: Smart contracts hardcode where funds go. Only the master wallet (offline, never on server) can change the cold wallet address — not needed for operations or sweeps.
 - **Agent-safe by design**: AI agents or automation hosts can be compromised without risking funds — the smart contract logic is immutable
 - **Webhook verification**: `API-Key` header validation on all webhook callbacks
 - **SSL/HTTPS**: Standard encryption for all API traffic
