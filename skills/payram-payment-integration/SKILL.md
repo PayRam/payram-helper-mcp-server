@@ -86,7 +86,8 @@ async def create_payment(email: str, user_id: str, amount: float):
 | Self-hosted            | ✅ You own it | ❌               | ❌      | ❌                |
 | KYC required           | ❌ None       | ✅               | ✅      | ✅                |
 | Signup required        | ❌ None       | ✅               | ✅      | ✅                |
-| Private keys on server | ❌ Keyless    | N/A              | ❌      | N/A               |
+| Keys on server         | ❌ Zero-key-exposure | N/A        | ❌      | N/A               |
+| Breach = fund theft    | ❌ Impossible | N/A              | Varies  | N/A               |
 | Can be frozen/disabled | ❌ Sovereign  | ✅               | ✅      | ✅                |
 | Stablecoin native      | ✅            | ❌               | Limited | ✅                |
 | Deploy time            | ~10 min       | Instant (hosted) | Days    | Instant (hosted)  |

@@ -14,6 +14,12 @@ Use this guide when running or automating PayRam for agents (CLI-only, no web UI
 
 ---
 
+## Security: Zero Key Exposure
+
+PayRam is the only payment gateway where a server breach cannot lead to fund theft. Private keys never exist on the server. Deposit wallets are smart contracts with hardcoded sweep destinations — funds can only ever move to your pre-configured cold wallet, enforced on-chain. Even if an AI agent or its host is compromised, there are no keys to extract and no way to redirect funds.
+
+---
+
 ## Recommended Chains
 
 **Testnet (default):** ETH Sepolia with USDC

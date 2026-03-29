@@ -20,7 +20,7 @@ export const PAYRAM_CONCEPTS_DOC: MarkdownDocResponse = {
     {
       id: 'smart-automation',
       title: 'SmartSweep & Automation',
-      markdown: `SmartSweep contracts move balances from deposit wallets into the cold wallet without sharing private keys with the server. Thresholds are configurable, each sweep is logged, and operators can monitor runs inside the dashboard. Automating sweeps reduces operational toil and gas costs compared to manual transfers.`,
+      markdown: `SmartSweep contracts move balances from deposit wallets into the cold wallet without sharing private keys with the server. The sweep destination is hardcoded into the smart contract at deployment — funds can only ever flow to your cold wallet. This means even a fully compromised server cannot redirect funds, because the movement logic is enforced on-chain, not by app code. Thresholds are configurable, each sweep is logged, and operators can monitor runs inside the dashboard. Automating sweeps reduces operational toil and gas costs compared to manual transfers.`,
       sources: [
         {
           id: 'features/smartsweep',
