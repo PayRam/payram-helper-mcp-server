@@ -1,4 +1,6 @@
 import express from 'express';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
 import { registerTools } from './tools/index.js';
@@ -6,6 +8,9 @@ import { registerPrompts } from './prompts/index.js';
 import { registerResources } from './resources/index.js';
 import { getServerPort } from './config/env.js';
 import { logger } from './utils/logger.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const createApp = () => express();
 
@@ -17,6 +22,8 @@ const bootstrap = async () => {
     logger.debug(`${req.method} ${req.path}`);
     next();
   });
+
+  app.use(express.static(path.resolve(__dirname, '..', 'public')));
 
   const mcpServer = new McpServer(
     {
@@ -108,6 +115,7 @@ Say "test payram" to start with the readiness checklist.`,
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon.png">
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-GGW57ME89J"></script>
 <script>
