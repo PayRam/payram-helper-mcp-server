@@ -1,3 +1,4 @@
+<!-- Canonical source: PayRam/SOUL.md — keep in sync across all repos -->
 # SOUL.md — PayRam
 
 ## What We Are
