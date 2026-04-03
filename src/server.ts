@@ -70,6 +70,11 @@ Say "test payram" to start with the readiness checklist.`,
       enableJsonResponse: true,
     });
 
+    res.on('close', () => {
+      server.close().catch((err) => logger.error('server close error', err));
+      transport.close().catch((err) => logger.error('transport close error', err));
+    });
+
     try {
       await server.connect(transport);
       await transport.handleRequest(req, res, req.body);
@@ -83,11 +88,6 @@ Say "test payram" to start with the readiness checklist.`,
         });
       }
     }
-
-    res.on('close', () => {
-      transport.close();
-      server.close();
-    });
   };
 
   // JSON-RPC POST endpoint.
@@ -102,11 +102,11 @@ Say "test payram" to start with the readiness checklist.`,
 
   // 405 for GET/DELETE on MCP endpoints — no SSE, no long-lived connections.
   const methodNotAllowed = (_req: express.Request, res: express.Response) => {
-    res.writeHead(405).end(JSON.stringify({
+    res.status(405).json({
       jsonrpc: '2.0',
       error: { code: -32000, message: 'Method not allowed.' },
       id: null,
-    }));
+    });
   };
   app.get('/mcp', methodNotAllowed);
   app.get('/mcp/sse', methodNotAllowed);
@@ -1718,7 +1718,7 @@ Say "test payram" to start with the readiness checklist.`,
     </div>
     <div class="footer-bottom">
       <span>© 2024–2026 PayRam. Infrastructure is freedom.</span>
-      <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-muted);">Buid with love</span>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-muted);">Built with love</span>
     </div>
   </div>
 </footer>
@@ -1738,7 +1738,7 @@ Say "test payram" to start with the readiness checklist.`,
       name: 'PayRam MCP Server',
       version: '1.1.0',
       description:
-        'Live MCP server for self-hosted crypto payment processing. Deposit wallet keys never on server — fund movement enforced on-chain by smart contracts. Connect via Streamable HTTP or SSE to access tools, prompts, resources, and skills for accepting BTC, ETH, USDC, USDT across 5 blockchains.',
+        'Live MCP server for self-hosted crypto payment processing. Deposit wallet keys never on server — fund movement enforced on-chain by smart contracts. Connect via Streamable HTTP to access tools, prompts, resources, and skills for accepting BTC, ETH, USDC, USDT across 5 blockchains.',
       endpoints: {
         streamable_http: 'https://mcp.payram.com/mcp',
         health: 'https://mcp.payram.com/healthz',
