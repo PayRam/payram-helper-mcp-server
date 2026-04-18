@@ -7,11 +7,13 @@
   "scripts": {
     "dev": "tsx src/server.ts",
     "dev:ngrok": "ngrok http 3333 --log=stdout",
+    "prebuild": "node scripts/build-skills-index.mjs",
     "build": "tsc --project tsconfig.json",
     "start": "node dist/server.js",
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "skills:build": "node scripts/build-skills-index.mjs",
     "test": "vitest run"
   },
   "dependencies": {
@@ -35,7 +37,9 @@
     "./skills/payram-bitcoin-payments",
     "./skills/payram-payouts",
     "./skills/payram-no-kyc-crypto-payments",
-    "./skills/compare-crypto-payments"
+    "./skills/compare-crypto-payments",
+    "./skills/payram-openclaw-integration",
+    "./skills/payram-widget-integration"
   ],
   "devDependencies": {
     "@types/express": "^4.17.21",
