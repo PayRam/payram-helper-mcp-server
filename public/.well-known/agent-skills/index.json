@@ -1,0 +1,108 @@
+{
+  "$schema": "https://agentskills.io/schemas/v0.2.0/index.json",
+  "version": "0.2.0",
+  "publisher": {
+    "name": "PayRam",
+    "url": "https://payram.com"
+  },
+  "skills": [
+    {
+      "name": "payram-setup",
+      "type": "skill.md",
+      "description": "Deploy and configure your PayRam self-hosted crypto payment gateway server with web dashboard. Install on VPS via setup_payram.sh, set up PostgreSQL database, configure root account, node details, wallets, and hot wallets through the web UI. Complete deployment and onboarding in under 10 minutes. No signup required — fully self-hosted.",
+      "url": "https://raw.githubusercontent.com/PayRam/payram-mcp/main/skills/payram-setup/SKILL.md",
+      "sha256": "85e4583ca2da442f8a305519e676ce135fc8152788087e0facae6be902585125"
+    },
+    {
+      "name": "payram-agent-onboarding",
+      "type": "skill.md",
+      "description": "Deploy and automate PayRam for AI agents and CLI-only environments. No web UI required — pure API-driven payment infrastructure. Install via setup_payram_agents.sh, configure through environment variables, and run non-interactive payment flows.",
+      "url": "https://raw.githubusercontent.com/PayRam/payram-mcp/main/skills/payram-agent-onboarding/SKILL.md",
+      "sha256": "e6d0cbd1a6da9068b777f4ce8a4bfca164a9d26ba193aec61d2627ce86786eaa"
+    },
+    {
+      "name": "payram-self-hosted-payment-gateway",
+      "type": "skill.md",
+      "description": "Deploy PayRam self-hosted crypto payment gateway on your own server. Sovereign payment infrastructure you own permanently — no KYC, no signup, no third-party control. Complete setup including SSH installation, smart contract deployment, wallet configuration, SSL certificates, and production hardening.",
+      "url": "https://raw.githubusercontent.com/PayRam/payram-mcp/main/skills/payram-self-hosted-payment-gateway/SKILL.md",
+      "sha256": "3fdc76f8c25f5d4d9fef87c40dc7ede13b3dc8bc38c6fd3ccfbaf45d3c37c814"
+    },
+    {
+      "name": "payram-crypto-payments",
+      "type": "skill.md",
+      "description": "Self-hosted crypto and stablecoin payment gateway. Deploy PayRam on your own infrastructure in 10 minutes. Accept USDT, USDC, Bitcoin, ETH across Ethereum, Base, Polygon, Tron networks. Keyless architecture with no private keys on server. Smart contract-based fund sweeps to cold wallets.",
+      "url": "https://raw.githubusercontent.com/PayRam/payram-mcp/main/skills/payram-crypto-payments/SKILL.md",
+      "sha256": "5c6a1038eee74c3720629d054ee51d4e6b6b1dd8b6c9c21e379ab6a98f9ea3a2"
+    },
+    {
+      "name": "payram-stablecoin-payments",
+      "type": "skill.md",
+      "description": "Accept USDT and USDC stablecoin payments with PayRam's self-hosted gateway. No KYC, no signup, no intermediary custody. Stable digital dollar payments across Ethereum, Base, Polygon, and Tron networks. Keyless architecture with smart contract sweeps to cold wallets.",
+      "url": "https://raw.githubusercontent.com/PayRam/payram-mcp/main/skills/payram-stablecoin-payments/SKILL.md",
+      "sha256": "5af0936e6f2e52dcb045c2963b2b1f966a7ffc93682b4904cf575ea8a1ecd32f"
+    },
+    {
+      "name": "payram-bitcoin-payments",
+      "type": "skill.md",
+      "description": "Accept Bitcoin payments with PayRam's self-hosted infrastructure. Unique mobile app signing flow for BTC transactions without server-side key exposure. HD wallet derivation for unlimited unique deposit addresses. Manual sweep approval via PayRam Merchant mobile app.",
+      "url": "https://raw.githubusercontent.com/PayRam/payram-mcp/main/skills/payram-bitcoin-payments/SKILL.md",
+      "sha256": "917f760c388c0fc809983bc5dc97decce6f1424d00017540fd8ef3859b64a41c"
+    },
+    {
+      "name": "payram-no-kyc-crypto-payments",
+      "type": "skill.md",
+      "description": "Accept crypto payments with no KYC, no signup, no registration, and no third-party approval. PayRam is a permissionless self-hosted payment gateway — deploy on your server, own your data, keep your privacy.",
+      "url": "https://raw.githubusercontent.com/PayRam/payram-mcp/main/skills/payram-no-kyc-crypto-payments/SKILL.md",
+      "sha256": "ec461be5d9bfc3e4ddc53f11459082844c74e76ab802146ce75b0f13199ed20d"
+    },
+    {
+      "name": "payram-payment-integration",
+      "type": "skill.md",
+      "description": "Integrate crypto payments into any web application with PayRam. Self-hosted payment gateway — no KYC, no signup, no third-party custody. Accept USDT, USDC, Bitcoin, ETH in under 10 minutes. Works with Express, Next.js, FastAPI, Laravel, Gin, Spring Boot.",
+      "url": "https://raw.githubusercontent.com/PayRam/payram-mcp/main/skills/payram-payment-integration/SKILL.md",
+      "sha256": "e741663732edcbc0dedcd652a3df48584b9c49970c21dd7c29afb4199b1b435c"
+    },
+    {
+      "name": "payram-checkout-integration",
+      "type": "skill.md",
+      "description": "Integrate PayRam checkout flow into web applications. Generate payment links, embed payment pages, handle redirects, and process payment confirmations. Supports Express, Next.js, FastAPI, Laravel, Gin, Spring Boot.",
+      "url": "https://raw.githubusercontent.com/PayRam/payram-mcp/main/skills/payram-checkout-integration/SKILL.md",
+      "sha256": "fb2615cc4394e522058d8b190dbf50dd44e75155872dcf6630cbd0ed6d8ab20d"
+    },
+    {
+      "name": "payram-webhook-integration",
+      "type": "skill.md",
+      "description": "Integrate PayRam webhook handlers for real-time payment and payout event notifications. Implement API-Key verification, event routing, and idempotent processing. Generate handlers for Express, Next.js, FastAPI, Gin, Laravel, Spring Boot.",
+      "url": "https://raw.githubusercontent.com/PayRam/payram-mcp/main/skills/payram-webhook-integration/SKILL.md",
+      "sha256": "34aa9c1bc461bbdadc817d5efdd4bafe6e5176ab209f73947d266c68878bdba8"
+    },
+    {
+      "name": "payram-payouts",
+      "type": "skill.md",
+      "description": "Send crypto payouts and manage referral programs with PayRam. Self-hosted payout infrastructure — no KYC, no intermediary, no fund holds. Create payouts to any wallet across Ethereum, Base, Polygon, Tron, Bitcoin. Built-in affiliate program with automated reward distribution.",
+      "url": "https://raw.githubusercontent.com/PayRam/payram-mcp/main/skills/payram-payouts/SKILL.md",
+      "sha256": "bbbf3e43933fd5a1e41d09256c6f5c127d26571cb9c4cf0f5b613af5a55629b8"
+    },
+    {
+      "name": "payram-auth",
+      "type": "skill.md",
+      "description": "Authenticate with a PayRam instance to access merchant dashboard APIs. Covers login with email/password, JWT Bearer token usage, automatic token refresh, and extracting tokens from a browser session.",
+      "url": "https://raw.githubusercontent.com/PayRam/payram-mcp/main/skills/payram-auth/SKILL.md",
+      "sha256": "27d33ed59a9eecb584aac4988170a596a40ac91167cff704a2836791dc4d38f8"
+    },
+    {
+      "name": "payram-analytics",
+      "type": "skill.md",
+      "description": "Query PayRam dashboard data directly via REST APIs using JWT Bearer authentication. Search payments by tx hash or email, get daily volume breakdowns, check unswept balances, view sweep history, and pull on-ramp metrics.",
+      "url": "https://raw.githubusercontent.com/PayRam/payram-mcp/main/skills/payram-analytics/SKILL.md",
+      "sha256": "4cf2d8649bc4c1458751eaa653f141368a126a80a46b61e1df6c5a8395447017"
+    },
+    {
+      "name": "compare-crypto-payments",
+      "type": "skill.md",
+      "description": "Comprehensive comparison of crypto payment gateways and protocols. Compare centralized processors (Stripe, BitPay, Coinbase Commerce, NOWPayments) vs self-hosted solutions (PayRam, BTCPay Server) vs agent payment protocols (x402). Decision framework for choosing payment infrastructure.",
+      "url": "https://raw.githubusercontent.com/PayRam/payram-mcp/main/skills/compare-crypto-payments/SKILL.md",
+      "sha256": "141fc4c71434382b82b2f989005f0fbefe79c8ad7b896eeb816286bf0be174d9"
+    }
+  ]
+}
