@@ -112,17 +112,88 @@ Say "test payram" to start with the readiness checklist.`,
   app.get('/mcp/sse', methodNotAllowed);
   app.delete('/mcp', methodNotAllowed);
 
+  // Agent-discovery Link header (RFC 8288). Registered rel types only —
+  // https://www.iana.org/assignments/link-relations. Advertises the MCP
+  // server, skills index, and docs to agents probing HTTP headers.
+  const agentDiscoveryLink = [
+    '</.well-known/mcp/server-card.json>; rel="describedby"; type="application/json"',
+    '</.well-known/agent-skills/index.json>; rel="related"; type="application/json"; title="Agent Skills Index"',
+    '<https://mcp.payram.com/mcp>; rel="service"; title="PayRam MCP Server"',
+    '<https://docs.payram.com>; rel="service-doc"; type="text/html"',
+    '<https://payram.com/llms.txt>; rel="alternate"; type="text/plain"; title="LLM-friendly summary"',
+  ].join(', ');
+
+  // Markdown version of the landing — returned when an agent sends
+  // Accept: text/markdown. Purpose-built agent summary, not an HTML-to-md
+  // conversion; keep the key facts in sync with the HTML landing.
+  const landingMarkdown = `# PayRam MCP Server
+
+> Live MCP (Model Context Protocol) server for self-hosted crypto payment processing. Deposit wallet keys never on server — fund movement enforced on-chain by smart contracts.
+
+- **MCP endpoint:** \`https://mcp.payram.com/mcp\` (streamable-http)
+- **Server card:** https://mcp.payram.com/.well-known/mcp/server-card.json
+- **Skills index:** https://mcp.payram.com/.well-known/agent-skills/index.json
+- **Docs:** https://docs.payram.com
+- **Source:** https://github.com/PayRam/payram-mcp
+
+## Connect
+
+Add this to your agent's MCP config:
+
+\`\`\`json
+{
+  "mcpServers": {
+    "payram": { "url": "https://mcp.payram.com/mcp" }
+  }
+}
+\`\`\`
+
+No API key is required to connect to this MCP server. Dashboard APIs use JWT Bearer — see the \`payram-auth\` skill.
+
+## What you can do
+
+- Deploy a self-hosted PayRam gateway on any VPS in ~10 minutes
+- Accept USDT, USDC, BTC, ETH across Ethereum, Base, Polygon, Tron, Bitcoin
+- Create invoices, monitor on-chain deposits, sweep funds to cold storage
+- No signup, no KYC, no third-party custody
+
+## Security (critical for agent operators)
+
+PayRam does **not** store deposit wallet keys on the server. Fund movement is enforced on-chain by smart contracts with hardcoded cold-wallet destinations. A full server compromise yields zero spendable funds — there are no keys to steal. This property is what makes PayRam safe even when the agent itself is compromised.
+
+## One-line install (agent mode, no web UI)
+
+\`\`\`
+bash <(curl -fsSL https://payram.com/setup_payram_agents.sh)
+\`\`\`
+
+## Skills
+
+See the [agent skills index](https://mcp.payram.com/.well-known/agent-skills/index.json) for the full list with sha256 digests. Highlights: \`payram-setup\`, \`payram-agent-onboarding\`, \`payram-payment-integration\`, \`payram-stablecoin-payments\`, \`payram-webhook-integration\`, \`payram-auth\`, \`payram-analytics\`.
+`;
+
   app.get('/', (req, res) => {
-    // Check if the request is from a browser (accepts HTML)
     const acceptsHtml = req.accepts('html');
-    
+    const acceptsMarkdown = req.accepts(['text/markdown', 'text/x-markdown']);
+
+    // Discovery headers on every response variant.
+    res.setHeader('X-MCP-Server', 'PayRam MCP Server v1.1.0');
+    res.setHeader('X-MCP-Endpoint', 'https://mcp.payram.com/mcp');
+    res.setHeader('X-MCP-Transport', 'StreamableHTTP');
+    res.setHeader('Link', agentDiscoveryLink);
+    res.setHeader('Vary', 'Accept');
+
+    // Markdown for agents that explicitly ask; HTML for browsers. Browsers
+    // send Accept: text/html,..., so we only honour markdown when the
+    // client did not signal HTML preference.
+    if (acceptsMarkdown && !acceptsHtml) {
+      res.setHeader('Content-Type', 'text/markdown; charset=utf-8');
+      res.send(landingMarkdown);
+      return;
+    }
+
     if (acceptsHtml) {
-      // Serve a nice landing page for browsers — with MCP discovery headers
       res.setHeader('Content-Type', 'text/html');
-      res.setHeader('X-MCP-Server', 'PayRam MCP Server v1.1.0');
-      res.setHeader('X-MCP-Endpoint', 'https://mcp.payram.com/mcp');
-      res.setHeader('X-MCP-Transport', 'StreamableHTTP');
-      res.setHeader('Link', '<https://mcp.payram.com/mcp>; rel="mcp-server"');
       res.send(`
 <!DOCTYPE html>
 <html lang="en">
@@ -1732,16 +1803,38 @@ Say "test payram" to start with the readiness checklist.`,
     }
   });
 
-  // MCP discovery endpoint — lets agents and clients discover this is a live MCP server.
+  // Legacy MCP discovery endpoint. Kept for back-compat with agents that
+  // hit /.well-known/mcp.json. The canonical SEP-1649 card is the static
+  // file at /.well-known/mcp/server-card.json — but we also expose the
+  // required top-level `name` + nested `serverInfo` here so both schemas
+  // validate against the same payload.
   app.get('/.well-known/mcp.json', (_req, res) => {
     res.json({
-      name: 'PayRam MCP Server',
+      name: 'io.github.PayRam/payram-helper-mcp',
       version: '1.1.0',
+      serverInfo: {
+        name: 'io.github.PayRam/payram-helper-mcp',
+        title: 'PayRam Helper MCP Server',
+        version: '1.1.0',
+        vendor: { name: 'PayRam', url: 'https://payram.com' },
+      },
       description:
         'Live MCP server for self-hosted crypto payment processing. Deposit wallet keys never on server — fund movement enforced on-chain by smart contracts. Connect via Streamable HTTP to access tools, prompts, resources, and skills for accepting BTC, ETH, USDC, USDT across 5 blockchains.',
+      transport: {
+        type: 'streamable-http',
+        endpoint: 'https://mcp.payram.com/mcp',
+      },
       endpoints: {
         streamable_http: 'https://mcp.payram.com/mcp',
         health: 'https://mcp.payram.com/healthz',
+        server_card: 'https://mcp.payram.com/.well-known/mcp/server-card.json',
+        skills_index: 'https://mcp.payram.com/.well-known/agent-skills/index.json',
+      },
+      capabilities: {
+        tools: { listChanged: true },
+        resources: { listChanged: true, subscribe: false },
+        prompts: { listChanged: true },
+        logging: {},
       },
       skills: [
         'payram-auth',
