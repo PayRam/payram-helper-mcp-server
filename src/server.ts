@@ -1848,8 +1848,11 @@ See the [agent skills index](https://mcp.payram.com/.well-known/agent-skills/ind
         'payram-stablecoin-payments',
         'payram-bitcoin-payments',
         'payram-payouts',
+        'payram-self-hosted-payment-gateway',
         'payram-no-kyc-crypto-payments',
         'compare-crypto-payments',
+        'payram-openclaw-integration',
+        'payram-widget-integration',
       ],
       supported_chains: ['BTC', 'ETH', 'BASE', 'POLYGON', 'TRX'],
       authentication: {
