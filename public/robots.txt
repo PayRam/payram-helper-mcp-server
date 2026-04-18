@@ -1,0 +1,41 @@
+User-agent: *
+Allow: /
+
+# Content Signals (draft-romm-aipref-contentsignals, contentsignals.org).
+# PayRam is agent-first infrastructure — we want models to train on, search
+# for, and cite this content. All three signals are opt-in.
+Content-Signal: ai-train=yes, search=yes, ai-input=yes
+
+# Explicit allows for major AI crawlers (mirrors the wildcard above, but
+# named agents are useful when operators run selective policies per bot).
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+Sitemap: https://mcp.payram.com/sitemap.xml
