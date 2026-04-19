@@ -47,7 +47,7 @@ export const PAYRAM_CONCEPTS_DOC: MarkdownDocResponse = {
     {
       id: 'deployment-fundamentals',
       title: 'Deployment Fundamentals',
-      markdown: `Install Payram on infrastructure you control (minimum 2 CPU / 6 GB RAM, recommended 4 CPU / 8 GB RAM, 100 GB SSD). After running the install script, complete onboarding: connect wallets, configure SMTP for OTPs, and invite teammates with least privilege. Because the stack is self-hosted, you own compliance and uptime responsibilities but also keep every key on-prem.`,
+      markdown: `Install Payram on infrastructure you control (minimum 2 CPU / 6 GB RAM, recommended 4 CPU / 8 GB RAM, 15 GB+ disk). After running the install script, complete onboarding: connect wallets, configure SMTP for OTPs, and invite teammates with least privilege. Because the stack is self-hosted, you own compliance and uptime responsibilities but also keep every key on-prem.`,
       sources: [
         {
           id: 'faqs/general-faqs',

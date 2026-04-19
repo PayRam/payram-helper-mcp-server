@@ -100,7 +100,7 @@
       "description": "Deploy PayRam self-hosted crypto payment gateway on your own server. Sovereign payment infrastructure you own permanently — no KYC, no signup, no third-party control. Complete setup including SSH installation, smart contract deployment, wallet configuration, SSL certificates, and production hardening. Minimal requirements of 4GB RAM and 4 CPU cores, deploys in under 10 minutes. Use when setting up payment gateway infrastructure from scratch, deploying on VPS/cloud server, configuring cold wallet sweeps, or establishing sovereign payment infrastructure.",
       "url": "https://raw.githubusercontent.com/PayRam/payram-mcp/main/skills/payram-self-hosted-payment-gateway/SKILL.md",
       "mcpUrl": "https://mcp.payram.com/skills/payram-self-hosted-payment-gateway.md",
-      "sha256": "3fdc76f8c25f5d4d9fef87c40dc7ede13b3dc8bc38c6fd3ccfbaf45d3c37c814"
+      "sha256": "b954e6e2b9ff3e142535504d3edb46ba9db007913aa97e3ea740ed7ad50c1d6d"
     },
     {
       "name": "payram-setup",
@@ -108,7 +108,7 @@
       "description": "Deploy and configure your PayRam self-hosted crypto payment gateway server with web dashboard. Install on VPS via setup_payram.sh, set up PostgreSQL database, configure root account, node details, wallets, and hot wallets through the web UI. Complete deployment and onboarding in under 10 minutes. No signup required — fully self-hosted. For CLI-only deployment optimized for AI agents without web UI, see payram-agent-onboarding. Use when deploying PayRam with dashboard interface, setting up server infrastructure with web-based configuration, or requiring manual wallet management UI.",
       "url": "https://raw.githubusercontent.com/PayRam/payram-mcp/main/skills/payram-setup/SKILL.md",
       "mcpUrl": "https://mcp.payram.com/skills/payram-setup.md",
-      "sha256": "6241ec69cb7d90a4ab948b6d33e05b6f91fcf895990fd551b4ab44dfe71a9ee6"
+      "sha256": "602c21daca31d5e0b2d76035abccd840ffcd1f1e2829f1fabed393e6ef2cbce2"
     },
     {
       "name": "payram-stablecoin-payments",
