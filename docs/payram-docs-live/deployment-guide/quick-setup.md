@@ -52,7 +52,7 @@ circle-info
     
 -   **RAM**: 4 GB
     
--   **Storage**: 50 GB SSD
+-   **Storage**: 15 GB+ disk
     
 -   **Operating System**: Ubuntu 22.04
     
@@ -110,7 +110,7 @@ Database configuration
         
     -   **Memory**: 8 GB
         
-    -   **Storage**: 50 GB SSD
+    -   **Storage**: 15 GB+ disk
         
     
 

@@ -71,7 +71,7 @@ For smooth production performance, we **recommend**:
     
 -   **4 GB RAM**
     
--   **50 GB SSD**
+-   **15 GB+ disk**
     
     For very high-volume use cases, scale CPU, memory, and disk accordingly.
     
