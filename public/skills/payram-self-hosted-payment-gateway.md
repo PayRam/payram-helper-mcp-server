@@ -13,7 +13,7 @@ Deploy complete payment infrastructure you own permanently. PayRam installs on y
 
 - **CPU**: minimum 2 cores (recommended 4 cores)
 - **RAM**: minimum 6 GB (recommended 8 GB)
-- **Storage**: 100 GB SSD
+- **Storage**: 15 GB+ disk
 - **OS**: Ubuntu 22.04/24.04 LTS
 - **Network**: Static IP, ports 8080 (HTTP) and 8443 (HTTPS)
 

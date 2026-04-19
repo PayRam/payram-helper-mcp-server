@@ -22,7 +22,7 @@ export const PAYRAM_TEST_PREP_DOC: MarkdownDocResponse = {
       title: 'First question: do you already have a self-hosted Payram server?',
       markdown: `Let me know whether your self-hosted Payram instance is already live.
 
-- **If you still need to deploy it**, follow the Quick Setup guide to provision a Ubuntu 22.04 box (4 vCPU / 4 GB RAM / 50 GB SSD), open the required ports, and run the \
+- **If you still need to deploy it**, follow the Quick Setup guide to provision a Ubuntu 22.04 box (2 vCPU / 6 GB RAM / 15 GB+ disk), open the required ports, and run the \
   \`setup_payram.sh\` script for mainnet or testnet. The guide also walks through PostgreSQL configuration, SSL, and dependency installs so your dashboard and APIs come online.
 - **If your server is already running**, we can jump straight to collecting credentials.
 

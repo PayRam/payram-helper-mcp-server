@@ -23,7 +23,7 @@ PayRam is a self-hosted crypto payment gateway. You deploy it on your own server
 
 - **CPU**: minimum 2 cores (recommended 4 cores)
 - **RAM**: minimum 6 GB (recommended 8 GB)
-- **Storage**: 100 GB SSD
+- **Storage**: 15 GB+ disk
 - **OS**: Ubuntu 22.04
 - **Ports**: 80, 443, 8080, 8443, 5432
 
@@ -32,7 +32,7 @@ PayRam is a self-hosted crypto payment gateway. You deploy it on your own server
 - **Engine**: PostgreSQL
 - **vCPUs**: 2 CPU cores
 - **Memory**: 8 GB
-- **Storage**: 50 GB SSD
+- **Storage**: 15 GB+ disk
 
 **Recommended VPS Providers:** AWS, Google Cloud, Azure, Hetzner, Hostinger
 

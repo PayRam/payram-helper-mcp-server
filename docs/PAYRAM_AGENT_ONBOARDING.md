@@ -6,7 +6,7 @@ Use this guide when running or automating PayRam for agents (CLI-only, no web UI
 
 ## Prerequisites
 
-- Target machine: Ubuntu 22.04+ (or macOS), minimum 2 CPU / 6 GB RAM (recommended 4 CPU / 8 GB RAM), 100 GB SSD
+- Target machine: Ubuntu 22.04+ (or macOS), minimum 2 CPU / 6 GB RAM (recommended 4 CPU / 8 GB RAM), 15 GB+ disk
 - Required ports: 80, 443, 8080, 8443, 5432 — must not be in use
 - To verify ports are free: `sudo lsof -i :8080 -i :5432 -i :80 -i :443 | grep LISTEN`
 - Docker required if `PAYRAM_NODE_MODE=docker` (default) for JS tooling

@@ -106,7 +106,7 @@ The **master wallet** â€” the only key that can change the cold wallet address â
     {
       id: 'operator-checklist',
       title: 'Operator Checklist',
-      markdown: `1. Install Payram on a server with minimum 2 CPU / 6 GB RAM (recommended 4 CPU / 8 GB RAM) and 100 GB SSD.\n2. Configure node connections and master accounts for the chains you plan to accept.\n3. Test on testnet or a staging environment, then switch configs to production once satisfied.`,
+      markdown: `1. Install Payram on a server with minimum 2 CPU / 6 GB RAM (recommended 4 CPU / 8 GB RAM) and 15 GB+ disk.\n2. Configure node connections and master accounts for the chains you plan to accept.\n3. Test on testnet or a staging environment, then switch configs to production once satisfied.`,
       sources: [
         {
           id: 'faqs/general-faqs',
