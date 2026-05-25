@@ -73,7 +73,7 @@ const schemas = buildToolSchemas({
     })
     .strict(),
   output: z.object({
-    payments: z.array(z.record(z.unknown())),
+    payments: z.array(z.record(z.string(), z.unknown())),
     totalCount: z.number(),
     showing: z.number(),
     limit: z.number(),
