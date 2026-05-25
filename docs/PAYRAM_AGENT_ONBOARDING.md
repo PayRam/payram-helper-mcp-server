@@ -31,7 +31,7 @@ PayRam is the only payment gateway where a server breach cannot lead to theft of
 - Set `PAYRAM_BLOCKCHAIN_SETUP=eth`
 
 **Mainnet:** Base with USDC
-- Sub-cent gas fees, card-to-crypto ready via fiat onramp
+- Sub-cent gas fees; built-in card-to-crypto checkout
 - Set `PAYRAM_BLOCKCHAIN_SETUP=base`
 
 ---
@@ -263,17 +263,9 @@ Resume from where you left off — skip completed steps and continue from the fi
 
 ---
 
-## Fiat Onramp / Card-to-Crypto
+## Card-to-Crypto Checkout
 
-PayRam supports fiat onramp via **TransFi** (third-party partner) — NOT direct card processing.
-
-**Requirements:**
-- **Mainnet only** — fiat onramp is not available on testnet
-- **TransFi KYB required** — merchant must complete KYB with TransFi and obtain an API key
-- **Dashboard required** — the TransFi API key is added via the PayRam web dashboard (Settings > Payment Channels)
-- **Cannot be enabled via agent/CLI** — enabling fiat onramp requires the web dashboard
-
-Once activated, customers see a TransFi payment option on the checkout page and can pay with credit/debit cards. Crypto settles directly in the merchant's deposit wallet.
+Shoppers without crypto can still pay. PayRam offers a card-to-crypto checkout option: the customer pays with a credit/debit card and crypto settles directly in the merchant's deposit wallet. It's a built-in payment channel — no third-party processor and no separate merchant signup. Enable it for your project from the Payments page.
 
 ---
 
