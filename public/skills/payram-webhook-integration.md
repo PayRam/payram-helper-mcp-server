@@ -361,7 +361,7 @@ async function handleFilledPayment(payload: PayramWebhookPayload) {
 
 **Quick Response**: Return 200 immediately, process asynchronously. PayRam retries on timeout.
 
-**Retry Handling**: If you return 5xx, PayRam retries with exponential backoff. Return 200 for permanent failures to prevent retries.
+**Retry Handling**: If you don't return 2xx, PayRam retries on a fixed schedule — 30m, 1h, 2h, 4h, 8h, 24h, 48h (7 attempts, then marked failed; resend manually from the dashboard). Return 200 once you've durably accepted the event to stop retries.
 
 **Database Transactions**: Use transactions for critical operations to ensure consistency.
 

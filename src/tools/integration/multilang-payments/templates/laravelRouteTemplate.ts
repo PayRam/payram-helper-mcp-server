@@ -18,7 +18,7 @@ class PayramPaymentController extends Controller
     {
         $payload = $request->validate([
             'customerEmail' => ['required', 'email'],
-            'customerId' => ['required', 'string'],
+            'customerID' => ['required', 'string'],
             'amountInUSD' => ['required', 'numeric', 'min:0.01'],
         ]);
 
@@ -34,7 +34,7 @@ class PayramPaymentController extends Controller
             'Content-Type' => 'application/json',
         ])->post($baseUrl . '/api/v1/payment', [
             'customerEmail' => $payload['customerEmail'],
-            'customerId' => $payload['customerId'],
+            'customerID' => $payload['customerID'],
             'amountInUSD' => $payload['amountInUSD'],
         ]);
 

@@ -15,7 +15,7 @@ PAYRAM_PAYMENT_PATH = '/api/v1/payment'
 
 class CreatePaymentPayload(BaseModel):
     customerEmail: EmailStr
-    customerId: str
+    customerID: str  # capital "ID" — backend binds json:"customerID"
     amountInUSD: float
 
 app = FastAPI()

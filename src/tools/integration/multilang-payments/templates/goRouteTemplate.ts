@@ -21,7 +21,7 @@ const payramPaymentPath = "/api/v1/payment"
 
 type CreatePaymentPayload struct {
     CustomerEmail string  \`json:"customerEmail" binding:"required,email"\`
-    CustomerID    string  \`json:"customerId" binding:"required"\`
+    CustomerID    string  \`json:"customerID" binding:"required"\`
     AmountInUSD   float64 \`json:"amountInUSD" binding:"required"\`
 }
 

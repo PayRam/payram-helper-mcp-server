@@ -146,7 +146,7 @@ Creates a new payment request and returns a checkout URL.
 {
   "amountInUSD": 100,
   "customerEmail": "customer@example.com",
-  "customerId": "customer_123"
+  "customerID": "customer_123"
 }
 \`\`\`
 
@@ -191,7 +191,7 @@ Retrieves the current status of a payment.
 
 ### Create Payout
 
-**Endpoint**: \`POST /api/v1/payout\`
+**Endpoint**: \`POST /api/v1/withdrawal/merchant\` (direct, no-OTP payout)
 
 Sends crypto to a destination address.
 
@@ -200,7 +200,7 @@ Sends crypto to a destination address.
 {
   "customerID": "customer_123",
   "email": "customer@example.com",
-  "blockchainCode": "ETH",
+  "blockchainCode": "ethereum",
   "currencyCode": "USDT",
   "amount": "50",
   "toAddress": "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb"
@@ -266,7 +266,7 @@ const payment = await payram.payments.getPaymentRequest(referenceId);
 const payout = await payram.payouts.createPayout({
   customerID: 'customer_123',
   email: 'customer@example.com',
-  blockchainCode: 'ETH',
+  blockchainCode: 'ethereum',
   currencyCode: 'USDT',
   amount: '50',
   toAddress: '0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb',

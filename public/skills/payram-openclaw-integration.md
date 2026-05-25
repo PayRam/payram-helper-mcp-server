@@ -36,38 +36,50 @@ No API key is required to **connect** to the MCP server. Dashboard APIs (for ana
 
 ## 2. Tools the agent will discover
 
-After registering, the agent auto-discovers these tools on first call:
+After registering, the agent auto-discovers the PayRam MCP tools. Note these are **integration-assistant** tools — code-snippet generators and read-only data lookups — not direct money-movement actions. The agent does not hold keys or move funds itself; payment creation happens in *your* backend via the code these tools generate. (This is the NKOS property — see §6.)
 
-| Tool | Inputs | Output |
-|---|---|---|
-| `test_connection` | `{}` | `{ ok, server: "..." }` — verifies reachability |
-| `create_payment` | `amount`, `currency`, `chain`, `reference_id`, optional `customer_email`, `customer_id` | `{ url, deposit_address, reference_id, expires_at }` |
-| `generate_invoice` | Same as create_payment + `items[]`, `tax` | `{ invoice_url, payment_url, reference_id }` |
-| `get_balance` | optional `chain` filter | `{ balances: [{ chain, token, amount }] }` |
-| `send_payment` | `to_address`, `amount`, `chain`, `token`, `memo` | requires signer (cold-wallet flow), returns signed-tx receipt |
+| Tool | Purpose |
+|---|---|
+| `test_payram_connection` | Verify your node URL + API key are reachable |
+| `generate_payment_sdk_snippet` / `generate_payment_http_snippet` / `generate_payment_route_snippet` | Backend code to create a payment via `POST /api/v1/payment` (fields: `customerEmail`, `customerID`, `amountInUSD`) |
+| `generate_payment_status_snippet` | Code to poll payment status by `reference_id` |
+| `generate_webhook_handler` / `generate_webhook_event_router` / `generate_mock_webhook_event` | Webhook receiver code + a mock event for testing |
+| `generate_payout_sdk_snippet` / `generate_payout_recipient_flow_snippet` / `generate_payout_status_snippet` | Outbound payout code (direct or 3-step recipient flow) |
+| `generate_referral_*` | Referral link / validation / status / route snippets |
+| `search_payments` / `lookup_payment` / `get_payment_summary` / `get_daily_volume` | Read-only payment data (JWT-scoped) |
+| `get_unswept_balances` / `list_platforms` | Read-only balances and project listing |
+| `scaffold_payram_app` / `assess_payram_project` / `generate_env_template` / `generate_setup_checklist` | Project scaffolding and setup helpers |
 
-Currencies: `USDC`, `USDT`, `BTC`, `ETH`. Chains: `base`, `tron`, `polygon`, `ethereum`, `bitcoin`.
+Supported currencies: `USDC`, `USDT`, `BTC`, `ETH`, `TRX` (+ `POL`/`CBBTC` for payouts). Chains: `base`, `tron`, `polygon`, `ethereum`, `bitcoin`.
 
 ## 3. Full payment flow
 
-```
-Agent → mcp.call('create_payment', { amount: 25.00, currency: 'USDC', chain: 'base', reference_id: 'order_abc' })
-      ← { url: 'https://pay.payram.com/…', deposit_address: '0x…', reference_id: 'order_abc' }
+The agent generates integration code with the snippet tools; your backend runs it. The actual create-payment call is `POST /api/v1/payment` with the `API-Key` header (never `Authorization: Bearer`).
 
-Agent → [sends URL or QR to the customer in-chat]
+```
+Agent → generate_payment_sdk_snippet → drop the code into your backend
+
+Your backend → POST {payram}/api/v1/payment
+               Headers: API-Key: <merchant key>
+               Body: { customerEmail, customerID, amountInUSD: 25.00 }
+            ← { url: 'https://pay.payram.com/…', reference_id: 'ref_abc', host: '…' }
+
+Agent → [sends url (or QR) to the customer in-chat]
 
 [Customer pays — crypto directly OR card-to-crypto]
 
 PayRam → POST https://your-webhook.example.com/
-         Body: { event: 'payment.confirmed', reference_id: 'order_abc', amount: 25.00, tx_hash: '0x…', … }
+         Headers: API-Key: <webhook shared secret>
+         Body: { reference_id: 'ref_abc', status: 'FILLED', amount: 25.00,
+                 filled_amount_in_usd: 25.00, currency: 'USD' }
 
-Agent handler → [fulfils: grants access / ships / etc]
-              → responds 2xx (acknowledges webhook)
+Your webhook handler → [fulfils: grants access / ships / etc]
+                     → responds 2xx (acknowledges webhook)
 ```
 
 Webhook retry schedule if you don't 2xx: **30m, 1h, 2h, 4h, 8h, 24h, 48h**.
 
-Status flow: `Created → Confirming → Confirmed` (optionally `Failed` on timeout).
+Webhook `status` values: `OPEN`, `PARTIALLY_FILLED`, `FILLED`, `OVER_FILLED`, `CANCELLED`, `UNDEFINED`. Fulfil on `FILLED` (and decide a policy for `OVER_FILLED`/`PARTIALLY_FILLED`). The webhook authenticates with an `API-Key` shared-secret header — there is no HMAC `X-PayRam-Signature`. See `payram-webhook-integration` for handler code.
 
 ## 4. Testnet walkthrough (Base Sepolia)
 
@@ -103,7 +115,7 @@ The demo MCP server (`mcp.payram.com/mcp`) connects to a shared testnet. For you
 
 ### WhatsApp (via Twilio or Cloud API)
 
-Agent sees an inbound message → parses intent → calls `create_payment` → replies with URL. On `payment.confirmed` webhook, send the fulfilment message via the platform's outbound API.
+Agent sees an inbound message → parses intent → your backend creates the payment (`POST /api/v1/payment`) → replies with the checkout URL. On the `FILLED` status webhook, send the fulfilment message via the platform's outbound API.
 
 ### Telegram
 
@@ -111,7 +123,7 @@ Same as WhatsApp but via the Telegram Bot API. For subscription bots: store `ref
 
 ### Discord
 
-Use `discord.js`. On `payment.confirmed`, call `GuildMember.roles.add(premiumRoleId)`. Schedule a `setTimeout` or persist to a DB for the expiry revocation.
+Use `discord.js`. On the `FILLED` webhook, call `GuildMember.roles.add(premiumRoleId)`. Schedule a `setTimeout` or persist to a DB for the expiry revocation.
 
 ### n8n
 
