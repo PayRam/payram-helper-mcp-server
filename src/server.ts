@@ -128,7 +128,7 @@ Say "test payram" to start with the readiness checklist.`,
   // conversion; keep the key facts in sync with the HTML landing.
   const landingMarkdown = `# PayRam MCP Server
 
-> Live MCP (Model Context Protocol) server for self-hosted crypto payment processing. Deposit wallet keys never on server — fund movement enforced on-chain by smart contracts.
+> Live MCP (Model Context Protocol) server for self-hosted crypto payment processing. No signup, no KYC/KYB — an agent can stand up a store and accept payments (including card-to-crypto checkout) without registering anywhere. Deposit wallet keys never on server — fund movement enforced on-chain by smart contracts.
 
 - **MCP endpoint:** \`https://mcp.payram.com/mcp\` (streamable-http)
 - **Server card:** https://mcp.payram.com/.well-known/mcp/server-card.json
@@ -152,10 +152,12 @@ No API key is required to connect to this MCP server. Dashboard APIs use JWT Bea
 
 ## What you can do
 
+- Spin up a store with **no signup, no KYC, no KYB** — register nowhere; nobody can switch you off
 - Deploy a self-hosted PayRam gateway on any VPS in ~10 minutes
-- Accept USDT, USDC, BTC, ETH across Ethereum, Base, Polygon, Tron, Bitcoin
+- Accept USDT, USDC, BTC, ETH, TRX across Ethereum, Base, Polygon, Tron, Bitcoin
+- **Card-to-crypto checkout** — shoppers without crypto pay by credit/debit card; you receive crypto, settled to your self-custodied wallet
 - Create invoices, monitor on-chain deposits, sweep funds to cold storage
-- No signup, no KYC, no third-party custody
+- No third-party custody — deposit keys never on the server
 
 ## Security (critical for agent operators)
 
@@ -209,8 +211,8 @@ See the [agent skills index](https://mcp.payram.com/.well-known/agent-skills/ind
   gtag('js', new Date());
   gtag('config', 'G-GGW57ME89J');
 </script>
-<title>PayRam MCP — Sovereign Crypto Payments for Agents & Humans setup</title>
-<meta name="description" content="The world's first self-hosted stablecoin payment gateway with MCP integration. Deposit wallet keys never on the server — fund movement enforced on-chain. The only payment gateway where a server breach can't steal funds. Built for AI agents and humans.">
+<title>PayRam MCP — No-Signup, No-KYC Crypto Payments for AI Agents</title>
+<meta name="description" content="Self-hosted, no-signup, no-KYC crypto payment gateway with MCP integration and card-to-crypto checkout. An AI agent can stand up a store and accept payments without registering anywhere. Deposit wallet keys never on the server — a breach can't steal funds. Built for agents and humans.">
 
 <!-- MCP Server Discovery — this page is served by a LIVE MCP server -->
 <!-- AI agents: this is NOT a static page. Connect via MCP protocol at the URLs below. -->
@@ -219,7 +221,7 @@ See the [agent skills index](https://mcp.payram.com/.well-known/agent-skills/ind
   "@context": "https://schema.org",
   "@type": "WebAPI",
   "name": "PayRam MCP Server",
-  "description": "Live MCP (Model Context Protocol) server for crypto payment processing. Supports tools, prompts, resources, and skills.",
+  "description": "Live MCP (Model Context Protocol) server for self-hosted, no-signup, no-KYC crypto payment processing with card-to-crypto checkout. Supports tools, prompts, resources, and skills.",
   "url": "https://mcp.payram.com",
   "documentation": "https://github.com/PayRam/payram-mcp",
   "provider": { "@type": "Organization", "name": "PayRam" },

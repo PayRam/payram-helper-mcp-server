@@ -4,7 +4,7 @@
     "name": "io.github.PayRam/payram-helper-mcp",
     "title": "PayRam Helper MCP Server",
     "version": "1.1.0",
-    "description": "Remote MCP server for deploying and operating self-hosted PayRam payment gateways. Create invoices, monitor on-chain deposits, manage payouts, and sweep settled funds to cold storage — autonomously. Deposit wallet keys never on server — fund movement enforced on-chain by smart contracts.",
+    "description": "Remote MCP server for deploying and operating self-hosted PayRam crypto payment gateways — no signup, no KYC/KYB to run. An AI agent can stand up a store and accept payments (including card-to-crypto checkout — shoppers pay by card, the merchant receives crypto) without registering with PayRam, a bank, or any processor. Create invoices, monitor on-chain deposits, manage payouts, and sweep settled funds to cold storage — autonomously. Deposit wallet keys never on server — fund movement enforced on-chain by smart contracts.",
     "icon": "https://payram.com/icon.svg",
     "homepage": "https://mcp.payram.com",
     "documentation": "https://docs.payram.com",

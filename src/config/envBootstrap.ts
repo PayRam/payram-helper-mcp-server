@@ -12,6 +12,15 @@ PAYRAM_BASE_URL=https://api.payram.com
 
 # Payram API key (see dashboard)
 PAYRAM_API_KEY=pk_test_replace_me
+
+# JWT tokens from your dashboard browser session.
+# Required for the live data tools: search_payments, get_payment_summary,
+# lookup_payment, get_daily_volume, get_unswept_balances, list_platforms.
+PAYRAM_ACCESS_TOKEN=
+PAYRAM_REFRESH_TOKEN=
+
+# Default external platform ID (optional, can override per tool call)
+PAYRAM_EXTERNAL_PLATFORM_ID=
 `;
 
 const REQUIRED_KEYS = ['PAYRAM_BASE_URL', 'PAYRAM_API_KEY'] as const;

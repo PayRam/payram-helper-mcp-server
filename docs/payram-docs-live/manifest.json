@@ -99,10 +99,6 @@
       "path": "features/customer-deposit-wallets.md"
     },
     {
-      "url": "/features/fiat-onramp",
-      "path": "features/fiat-onramp.md"
-    },
-    {
       "url": "/features/multi-brand-setup",
       "path": "features/multi-brand-setup.md"
     },

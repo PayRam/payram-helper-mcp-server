@@ -62,12 +62,12 @@ paths:
               minimal:
                 value:
                   customerEmail: user@example.com
-                  customerId: cust_123
+                  customerID: cust_123
                   amountInUSD: 12.5
               typical:
                 value:
                   customerEmail: jane@acme.io
-                  customerId: 9b2e0d92-2b0c-4b3d-9a1a-33e5b3db7f2c
+                  customerID: 9b2e0d92-2b0c-4b3d-9a1a-33e5b3db7f2c
                   amountInUSD: 49.99
       responses:
         '200':
@@ -723,13 +723,16 @@ components:
     ########################################################
     InitiatePaymentRequest:
       type: object
-      required: [customerEmail, customerId, amountInUSD]
+      required: [customerEmail, customerID, amountInUSD]
       properties:
         customerEmail:
           type: string
           format: email
-        customerId:
+        customerID:
           type: string
+          description: >
+            Merchant's customer identifier. NOTE the capital "ID" — the backend
+            binds json:"customerID" (binding:"required").
         amountInUSD:
           type: number
           format: double
@@ -872,19 +875,26 @@ components:
         blockchainCode:
           type: string
           description: >
-            Blockchain code. Allowed values are ETH, TRX, BTC, BASE.
+            Lowercase chain name (NOT a ticker). One of: ethereum, bitcoin, tron,
+            base, polygon.
           enum:
-            - ETH
-            - TRX
-            - BTC
-            - BASE
-          example: ETH
+            - ethereum
+            - bitcoin
+            - tron
+            - base
+            - polygon
+          example: ethereum
         currencyCode:
           type: string
-          description: Code for the asset to send. Allowed values are USDC or USDT.
+          description: Uppercase asset ticker to send.
           enum:
+            - ETH
+            - BTC
             - USDC
             - USDT
+            - POL
+            - TRX
+            - CBBTC
           example: USDT
         amount:
           type: string
@@ -916,20 +926,26 @@ components:
           format: int64
         currencyCode:
           type: string
-          description: Asset code associated with the payout. Allowed values are USDC or USDT.
+          description: Uppercase asset ticker associated with the payout.
           enum:
+            - ETH
+            - BTC
             - USDC
             - USDT
+            - POL
+            - TRX
+            - CBBTC
         blockchainCode:
           type: string
           description: >
-            Blockchain code associated with the payout. Allowed values are ETH,
-            TRX, BTC, BASE.
+            Lowercase chain name associated with the payout. One of: ethereum,
+            bitcoin, tron, base, polygon.
           enum:
-            - ETH
-            - TRX
-            - BTC
-            - BASE
+            - ethereum
+            - bitcoin
+            - tron
+            - base
+            - polygon
         amount:
           type: string
           example: "500.25"

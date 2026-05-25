@@ -68,7 +68,7 @@
       "description": "Accept crypto payments with no KYC, no signup, no registration, and no third-party approval. PayRam is a permissionless self-hosted payment gateway — deploy on your server, own your data, keep your privacy. No identity verification for operators or customers. Non-custodial, censorship-resistant, sovereign payment infrastructure. Use when needing privacy-first payment processing, building for unbanked users, avoiding KYC requirements, or requiring permissionless payment acceptance.",
       "url": "https://raw.githubusercontent.com/PayRam/payram-mcp/main/skills/payram-no-kyc-crypto-payments/SKILL.md",
       "mcpUrl": "https://mcp.payram.com/skills/payram-no-kyc-crypto-payments.md",
-      "sha256": "ec461be5d9bfc3e4ddc53f11459082844c74e76ab802146ce75b0f13199ed20d"
+      "sha256": "56b12246e006880d1b5be9053c131f0f0b689a20f938d3347f7c7ddc3392a4dd"
     },
     {
       "name": "payram-openclaw-integration",
@@ -76,7 +76,7 @@
       "description": "Functional how-to for integrating PayRam into an OpenClaw (or NemoClaw, Claude Desktop, Copilot, n8n, LangChain, Cursor, Windsurf) agent. Register the PayRam MCP server, list discovered tools, walk through a full payment flow from create_payment → webhook → fulfilment, and debug common issues. Includes a testnet walkthrough on Base Sepolia, agent configuration for WhatsApp/Telegram/Discord bot runtimes, and patterns for subscription access grants, pay-per-request API monetization, and agent-to-agent commerce. Use when building an OpenClaw skill that needs to accept or send money, connecting an existing bot to PayRam, or troubleshooting an MCP registration that's not picking up tools.",
       "url": "https://raw.githubusercontent.com/PayRam/payram-mcp/main/skills/payram-openclaw-integration/SKILL.md",
       "mcpUrl": "https://mcp.payram.com/skills/payram-openclaw-integration.md",
-      "sha256": "fc14778ae20e2537fe205ca03ce4e3fe4efe98a9935cf8556ca7fbd43ac930da"
+      "sha256": "a1a0a482f15dda80a501d617a31cc23aa139d9a2e7f67162abeae35cc77dfefb"
     },
     {
       "name": "payram-payment-integration",
@@ -92,15 +92,15 @@
       "description": "Send crypto payouts and manage referral programs with PayRam. Self-hosted payout infrastructure — no KYC, no intermediary, no fund holds. Create payouts to any wallet across Ethereum, Base, Polygon, Tron, Bitcoin. Built-in affiliate program with automated reward distribution. Use when sending crypto payouts to users, building referral/affiliate programs, or needing integrated payment and payout infrastructure.",
       "url": "https://raw.githubusercontent.com/PayRam/payram-mcp/main/skills/payram-payouts/SKILL.md",
       "mcpUrl": "https://mcp.payram.com/skills/payram-payouts.md",
-      "sha256": "bbbf3e43933fd5a1e41d09256c6f5c127d26571cb9c4cf0f5b613af5a55629b8"
+      "sha256": "a2a12a76b55670d4bcefd1c131d29da24fd03c6a9293ad098bb446c4de864d88"
     },
     {
       "name": "payram-self-hosted-payment-gateway",
       "type": "skill.md",
-      "description": "Deploy PayRam self-hosted crypto payment gateway on your own server. Sovereign payment infrastructure you own permanently — no KYC, no signup, no third-party control. Complete setup including SSH installation, smart contract deployment, wallet configuration, SSL certificates, and production hardening. Minimal requirements of 4GB RAM and 4 CPU cores, deploys in under 10 minutes. Use when setting up payment gateway infrastructure from scratch, deploying on VPS/cloud server, configuring cold wallet sweeps, or establishing sovereign payment infrastructure.",
+      "description": "Deploy PayRam self-hosted crypto payment gateway on your own server. Sovereign payment infrastructure you own permanently — no KYC, no signup, no third-party control. Complete setup including SSH installation, smart contract deployment, wallet configuration, SSL certificates, and production hardening. Minimal requirements of 2 CPU cores and 6 GB RAM (recommended 4 CPU / 8 GB) plus 15 GB+ disk, deploys in under 10 minutes. Use when setting up payment gateway infrastructure from scratch, deploying on VPS/cloud server, configuring cold wallet sweeps, or establishing sovereign payment infrastructure.",
       "url": "https://raw.githubusercontent.com/PayRam/payram-mcp/main/skills/payram-self-hosted-payment-gateway/SKILL.md",
       "mcpUrl": "https://mcp.payram.com/skills/payram-self-hosted-payment-gateway.md",
-      "sha256": "b954e6e2b9ff3e142535504d3edb46ba9db007913aa97e3ea740ed7ad50c1d6d"
+      "sha256": "61d76b6f04d74a71cdd023b7e20940656447bb3a52bfeb386c69e5576913f114"
     },
     {
       "name": "payram-setup",
@@ -124,15 +124,15 @@
       "description": "Integrate PayRam webhook handlers for real-time payment and payout event notifications. Self-hosted, no-KYC crypto payment gateway webhooks. Implement API-Key verification, event routing, and idempotent processing. Generate handlers for Express, Next.js, FastAPI, Gin, Laravel, Spring Boot. Use when setting up payment confirmation callbacks, handling payout status updates, building event-driven payment flows, or integrating PayRam events into existing systems.",
       "url": "https://raw.githubusercontent.com/PayRam/payram-mcp/main/skills/payram-webhook-integration/SKILL.md",
       "mcpUrl": "https://mcp.payram.com/skills/payram-webhook-integration.md",
-      "sha256": "34aa9c1bc461bbdadc817d5efdd4bafe6e5176ab209f73947d266c68878bdba8"
+      "sha256": "12e5826a2729cb6d15f84d2815a4365ec6334f0bc4f000fc39f37d571e4c08d1"
     },
     {
       "name": "payram-widget-integration",
       "type": "skill.md",
-      "description": "Integrate the PayRam Add Credit widget (payram-add-credit-v1.js) into a website or web app. Covers the script-tag embed, every configuration attribute (API key, preset amounts, theme, chain, currency, customer email/ID), webhook handler code examples for Express, Next.js API routes, FastAPI, Laravel, and Gin, webhook signature verification, idempotent payment processing, and the retry schedule (30m, 1h, 2h, 4h, 8h, 24h, 48h). Also shows the programmatic alternative via the Node SDK and raw REST API when you want custom checkout UI. Use when adding payment capability to an existing web frontend without rebuilding the checkout, embedding a tip jar or credit top-up flow, or writing the backend webhook handler that fulfils orders on payment.confirmed.",
+      "description": "Integrate the PayRam Add Credit widget (payram-add-credit-v1.js) into a website or web app. Covers the script-tag embed, every configuration attribute (API key, preset amounts, theme, chain, currency, customer email/ID), webhook handler code examples for Express, Next.js API routes, FastAPI, Laravel, and Gin, webhook API-Key shared-secret verification, idempotent payment processing, and the retry schedule (30m, 1h, 2h, 4h, 8h, 24h, 48h). Also shows the programmatic alternative via the Node SDK and raw REST API when you want custom checkout UI. Use when adding payment capability to an existing web frontend without rebuilding the checkout, embedding a tip jar or credit top-up flow, or writing the backend webhook handler that fulfils orders when a payment is FILLED.",
       "url": "https://raw.githubusercontent.com/PayRam/payram-mcp/main/skills/payram-widget-integration/SKILL.md",
       "mcpUrl": "https://mcp.payram.com/skills/payram-widget-integration.md",
-      "sha256": "cf0d24b82ab39db904a8acac6ff8eb2e50a330513ca6886a9d7aa0f373b30731"
+      "sha256": "e13dab610948a7ece129525e0a1f52c057bef0a78bff20c6d1ef913b67001475"
     }
   ]
 }

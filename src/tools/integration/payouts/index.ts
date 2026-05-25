@@ -7,6 +7,7 @@ import { SnippetResponse } from '../common/snippetTypes.js';
 import {
   buildNodeSdkCreatePayoutSnippet,
   buildNodeSdkPayoutStatusSnippet,
+  buildRecipientPayoutFlowSnippet,
 } from './templates/sdkTemplates.js';
 
 const supportedLanguages = ['typescript'] as const;
@@ -95,6 +96,28 @@ export const registerPayoutTools = (server: McpServer) => {
         return formatSnippetResponse(snippet, 'Generated Payram payout status snippet.');
       },
       { toolName: 'generate_payout_status_snippet' },
+    ),
+  );
+
+  server.registerTool(
+    'generate_payout_recipient_flow_snippet',
+    {
+      title: 'Generate 3-step recipient payout flow snippet',
+      description:
+        'Generates the recommended OTP-verified payout flow: create recipient → validate OTP → create payout against the saved recipient. Use this for repeat beneficiaries; use generate_payout_sdk_snippet for one-off direct payouts.',
+      inputSchema: statusSchemas.input,
+      outputSchema: statusSchemas.output,
+    },
+    safeHandler(
+      async () => {
+        const snippet = buildRecipientPayoutFlowSnippet();
+        logger.info('Payout recipient-flow snippet generated');
+        return formatSnippetResponse(
+          snippet,
+          'Generated Payram 3-step recipient payout flow snippet.',
+        );
+      },
+      { toolName: 'generate_payout_recipient_flow_snippet' },
     ),
   );
 };

@@ -35,7 +35,7 @@ export const PAYRAM_CONCEPTS_DOC: MarkdownDocResponse = {
     {
       id: 'multi-chain-support',
       title: 'Multi-chain Support',
-      markdown: `Payram handles BTC, ETH, USDT, USDC, and TRX today across Bitcoin, Ethereum, Base, and Tron, with Solana and TON planned next. A single API set orchestrates all of those so you do not branch your integration per chain. Configure confirmation counts per asset to balance speed and risk.`,
+      markdown: `Payram handles BTC, ETH, USDT, USDC, and TRX today across Bitcoin, Ethereum, Base, Polygon, and Tron, with Solana and TON planned next. A single API set orchestrates all of those so you do not branch your integration per chain. Configure confirmation counts per asset to balance speed and risk.`,
       sources: [
         {
           id: 'features/multi-currency-and-multi-chain-support',
