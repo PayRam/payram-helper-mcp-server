@@ -13,7 +13,7 @@ PAYRAM_API_KEY = os.environ['PAYRAM_API_KEY']
 
 payload = {
     'customerEmail': 'customer@example.com',
-    'customerId': 'cust_123',
+    'customerID': 'cust_123',
     'amountInUSD': 49.99,
 }
 
@@ -41,7 +41,7 @@ print('Host:', checkout['host'])
     filenameSuggestion: 'scripts/payram/create_payment.py',
     description: 'Raw HTTP POST to /api/v1/payment using the documented payload.',
   },
-  notes: `${buildHeadersComment()} Send the fields from InitiatePaymentRequest (customerEmail, customerId, amountInUSD).`,
+  notes: `${buildHeadersComment()} Send the fields from PaymentCreateRequest (customerEmail, customerID, amountInUSD). Note customerID uses a capital "ID" on the wire — the backend binds json:"customerID".`,
 });
 
 export const buildGoHttpCreatePaymentSnippet = (): SnippetResponse => ({
@@ -62,7 +62,7 @@ type initiatePaymentRequest struct {
     '`json:"customerEmail"`' +
     `
     CustomerID    string  ` +
-    '`json:"customerId"`' +
+    '`json:"customerID"`' +
     `
     AmountInUSD   float64 ` +
     '`json:"amountInUSD"`' +
@@ -105,7 +105,7 @@ export const buildPhpHttpCreatePaymentSnippet = (): SnippetResponse => ({
   snippet: `<?php
 $payload = [
     'customerEmail' => 'customer@example.com',
-    'customerId' => 'cust_123',
+    'customerID' => 'cust_123',
     'amountInUSD' => 49.99,
 ];
 
@@ -156,7 +156,7 @@ public class PayramPaymentClient {
         var payload = """
             {
               \"customerEmail\": \"customer@example.com\",
-              \"customerId\": \"cust_123\",
+              \"customerID\": \"cust_123\",
               \"amountInUSD\": 49.99
             }
             """;

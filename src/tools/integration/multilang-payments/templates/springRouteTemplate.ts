@@ -71,7 +71,7 @@ public class PayramPaymentController {
 
 class CreatePaymentRequest {
     private String customerEmail;
-    private String customerId;
+    private String customerID;
     private Double amountInUSD;
 
     public String getCustomerEmail() {
@@ -82,12 +82,12 @@ class CreatePaymentRequest {
         this.customerEmail = customerEmail;
     }
 
-    public String getCustomerId() {
-        return customerId;
+    public String getCustomerID() {
+        return customerID;
     }
 
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
+    public void setCustomerID(String customerID) {
+        this.customerID = customerID;
     }
 
     public Double getAmountInUSD() {

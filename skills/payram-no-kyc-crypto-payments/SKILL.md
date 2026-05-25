@@ -36,7 +36,7 @@ Accept crypto payments without identity verification, registration, or third-par
 
 ```bash
 ssh root@your-server-ip
-curl -fsSL https://get.payram.com | bash
+bash <(curl -fsSL https://payram.com/setup_payram.sh)
 ```
 
 **Zero-key-exposure architecture**: See [Security Without KYC](#security-without-kyc) below for full details.

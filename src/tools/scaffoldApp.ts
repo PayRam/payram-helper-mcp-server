@@ -145,7 +145,7 @@ app.get('/api/payments/:referenceId', async (req, res) => {
 
 app.post('/api/payouts/create', async (req, res) => {
   try {
-    const { amount, currencyCode = 'USDT', blockchainCode = 'ETH', customerID, customerId, email = 'merchant@example.com', toAddress } = req.body;
+    const { amount, currencyCode = 'USDT', blockchainCode = 'ethereum', customerID, customerId, email = 'merchant@example.com', toAddress } = req.body;
     const normalizedCustomerID = customerID ?? customerId ?? 'demo-customer-id';
     const payout = await payram.payouts.createPayout({
       customerID: normalizedCustomerID,
@@ -363,7 +363,7 @@ const expressFrontend = `<!doctype html>
             </label>
             <label>
               Blockchain Code
-              <input type="text" name="blockchainCode" value="ETH" />
+              <input type="text" name="blockchainCode" value="ethereum" />
             </label>
             <label>
               Customer ID
@@ -641,7 +641,7 @@ const preStyle: CSSProperties = {
 export default function HomePage() {
   const [paymentForm, setPaymentForm] = useState({ amount: '1', referenceId: 'demo-ref' });
   const [paymentStatusRef, setPaymentStatusRef] = useState('demo-ref');
-  const [payoutForm, setPayoutForm] = useState({ amount: '1', currencyCode: 'USDT', blockchainCode: 'ETH', customerID: 'demo-customer-id', email: 'merchant@example.com', toAddress: '0xfeedfacecafebeefdeadbeefdeadbeefdeadbeef' });
+  const [payoutForm, setPayoutForm] = useState({ amount: '1', currencyCode: 'USDT', blockchainCode: 'ethereum', customerID: 'demo-customer-id', email: 'merchant@example.com', toAddress: '0xfeedfacecafebeefdeadbeefdeadbeefdeadbeef' });
   const [payoutStatusId, setPayoutStatusId] = useState('1');
 
   const [paymentResult, setPaymentResult] = useState<Record<string, unknown> | null>(null);
@@ -991,7 +991,7 @@ export async function GET(_request: Request, context: { params: { referenceId: s
       path: 'app/api/payouts/create/route.ts',
       description: 'Payout creation route.',
       contents: nextApiRoute(
-        '    const payout = await payram.payouts.createPayout({ customerID: payload.customerID ?? payload.customerId ?? "demo-customer-id", email: payload.email ?? "merchant@example.com", blockchainCode: payload.blockchainCode ?? "ETH", currencyCode: payload.currencyCode ?? "USDT", amount: String(payload.amount ?? "1"), toAddress: payload.toAddress ?? "0xfeedfacecafebeefdeadbeefdeadbeefdeadbeef" });\n    return NextResponse.json(payout);',
+        '    const payout = await payram.payouts.createPayout({ customerID: payload.customerID ?? payload.customerId ?? "demo-customer-id", email: payload.email ?? "merchant@example.com", blockchainCode: payload.blockchainCode ?? "ethereum", currencyCode: payload.currencyCode ?? "USDT", amount: String(payload.amount ?? "1"), toAddress: payload.toAddress ?? "0xfeedfacecafebeefdeadbeefdeadbeefdeadbeef" });\n    return NextResponse.json(payout);',
       ),
     },
     {
@@ -1121,7 +1121,7 @@ async def home(request: Request):
 async def create_payment(payload: dict):
     resp = await client.post('/api/v1/payment', json={
         'customerEmail': 'customer@example.com',
-        'customerId': payload.get('referenceId', 'demo-ref'),
+        'customerID': payload.get('referenceId', 'demo-ref'),
         'amountInUSD': payload.get('amount', 1),
     })
     return JSONResponse(resp.json(), status_code=resp.status_code)
@@ -1137,7 +1137,7 @@ async def create_payout(payload: dict):
       'customerID': payload.get('customerID') or payload.get('customerId') or 'demo-customer-id',
       'amount': payload.get('amount', 1),
       'currencyCode': payload.get('currencyCode', 'USDT'),
-        'blockchainCode': payload.get('blockchainCode', 'ETH'),
+        'blockchainCode': payload.get('blockchainCode', 'ethereum'),
         'toAddress': payload.get('toAddress', '0xfeedfacecafebeefdeadbeefdeadbeefdeadbeef'),
         'email': payload.get('email', 'merchant@example.com'),
     })
@@ -1261,7 +1261,7 @@ class PayramController extends Controller
     {
         $response = $this->client()->post($this->baseUrl.'/api/v1/payment', [
             'customerEmail' => 'customer@example.com',
-            'customerId' => $request->input('referenceId', 'demo-ref'),
+            'customerID' => $request->input('referenceId', 'demo-ref'),
             'amountInUSD' => $request->input('amount', 1),
         ]);
         return response()->json($response->json(), $response->status());
@@ -1279,7 +1279,7 @@ class PayramController extends Controller
           'customerID' => $request->input('customerID', $request->input('customerId', 'demo-customer-id')),
           'amount' => $request->input('amount', 1),
           'currencyCode' => $request->input('currencyCode', 'USDT'),
-            'blockchainCode' => $request->input('blockchainCode', 'ETH'),
+            'blockchainCode' => $request->input('blockchainCode', 'ethereum'),
             'toAddress' => $request->input('toAddress'),
             'email' => $request->input('email', 'merchant@example.com'),
         ]);
@@ -1434,11 +1434,11 @@ func createPayment(c *gin.Context) {
   }
   body := map[string]interface{}{
     "customerEmail": "customer@example.com",
-    "customerId": payload["referenceId"],
+    "customerID": payload["referenceId"],
     "amountInUSD": payload["amount"],
   }
-  if body["customerId"] == nil {
-    body["customerId"] = "demo-ref"
+  if body["customerID"] == nil {
+    body["customerID"] = "demo-ref"
   }
   if body["amountInUSD"] == nil {
     body["amountInUSD"] = 1
@@ -1472,7 +1472,7 @@ func createPayout(c *gin.Context) {
     body["currencyCode"] = "USDT"
   }
   if body["blockchainCode"] == nil {
-    body["blockchainCode"] = "ETH"
+    body["blockchainCode"] = "ethereum"
   }
   if body["customerID"] == nil {
     if legacy, ok := payload["customerId"]; ok {
@@ -1665,7 +1665,7 @@ class PayramApiController {
   public ResponseEntity<?> createPayment(@RequestBody Map<String, Object> payload) {
     Map<String, Object> body = Map.of(
         "customerEmail", "customer@example.com",
-        "customerId", payload.getOrDefault("referenceId", "demo-ref"),
+        "customerID", payload.getOrDefault("referenceId", "demo-ref"),
         "amountInUSD", payload.getOrDefault("amount", 1));
     return payram("POST", "/api/v1/payment", body);
   }
@@ -1685,7 +1685,7 @@ class PayramApiController {
     body.put("customerID", customerID);
     body.put("amount", payload.getOrDefault("amount", 1));
     body.put("currencyCode", payload.getOrDefault("currencyCode", "USDT"));
-    body.put("blockchainCode", payload.getOrDefault("blockchainCode", "ETH"));
+    body.put("blockchainCode", payload.getOrDefault("blockchainCode", "ethereum"));
     body.put("toAddress", payload.getOrDefault("toAddress", "0xfeedfacecafebeefdeadbeefdeadbeefdeadbeef"));
     body.put("email", payload.getOrDefault("email", "merchant@example.com"));
     return payram("POST", "/api/v1/withdrawal/merchant", body);

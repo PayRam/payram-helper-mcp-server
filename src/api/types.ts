@@ -74,6 +74,87 @@ export interface ExternalPlatform {
   createdAt?: string;
 }
 
+/** Supported blockchain currency from GET /api/v1/currencies (params.BlockchainCurrencyResponse) */
+export interface BlockchainCurrency {
+  id: number;
+  blockchainCode: string;
+  network?: string;
+  currencyCode: string;
+  currency?: string;
+  [key: string]: unknown;
+}
+
+/** Withdrawal recipient from GET /api/v1/recipients/ (models.Recipient) */
+export interface Recipient {
+  id: number;
+  name?: string;
+  email?: string;
+  mobileNumber?: string;
+  residentialAddress?: string;
+  blockchainCode: string;
+  address: string;
+  status: string;
+  createdAt?: string;
+  updatedAt?: string;
+  [key: string]: unknown;
+}
+
+/** Response from POST /api/v1/payment (checkout link creation) */
+export interface PaymentLink {
+  url: string;
+  reference_id: string;
+  host?: string;
+  [key: string]: unknown;
+}
+
+/** Supervisor worker status from GET /api/v1/system/workers/status (service.SupervisorStatus) */
+export interface WorkerStatus {
+  name: string;
+  status: string;
+  details: string;
+}
+
+/** Single RPC node health from GET /api/v1/blockchain/{code}/test-connection (params.NodeHealthStatus) */
+export interface NodeHealth {
+  id?: number;
+  url: string;
+  connected: boolean;
+  error?: string;
+  chainId?: number;
+  healthScore?: number;
+  avgLatencyMs?: number;
+  lastBlockSeen?: number;
+  lastBlockTimestamp?: string | null;
+  [key: string]: unknown;
+}
+
+/** Response from GET /api/v1/blockchain/{code}/test-connection (params.TestConnectionResponse) */
+export interface NodeConnectionResult {
+  success: boolean;
+  nodes: NodeHealth[];
+}
+
+/** Blockchain config from GET /api/v1/blockchains (models.Blockchain) */
+export interface Blockchain {
+  code: string;
+  name: string;
+  family: string;
+  status: string;
+  [key: string]: unknown;
+}
+
+/** Wallet from GET /api/v1/wallets (models.Wallet) */
+export interface WalletInfo {
+  name: string;
+  family?: string;
+  blockchainCode?: string;
+  currencyCode?: string;
+  walletType: string;
+  walletSubType?: string;
+  address?: string;
+  [key: string]: unknown;
+}
+
 /** Request body for payment search */
 export interface SearchParams {
   query?: string;

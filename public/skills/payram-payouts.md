@@ -5,7 +5,7 @@ description: Send crypto payouts and manage referral programs with PayRam. Self-
 
 # PayRam Payouts & Referrals
 
-> **First time with PayRam?** See [`payram-setup`](https://github.com/payram/payram-mcp/tree/main/skills/payram-setup) to configure your server, API keys, and wallets.
+> **First time with PayRam?** See [`payram-setup`](https://github.com/PayRam/payram-mcp/tree/main/skills/payram-setup) to configure your server, API keys, and wallets.
 
 PayRam uniquely combines inbound payments with outbound payouts and built-in referral tracking—a complete payment + growth stack in one self-hosted platform.
 
@@ -35,7 +35,73 @@ Payouts progress through these states:
 8. **rejected** — Manually rejected by admin
 9. **cancelled** — Cancelled before processing
 
-### Creating Payouts with SDK
+### Two Ways to Pay Out
+
+PayRam offers two payout flows (see `merchant-payouts-api.md` in payram-core for the full contract):
+
+| Flow | When to use | OTP? | Endpoints |
+| ---- | ----------- | ---- | --------- |
+| **Saved recipient (recommended)** | Repeat payments to the same beneficiary; you want an OTP-verified audit trail | Yes (once per recipient) | `POST /api/v1/recipients` → `POST /api/v1/otp/validate` → `POST /api/v1/project/{projectID}/admin/withdrawal` |
+| **Direct (single-shot)** | One-off payouts (refunds, ad-hoc disbursements) | No | `POST /api/v1/withdrawal/merchant` |
+
+Both flows authenticate with the **`API-Key`** header (a Merchant API key scoped to one project) — never `Authorization: Bearer`.
+
+### Saved Recipient Flow (recommended) — 3 steps
+
+A recipient is a destination address + identity metadata, OTP-verified once and reused for any number of payouts. The JS SDK has no recipient/OTP methods, so call these REST endpoints directly.
+
+```typescript
+const HOST = process.env.PAYRAM_BASE_URL!.replace(/\/+$/, '');
+const PROJECT_ID = Number(process.env.PAYRAM_PROJECT_ID);
+const headers = { 'API-Key': process.env.PAYRAM_API_KEY!, 'Content-Type': 'application/json' };
+
+async function call<T>(method: string, path: string, body?: unknown): Promise<T> {
+  const res = await fetch(`${HOST}/api/v1${path}`, {
+    method,
+    headers,
+    body: body ? JSON.stringify(body) : undefined,
+  });
+  if (!res.ok) throw new Error(`Payram ${method} ${path}: ${res.status} ${await res.text()}`);
+  return res.json() as Promise<T>;
+}
+
+// 1) Create recipient → status "pending-otp-verification"; PayRam emails a 6-digit OTP
+//    to the API-key owner's address (10-min validity).
+const { recipient } = await call<{ recipient: { id: number; status: string } }>(
+  'POST',
+  '/recipients',
+  {
+    name: 'Acme Supplier Ltd',
+    email: 'supplier@acme.example',
+    blockchainCode: 'ethereum', // lowercase chain name: ethereum | bitcoin | tron | base | polygon
+    address: '0xAbCdEf0123456789AbCdEf0123456789AbCdEf01',
+    projectIDs: [PROJECT_ID], // required, min 1
+  },
+);
+
+// 2) Validate the OTP from the operator inbox → recipient becomes "active".
+//    Expired? POST /otp/entity/{recipient.id}/purpose/recipient to regenerate.
+await call('POST', '/otp/validate', {
+  entityID: recipient.id,
+  scope: 'recipient', // literal string
+  otpCode: '482913', // read from the email
+});
+
+// 3) Create the payout against the active recipient.
+const withdrawal = await call<{ id: number; status: string }>(
+  'POST',
+  `/project/${PROJECT_ID}/admin/withdrawal`,
+  {
+    currencyCode: 'ETH', // uppercase ticker: ETH | BTC | USDC | USDT | POL | TRX | CBBTC
+    amount: '0.05', // decimal string
+    recipientID: recipient.id, // must be "active"
+  },
+);
+```
+
+**Required API-key permissions:** `write_recipient`, `read_recipient`, `write_validate_otp`, `write_merchant_withdrawal` (missing one → `403`). The OTP is **not** returned by the API (`otpSent: true` only) — plan a human or inbox-reading step. Recipients are project-scoped; a recipient created for project A cannot be paid against project B.
+
+### Direct Payout (single-shot, no OTP)
 
 ```typescript
 import { Payram, CreatePayoutRequest, MerchantPayout, isPayramSDKError } from 'payram';
@@ -72,14 +138,14 @@ export async function createPayout(payload: CreatePayoutRequest): Promise<Mercha
   }
 }
 
-// Example invocation
+// Example invocation (direct payout → POST /api/v1/withdrawal/merchant)
 await createPayout({
   email: 'merchant@example.com',
-  blockchainCode: 'ETH',
+  blockchainCode: 'ethereum', // lowercase chain name, NOT a ticker
   currencyCode: 'USDC',
   amount: '125.50', // MUST be string, not number
   toAddress: '0xfeedfacecafebeefdeadbeefdeadbeefdeadbeef',
-  customerID: 'cust_123',
+  customerID: 'cust_123', // optional here
   mobileNumber: '+15555555555', // Optional, E.164 format required
   residentialAddress: '1 Market St, San Francisco, CA 94105', // Optional
 });
@@ -90,8 +156,8 @@ await createPayout({
 | Field                | Type       | Notes                                            |
 | -------------------- | ---------- | ------------------------------------------------ |
 | `email`              | string     | Merchant email associated with payout            |
-| `blockchainCode`     | string     | Network code: 'ETH', 'BTC', 'MATIC', etc.        |
-| `currencyCode`       | string     | Token code: 'USDC', 'USDT', 'BTC', etc.          |
+| `blockchainCode`     | string     | **Lowercase chain name**: `ethereum`, `bitcoin`, `tron`, `base`, `polygon` |
+| `currencyCode`       | string     | **Uppercase ticker**: `ETH`, `BTC`, `USDC`, `USDT`, `POL`, `TRX`, `CBBTC`   |
 | `amount`             | **string** | Amount as string (e.g., '125.50'). NOT a number. |
 | `toAddress`          | string     | Recipient wallet address                         |
 | `customerID`         | string     | Your internal reference ID                       |
@@ -121,10 +187,13 @@ Always validate recipient addresses before creating payouts:
 
 ```typescript
 function validateAddress(address: string, blockchainCode: string): boolean {
+  // Keyed by the lowercase blockchainCode values the payout API expects.
   const patterns: Record<string, RegExp> = {
-    ETH: /^0x[a-fA-F0-9]{40}$/,
-    BTC: /^(?:[13][a-km-zA-HJ-NP-Z1-9]{25,34}|bc1[a-z0-9]{39,59})$/,
-    MATIC: /^0x[a-fA-F0-9]{40}$/,
+    ethereum: /^0x[a-fA-F0-9]{40}$/,
+    base: /^0x[a-fA-F0-9]{40}$/,
+    polygon: /^0x[a-fA-F0-9]{40}$/,
+    bitcoin: /^(?:[13][a-km-zA-HJ-NP-Z1-9]{25,34}|bc1[a-z0-9]{39,59})$/,
+    tron: /^T[1-9A-HJ-NP-Za-km-z]{33}$/,
   };
   const pattern = patterns[blockchainCode];
   return pattern ? pattern.test(address) : false;
@@ -193,10 +262,11 @@ Same chains as deposits: Ethereum, Base, Polygon, Tron, Bitcoin.
 
 ### MCP Server Tools
 
-| Tool                             | Purpose              |
-| -------------------------------- | -------------------- |
-| `generate_payout_sdk_snippet`    | Payout creation code |
-| `generate_payout_status_snippet` | Status polling code  |
+| Tool                                       | Purpose                                          |
+| ------------------------------------------ | ------------------------------------------------ |
+| `generate_payout_sdk_snippet`              | Direct (no-OTP) payout creation code             |
+| `generate_payout_recipient_flow_snippet`   | 3-step recipient flow (create → OTP → pay out)   |
+| `generate_payout_status_snippet`           | Status polling code                              |
 
 ## Referral Program
 
@@ -310,4 +380,4 @@ Need help? Message the PayRam team on Telegram: [@PayRamChat](https://t.me/PayRa
 
 - Website: https://payram.com
 - GitHub: https://github.com/PayRam
-- MCP Server: https://github.com/payram/payram-mcp
+- MCP Server: https://github.com/PayRam/payram-mcp

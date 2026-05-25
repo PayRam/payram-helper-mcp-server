@@ -89,7 +89,7 @@ The **master wallet** — the only key that can change the cold wallet address �
     {
       id: 'multi-chain',
       title: 'Multi-currency & Network Support',
-      markdown: `Out of the box Payram handles BTC, ETH, USDT, USDC, and TRX across Bitcoin, Ethereum, Base, and Tron, with Solana and TON on the near-term roadmap. Merchants can quote in USD terms while letting customers settle in their preferred asset and chain. Because everything is self-hosted, you can plug in additional RPC providers or set different confirmation thresholds per asset. The same REST and webhook flows work regardless of currency, so your integration effort stays constant.`,
+      markdown: `Out of the box Payram handles BTC, ETH, USDT, USDC, and TRX across Bitcoin, Ethereum, Base, Polygon, and Tron, with Solana and TON on the near-term roadmap. Merchants can quote in USD terms while letting customers settle in their preferred asset and chain. Because everything is self-hosted, you can plug in additional RPC providers or set different confirmation thresholds per asset. The same REST and webhook flows work regardless of currency, so your integration effort stays constant.`,
       sources: [
         {
           id: 'features/multi-currency-and-multi-chain-support',
@@ -121,24 +121,10 @@ The **master wallet** — the only key that can change the cold wallet address �
       ],
     },
     {
-      id: 'fiat-onramp',
-      title: 'Fiat Onramp / Card-to-Crypto',
-      markdown: `PayRam supports fiat onramp via **TransFi** (third-party partner) — not direct card processing.
-
-**Requirements:**
-- **Mainnet only** — not available on testnet
-- **TransFi KYB required** — merchants complete KYB with TransFi and obtain an API key
-- **Dashboard required** — API key added via Settings > Payment Channels
-- **Cannot be enabled via agent/CLI** — requires web dashboard
-
-Once activated, customers see TransFi as a payment option and can pay with credit/debit cards. Crypto settles in the merchant's deposit wallet.`,
-      sources: [
-        {
-          id: 'features/fiat-onramp',
-          path: 'features/fiat-onramp.md',
-          url: 'https://docs.payram.com/features/fiat-onramp',
-        },
-      ],
+      id: 'card-to-crypto',
+      title: 'Card-to-Crypto Checkout',
+      markdown: `Shoppers without crypto can still pay. PayRam offers a card-to-crypto checkout option: the customer pays with a credit/debit card and crypto settles directly in the merchant's deposit wallet. It's a built-in payment channel — no third-party processor and no separate merchant signup. Enable it for your project from the Payments page.`,
+      sources: [],
     },
   ],
   notes:
