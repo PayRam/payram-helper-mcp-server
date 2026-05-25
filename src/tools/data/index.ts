@@ -8,6 +8,11 @@ import { registerSearchPaymentsTool } from './searchPayments.js';
 import { registerGetUnsweptBalancesTool } from './getUnsweptBalances.js';
 import { registerGetDailyVolumeTool } from './getDailyVolume.js';
 import { registerListPlatformsTool } from './listPlatforms.js';
+import { registerListCurrenciesTool } from './listCurrencies.js';
+import { registerListRecipientsTool } from './listRecipients.js';
+import { registerCreatePaymentLinkTool } from './createPaymentLink.js';
+import { registerCheckNodeSyncTool } from './checkNodeSync.js';
+import { registerCheckPaymentReadinessTool } from './checkPaymentReadiness.js';
 
 /** Cached platform ID so we only auto-discover once per session */
 let cachedPlatformId: string | null = null;
@@ -50,4 +55,9 @@ export const registerDataTools = (server: McpServer) => {
   registerSearchPaymentsTool(server);
   registerGetUnsweptBalancesTool(server);
   registerGetDailyVolumeTool(server);
+  registerListCurrenciesTool(server);
+  registerListRecipientsTool(server);
+  registerCreatePaymentLinkTool(server);
+  registerCheckNodeSyncTool(server);
+  registerCheckPaymentReadinessTool(server);
 };
