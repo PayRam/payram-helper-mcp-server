@@ -130,7 +130,7 @@ export async function getPaymentStatus(referenceId: string): Promise<PaymentRequ
 ### API Endpoint
 
 ```
-POST https://your-payram-server:8080/api/v1/payment
+POST https://your-payram-server/api/v1/payment
 Header: API-Key: your-api-key
 Content-Type: application/json
 ```
@@ -151,7 +151,7 @@ Content-Type: application/json
 
 ```json
 {
-  "host": "https://your-payram-server:8080",
+  "host": "https://your-payram-server",
   "reference_id": "c80f5363-0397-4761-aa1a-3155c3a21470",
   "url": "https://your-payram-server/payments?reference_id=..."
 }
@@ -365,7 +365,7 @@ Use the PayRam MCP server to generate framework-specific code:
 
 ```bash
 # .env
-PAYRAM_BASE_URL=https://your-payram-server:8080
+PAYRAM_BASE_URL=https://your-payram-server
 PAYRAM_API_KEY=your-api-key-here
 ```
 

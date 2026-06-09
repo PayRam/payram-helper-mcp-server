@@ -170,10 +170,24 @@ npx skills add payram/payram-mcp/compare-crypto-payments
 
 ---
 
+## Credentials: which key for what
+
+PayRam has **two credentials** — agents stall when they conflate them:
+
+| Credential | Looks like | Used for | How an agent gets it (no dashboard needed) |
+|---|---|---|---|
+| **Merchant API key** (`PAYRAM_API_KEY`, header `API-Key`) | per-**project** key | `POST /api/v1/payment` (payment links), all merchant server-to-server calls, **this MCP's payment tools** | `./setup_payram_agents.sh ensure-api-key` — reuses or mints the project key via `POST /api/v1/external-platform/{id}/api-key` and saves it to `.payraminfo/merchant-api-key.env` |
+| **JWT** (`Authorization: Bearer`) | access+refresh token from signin | admin/setup APIs (projects, wallets, fees, analytics) — the MCP's data/status tools | `./setup_payram_agents.sh signin` (env `PAYRAM_EMAIL`/`PAYRAM_PASSWORD`); saved to `.payraminfo/headless-tokens.env` |
+
+The one-step setup flow (`setup_payram_agents.sh --testnet`) produces **both** automatically and prints where they live. The PayRam API itself is published on **port 80** by the installer (`http://localhost` — not `:8080`).
+
+---
+
 ## Tool Catalog
 
 | Category                                  | Tool                                                                                                                                                                    | Purpose                                                                                                                                                                                                      |
 | ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Diagnostics**                           | `payram_doctor`                                                                                                                                                         | One-call staged diagnosis (reachability -> API key -> JWT -> readiness) with ranked likely causes + exact fix commands. All probes read-only. Run this FIRST when anything fails.                            |
 | **Connectivity**                          | `test_payram_connection`                                                                                                                                                | POSTs to `/api/v1/payment` using `API-Key`. Returns status, headers, and helpful errors when `.env` is incomplete.                                                                                           |
 | **Setup**                                 | `generate_env_template`, `generate_setup_checklist`, `suggest_file_structure`                                                                                           | Ship env boilerplate, merchant runbooks, and recommended project layouts for PayRam modules.                                                                                                                 |
 | **Context / Docs**                        | `explain_payram_basics`, `explain_payram_concepts`, `explain_payment_flow`, `get_payram_links`, `prepare_payram_test`, `get_payram_doc_by_id`, `list_payram_docs`, etc. | Provide inline Markdown knowledge sourced from `docs/` so Copilot can answer conceptual questions. Some tools append “say `test payram`” reminders automatically.                                            |
@@ -238,6 +252,8 @@ Project is TypeScript-first (ESM). Prettier config lives in `.prettierrc.json`; 
 ---
 
 ## Troubleshooting
+
+> **Start with `payram_doctor`** — one read-only call that walks reachability -> credentials -> readiness and returns ranked causes with exact fixes.
 
 - **Copilot doesn’t call the right tool:** Check `COPILOT-USE.md` and ensure your MCP client loaded the server. Re-run "test payram" or "assess my project" to trigger the expected automation.
 - **`test_payram_connection` fails with 401:** Confirm `.env` uses the `API-Key` header, not `Authorization`. The tool echoes the missing fields when placeholders are detected.

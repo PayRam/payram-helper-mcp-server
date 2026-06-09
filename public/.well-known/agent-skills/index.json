@@ -20,7 +20,7 @@
       "description": "Deploy and automate PayRam for AI agents and CLI-only environments. No web UI required — pure API-driven payment infrastructure. Install via setup_payram_agents.sh, configure through environment variables, and run non-interactive payment flows. Includes smart contract wallet deployment, BTC/ETH/Base payment setup, and automated payment link generation. Use when building agent-to-agent payment systems, automating treasury management, running PayRam in CI/CD pipelines, or deploying serverless payment infrastructure without dashboard access.",
       "url": "https://raw.githubusercontent.com/PayRam/payram-mcp/main/skills/payram-agent-onboarding/SKILL.md",
       "mcpUrl": "https://mcp.payram.com/skills/payram-agent-onboarding.md",
-      "sha256": "e6d0cbd1a6da9068b777f4ce8a4bfca164a9d26ba193aec61d2627ce86786eaa"
+      "sha256": "256baa8fcd784f000f405d500254c47ca77355f2b9271dc1c83f13e982e5e7c9"
     },
     {
       "name": "payram-analytics",
@@ -52,7 +52,7 @@
       "description": "Integrate PayRam checkout flow into web applications. Generate payment links, embed payment pages, handle redirects, and process payment confirmations. Supports Express, Next.js, FastAPI, Laravel, Gin, Spring Boot. Use when adding crypto checkout to e-commerce, building payment forms, implementing deposit flows, or creating hosted payment pages for crypto acceptance.",
       "url": "https://raw.githubusercontent.com/PayRam/payram-mcp/main/skills/payram-checkout-integration/SKILL.md",
       "mcpUrl": "https://mcp.payram.com/skills/payram-checkout-integration.md",
-      "sha256": "fb2615cc4394e522058d8b190dbf50dd44e75155872dcf6630cbd0ed6d8ab20d"
+      "sha256": "c2e6a5fe87eb090cdc8b841ac8670202f8c5513bfc0ce856e814a2cc606b447e"
     },
     {
       "name": "payram-crypto-payments",
@@ -92,7 +92,7 @@
       "description": "Send crypto payouts and manage referral programs with PayRam. Self-hosted payout infrastructure — no KYC, no intermediary, no fund holds. Create payouts to any wallet across Ethereum, Base, Polygon, Tron, Bitcoin. Built-in affiliate program with automated reward distribution. Use when sending crypto payouts to users, building referral/affiliate programs, or needing integrated payment and payout infrastructure.",
       "url": "https://raw.githubusercontent.com/PayRam/payram-mcp/main/skills/payram-payouts/SKILL.md",
       "mcpUrl": "https://mcp.payram.com/skills/payram-payouts.md",
-      "sha256": "a2a12a76b55670d4bcefd1c131d29da24fd03c6a9293ad098bb446c4de864d88"
+      "sha256": "03a088410246cecb0b4f2cb5ab515004b5b3c3ab5353499c2a4059abe1216129"
     },
     {
       "name": "payram-self-hosted-payment-gateway",
@@ -100,7 +100,7 @@
       "description": "Deploy PayRam self-hosted crypto payment gateway on your own server. Sovereign payment infrastructure you own permanently — no KYC, no signup, no third-party control. Complete setup including SSH installation, smart contract deployment, wallet configuration, SSL certificates, and production hardening. Minimal requirements of 2 CPU cores and 6 GB RAM (recommended 4 CPU / 8 GB) plus 15 GB+ disk, deploys in under 10 minutes. Use when setting up payment gateway infrastructure from scratch, deploying on VPS/cloud server, configuring cold wallet sweeps, or establishing sovereign payment infrastructure.",
       "url": "https://raw.githubusercontent.com/PayRam/payram-mcp/main/skills/payram-self-hosted-payment-gateway/SKILL.md",
       "mcpUrl": "https://mcp.payram.com/skills/payram-self-hosted-payment-gateway.md",
-      "sha256": "61d76b6f04d74a71cdd023b7e20940656447bb3a52bfeb386c69e5576913f114"
+      "sha256": "2a2f896dff1bf6a4e43c91c2e798fac53fcd528c9d767a003277cd1c5f005992"
     },
     {
       "name": "payram-setup",
