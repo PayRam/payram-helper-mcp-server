@@ -1,4 +1,5 @@
 import { authenticatedFetch } from './authClient.js';
+import { apiErrorMessage } from '../utils/httpHints.js';
 import { getPayramBaseUrl, getPayramApiKey } from '../config/env.js';
 import type {
   SearchParams,
@@ -45,7 +46,7 @@ export const listPlatforms = async (): Promise<ExternalPlatform[]> => {
 
   if (!response.ok) {
     const body = await response.text();
-    throw new Error(`List platforms failed (HTTP ${response.status}): ${body}`);
+    throw new Error(apiErrorMessage('List platforms', response.status, body));
   }
 
   return (await response.json()) as ExternalPlatform[];
@@ -69,7 +70,7 @@ export const searchPayments = async (
 
   if (!response.ok) {
     const body = await response.text();
-    throw new Error(`Payment search failed (HTTP ${response.status}): ${body}`);
+    throw new Error(apiErrorMessage('Payment search', response.status, body));
   }
 
   return (await response.json()) as PaymentSearchResponse;
@@ -92,7 +93,7 @@ export const getPaymentSummary = async (
 
   if (!response.ok) {
     const body = await response.text();
-    throw new Error(`Payment summary failed (HTTP ${response.status}): ${body}`);
+    throw new Error(apiErrorMessage('Payment summary', response.status, body));
   }
 
   return (await response.json()) as PaymentSummaryResponse;
@@ -111,7 +112,7 @@ export const listCurrencies = async (): Promise<BlockchainCurrency[]> => {
 
   if (!response.ok) {
     const body = await response.text();
-    throw new Error(`List currencies failed (HTTP ${response.status}): ${body}`);
+    throw new Error(apiErrorMessage('List currencies', response.status, body));
   }
 
   return unwrapList<BlockchainCurrency>(await response.json(), 'data', 'currencies');
@@ -128,7 +129,7 @@ export const listRecipients = async (): Promise<Recipient[]> => {
 
   if (!response.ok) {
     const body = await response.text();
-    throw new Error(`List recipients failed (HTTP ${response.status}): ${body}`);
+    throw new Error(apiErrorMessage('List recipients', response.status, body));
   }
 
   return unwrapList<Recipient>(await response.json(), 'data', 'recipients');
@@ -157,7 +158,7 @@ export const createPaymentLink = async (
 
   if (!response.ok) {
     const body = await response.text();
-    throw new Error(`Create payment link failed (HTTP ${response.status}): ${body}`);
+    throw new Error(apiErrorMessage('Create payment link', response.status, body));
   }
 
   return (await response.json()) as PaymentLink;
@@ -174,7 +175,7 @@ export const getWorkersStatus = async (): Promise<WorkerStatus[]> => {
 
   if (!response.ok) {
     const body = await response.text();
-    throw new Error(`Workers status failed (HTTP ${response.status}): ${body}`);
+    throw new Error(apiErrorMessage('Workers status', response.status, body));
   }
 
   return unwrapList<WorkerStatus>(await response.json(), 'data', 'workers', 'statuses');
@@ -191,7 +192,7 @@ export const getBlockchains = async (): Promise<Blockchain[]> => {
 
   if (!response.ok) {
     const body = await response.text();
-    throw new Error(`List blockchains failed (HTTP ${response.status}): ${body}`);
+    throw new Error(apiErrorMessage('List blockchains', response.status, body));
   }
 
   return unwrapList<Blockchain>(await response.json(), 'data', 'blockchains');
@@ -211,9 +212,7 @@ export const testBlockchainConnection = async (
 
   if (!response.ok) {
     const body = await response.text();
-    throw new Error(
-      `Test connection for ${blockchainCode} failed (HTTP ${response.status}): ${body}`,
-    );
+    throw new Error(apiErrorMessage(`Test connection for ${blockchainCode}`, response.status, body));
   }
 
   const data = (await response.json()) as Partial<NodeConnectionResult>;
@@ -234,7 +233,7 @@ export const getWallets = async (): Promise<WalletInfo[]> => {
 
   if (!response.ok) {
     const body = await response.text();
-    throw new Error(`List wallets failed (HTTP ${response.status}): ${body}`);
+    throw new Error(apiErrorMessage('List wallets', response.status, body));
   }
 
   return unwrapList<WalletInfo>(await response.json(), 'data', 'wallets');
@@ -254,7 +253,7 @@ export const getProjectBlockchainCurrency = async (
 
   if (!response.ok) {
     const body = await response.text();
-    throw new Error(`Project blockchain-currency failed (HTTP ${response.status}): ${body}`);
+    throw new Error(apiErrorMessage('Project blockchain-currency', response.status, body));
   }
 
   const data = (await response.json()) as Record<string, unknown>;
@@ -273,7 +272,7 @@ export const getAddressBalances = async (): Promise<AddressBalanceEntry[]> => {
 
   if (!response.ok) {
     const body = await response.text();
-    throw new Error(`Address balances failed (HTTP ${response.status}): ${body}`);
+    throw new Error(apiErrorMessage('Address balances', response.status, body));
   }
 
   return (await response.json()) as AddressBalanceEntry[];
