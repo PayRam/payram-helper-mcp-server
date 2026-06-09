@@ -112,7 +112,7 @@ Run from repository root: `./setup_payram_agents.sh [command]`
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `PAYRAM_API_URL` | `http://localhost:8080` | Backend API base URL |
+| `PAYRAM_API_URL` | derived from the install (config.env / container; else `http://localhost` - the installer publishes on port 80, not 8080) | Backend API base URL |
 | `PAYRAM_EMAIL` | — | Root user email (setup/signin) |
 | `PAYRAM_PASSWORD` | — | Root user password |
 | `PAYRAM_CUSTOMER_ID` | from token file | Auto-populated after signin |
@@ -201,7 +201,7 @@ export PAYRAM_PAYMENT_AMOUNT="49.99"
 
 **Payment URL Format:**
 ```
-http://localhost/payment?reference_id=ref_abc123&host=http://localhost:8080
+http://localhost/payment?reference_id=ref_abc123&host=http://localhost
 ```
 
 ⚠️ **Critical:** Use the exact URL printed. The `host` parameter and `&` separator are required.
@@ -348,7 +348,7 @@ Ensure Docker has access to host networking:
 
 **Scripts:**
 - `scripts/generate-deposit-wallet.js` — BTC HD wallet generation
-- `scripts/generate-deposit-wallet-eth.js` — Ethereum xpub derivation
+- `scripts/generate-deposit-wallet-eth.js` — mnemonic for the SCW DEPLOYER (not a deposit xpub; XPUB deposit wallets are BTC-only, EVM deposits come from the smart contract)
 - `scripts/deploy-scw-eth.js` — Smart contract wallet deployment
 
 ⚠️ **Security:** Never commit `.payraminfo/` to version control. Add to `.gitignore`.
@@ -365,7 +365,7 @@ Ensure Docker has access to host networking:
 | **deploy-scw RPC 401 error** | Don't use placeholder RPC URLs. Default (PublicNode) is used if env looks invalid. |
 | **INSUFFICIENT_FUNDS during deploy** | Send testnet ETH to deployer address shown in logs. Wait for confirmations. |
 | **Payment page loads indefinitely** | Use exact URL returned. Ensure `host` param and `&` separator are preserved (not `\u0026`). |
-| **Docker can't reach localhost API** | Use `PAYRAM_API_URL=http://host.docker.internal:8080` or switch to `PAYRAM_NODE_MODE=host` |
+| **Docker can't reach localhost API** | Use `PAYRAM_API_URL=http://host.docker.internal` or switch to `PAYRAM_NODE_MODE=host` |
 
 ### Reset and Reinstall
 
@@ -387,8 +387,7 @@ Connect your AI agent to PayRam:
 {
   "mcpServers": {
     "payram": {
-      "url": "http://localhost:8080/mcp",
-      "apiKey": "your-api-key-from-signin"
+      "url": "https://mcp.payram.com/mcp"
     }
   }
 }

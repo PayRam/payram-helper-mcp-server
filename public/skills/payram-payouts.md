@@ -353,7 +353,7 @@ Use E.164 format: `+15555555555` (no spaces, dashes, or parentheses).
 ## Environment Variables
 
 ```bash
-PAYRAM_BASE_URL=https://your-payram-server:8080
+PAYRAM_BASE_URL=https://your-payram-server
 PAYRAM_API_KEY=your-api-key
 ```
 

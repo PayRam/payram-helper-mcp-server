@@ -1,5 +1,6 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { registerTestConnectionTool } from './testConnection.js';
+import { registerDoctorTool } from './doctor.js';
 import { registerPaymentTools } from './integration/payments/index.js';
 import { registerMultilangPaymentTools } from './integration/multilang-payments/index.js';
 import { registerPayoutTools } from './integration/payouts/index.js';
@@ -13,6 +14,7 @@ import { registerDataTools } from './data/index.js';
 
 export const registerTools = (server: McpServer) => {
   registerTestConnectionTool(server);
+  registerDoctorTool(server);
   registerPaymentTools(server);
   registerMultilangPaymentTools(server);
   registerPayoutTools(server);

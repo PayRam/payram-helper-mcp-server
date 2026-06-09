@@ -82,6 +82,8 @@ For the OpenClaw-specific walkthrough (registration, testnet on Base Sepolia, ch
 - [Agent Skills](#agent-skills)
 - [Project Goals](#project-goals)
 - [Quick Start](#quick-start)
+- [Connect from your MCP client](#connect-from-your-mcp-client)
+- [Credentials](#credentials-which-key-for-what)
 - [Tool Catalog](#tool-catalog)
 - [Guided Workflows](#guided-workflows)
 - [Development](#development)
@@ -158,15 +160,61 @@ npx skills add payram/payram-mcp/compare-crypto-payments
    yarn dev
    # exposes HTTP + SSE transports on http://localhost:3333/mcp and /mcp/sse
    ```
-4. **Add the MCP server to Copilot / your MCP client**
-   - Hosted MCP server: `https://mcp.payram.com`.
-   - Local dev server: `http://localhost:3333/mcp` (or `/mcp/sse` if it supports streaming).
+4. **Add the MCP server to your client** — see [Connect from your MCP client](#connect-from-your-mcp-client). Local dev URL: `http://localhost:3333/mcp`.
 5. **Health check**
    ```bash
    curl http://localhost:3333/healthz
    ```
 
-> **Tip:** When you tell Copilot "test payram" it will automatically run the readiness checklist, ensure `.env` exists, and only then call `test_payram_connection` with your real credentials. The behavior is documented in `COPILOT-USE.md`—no manual prompting required.
+> **Tip:** When you tell Copilot "test payram" it will automatically run the readiness checklist, ensure `.env` exists, and only then call `test_payram_connection` with your real credentials. The behavior is defined by the [Copilot automation prompt](#copilot-automation-prompt)—no manual prompting required.
+
+---
+
+## Connect from your MCP client
+
+**Endpoint:** `https://mcp.payram.com/mcp` (HTTP JSON-RPC; optional SSE at `/mcp/sse`). No auth headers — credentials stay in your project's `.env`, never in chat.
+
+| Client | Where | Settings |
+|---|---|---|
+| VS Code (Copilot Chat) | Settings → Copilot: Model Context Protocol → Add HTTP server | Name `payram`, URL above, headers empty |
+| Cursor | Settings → MCP Servers → Add → HTTP | Name `payram`, URL above |
+| Claude Desktop / Code | Settings → MCP Servers → Add HTTP server | Name `payram`, URL above |
+| Any MCP client | Register an HTTP endpoint | URL above, no headers |
+
+**Verify:** the tool list should show `payram_doctor`, `test_payram_connection`, `assess_payram_project`, `scaffold_payram_app`, and the `generate_*` snippet tools. Then try: "test payram", "assess this repo for payram", "generate a FastAPI create-payment route", "give me a Next.js webhook handler".
+
+### Copilot automation prompt
+
+Paste this once into a fresh workspace to make "test payram" run the full readiness flow automatically:
+
+````
+You have access to the `payram` MCP server in this workspace.
+
+Whenever I ask you to "test my Payram connection" (or I type "test payram"), follow this order:
+
+1. Call `prepare_payram_test` (no inputs) and share the checklist verbatim.
+2. Look for a `.env` in the workspace root; create one if missing.
+3. Ensure `.env` defines `PAYRAM_BASE_URL` and `PAYRAM_API_KEY`. If either is
+   missing, call `generate_env_template` and append it (with TODOs) to `.env`.
+   Do NOT call `test_payram_connection` until real values are provided.
+4. Once real values exist, call `test_payram_connection` with baseUrl/apiKey
+   from `.env`, show the structured result, and explain whether the
+   connection is healthy. If anything fails, run `payram_doctor` and follow
+   its ranked fixes.
+````
+
+---
+
+## Credentials: which key for what
+
+PayRam has **two credentials** — agents stall when they conflate them:
+
+| Credential | Looks like | Used for | How an agent gets it (no dashboard needed) |
+|---|---|---|---|
+| **Merchant API key** (`PAYRAM_API_KEY`, header `API-Key`) | per-**project** key | `POST /api/v1/payment` (payment links), all merchant server-to-server calls, **this MCP's payment tools** | `./setup_payram_agents.sh ensure-api-key` — reuses or mints the project key via `POST /api/v1/external-platform/{id}/api-key` and saves it to `.payraminfo/merchant-api-key.env` |
+| **JWT** (`Authorization: Bearer`) | access+refresh token from signin | admin/setup APIs (projects, wallets, fees, analytics) — the MCP's data/status tools | `./setup_payram_agents.sh signin` (env `PAYRAM_EMAIL`/`PAYRAM_PASSWORD`); saved to `.payraminfo/headless-tokens.env` |
+
+The one-step setup flow (`setup_payram_agents.sh --testnet`) produces **both** automatically and prints where they live. The PayRam API itself is published on **port 80** by the installer (`http://localhost` — not `:8080`).
 
 ---
 
@@ -174,6 +222,7 @@ npx skills add payram/payram-mcp/compare-crypto-payments
 
 | Category                                  | Tool                                                                                                                                                                    | Purpose                                                                                                                                                                                                      |
 | ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Diagnostics**                           | `payram_doctor`                                                                                                                                                         | One-call staged diagnosis (reachability -> API key -> JWT -> readiness) with ranked likely causes + exact fix commands. All probes read-only. Run this FIRST when anything fails.                            |
 | **Connectivity**                          | `test_payram_connection`                                                                                                                                                | POSTs to `/api/v1/payment` using `API-Key`. Returns status, headers, and helpful errors when `.env` is incomplete.                                                                                           |
 | **Setup**                                 | `generate_env_template`, `generate_setup_checklist`, `suggest_file_structure`                                                                                           | Ship env boilerplate, merchant runbooks, and recommended project layouts for PayRam modules.                                                                                                                 |
 | **Context / Docs**                        | `explain_payram_basics`, `explain_payram_concepts`, `explain_payment_flow`, `get_payram_links`, `prepare_payram_test`, `get_payram_doc_by_id`, `list_payram_docs`, etc. | Provide inline Markdown knowledge sourced from `docs/` so Copilot can answer conceptual questions. Some tools append “say `test payram`” reminders automatically.                                            |
@@ -239,7 +288,9 @@ Project is TypeScript-first (ESM). Prettier config lives in `.prettierrc.json`; 
 
 ## Troubleshooting
 
-- **Copilot doesn’t call the right tool:** Check `COPILOT-USE.md` and ensure your MCP client loaded the server. Re-run "test payram" or "assess my project" to trigger the expected automation.
+> **Start with `payram_doctor`** — one read-only call that walks reachability -> credentials -> readiness and returns ranked causes with exact fixes.
+
+- **Copilot doesn’t call the right tool:** Check the [Copilot automation prompt](#copilot-automation-prompt) is installed and your MCP client loaded the server. Re-run "test payram" or "assess my project" to trigger the expected automation.
 - **`test_payram_connection` fails with 401:** Confirm `.env` uses the `API-Key` header, not `Authorization`. The tool echoes the missing fields when placeholders are detected.
 - **Docs tool says a file is missing:** Verify your local `docs/payram-docs-live/` tree contains the requested markdown (`get_payram_doc_by_id` rejects paths with `..`).
 - **Server won’t start:** Check `.env` for `PAYRAM_BASE_URL`/`PAYRAM_API_KEY`, ensure Node 18+, and run `yarn install` to grab the MCP SDK.

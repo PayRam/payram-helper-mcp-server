@@ -99,7 +99,7 @@ circle-info
     
     8080
     
-    Used for running the Backend (BE) services on HTTP.
+    Legacy installs only - older versions served the backend on 8080. Current installers publish both the frontend and the API on port 80 (and 443 with SSL).
     
     443
     
@@ -137,7 +137,7 @@ This command does the following:
     
 -   **Exposes ports**:
     
-    -   8080 → PayRam internal API access
+    -   8080 → legacy internal API access (current installs serve the API on port 80)
         
     -   80 → HTTP access
         
@@ -276,7 +276,7 @@ Before starting PayRam for the first time, make sure you **note down and store a
     
 -   **Maps and exposes ports**:
     
-    -   8080 → internal API access
+    -   8080 → legacy internal API access (current installs serve the API on port 80)
         
     -   8443 → secure HTTPS API
         
