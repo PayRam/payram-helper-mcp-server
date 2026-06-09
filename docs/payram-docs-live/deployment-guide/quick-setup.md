@@ -79,7 +79,7 @@ circle-info
     
     8080
     
-    Used for running the Backend (BE) services on HTTP.
+    Legacy installs only - older versions served the backend on 8080. Current installers publish both the frontend and the API on port 80 (and 443 with SSL).
     
     443
     
