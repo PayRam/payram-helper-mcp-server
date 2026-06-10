@@ -93,6 +93,8 @@ For the OpenClaw-specific walkthrough (registration, testnet on Base Sepolia, ch
 
 ## Agent Skills
 
+**Agent front door:** [`https://mcp.payram.com/SKILL.md`](https://mcp.payram.com/SKILL.md) — a single root skill that describes PayRam and routes agents to the right entry point (setup script to install, MCP endpoint to operate/integrate). Also served: [`/llms.txt`](https://mcp.payram.com/llms.txt).
+
 This repository includes 16 Agent Skills for AI coding assistants. Install them via [skills.sh](https://skills.sh):
 
 ### Install individually

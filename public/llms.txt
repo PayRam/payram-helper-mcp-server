@@ -1,0 +1,24 @@
+# PayRam
+
+> Private, self-hosted crypto payment gateway: payment links, hosted checkout
+> (USDC/BTC/ETH and more), on-chain deposit detection, sweeps to a cold wallet
+> you control. No signup, no KYB. This host also serves the PayRam MCP server.
+
+Agents: start at /SKILL.md - it routes you to the right entry point
+(setup script for installing, MCP at /mcp for operating/integrating).
+
+## Start here
+
+- [Agent front door (SKILL.md)](https://mcp.payram.com/SKILL.md): what PayRam is, install one-liner, MCP endpoint, credentials
+- [MCP endpoint](https://mcp.payram.com/mcp): HTTP JSON-RPC, no auth headers; tools for payment links, diagnosis, codegen
+- [Skills index](https://mcp.payram.com/.well-known/agent-skills/index.json): 16 specialized skills (setup, payments, webhooks, payouts, referrals, ...)
+
+## Setup
+
+- [Headless agent setup guide](https://github.com/PayRam/payram-scripts/blob/main/docs/PAYRAM_HEADLESS_AGENT.md): the canonical flow, env vars, merchant/operator modes, troubleshooting
+- [Setup script](https://raw.githubusercontent.com/PayRam/payram-scripts/main/setup_payram_agents.sh): one-step install -> payment link -> API key
+
+## Community
+
+- [Telegram](https://t.me/PayRamChat)
+- [GitHub](https://github.com/PayRam)

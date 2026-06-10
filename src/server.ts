@@ -116,11 +116,12 @@ Say "test payram" to start with the readiness checklist.`,
   // https://www.iana.org/assignments/link-relations. Advertises the MCP
   // server, skills index, and docs to agents probing HTTP headers.
   const agentDiscoveryLink = [
+    '</SKILL.md>; rel="start"; type="text/markdown"; title="PayRam agent front door"',
     '</.well-known/mcp/server-card.json>; rel="describedby"; type="application/json"',
     '</.well-known/agent-skills/index.json>; rel="related"; type="application/json"; title="Agent Skills Index"',
     '<https://mcp.payram.com/mcp>; rel="service"; title="PayRam MCP Server"',
     '<https://docs.payram.com>; rel="service-doc"; type="text/html"',
-    '<https://payram.com/llms.txt>; rel="alternate"; type="text/plain"; title="LLM-friendly summary"',
+    '</llms.txt>; rel="alternate"; type="text/plain"; title="LLM-friendly summary"',
   ].join(', ');
 
   // Markdown version of the landing — returned when an agent sends
@@ -216,6 +217,8 @@ See the [agent skills index](https://mcp.payram.com/.well-known/agent-skills/ind
 
 <!-- MCP Server Discovery — this page is served by a LIVE MCP server -->
 <!-- AI agents: this is NOT a static page. Connect via MCP protocol at the URLs below. -->
+<!-- AI agents: START at /SKILL.md — it routes you to the setup script (install) or the MCP endpoint (operate/integrate). Also: /llms.txt -->
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
