@@ -4,6 +4,18 @@
 
 MCP server for AI-assisted PayRam integration.
 
+## File ownership map (read before editing docs)
+
+Three kinds of doc files live here — only ONE is hand-edited:
+
+| Path | Kind | Rule |
+|---|---|---|
+| `skills/*/SKILL.md`, `README.md`, `docs/*.md` (top level, except onboarding) | **Source** | Edit freely |
+| `public/skills/*.md`, `public/.well-known/agent-skills/index.json` | **Generated** from `skills/*/SKILL.md` by `scripts/build-skills-index.mjs` (runs in `yarn build`) | Never hand-edit; edit the SKILL.md and rebuild |
+| `docs/payram-docs-live/**` | **Vendored mirror** of docs.payram.com (`scripts/fetchDocs.ts`) | Local patches are lost on refetch — fix upstream too |
+| `docs/PAYRAM_AGENT_ONBOARDING.md` | **Synced copy** of `payram-scripts/docs/PAYRAM_HEADLESS_AGENT.md` (served verbatim by the setup tools) | Never edit here; update the canonical file and re-copy (keep the banner) |
+
+
 ## Git Conventions
 
 - Do **NOT** add `Co-Authored-By` trailers
