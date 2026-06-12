@@ -15,8 +15,7 @@ const inputSchema = z
     customerEmail: z
       .string()
       .email()
-      .optional()
-      .describe('Customer email (optional)'),
+      .describe('Customer email (required — the backend validates it as a non-empty email)'),
   })
   .strict();
 

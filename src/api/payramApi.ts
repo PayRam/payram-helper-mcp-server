@@ -20,7 +20,9 @@ import type {
 export interface CreatePaymentLinkParams {
   amountInUSD: number;
   customerID: string;
-  customerEmail?: string;
+  // Required: core binds customerEmail with `email` and NO omitempty, so an
+  // omitted/empty value fails validation with HTTP 400.
+  customerEmail: string;
 }
 
 /** Unwrap a list response that may be a bare array or an envelope ({data|recipients|...: [...]}). */
@@ -73,7 +75,10 @@ export const searchPayments = async (
     throw new Error(apiErrorMessage('Payment search', response.status, body));
   }
 
-  return (await response.json()) as PaymentSearchResponse;
+  // Zero-result searches serialize as {"data": null} (nil slice in Go) —
+  // normalize so callers can iterate without guards.
+  const result = (await response.json()) as PaymentSearchResponse;
+  return { ...result, data: result.data ?? [] };
 };
 
 /**
@@ -119,11 +124,13 @@ export const listCurrencies = async (): Promise<BlockchainCurrency[]> => {
 };
 
 /**
- * List withdrawal recipients (payout beneficiaries) for the authenticated member.
- * GET /api/v1/recipients/
+ * List withdrawal recipients (payout beneficiaries).
+ * GET /api/v1/project/all/recipients — recipient listing is project-scoped on
+ * current core (the unscoped /recipients group has only write routes);
+ * ':project_id = all' is explicitly supported by the middleware.
  */
 export const listRecipients = async (): Promise<Recipient[]> => {
-  const response = await authenticatedFetch('/api/v1/recipients/', {
+  const response = await authenticatedFetch('/api/v1/project/all/recipients', {
     method: 'GET',
   });
 
@@ -178,7 +185,8 @@ export const getWorkersStatus = async (): Promise<WorkerStatus[]> => {
     throw new Error(apiErrorMessage('Workers status', response.status, body));
   }
 
-  return unwrapList<WorkerStatus>(await response.json(), 'data', 'workers', 'statuses');
+  // Core's SystemHandler wraps the list as {"status": [...]} — that key first.
+  return unwrapList<WorkerStatus>(await response.json(), 'status', 'data', 'workers', 'statuses');
 };
 
 /**
@@ -224,10 +232,12 @@ export const testBlockchainConnection = async (
 
 /**
  * List all wallets (deposit, hot, cold, gas).
- * GET /api/v1/wallets
+ * GET /api/v1/project/all/wallets — wallet listing is project-scoped on
+ * current core (the unscoped GET /wallets was removed); ':project_id = all'
+ * is explicitly supported by the middleware.
  */
 export const getWallets = async (): Promise<WalletInfo[]> => {
-  const response = await authenticatedFetch('/api/v1/wallets', {
+  const response = await authenticatedFetch('/api/v1/project/all/wallets', {
     method: 'GET',
   });
 
@@ -256,9 +266,20 @@ export const getProjectBlockchainCurrency = async (
     throw new Error(apiErrorMessage('Project blockchain-currency', response.status, body));
   }
 
-  const data = (await response.json()) as Record<string, unknown>;
-  const map = (data?.supportedBlockchainCurrencies ?? data) as Record<string, string[]>;
-  return map && typeof map === 'object' ? map : {};
+  // Core returns a bare ARRAY of {blockchainCode, currencyCode} rows (one per
+  // enabled pair) — reduce it into the chain -> currencies map callers expect.
+  const data = (await response.json()) as unknown;
+  const rows = unwrapList<{ blockchainCode?: string; currencyCode?: string }>(
+    data,
+    'data',
+    'supportedBlockchainCurrencies',
+  );
+  const map: Record<string, string[]> = {};
+  for (const row of rows) {
+    if (!row?.blockchainCode || !row?.currencyCode) continue;
+    (map[row.blockchainCode] ??= []).push(row.currencyCode);
+  }
+  return map;
 };
 
 /**
