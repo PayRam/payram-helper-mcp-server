@@ -13,6 +13,7 @@ import { registerListRecipientsTool } from './listRecipients.js';
 import { registerCreatePaymentLinkTool } from './createPaymentLink.js';
 import { registerCheckNodeSyncTool } from './checkNodeSync.js';
 import { registerCheckPaymentReadinessTool } from './checkPaymentReadiness.js';
+import { registerRestartWorkerTool } from './restartWorker.js';
 
 /** Cached platform ID so we only auto-discover once per session */
 let cachedPlatformId: string | null = null;
@@ -59,5 +60,6 @@ export const registerDataTools = (server: McpServer) => {
   registerListRecipientsTool(server);
   registerCreatePaymentLinkTool(server);
   registerCheckNodeSyncTool(server);
+  registerRestartWorkerTool(server);
   registerCheckPaymentReadinessTool(server);
 };
