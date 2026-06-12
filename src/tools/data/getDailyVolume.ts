@@ -42,7 +42,7 @@ const PAGE_SIZE = 200;
 const MAX_PAYMENTS = 10_000;
 
 /**
- * Fetch all closed payments for a given date, paginating as needed.
+ * Fetch all FILLED (completed) payments for a given date, paginating as needed.
  */
 const fetchAllClosedPayments = async (
   platformId: string,
@@ -54,7 +54,9 @@ const fetchAllClosedPayments = async (
 
   while (offset < MAX_PAYMENTS) {
     const result = await searchPayments(platformId, {
-      paymentStatus: ['closed'],
+      // Core's computed payment_status vocabulary is uppercase; the completed
+      // state is FILLED ('closed' only exists on the raw status column).
+      paymentStatus: ['FILLED'],
       dateFrom,
       dateTo,
       sortBy: 'created_at',
@@ -112,7 +114,7 @@ export const registerGetDailyVolumeTool = (server: McpServer) => {
       title: 'Get Daily Volume',
       description:
         'Returns the total payment volume for a given date, with breakdowns by network and currency. ' +
-        'Only counts closed (completed) payments. Defaults to today if no date is specified.',
+        'Only counts FILLED (completed) payments. Defaults to today if no date is specified.',
       inputSchema: schemas.input,
       outputSchema: schemas.output,
     },

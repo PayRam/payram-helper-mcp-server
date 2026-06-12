@@ -19,9 +19,22 @@ const schemas = buildToolSchemas({
         .optional()
         .describe('Free-text search: tx hash, email, reference ID, customer ID, or invoice ID.'),
       paymentStatus: z
-        .array(z.enum(['open', 'closed', 'cancelled', 'partially_filled', 'over_filled']))
+        // The filter matches core's COMPUTED payment_status column, which is
+        // uppercase and case-sensitive in SQL. 'FILLED' = completed.
+        .array(
+          z.enum([
+            'OPEN',
+            'FILLED',
+            'PARTIALLY_FILLED',
+            'OVER_FILLED',
+            'CANCELLED',
+            'CONFIRMING',
+            'DEPOSIT_RECEIVED',
+            'UNDEFINED',
+          ]),
+        )
         .optional()
-        .describe('Filter by payment status.'),
+        .describe('Filter by payment status (FILLED = completed).'),
       network: z
         .array(z.string())
         .optional()
