@@ -8,8 +8,10 @@ import { listRecipients } from '../../api/payramApi.js';
 const recipientSchema = z
   .object({
     id: z.number(),
-    name: z.string().optional(),
-    email: z.string().optional(),
+    // Pointer fields without omitempty in core — they serialize as null,
+    // which .optional() rejects; .nullish() accepts undefined AND null.
+    name: z.string().nullish(),
+    email: z.string().nullish(),
     blockchainCode: z.string(),
     address: z.string(),
     status: z.string(),
