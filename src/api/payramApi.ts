@@ -283,6 +283,42 @@ export const getProjectBlockchainCurrency = async (
 };
 
 /**
+ * Restart one supervisor-controlled worker (e.g. a chain's block listener).
+ * POST /api/v1/system/workers/{name}/restart — name is whitelist-validated by
+ * core (ParseWorkerName); unknown names 400. Requires write_system_settings.
+ */
+export const restartWorker = async (workerName: string): Promise<{ message?: string }> => {
+  const response = await authenticatedFetch(
+    `/api/v1/system/workers/${encodeURIComponent(workerName)}/restart`,
+    { method: 'POST' },
+  );
+
+  if (!response.ok) {
+    const body = await response.text();
+    throw new Error(apiErrorMessage(`Restart worker ${workerName}`, response.status, body));
+  }
+
+  return (await response.json()) as { message?: string };
+};
+
+/**
+ * Restart ALL supervisor-controlled workers.
+ * POST /api/v1/system/workers/restart
+ */
+export const restartAllWorkers = async (): Promise<{ message?: string }> => {
+  const response = await authenticatedFetch('/api/v1/system/workers/restart', {
+    method: 'POST',
+  });
+
+  if (!response.ok) {
+    const body = await response.text();
+    throw new Error(apiErrorMessage('Restart all workers', response.status, body));
+  }
+
+  return (await response.json()) as { message?: string };
+};
+
+/**
  * Get address balances (unswept funds) across all wallets.
  * GET /api/v1/addresses/balance
  */
