@@ -119,6 +119,14 @@
       "sha256": "5af0936e6f2e52dcb045c2963b2b1f966a7ffc93682b4904cf575ea8a1ecd32f"
     },
     {
+      "name": "payram-topup-wallet-integration",
+      "type": "skill.md",
+      "description": "Integrate PayRam into an EXISTING app using the recommended top-up wallet pattern — credit crypto payments to a user's in-app wallet balance first, then debit invoices from that balance. Handles every crypto payment reality (overpayment, underpayment, multiple sends, late payments, duplicate webhooks) as balance states instead of payment exceptions. Covers the ledger schema, the credit/debit flows, idempotency, concurrency, reconciliation, and PayRam's cumulative filled_amount_in_usd semantics. Use when adding PayRam to an app that has its own users/invoices/orders, when payments may not exactly match invoice amounts, or when building credits, prepaid balances, or usage billing on crypto rails.",
+      "url": "https://raw.githubusercontent.com/PayRam/payram-mcp/main/skills/payram-topup-wallet-integration/SKILL.md",
+      "mcpUrl": "https://mcp.payram.com/skills/payram-topup-wallet-integration.md",
+      "sha256": "faf30f95f42e7e30a739603eae3375fed840135c361bfeea4c89904b667563e2"
+    },
+    {
       "name": "payram-webhook-integration",
       "type": "skill.md",
       "description": "Integrate PayRam webhook handlers for real-time payment and payout event notifications. Self-hosted, no-KYC crypto payment gateway webhooks. Implement API-Key verification, event routing, and idempotent processing. Generate handlers for Express, Next.js, FastAPI, Gin, Laravel, Spring Boot. Use when setting up payment confirmation callbacks, handling payout status updates, building event-driven payment flows, or integrating PayRam events into existing systems.",

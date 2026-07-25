@@ -10,6 +10,7 @@ import { registerContextTools } from './context/index.js';
 import { registerSetupTools } from './setup/index.js';
 import { registerScaffoldAppTool } from './scaffoldApp.js';
 import { registerProjectAssessmentTool } from './integration/assessment/index.js';
+import { registerTopUpTools } from './integration/topup/index.js';
 import { registerDataTools } from './data/index.js';
 
 export const registerTools = (server: McpServer) => {
@@ -21,6 +22,7 @@ export const registerTools = (server: McpServer) => {
   registerReferralTools(server);
   registerWebhookTools(server);
   registerProjectAssessmentTool(server);
+  registerTopUpTools(server);
   registerContextTools(server);
   registerSetupTools(server);
   registerScaffoldAppTool(server);
