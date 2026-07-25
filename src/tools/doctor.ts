@@ -209,18 +209,45 @@ export const registerDoctorTool = (server: McpServer) => {
         const nextSteps: string[] = [];
         let jwtOk = false;
         if (getPayramAccessToken()) {
+          // getWallets is the JWT probe. Worker status is fetched SEPARATELY
+          // and best-effort: a host with no supervisord returns 500 there, and
+          // that must not be misreported as a rejected JWT.
+          let wallets: Awaited<ReturnType<typeof getWallets>> | null = null;
           try {
-            const [wallets, workers] = await Promise.all([getWallets(), getWorkersStatus()]);
+            wallets = await getWallets();
             jwtOk = true;
             findings.push({ check: 'jwt', ok: true, detail: 'admin JWT valid' });
+          } catch (error) {
+            findings.push({
+              check: 'jwt',
+              ok: false,
+              detail: `admin JWT rejected or expired (${error instanceof Error ? error.message.slice(0, 120) : 'error'})`,
+            });
+            nextSteps.push(
+              'Admin/data tools need a fresh JWT: ./setup_payram_agents.sh signin (env PAYRAM_EMAIL/PAYRAM_PASSWORD), then update PAYRAM_ACCESS_TOKEN/PAYRAM_REFRESH_TOKEN',
+            );
+          }
+          if (jwtOk && wallets) {
+            let workersAvailable = true;
+            let workers: Awaited<ReturnType<typeof getWorkersStatus>> = [];
+            try {
+              workers = await getWorkersStatus();
+            } catch {
+              workersAvailable = false; // no supervisord on this host — not a JWT problem
+            }
             const depositWallets = wallets.filter(
               (w) => (w.walletType ?? '').toLowerCase() !== 'gas_wallet',
             );
-            const stopped = workers.filter((w) => w.status.toUpperCase() !== 'RUNNING');
+            const stopped = workersAvailable
+              ? workers.filter((w) => w.status.toUpperCase() !== 'RUNNING')
+              : [];
+            const workerDetail = workersAvailable
+              ? `${stopped.length} worker(s) not running${stopped.length ? ` (${stopped.map((w) => w.name).join(', ')})` : ''}`
+              : 'worker status unavailable (no supervisord on this host)';
             findings.push({
               check: 'readiness',
               ok: depositWallets.length > 0,
-              detail: `${depositWallets.length} deposit wallet(s); ${stopped.length} worker(s) not running${stopped.length ? ` (${stopped.map((w) => w.name).join(', ')})` : ''}`,
+              detail: `${depositWallets.length} deposit wallet(s); ${workerDetail}`,
             });
             if (depositWallets.length === 0) {
               return fail(
@@ -240,20 +267,11 @@ export const registerDoctorTool = (server: McpServer) => {
                 ['For per-chain detail run check_payment_readiness; for RPC health run check_node_sync'],
               );
             }
-            if (stopped.length > 0) {
+            if (workersAvailable && stopped.length > 0) {
               nextSteps.push(
                 `Workers not running (${stopped.map((w) => w.name).join(', ')}): on the server run supervisorctl status / supervisorctl start <name>`,
               );
             }
-          } catch (error) {
-            findings.push({
-              check: 'jwt',
-              ok: false,
-              detail: `admin JWT rejected or expired (${error instanceof Error ? error.message.slice(0, 120) : 'error'})`,
-            });
-            nextSteps.push(
-              'Admin/data tools need a fresh JWT: ./setup_payram_agents.sh signin (env PAYRAM_EMAIL/PAYRAM_PASSWORD), then update PAYRAM_ACCESS_TOKEN/PAYRAM_REFRESH_TOKEN',
-            );
           }
         } else {
           nextSteps.push(

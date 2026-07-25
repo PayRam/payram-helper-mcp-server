@@ -8,7 +8,7 @@ import {
   getBlockchains,
   testBlockchainConnection,
 } from '../../api/payramApi.js';
-import type { NodeHealth } from '../../api/types.js';
+import type { NodeHealth, WorkerStatus } from '../../api/types.js';
 
 /**
  * Per-chain staleness thresholds. BTC mines a block every ~10 minutes, so a
@@ -59,6 +59,7 @@ const schemas = buildToolSchemas({
     chains: z.array(chainReportSchema),
     issues: z.array(z.string()),
     healthy: z.boolean(),
+    workersAvailable: z.boolean(),
   }),
 });
 
@@ -94,10 +95,18 @@ export const registerCheckNodeSyncTool = (server: McpServer) => {
     },
     safeHandler(
       async () => {
-        const [workers, blockchains] = await Promise.all([
-          getWorkersStatus(),
+        // Blockchains are required; worker status is best-effort — a host with
+        // no supervisord returns 500 there, and we must NOT let that (a) fail
+        // the whole tool or (b) falsely mark every listener down.
+        const [workersResult, blockchains] = await Promise.all([
+          getWorkersStatus().then(
+            (w) => ({ ok: true as const, workers: w }),
+            () => ({ ok: false as const, workers: [] as WorkerStatus[] }),
+          ),
           getBlockchains(),
         ]);
+        const workers = workersResult.workers;
+        const workersAvailable = workersResult.ok;
 
         const activeChains = blockchains.filter(
           (b) => (b.status ?? 'active').toLowerCase() === 'active',
@@ -137,7 +146,10 @@ export const registerCheckNodeSyncTool = (server: McpServer) => {
 
               let verdict: 'healthy' | 'lagging' | 'unreachable' | 'listener-down';
               if (!result.success || !anyConnected) verdict = 'unreachable';
-              else if (!listenerRunning) verdict = 'listener-down';
+              // Only trust listener state when worker status was actually
+              // available — otherwise a supervisorctl-less host would read as
+              // every-listener-down.
+              else if (workersAvailable && !listenerRunning) verdict = 'listener-down';
               else if (anyStale) verdict = 'lagging';
               else verdict = 'healthy';
 
@@ -201,26 +213,40 @@ export const registerCheckNodeSyncTool = (server: McpServer) => {
 
         const healthy = issues.length === 0;
 
+        const listenerLabel = (running: boolean) =>
+          !workersAvailable ? 'unknown' : running ? 'up' : 'DOWN';
         const chainLines = chains
           .map((c) => {
             const flag = c.verdict === 'healthy' ? '✓' : c.verdict === 'lagging' ? '⚠' : '✗';
             const age = fmtAge(c.oldestBlockAgeSeconds);
-            return `  ${flag} ${c.blockchainCode.padEnd(10)} ${c.verdict.padEnd(14)} last block ${age} ago (threshold ${Math.round(c.staleThresholdSeconds / 60)}m) listener:${c.listenerRunning ? 'up' : 'DOWN'}`;
+            return `  ${flag} ${c.blockchainCode.padEnd(10)} ${c.verdict.padEnd(14)} last block ${age} ago (threshold ${Math.round(c.staleThresholdSeconds / 60)}m) listener:${listenerLabel(c.listenerRunning)}`;
           })
           .join('\n');
 
         const issueLines = issues.map((i) => `  • ${i}`).join('\n');
+        const workersNote = workersAvailable
+          ? ''
+          : '\n\nNote: worker status is unavailable on this host (no supervisord, or the ' +
+            'system endpoint returned an error) — listener state is shown as "unknown" and ' +
+            'listener-down issues are suppressed. Block-age/RPC checks above are still valid.';
 
         const message =
           `Node sync: ${healthy ? 'HEALTHY ✓' : `${issues.length} ISSUE(S) ⚠`}\n\n` +
           `${chainLines || '  (no active chains)'}` +
-          (issues.length ? `\n\nIssues + remediation:\n${issueLines}` : '');
+          (issues.length ? `\n\nIssues + remediation:\n${issueLines}` : '') +
+          workersNote;
 
-        logger.info('Node sync checked', { issues: issues.length, healthy });
+        logger.info('Node sync checked', { issues: issues.length, healthy, workersAvailable });
 
         return {
           content: [textContent(message)],
-          structuredContent: { workers: workers.map((w) => ({ ...w })), chains, issues, healthy },
+          structuredContent: {
+            workers: workers.map((w) => ({ ...w })),
+            chains,
+            issues,
+            healthy,
+            workersAvailable,
+          },
         };
       },
       { toolName: 'check_node_sync' },

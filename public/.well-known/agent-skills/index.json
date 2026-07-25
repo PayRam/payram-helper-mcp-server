@@ -60,7 +60,7 @@
       "description": "Integrate PayRam checkout flow into web applications. Generate payment links, embed payment pages, handle redirects, and process payment confirmations. Supports Express, Next.js, FastAPI, Laravel, Gin, Spring Boot. Use when adding crypto checkout to e-commerce, building payment forms, implementing deposit flows, or creating hosted payment pages for crypto acceptance.",
       "url": "https://raw.githubusercontent.com/PayRam/payram-mcp/main/skills/payram-checkout-integration/SKILL.md",
       "mcpUrl": "https://mcp.payram.com/skills/payram-checkout-integration.md",
-      "sha256": "c2e6a5fe87eb090cdc8b841ac8670202f8c5513bfc0ce856e814a2cc606b447e"
+      "sha256": "96cdf694c7b61c538b11739dd0c120592633f4ed9256c2764ca29c71d5920bbc"
     },
     {
       "name": "payram-crypto-payments",
