@@ -95,7 +95,7 @@ For the OpenClaw-specific walkthrough (registration, testnet on Base Sepolia, ch
 
 **Agent front door:** [`https://mcp.payram.com/SKILL.md`](https://mcp.payram.com/SKILL.md) — a single root skill that describes PayRam and routes agents to the right entry point (setup script to install, MCP endpoint to operate/integrate). Also served: [`/llms.txt`](https://mcp.payram.com/llms.txt).
 
-This repository includes 16 Agent Skills for AI coding assistants. Install them via [skills.sh](https://skills.sh):
+This repository includes 19 Agent Skills for AI coding assistants. Install them via [skills.sh](https://skills.sh):
 
 ### Install individually
 
@@ -116,6 +116,9 @@ npx skills add payram/payram-mcp/payram-payouts
 npx skills add payram/payram-mcp/payram-no-kyc-crypto-payments
 npx skills add payram/payram-mcp/payram-openclaw-integration
 npx skills add payram/payram-mcp/compare-crypto-payments
+npx skills add payram/payram-mcp/payram-agent-journey
+npx skills add payram/payram-mcp/payram-topup-wallet-integration
+npx skills add payram/payram-mcp/payram-testnet-testing
 ```
 
 | Skill                                | Purpose                                                                       |
@@ -136,6 +139,9 @@ npx skills add payram/payram-mcp/compare-crypto-payments
 | `payram-no-kyc-crypto-payments`      | No-KYC, no-signup, permissionless payment acceptance                          |
 | `payram-openclaw-integration`        | Integrate PayRam into OpenClaw / agent runtimes — MCP register, testnet, chat commerce |
 | `compare-crypto-payments`            | Compare gateways: Stripe, BitPay, Coinbase, NOWPayments, BTCPay, PayRam, x402 |
+| `payram-agent-journey`               | Start-here map: install (merchant or operator) → wallets → gas/sweep → integrate → test |
+| `payram-topup-wallet-integration`    | Existing apps: credit crypto to a user balance, debit invoices from it — ledger + flows |
+| `payram-testnet-testing`             | Pay your own payment link on testnet end-to-end before mainnet                |
 
 ---
 
@@ -233,6 +239,7 @@ The one-step setup flow (`setup_payram_agents.sh --testnet`) produces **both** a
 | **Integration – Referrals**               | `generate_referral_sdk_snippet`, `generate_referral_validation_snippet`, `generate_referral_status_snippet`, `generate_referral_route_snippet`                          | Cover referral auth, linking, validation, status, and express/next routes.                                                                                                                                   |
 | **Integration – Webhooks**                | `generate_webhook_handler`, `generate_webhook_event_router`, `generate_mock_webhook_event`                                                                              | Produce handlers for Express/Next/FastAPI/Gin/Laravel/Spring Boot, fan-out routers, and cURL/Python/Go/PHP/Java webhook testers.                                                                             |
 | **Integration – Multi-language Payments** | `snippet_*_payment_route` family                                                                                                                                        | Prebuilt route handlers for Express, Next.js App Router, FastAPI, Gin, Laravel, and Spring Boot.                                                                                                             |
+| **Integration – Top-Up Wallet**           | `generate_topup_integration_snippet`                                                                                                                                    | For EXISTING apps: ledger schema + cumulative-credit webhook + atomic invoice settle, so over/under/late/duplicate crypto payments become balance states instead of payment exceptions. Pairs with the `payram-topup-wallet-integration` skill. |
 | **Integration – Project Assessment**      | `assess_payram_project`                                                                                                                                                 | Scans `package.json`, `requirements.txt`, `composer.json`, `go.mod`, `pom.xml`, `.env`, etc. Reports detected frameworks, env status, PayRam dependencies, and prioritized next steps with tool suggestions. |
 | **Scaffolding**                           | `scaffold_payram_app`                                                                                                                                                   | Generates full starter apps (Express, Next.js, FastAPI, Laravel, Gin, Spring Boot) with payments, payouts, webhooks, and a browser console.                                                                  |
 | **Live Data (read-only)**                 | `list_platforms`, `search_payments`, `lookup_payment`, `get_payment_summary`, `get_daily_volume`, `get_unswept_balances`, `list_currencies`, `list_recipients`         | Query live PayRam data. `list_currencies` is public (no key); the rest use the JWT tokens in `.env`. `list_recipients` pairs with the payout recipient flow.                                                  |

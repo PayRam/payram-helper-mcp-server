@@ -79,12 +79,20 @@ export const registerCheckPaymentReadinessTool = (server: McpServer) => {
       async (args: z.infer<typeof inputSchema>) => {
         const projectId = await resolveExternalPlatformId(args.externalPlatformId);
 
-        const [blockchains, wallets, workers, projectCurrencies] = await Promise.all([
+        // Worker status is best-effort: a host with no supervisord returns 500
+        // there. Don't let that fail the whole readiness check or falsely flag
+        // every chain's listener as down.
+        const [blockchains, wallets, workersResult, projectCurrencies] = await Promise.all([
           getBlockchains(),
           getWallets(),
-          getWorkersStatus(),
+          getWorkersStatus().then(
+            (w) => ({ ok: true, workers: w }),
+            () => ({ ok: false, workers: [] as WorkerStatus[] }),
+          ),
           getProjectBlockchainCurrency(projectId),
         ]);
+        const workers = workersResult.workers;
+        const workersAvailable = workersResult.ok;
 
         const enabledChainCodes = new Set(
           Object.entries(projectCurrencies)
@@ -108,7 +116,9 @@ export const registerCheckPaymentReadinessTool = (server: McpServer) => {
           if (!enabledForProject) {
             missing.push('chain/currency not enabled for this project (dashboard → project settings)');
           }
-          if (!listenerRunning) {
+          // Only assert listener-down when worker status was actually
+          // available — otherwise every chain would falsely read not-ready.
+          if (workersAvailable && !listenerRunning) {
             missing.push('listener worker not running (check supervisorctl on the node)');
           }
 
