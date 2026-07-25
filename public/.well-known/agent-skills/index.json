@@ -15,6 +15,14 @@
       "sha256": "141fc4c71434382b82b2f989005f0fbefe79c8ad7b896eeb816286bf0be174d9"
     },
     {
+      "name": "payram-agent-journey",
+      "type": "skill.md",
+      "description": "The end-to-end map for an agent standing up PayRam and taking it live — install (merchant OR operator), deposit wallets, gas + sweep operations, app integration, and testing. Routes every stage to the right tool or skill and covers both install roles. Use this FIRST when asked to \"set up PayRam\", \"get PayRam ready to take payments\", \"which PayRam tool/skill do I use for X\", or when planning a full deployment.",
+      "url": "https://raw.githubusercontent.com/PayRam/payram-mcp/main/skills/payram-agent-journey/SKILL.md",
+      "mcpUrl": "https://mcp.payram.com/skills/payram-agent-journey.md",
+      "sha256": "72f26ac247b1bc212b67b1f7775246b3184ccae8c9a4dee7da92e22640b3d8e8"
+    },
+    {
       "name": "payram-agent-onboarding",
       "type": "skill.md",
       "description": "Deploy and automate PayRam for AI agents and CLI-only environments. No web UI required — pure API-driven payment infrastructure. Install via setup_payram_agents.sh, configure through environment variables, and run non-interactive payment flows. Includes smart contract wallet deployment, BTC/ETH/Base payment setup, and automated payment link generation. Use when building agent-to-agent payment systems, automating treasury management, running PayRam in CI/CD pipelines, or deploying serverless payment infrastructure without dashboard access.",
@@ -52,7 +60,7 @@
       "description": "Integrate PayRam checkout flow into web applications. Generate payment links, embed payment pages, handle redirects, and process payment confirmations. Supports Express, Next.js, FastAPI, Laravel, Gin, Spring Boot. Use when adding crypto checkout to e-commerce, building payment forms, implementing deposit flows, or creating hosted payment pages for crypto acceptance.",
       "url": "https://raw.githubusercontent.com/PayRam/payram-mcp/main/skills/payram-checkout-integration/SKILL.md",
       "mcpUrl": "https://mcp.payram.com/skills/payram-checkout-integration.md",
-      "sha256": "c2e6a5fe87eb090cdc8b841ac8670202f8c5513bfc0ce856e814a2cc606b447e"
+      "sha256": "96cdf694c7b61c538b11739dd0c120592633f4ed9256c2764ca29c71d5920bbc"
     },
     {
       "name": "payram-crypto-payments",
@@ -117,6 +125,22 @@
       "url": "https://raw.githubusercontent.com/PayRam/payram-mcp/main/skills/payram-stablecoin-payments/SKILL.md",
       "mcpUrl": "https://mcp.payram.com/skills/payram-stablecoin-payments.md",
       "sha256": "5af0936e6f2e52dcb045c2963b2b1f966a7ffc93682b4904cf575ea8a1ecd32f"
+    },
+    {
+      "name": "payram-testnet-testing",
+      "type": "skill.md",
+      "description": "Prove a PayRam install works end-to-end on testnet before touching real money — install on testnet, create a payment link, fund a wallet from a faucet, actually pay the link, and confirm the payment reaches FILLED. Covers Base Sepolia / Ethereum Sepolia funding, how a PayRam checkout takes payment, and every way to verify the result. Use when asked \"how do I test PayRam\", \"send a test payment to the link\", \"how do I pay my own payment link\", or before any mainnet go-live.",
+      "url": "https://raw.githubusercontent.com/PayRam/payram-mcp/main/skills/payram-testnet-testing/SKILL.md",
+      "mcpUrl": "https://mcp.payram.com/skills/payram-testnet-testing.md",
+      "sha256": "984bdca3184db62773267e3664ac7e57b7b7c05b38b416f084e59ee763951f9d"
+    },
+    {
+      "name": "payram-topup-wallet-integration",
+      "type": "skill.md",
+      "description": "Integrate PayRam into an EXISTING app using the recommended top-up wallet pattern — credit crypto payments to a user's in-app wallet balance first, then debit invoices from that balance. Handles every crypto payment reality (overpayment, underpayment, multiple sends, late payments, duplicate webhooks) as balance states instead of payment exceptions. Covers the ledger schema, the credit/debit flows, idempotency, concurrency, reconciliation, and PayRam's cumulative filled_amount_in_usd semantics. Use when adding PayRam to an app that has its own users/invoices/orders, when payments may not exactly match invoice amounts, or when building credits, prepaid balances, or usage billing on crypto rails.",
+      "url": "https://raw.githubusercontent.com/PayRam/payram-mcp/main/skills/payram-topup-wallet-integration/SKILL.md",
+      "mcpUrl": "https://mcp.payram.com/skills/payram-topup-wallet-integration.md",
+      "sha256": "faf30f95f42e7e30a739603eae3375fed840135c361bfeea4c89904b667563e2"
     },
     {
       "name": "payram-webhook-integration",

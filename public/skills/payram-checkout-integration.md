@@ -108,9 +108,11 @@ const payram = new Payram({
 export async function getPaymentStatus(referenceId: string): Promise<PaymentRequestData> {
   try {
     const payment = await payram.payments.getPaymentRequest(referenceId);
+    // paymentState ∈ OPEN | PARTIALLY_FILLED | FILLED | OVER_FILLED | CANCELLED.
+    // filledAmount = crypto amount received; filledAmountInUSD = its USD value
+    // (requires core >= 2026-07-25; older builds returned USD in filledAmount).
     console.log('Latest payment state:', payment.paymentState);
-    console.log('Amount paid:', payment.amountPaid);
-    console.log('Transaction hash:', payment.transactionHash);
+    console.log('Filled (crypto):', payment.filledAmount, '| USD:', payment.filledAmountInUSD);
     return payment;
   } catch (error) {
     if (isPayramSDKError(error)) {

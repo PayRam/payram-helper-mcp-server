@@ -44,13 +44,16 @@ export const registerListRecipientsTool = (server: McpServer) => {
     },
     safeHandler(
       async () => {
-        const recipients = await listRecipients();
+        const { recipients, total } = await listRecipients();
 
         let message: string;
         if (recipients.length === 0) {
           message = 'No recipients found. Create one via POST /api/v1/recipients, then verify its OTP.';
         } else {
-          const header = `Found ${recipients.length} recipient(s):\n`;
+          const truncated = total > recipients.length;
+          const header = truncated
+            ? `Found ${total} recipient(s) — showing the first ${recipients.length} (server caps the page at 100):\n`
+            : `Found ${total} recipient(s):\n`;
           const rows = recipients
             .map(
               (r) =>
@@ -61,13 +64,13 @@ export const registerListRecipientsTool = (server: McpServer) => {
           message = `${header}\n${rows}`;
         }
 
-        logger.info('Recipients listed', { count: recipients.length });
+        logger.info('Recipients listed', { count: recipients.length, total });
 
         return {
           content: [textContent(message)],
           structuredContent: {
             recipients,
-            count: recipients.length,
+            count: total,
           },
         };
       },

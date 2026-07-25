@@ -50,6 +50,18 @@ export interface PaymentSummaryResponse {
 }
 
 /** Single entry from GET /api/v1/addresses/balance */
+/** Why the last sweep attempt failed (core: params.SweepErrorSummary). */
+export interface SweepErrorSummary {
+  statusCode: string; // e.g. HOT_WALLET_LOW_GAS, HOT_WALLET_MISSING
+  category: string; // recoverable | infra
+  reason: string;
+  actionHint?: string; // what the merchant can do about it
+  retryable: boolean;
+  occurredAt: string;
+  address: string;
+  txHash?: string;
+}
+
 export interface AddressBalanceEntry {
   walletName: string;
   walletID: number;
@@ -60,10 +72,24 @@ export interface AddressBalanceEntry {
   currencyAddress?: string;
   currencyID: number;
   amount: string;
+  amountUSD?: string;
   addressCount: number;
   startID: number;
   endID: number;
   action: string;
+  // Sweep diagnostics (core >= Jun 2026) — explain WHY funds aren't moving.
+  walletActive?: boolean;
+  hotWalletID?: number;
+  hotWalletName?: string;
+  hotWalletActive?: boolean;
+  hotWalletAddress?: string; // where to send gas when the hot wallet is dry
+  coldWalletConfigured?: boolean;
+  defaultColdWalletSet?: boolean;
+  hasWalletScw?: boolean;
+  isSCWDeploymentPending?: boolean;
+  nextProbableSweepAt?: string;
+  sweepInProgressTxHash?: string;
+  lastSweepError?: SweepErrorSummary;
 }
 
 /** External platform (project) returned by GET /api/v1/external-platform/details */

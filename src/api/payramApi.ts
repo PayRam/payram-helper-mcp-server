@@ -129,7 +129,7 @@ export const listCurrencies = async (): Promise<BlockchainCurrency[]> => {
  * current core (the unscoped /recipients group has only write routes);
  * ':project_id = all' is explicitly supported by the middleware.
  */
-export const listRecipients = async (): Promise<Recipient[]> => {
+export const listRecipients = async (): Promise<{ recipients: Recipient[]; total: number }> => {
   const response = await authenticatedFetch('/api/v1/project/all/recipients', {
     method: 'GET',
   });
@@ -139,7 +139,12 @@ export const listRecipients = async (): Promise<Recipient[]> => {
     throw new Error(apiErrorMessage('List recipients', response.status, body));
   }
 
-  return unwrapList<Recipient>(await response.json(), 'data', 'recipients');
+  // Envelope is {data, total, limit, offset}; core caps the page at 100, so
+  // carry `total` through — the page length under-reports on large lists.
+  const json = (await response.json()) as { total?: number };
+  const recipients = unwrapList<Recipient>(json, 'data', 'recipients');
+  const total = typeof json?.total === 'number' ? json.total : recipients.length;
+  return { recipients, total };
 };
 
 /**
