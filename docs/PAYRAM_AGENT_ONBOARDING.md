@@ -3,7 +3,7 @@
   Canonical source: https://github.com/PayRam/payram-scripts/blob/main/docs/PAYRAM_HEADLESS_AGENT.md
   This file is served verbatim by the get_agent_setup_flow / onboard_agent_setup
   MCP tools. To update: copy the canonical file over this one (keep this banner).
-  Last synced: 2026-06-10 (payram-scripts PR #54 + ensure-api-key).
+  Last synced: 2026-07-25 (payram-scripts fix/ensure-config-server-url).
 -->
 
 # PayRam Headless — Agent skill
@@ -82,8 +82,13 @@ with the exact fix command, and a non-zero exit.
   running container); default `http://localhost` (the installer publishes
   `80:80`). Override with `PAYRAM_API_URL` only if you know better.
 - Docker required if `PAYRAM_NODE_MODE=docker` (default) for JS tooling.
-- A **fresh install needs a TTY** (the installer prompts for DB/SSL/ports). Run
-  it once interactively; every step after that is fully headless.
+- A **fresh install needs a terminal once** — `setup_payram.sh` (the working
+  installer, unmodified) asks its one-time DB/SSL/port questions interactively.
+  Defaults are fine to start: containerized DB, no SSL (add later), HTTP on
+  **port 80** (the bundled nginx inside the container reverse-proxies
+  everything, so 80 — plus 443 with TLS — are the only ports PayRam needs).
+  **Everything after the install is fully headless.** Without a TTY the agent
+  flow fails fast with directions rather than letting prompts hang.
 
 ---
 
@@ -96,7 +101,16 @@ Run from repo root: `./setup_payram_agents.sh [command]`
 - **One-step flow (install + headless):**
 	- `./setup_payram_agents.sh` (prompts for network, then runs setup/signin/config/wallet/payment)
 - **Headless-only commands:**
-	- `./setup_payram_agents.sh status|setup|signin|ensure-config|ensure-wallet|deploy-scw|deploy-scw-flow|create-payment-link|reset-local|menu|run`
+	- `./setup_payram_agents.sh status|setup|signin|ensure-config|ensure-wallet|deploy-scw|deploy-scw-flow|create-payment-link|node-status|node-restart|reset-local|menu|run`
+- **Node health (check → report → remediate):** `node-status` gives a per-chain
+  verdict (healthy / lagging / unreachable / listener-down) by computing how old
+  each chain's newest block is — older than **10 minutes** (BTC: **90 minutes**)
+  means lagging or not syncing, which delays deposit detection. The one-step
+  flow runs it automatically right after creating the payment link.
+  `node-restart <chain|worker|all>` is the minimal remediation (supervisor
+  restart via the backend); re-run `node-status` ~60s later to confirm
+  recovery. An UNREACHABLE verdict means the RPC config is wrong — a restart
+  won't fix that.
 
 | Command | Purpose |
 |--------|---------|
@@ -104,7 +118,7 @@ Run from repo root: `./setup_payram_agents.sh [command]`
 | `status` | Check API reachable and auth (token saved / valid) |
 | `setup` | First-time: register root user + create default project |
 | `signin` | Sign in; saves token to `.payraminfo/headless-tokens.env` |
-| `ensure-config` | Seed `payram.frontend` and `payram.backend` for local API (needed for payment creation) |
+| `ensure-config` | Ensure the canonical server URL (`payram.server.url` via `/system/site-url`) is set — payment-link creation 500s without it. Falls back to the legacy `payram.frontend`/`payram.backend` keys on older cores |
 | `ensure-wallet` | Create random BTC wallet or link existing to project (for payment links) |
 | `deploy-scw` | Deploy ETH/EVM smart-contract deposit wallet; then auto-link to project |
 | `deploy-scw-flow` | Generate mnemonic -> fund deployer -> balance check -> deploy SCW |
@@ -121,21 +135,21 @@ Set these for non-interactive or scripted runs. For agents, prefer env-driven, n
 | Variable | Default | Notes |
 |----------|---------|--------|
 | `PAYRAM_API_URL` | derived (config.env / container; else `http://localhost`) | Backend API base |
-| `PAYRAM_EMAIL` | — | Root user email (setup/signin) |
-| `PAYRAM_PASSWORD` | — | Root user password |
+| `PAYRAM_EMAIL` | auto-created | Root user email; auto-defaults on first setup, saved to `.payraminfo/root-credentials.env` (600). Change in dashboard |
+| `PAYRAM_PASSWORD` | auto-created | Root password; auto-generated on first setup, same file. Change in dashboard |
 | `PAYRAM_PROJECT_NAME` | `Default Project` | Project name on setup |
 | `PAYRAM_PAYMENT_EMAIL` | — | Customer email for payment link |
 | `PAYRAM_PAYMENT_AMOUNT` | `10` | Amount in USD for payment link |
 | `PAYRAM_CUSTOMER_ID` | from signin | Usually from token file after signin |
-| `PAYRAM_FRONTEND_URL` | `http://localhost` | Used by ensure-config (local) |
-| `PAYRAM_NETWORK` | `testnet` | One-step flow network selection (`testnet` or `mainnet`) |
+| `PAYRAM_FRONTEND_URL` | `http://localhost` | Used by ensure-config's legacy fallback only (older cores; current cores derive the URL from the request) |
+| `PAYRAM_NETWORK` | `mainnet` | One-step flow network selection (`mainnet` default - real payments; `testnet` to try with free coins) |
 | `PAYRAM_NODE_MODE` | `docker` | JS runtime: `docker` or `host` |
 | `PAYRAM_NODE_DOCKER_IMAGE` | `node:20-bullseye-slim` | Docker image used for JS scripts |
 | **deploy-scw** | | |
 | `PAYRAM_ETH_RPC_URL` | `https://ethereum-sepolia-rpc.publicnode.com` | No API key needed. Placeholder values (e.g. YOUR_ACTUAL_ALCHEMY_KEY) are ignored and default used. |
 | `PAYRAM_FUND_COLLECTOR` | deployer address | Cold wallet 0x (40 hex). Omit or leave empty to use deployer address from mnemonic. |
 | `PAYRAM_SCW_NAME` | `Headless SCW` | Name for the SCW wallet |
-| `PAYRAM_BLOCKCHAIN_CODE` | `ETH` | e.g. ETH, BASE, POLYGON |
+| `PAYRAM_BLOCKCHAIN_CODE` | `BASE` (one-step flow) / `ETH` (subcommand) | e.g. BASE, ETH, POLYGON |
 | `PAYRAM_MNEMONIC` | — | Or mnemonic in `.payraminfo/headless-wallet-secret.txt` |
 | `PAYRAM_SCW_MIN_BALANCE_ETH` | `0.01` (testnet) | Balance threshold before deploying SCW |
 | `PAYRAM_SCW_SKIP_BALANCE_CHECK` | — | If set, skip balance polling (not recommended) |
@@ -196,7 +210,7 @@ Rules agents must know:
 1. **Start PayRam:** `./setup_payram_agents.sh` (installs or restarts).
 2. **Auth:** `./setup_payram_agents.sh signin` (or setup if first time). Env: `PAYRAM_EMAIL`, `PAYRAM_PASSWORD`.
 3. **Config (local):** `./setup_payram_agents.sh ensure-config` so payment creation works.
-4. **Wallet:** Either `./setup_payram_agents.sh ensure-wallet` (BTC) or `./setup_payram_agents.sh deploy-scw-flow` (ETH SCW). deploy-scw-flow generates a mnemonic, shows deployer address, waits for funds, then deploys.
+4. **Wallet:** Default is `./setup_payram_agents.sh deploy-scw-flow` (EVM SCW on **BASE** → USDC-ready). It generates a local master mnemonic (ops-only), shows the deployer address, waits for gas funding, then deploys; on mainnet it requires your cold address via `PAYRAM_FUND_COLLECTOR`. BTC is optional/progressive: `./setup_payram_agents.sh ensure-wallet`.
 5. **Payment link:** `./setup_payram_agents.sh create-payment-link` or pass `[projectId] [email] [amountUSD]`. Use the printed URL as-is (keep `&host=...`).
 
 ## One-step flow details (agent behavior)
@@ -204,19 +218,34 @@ Rules agents must know:
 The one-step flow does:
 
 1. Network selection (`testnet` or `mainnet`) unless `PAYRAM_NETWORK` is set.
-2. Install or restart PayRam using `setup_payram.sh` (fresh install needs a TTY).
+2. Install or restart PayRam using `setup_payram.sh` (fresh install asks its one-time questions in the terminal; see Prerequisites).
 3. Re-reads `config.env` and waits for API readiness at the real port.
 4. Auth (`setup` if no root user, else `signin`).
-5. `ensure-config` for local frontend/backend settings.
-6. Wallet flow:
-	- Default: `ensure-wallet` - **BTC XPUB** starter wallet (instant, zero
-	  gas). BTC payments work immediately.
-	- `--deploy-scw`: run the ETH SCW deploy FIRST (blocking) instead.
+5. `ensure-config` so the server URL (`payram.server.url`) is set for payment links.
+6. Wallet flow (MVF: **USDC on Base**):
+	- Default: EVM smart-contract wallet deploy (blocking, guided gas funding).
+	  The master (deployer) wallet is generated locally and is **ops-only** -
+	  but KEEP it: it's needed to deploy on more chains and to change the
+	  cold-wallet config on-chain. Back it up offline FIRST; remove it from
+	  the host only once ALL chains are deployed and the cold-wallet config is
+	  final. On **mainnet** the sweep destination must be a human-provided cold
+	  address (`PAYRAM_FUND_COLLECTOR`) — never a silent default.
+	- **Fund on either chain (mainnet)**: the human sends **~\$10 of ETH** to
+	  ONE address - Ethereum network or Base network, both work (same address;
+	  pick Base when unsure). The flow watches both chains and deploys where
+	  the funds land - the human never has to understand networks. Explicit
+	  `PAYRAM_BLOCKCHAIN_CODE=ETH/POLYGON` or `PAYRAM_ETH_RPC_URL` pins a
+	  single chain instead.
+	  Re-runs are idempotent: an already-linked EVM wallet skips the deploy.
+	- **Testnet note**: test tokens are free but faucets often have
+	  requirements (account, mainnet balance, social post). If they block you,
+	  mainnet with ~\$10 of ETH is usually the faster path.
+	- `--ensure-wallet`: BTC-first fast lane instead - **BTC XPUB** starter
+	  wallet (instant, zero gas); the SCW is then attempted after the link.
+	- `--skip-scw`: no gas at all - BTC-only fast lane.
 7. Payment link creation (the deliverable - printed in the final summary).
-8. SCW step (unless `--skip-scw`): attempts the ETH smart-contract wallet to
-   unlock **USDC/EVM** payments. With a TTY it guides the gas funding; headless
-   and unfunded it defers with instructions (`deploy-scw-flow` later) - the BTC
-   link already works either way.
+   With the default flow the link accepts **USDC on Base**.
+8. BTC is progressive: add it anytime with `./setup_payram_agents.sh ensure-wallet`.
 
 > Why two wallet kinds: **XPUB wallets are BTC-only.** payram-core derives EVM
 > deposit addresses from the fund-sweeper CONTRACT (CREATE2 from the factory),
@@ -226,8 +255,8 @@ The one-step flow does:
 
 ## Adding more chains later
 
-`deploy-scw` is chain-parametric. After the first (ETH) SCW, deploy on other
-EVM chains once the gateway is running:
+`deploy-scw` is chain-parametric. After the first SCW (Base, in the default
+flow), deploy on other EVM chains once the gateway is running:
 
 ```bash
 # Base (mainnet defaults to base-rpc.publicnode.com)
@@ -333,7 +362,7 @@ admin/setup APIs; **API key** for merchant payment APIs and the MCP.
 
 ## Agent automation tips
 
-- Always set `PAYRAM_EMAIL`, `PAYRAM_PASSWORD`, and `PAYRAM_CUSTOMER_ID` for fully non-interactive runs.
+- Credentials are optional: first `setup` auto-creates root credentials (saved 600 to `.payraminfo/root-credentials.env`; change in dashboard) and later `signin` re-reads them. Set `PAYRAM_EMAIL`/`PAYRAM_PASSWORD` only to pin your own.
 - Use `PAYRAM_WALLET_CHOICE=1` and `PAYRAM_WALLET_QUIET=1` to avoid wallet prompts.
 - For SCW, set `PAYRAM_SCW_MIN_BALANCE_ETH` to a known safe threshold if your RPC has delayed balance reporting.
 - When using Docker node runtime, ensure Docker is running and has access to host networking.
