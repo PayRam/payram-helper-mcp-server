@@ -1,4 +1,8 @@
-copyCopychevron-down
+For the complete documentation index, see [llms.txt](https://docs.payram.com/llms.txt). This page is also available as [Markdown](https://docs.payram.com/features/multi-brand-setup.md).
+
+Copy
+
+On this page
 
 1.  [FEATURES](/features)
 
@@ -6,7 +10,7 @@ copyCopychevron-down
 
 Expand without limits.
 
-![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2F2diixQuZV5bHAbOknKAq%2Fblobs%2F2d51Bq26BzFZxrSEde3w%2Fpayram-feature-multibrand-setup.png&width=768&dpr=3&quality=100&sign=b67ff1f1&sv=2)
+![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2Fwm1DIvbGMREWT1TdLPtz%2Fblobs%2FB0TJexXX5nKACy1OfX6L%2Fpayram-feature-multibrand-setup.png&width=768&dpr=3&quality=100&sign=7ad770b1&sv=2)
 
 Merchants can now create and manage multiple projects or stores under a single PayRam account.
 
@@ -16,11 +20,7 @@ Ideal for scaling brands, localizing sites, or testing new verticals, all from o
 
 * * *
 
-### 
-
-[hashtag](#why-it-matters)
-
-**Why it matters**
+### **Why it matters**[](#why-it-matters)
 
 -   **Organize better:** Track every Payment Link, Transaction, and Report by store or brand.
     
@@ -35,11 +35,7 @@ Ideal for scaling brands, localizing sites, or testing new verticals, all from o
 
 * * *
 
-### 
-
-[hashtag](#how-to-create-a-new-project)
-
-**How to create a new project**
+### **How to create a new project**[](#how-to-create-a-new-project)
 
 1.  Go to **Settings → Accounts** in your PayRam dashboard.
     
@@ -63,11 +59,7 @@ Ideal for scaling brands, localizing sites, or testing new verticals, all from o
 
 * * *
 
-### 
-
-[hashtag](#managing-projects)
-
-**Managing projects**
+### **Managing projects**[](#managing-projects)
 
 -   **Switch between projects:** Use the dropdown in the left menu to toggle active projects.
     
@@ -80,11 +72,7 @@ Ideal for scaling brands, localizing sites, or testing new verticals, all from o
 
 * * *
 
-### 
-
-[hashtag](#api-separation)
-
-**API separation**
+### **API separation**[](#api-separation)
 
 Each project is issued its own **API keys** and **webhook endpoints**, giving you full control and traceability.
 
@@ -101,11 +89,7 @@ Each project is issued its own **API keys** and **webhook endpoints**, giving yo
 
 * * *
 
-### 
-
-[hashtag](#common-use-cases)
-
-**Common use cases**
+### **Common use cases**[](#common-use-cases)
 
 -   **Multi-brand businesses:** Manage different brands under one organization.
     
@@ -116,4 +100,6 @@ Each project is issued its own **API keys** and **webhook endpoints**, giving yo
 -   **Enterprise accounts:** Separate internal departments (e.g., Retail, Wholesale, Digital).
     
 
-[PreviousCustomer Deposit Walletschevron-left](/features/customer-deposit-wallets)[NextUser Managementchevron-right](/features/user-management)
+[PreviousCustomer Deposit Wallets](/features/customer-deposit-wallets)[NextUser Management](/features/user-management)
+
+Last updated 9 hours ago

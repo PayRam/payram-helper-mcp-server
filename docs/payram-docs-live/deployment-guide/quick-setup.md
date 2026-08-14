@@ -1,4 +1,8 @@
-copyCopychevron-down
+For the complete documentation index, see [llms.txt](https://docs.payram.com/llms.txt). This page is also available as [Markdown](https://docs.payram.com/deployment-guide/quick-setup.md).
+
+Copy
+
+On this page
 
 1.  [DEPLOYMENT GUIDE](/deployment-guide)
 
@@ -10,24 +14,14 @@ In this section, you’ll go through the complete setup of your PayRam server, i
 
 * * *
 
-## 
-
-[hashtag](#prerequisites)
-
-**Prerequisites**
+## **Prerequisites**[](#prerequisites)
 
 Before starting, please ensure your system meets the following requirements:
 
-### 
-
-[hashtag](#server-configuration)
-
-**Server configuration**
+### **Server configuration**[](#server-configuration)
 
 -   Use a VPS or dedicated server with the minimum specifications required to host the PayRam server.
     
-
-circle-info
 
 **Recommended VPS Providers:**
 
@@ -42,30 +36,22 @@ circle-info
 -   **Hostinger**
     
 
-### 
+### **Minimum server requirements**[](#minimum-server-requirements)
 
-[hashtag](#minimum-server-requirements)
-
-**Minimum server requirements**
-
--   **CPU**: 4 cores
+-   **CPU**: 2 cores
     
 -   **RAM**: 4 GB
     
--   **Storage**: 15 GB+ disk
+-   **Storage**: 50 GB SSD (the installer requires at least 5 GB free, and recommends 10 GB)
     
--   **Operating System**: Ubuntu 22.04
+-   **Operating System**: Ubuntu 22.04 or another supported distribution
     
 
-circle-info
+**Supported operating systems:** Ubuntu, Debian, Linux Mint, CentOS, RHEL, Rocky Linux, AlmaLinux, Fedora, Arch Linux, and Alpine Linux. macOS is supported for local testing only, and runs over HTTP without SSL.
 
 **Note**: Depending on your expected usage and scale, additional resources may be required.
 
-### 
-
-[hashtag](#network-requirements)
-
-**Network requirements**
+### **Network requirements**[](#network-requirements)
 
 -   Ensure the following ports are open on your server or VPS:
     
@@ -75,30 +61,14 @@ circle-info
     
     80
     
-    Used for running the Frontend (FE) on standard HTTP protocol.
-    
-    8080
-    
-    Legacy installs only - older versions served the backend on 8080. Current installers publish both the frontend and the API on port 80 (and 443 with SSL).
+    HTTP. Serves the dashboard, payment pages, and API. Redirects to 443 when SSL is enabled.
     
     443
     
-    Required for the Frontend when serving the application over HTTPS (secure connection).
-    
-    8443
-    
-    Required for the Backend when serving APIs over HTTPS (secure connection).
-    
-    5432
-    
-    Used by the PostgreSQL Database for database connections.
+    HTTPS. Required only when PayRam terminates TLS itself (Let's Encrypt or custom certificates).
     
 
-### 
-
-[hashtag](#database-configuration)
-
-Database configuration
+### Database configuration[](#database-configuration)
 
 -   To run PayRam smoothly, you must provision a PostgreSQL database with the following minimum configuration:
     
@@ -106,104 +76,78 @@ Database configuration
     
     -   **Database engine**: PostgreSQL
         
-    -   **vCPUs**: 2 CPU cores
+    -   **vCPUs**: 1 CPU cores
         
-    -   **Memory**: 8 GB
+    -   **Memory**: 1 GB
         
-    -   **Storage**: 15 GB+ disk
+    -   **Storage**: 50 GB SSD
         
     
-
-circle-info
 
 **Note** : These are the baseline requirements. Using a smaller configuration may cause performance issues during high transaction loads or while processing sweeps. You can scale up depending on the expected transaction volume.
 
 * * *
 
-## 
-
-[hashtag](#payram-setup)
-
-PayRam setup
+## PayRam setup[](#payram-setup)
 
 1
 
-### 
-
-[hashtag](#connect-to-your-vps)
-
-Connect to your VPS
+### Connect to your VPS[](#connect-to-your-vps)
 
 -   Use SSH to connect to your server instance.
     
 
 2
 
-### 
+### Run the command[](#run-the-command)
 
-[hashtag](#choose-your-network)
-
-Choose your network
-
--   Decide whether to install on mainnet or testnet, based on your requirements.
+-   Open your terminal and run the installer. Add sudo before the command if elevated privileges are required.
     
 
-circle-info
-
-**Note** : Based on your requirements, choose the network on which you want to install PayRam. The Mainnet is used for production purposes, while the Testnet is used for development and testing PayRam features.
-
-Mainnet
-
-Testnet
+![Running the PayRam install command in the terminal](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2F3861722996-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252Fwm1DIvbGMREWT1TdLPtz%252Fuploads%252Fgit-blob-024e0942f1f4349e814306a6cb96a4f6a9b864cd%252Fpayram-quick-setup-run-command.png%3Falt%3Dmedia&width=768&dpr=3&quality=100&sign=2293bf6f&sv=2)
 
 3
 
-### 
+### Choose your operation[](#choose-your-operation)
 
-[hashtag](#run-the-command)
-
-Run the command
-
--   Now, open your terminal and enter the command. Add sudo before the command if elevated privileges are required.
+-   PayRam opens an operations menu. Enter **1** and press Enter to begin a fresh installation.
     
 
-![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2F2diixQuZV5bHAbOknKAq%2Fblobs%2FDxVeGclB2QVsFFGGshZt%2Fimage.png&width=768&dpr=3&quality=100&sign=34e46c52&sv=2)
+![The PayRam operations menu shown when the command is run with no options](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2F3861722996-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252Fwm1DIvbGMREWT1TdLPtz%252Fuploads%252Fgit-blob-5a543a0033473ac20c6e7b4d850a244658d2a68b%252Fpayram-quick-setup-operations-menu.png%3Falt%3Dmedia&width=768&dpr=3&quality=100&sign=f602ffd3&sv=2)
 
 4
 
-### 
+### Choose your network[](#choose-your-network)
 
-[hashtag](#installing-necessary-dependencies)
-
-Installing necessary dependencies
-
--   When you run the command, the script handles the entire PayRam setup automatically. It checks for previous installations, validates required ports, detects the operating system, and ensures compatibility. Next, it installs or verifies Docker and PostgreSQL, creates the needed directories, and performs a disk space check. If any problems are found (such as low storage), the script will display a warning and ask you to confirm whether to proceed by typing Y or N.
+-   Next, enter **1** for mainnet or **2** for testnet, then press Enter.
     
 
-![This is darwins masterpiece](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2F2diixQuZV5bHAbOknKAq%2Fblobs%2FXuJllRBGZzLq0d9N2bzh%2Fimage.png&width=768&dpr=3&quality=100&sign=5a6e3fd4&sv=2)
+![Choosing between mainnet and testnet](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2F3861722996-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252Fwm1DIvbGMREWT1TdLPtz%252Fuploads%252Fgit-blob-595fb25a655b9e568a65cd5fa239f7c41e67e776%252Fpayram-quick-setup-network-selection.png%3Falt%3Dmedia&width=768&dpr=3&quality=100&sign=19174641&sv=2)
+
+**Note** : Mainnet is used for production, while Testnet is used for development and for testing PayRam features. Testnet is recommended for a first install.
+
+**Testing Card-to-Crypto?** Install on Mainnet. Card payments are not fully available on Testnet, and stablecoin purchases require a Mainnet setup.
 
 5
 
-### 
+### Installing necessary dependencies[](#installing-necessary-dependencies)
 
-[hashtag](#database-setup)
-
-Database setup
-
--   Once the installation is complete, you will be prompted to choose between an External PostgreSQL Database or a Containerized PostgreSQL Database for setup.
+-   The script then handles the rest of the setup automatically. It checks for previous installations, validates required ports, detects the operating system, and ensures compatibility. Next, it installs or verifies Docker and PostgreSQL, creates the needed directories, and performs a disk space check. If any problems are found (such as low storage), the script will display a warning and ask you to confirm whether to proceed by typing Y or N.
     
 
-![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2F2diixQuZV5bHAbOknKAq%2Fblobs%2FhDOXziFLABlJbimUShyS%2Fimage.png&width=768&dpr=3&quality=100&sign=838d59e9&sv=2)
+![System detection, disk space check and dependency installation](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2F3861722996-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252Fwm1DIvbGMREWT1TdLPtz%252Fuploads%252Fgit-blob-3c024f2050c9f04384094830c150496b08aa8f66%252Fpayram-quick-setup-system-detection.png%3Falt%3Dmedia&width=768&dpr=3&quality=100&sign=7e7dbdc&sv=2)
 
--   You can select any of the options based on your requirement
-    
-    -   Option 1
-        
-    -   Option 2
-        
+6
+
+### Database setup[](#database-setup)
+
+-   Once the dependencies are installed, you are prompted to choose between an External PostgreSQL Database and a Containerized PostgreSQL Database.
     
 
-circle-info
+![Database configuration options](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2F3861722996-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252Fwm1DIvbGMREWT1TdLPtz%252Fuploads%252Fgit-blob-33fc39e5b00141ef05365b35c465b46d7c657454%252Fpayram-quick-setup-database-options.png%3Falt%3Dmedia&width=768&dpr=3&quality=100&sign=c220a1d7&sv=2)
+
+-   Enter **1** or **2** based on your requirement.
+    
 
 **Note** : Option 1 is recommended for production environments.
 
@@ -211,7 +155,7 @@ Option 1
 
 Option 2
 
--   If you select **Option 1**, you’ll be prompted to enter the following details:
+-   If you enter **1**, you’ll be prompted for the following details:
     
     -   **Database Host**
         
@@ -245,34 +189,21 @@ Option 2
         
     
 
-circle-info
-
 **Note** : This option is for testing only. For production environments, always use Option 1.
 
--   If you select **Option 2**, the script creates a local PostgreSQL database using Docker with the following default credentials:
+-   If you enter **2**, the script creates a local PostgreSQL database using Docker with the following default credentials:
     
 
-6
+7
 
-### 
+### SSL configuration[](#ssl-configuration)
 
-[hashtag](#ssl-configuration)
-
-SSL configuration
-
--   After setting up the database, the script will prompt you to configure SSL by choosing from Let’s Encrypt (auto-generate free SSL), Custom Certificates (upload your own), or External SSL (cloud/proxy services).
+-   After setting up the database, the script will prompt you to configure SSL by choosing from Let’s Encrypt (auto-generate free SSL), Custom Certificates (use your own), or no SSL for now.
     
 
-![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2F2diixQuZV5bHAbOknKAq%2Fblobs%2FV8iFlgyPD8twRnnUOs5R%2Fimage.png&width=768&dpr=3&quality=100&sign=94e8a016&sv=2)
+![SSL certificate setup options](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2F3861722996-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252Fwm1DIvbGMREWT1TdLPtz%252Fuploads%252Fgit-blob-979341ff3a8200068a90ebaf9467dedc389e858b%252Fpayram-quick-setup-ssl-options.png%3Falt%3Dmedia&width=768&dpr=3&quality=100&sign=b9b2bddd&sv=2)
 
--   You need to select one option from the three
-    
-    -   Option 1
-        
-    -   Option 2
-        
-    -   Option 3
-        
+-   Enter **1**, **2**, or **3**.
     
 
 Option 1
@@ -281,69 +212,75 @@ Option 2
 
 Option 3
 
--   If you select Option 1, Let’s Encrypt will automatically generate and install a free SSL certificate for your domain within minutes, with certificates trusted by all browsers and auto-renewed every 90 days.
+-   If you enter **1**, Let’s Encrypt will automatically generate and install a free SSL certificate for your domain within minutes, with certificates trusted by all browsers and auto-renewed every 90 days.
+    
+-   You will be asked for the domain name that points to this server.
     
 
-![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2F2diixQuZV5bHAbOknKAq%2Fblobs%2FWTBE8sh9g89K3Z7CCMVK%2Fimage.png&width=768&dpr=3&quality=100&sign=4c6045f7&sv=2)
-
--   Select Option 2 if you already have your own SSL certificates. When prompted, provide the file path to the certificate files. The path you specify must contain two files: fullchain.pem and privkey.pem.
+-   Enter **2** if you already have your own SSL certificates.
+    
+-   When prompted, enter the **domain name** your certificates are issued for. PayRam looks for them at `/etc/letsencrypt/live/<domain>/`, so place `fullchain.pem` and `privkey.pem` there before you start.
+    
+-   The script verifies both files and validates the certificate before continuing. If a file is missing or the certificate is expired or mismatched, you can enter a different domain or skip SSL.
     
 
-![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2F2diixQuZV5bHAbOknKAq%2Fblobs%2FXQqRcsEhA9K6V4Emg671%2Fimage.png&width=768&dpr=3&quality=100&sign=be22d869&sv=2)
-
--   Select Option 3 if you’re generating SSL through a cloud service or if you want to skip SSL configuration.
+-   Enter **3** to skip SSL for now. PayRam starts on HTTP (port 80) immediately, with no domain or certificate needed. You can add SSL certificates later.
     
 
-![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2F2diixQuZV5bHAbOknKAq%2Fblobs%2FIpdScWDPPimrrEVheC8E%2Fimage.png&width=768&dpr=3&quality=100&sign=d2cda870&sv=2)
+8
 
-7
+### Port mapping[](#port-mapping)
 
-### 
+-   Next, the script asks which host port PayRam should listen on. Press Enter to use port 80, or enter a different port if your own reverse proxy sits in front of PayRam.
+    
 
-[hashtag](#aes-key-encryption)
+![The host port prompt](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2F3861722996-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252Fwm1DIvbGMREWT1TdLPtz%252Fuploads%252Fgit-blob-590f4be96f1d040ceb5f36eabe5701b1861c6365%252Fpayram-quick-setup-port-mapping.png%3Falt%3Dmedia&width=768&dpr=3&quality=100&sign=9372810d&sv=2)
 
-AES key encryption
+**Note**: If you chose Let's Encrypt or custom certificates in the previous step, this prompt is skipped — PayRam uses ports 80 and 443, and both must be free.
+
+9
+
+### AES key encryption[](#aes-key-encryption)
 
 -   After selecting your SSL option, you will be prompted with the Hot Wallet Encryption Setup screen. At this step, press Enter to generate the AES-256 encryption key for your hot wallet.
     
 
-![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2F2diixQuZV5bHAbOknKAq%2Fblobs%2FHPO2ZmHDoFgVuVj1B3dZ%2Fimage.png&width=768&dpr=3&quality=100&sign=e58b3b03&sv=2)
+![Hot wallet AES-256 encryption setup](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2F3861722996-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252Fwm1DIvbGMREWT1TdLPtz%252Fuploads%252Fgit-blob-1fde8133667c8fb20b6d749c9e4ee8d761f3b3db%252Fpayram-quick-setup-aes-key.png%3Falt%3Dmedia&width=768&dpr=3&quality=100&sign=eb7ff064&sv=2)
 
-8
+10
 
-### 
-
-[hashtag](#review-the-settings)
-
-Review the settings
+### Review the settings[](#review-the-settings)
 
 -   The script then displays all the configurations you selected. Review the settings carefully to make sure they are correct before proceeding.
     
 
-![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2F2diixQuZV5bHAbOknKAq%2Fblobs%2F2heibY5vWBaNFFVealrB%2Fimage.png&width=768&dpr=3&quality=100&sign=c64725da&sv=2)
+![Configuration summary before deployment](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2F3861722996-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252Fwm1DIvbGMREWT1TdLPtz%252Fuploads%252Fgit-blob-fc393ae9a38f5fec5bf9064b01d395f286943f0b%252Fpayram-quick-setup-config-summary.png%3Falt%3Dmedia&width=768&dpr=3&quality=100&sign=1127ab1e&sv=2)
 
 -   If the configuration is correct, press Enter and the script will set up the PayRam server based on the options you selected. This will start installing the payram server based on your configurations
     
 
-![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2F2diixQuZV5bHAbOknKAq%2Fblobs%2FHU2vsCdFwF65rdZLjrYJ%2Fimage.png&width=768&dpr=3&quality=100&sign=31eedee&sv=2)
+![Pulling the PayRam image and deploying the container](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2F3861722996-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252Fwm1DIvbGMREWT1TdLPtz%252Fuploads%252Fgit-blob-f172ad4c06f5e5e4f8f62f0bee6c615d4bde7c41%252Fpayram-quick-setup-deploy.png%3Falt%3Dmedia&width=768&dpr=3&quality=100&sign=55aff577&sv=2)
 
-9
+11
 
-### 
+### Installation completed[](#installation-completed)
 
-[hashtag](#installation-completed)
+-   PayRam then runs a health check to confirm the application is responding.
+    
 
-Installation completed
+![Health check confirming PayRam is running](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2F3861722996-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252Fwm1DIvbGMREWT1TdLPtz%252Fuploads%252Fgit-blob-7291d8228679cd70b24ad5eff6801a7708300eab%252Fpayram-quick-setup-health-check.png%3Falt%3Dmedia&width=768&dpr=3&quality=100&sign=4f89f32f&sv=2)
 
 -   After the installation completes, a confirmation message appears in the terminal.
     
 
-![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2F2diixQuZV5bHAbOknKAq%2Fblobs%2FWY1bUDqtXkFSUxRv2OqJ%2Fimage.png&width=768&dpr=3&quality=100&sign=4ca6199e&sv=2)
+![Installation complete, with PayRam access URLs](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2F3861722996-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252Fwm1DIvbGMREWT1TdLPtz%252Fuploads%252Fgit-blob-44d661dd186c67abdef460ae76d56c6a2d7f844e%252Fpayram-quick-setup-complete.png%3Falt%3Dmedia&width=768&dpr=3&quality=100&sign=426f66c4&sv=2)
 
-Once the installation is complete, you’ll see “PayRam installation completed successfully” in the logs. You can then go to [http://arrow-up-right](http://yourserverip.com/)[yourserveriparrow-up-right](http://yourserverip.com/)[.comarrow-up-right](http://yourserverip.com/), replacing yourserverip with the IP address or domain where the PayRam server is hosted.
+Once the installation is complete, you’ll see “PayRam installation completed successfully” in the logs. You can then go to [http://](http://yourserverip.com/)[yourserverip](http://yourserverip.com/)[.com](http://yourserverip.com/), replacing yourserverip with the IP address or domain where the PayRam server is hosted.
 
 * * *
 
 Now that you’ve successfully completed the setup, please go to the [onboarding configuration](/onboarding-guide/root-account-setup) to start setting up your root account for PayRam.
 
-[PreviousIntroductionchevron-left](/deployment-guide/introduction)[NextAdvanced Setupchevron-right](/deployment-guide/advanced-setup)
+[PreviousIntroduction](/deployment-guide/introduction)[NextAdvanced Setup](/deployment-guide/advanced-setup)
+
+Last updated 9 hours ago

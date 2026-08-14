@@ -1,22 +1,22 @@
-copyCopychevron-down
+For the complete documentation index, see [llms.txt](https://docs.payram.com/llms.txt). This page is also available as [Markdown](https://docs.payram.com/features/multi-currency-and-multi-chain-support.md).
+
+Copy
+
+On this page
 
 1.  [FEATURES](/features)
 
-# bitcoinMulti-currency & Multi-chain Support
+# Multi-currency & Multi-chain Support
 
 Accept payments your way, anywhere.
 
-![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2F2diixQuZV5bHAbOknKAq%2Fblobs%2FrCwqUVDOr9tsxLHQQEU0%2Fpayram-feature-multicurrency-multichain.png&width=768&dpr=3&quality=100&sign=983dbe57&sv=2)
+![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2Fwm1DIvbGMREWT1TdLPtz%2Fblobs%2Fltr7HeWBwFELfRqpd7Na%2Fpayram-feature-multicurrency-multichain.png&width=768&dpr=3&quality=100&sign=945697c8&sv=2)
 
 PayRam enables seamless payments across multiple cryptocurrencies and blockchain networks empowering merchants and customers with flexibility, global reach, and interoperability.
 
 * * *
 
-### 
-
-[hashtag](#why-it-matters)
-
-**Why it matters**
+### **Why it matters**[](#why-it-matters)
 
 -   **Global reach:** Accept payments from anywhere, in the user’s preferred currency or chain.
     
@@ -71,7 +71,7 @@ Coinbase Wrapped Bitcoin
 
 cbBTC
 
-Base
+Ethereum, Base
 
 Polygon
 
@@ -79,15 +79,27 @@ POL
 
 Polygon
 
-> Coming soon: Solana (SOL, USDC): high-speed, low-fee payments for mainstream use. TON (Toncoin): frictionless, chat-native crypto payments for mass adoption.
+PayPal USD
+
+PYUSD
+
+Ethereum
 
 * * *
 
-### 
+### Pay from Solana[](#pay-from-solana)
 
-[hashtag](#use-cases)
+Customers can also pay on **Solana** in USDC, USDT, PYUSD or SOL. PayRam bridges the payment and you receive **USDC on Base**, at your normal deposit address.
 
-**Use cases**
+There is nothing to set up — no Solana wallet, node or deposit address is involved. It is offered automatically wherever your project accepts USDC on Base, on mainnet only.
+
+**Note**: See [Supported Networks and Coins](/support/supported-networks-and-coins) for every coin, network and card method PayRam accepts.
+
+> Coming soon: TON (Toncoin) — frictionless, chat-native crypto payments for mass adoption.
+
+* * *
+
+### **Use cases**[](#use-cases)
 
 -   **Global merchants:** Accept multi-chain payments from customers around the world.
     
@@ -102,21 +114,15 @@ Polygon
 
 * * *
 
-### 
-
-[hashtag](#upcoming-integrations)
-
-**Upcoming integrations**
+### **Upcoming integrations**[](#upcoming-integrations)
 
 PayRam continuously expands its blockchain ecosystem support:
 
--   **Solana (SOL / USDC):** for high-speed, low-cost stablecoin payments.
-    
 -   **TON (Toncoin):** for chat-native payment experiences.
     
 
 > Future roadmap: Integrations with Arbitrum, Polygon, and Optimism are under review.
 
-[PreviousPayment APIschevron-left](/features/payment-apis)[NextSmartSweepchevron-right](/features/smartsweep)
+[PreviousPayment APIs](/features/payment-apis)[NextSmartSweep](/features/smartsweep)
 
-Last updated 1 day ago
+Last updated 9 hours ago

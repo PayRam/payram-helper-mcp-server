@@ -1,4 +1,8 @@
-copyCopychevron-down
+For the complete documentation index, see [llms.txt](https://docs.payram.com/llms.txt). This page is also available as [Markdown](https://docs.payram.com/features/customer-deposit-wallets.md).
+
+Copy
+
+On this page
 
 1.  [FEATURES](/features)
 
@@ -6,17 +10,13 @@ copyCopychevron-down
 
 Unique wallets per customer.
 
-![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2F2diixQuZV5bHAbOknKAq%2Fblobs%2FEgcksBGLSzh1teRSfLKO%2Fpayram-feature-customer-deposit-wallets.png&width=768&dpr=3&quality=100&sign=e6337257&sv=2)
+![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2Fwm1DIvbGMREWT1TdLPtz%2Fblobs%2Fp6jmqcfQNF69DNaxVPnt%2Fpayram-feature-customer-deposit-wallets.png&width=768&dpr=3&quality=100&sign=495caf6d&sv=2)
 
 Give each customer their own deposit address or wallet within PayRam, so they can top up, settle balances, or make repeat payments without needing to supply a new address each time.
 
 * * *
 
-### 
-
-[hashtag](#why-it-matters)
-
-**Why it matters**
+### **Why it matters**[](#why-it-matters)
 
 -   **Frictionless deposits:** Customers can deposit anytime without needing you to issue a new address or link each time.
     
@@ -31,11 +31,7 @@ Give each customer their own deposit address or wallet within PayRam, so they ca
 
 * * *
 
-### 
-
-[hashtag](#how-it-works)
-
-**How it works**
+### **How it works**[](#how-it-works)
 
 1.  When a new customer is onboarded, PayRam creates a unique deposit address mapped to that customer (and possibly per token / network).
     
@@ -52,11 +48,7 @@ This is analogous to “permanent deposit address” setups used by crypto gatew
 
 * * *
 
-### 
-
-[hashtag](#using-deposit-wallets)
-
-**Using deposit wallets**
+### **Using deposit wallets**[](#using-deposit-wallets)
 
 -   **Customer deposit:** The customer sends funds to the given address (on the appropriate network).
     
@@ -67,11 +59,7 @@ This is analogous to “permanent deposit address” setups used by crypto gatew
 
 * * *
 
-### 
-
-[hashtag](#balances-transfers-and-consolidation)
-
-**Balances, transfers, and consolidation**
+### **Balances, transfers, and consolidation**[](#balances-transfers-and-consolidation)
 
 -   **Internal balance model:** Maintain a ledger of balances per customer wallet.
     
@@ -80,11 +68,7 @@ This is analogous to “permanent deposit address” setups used by crypto gatew
 
 * * *
 
-### 
-
-[hashtag](#security-and-reconciliation)
-
-**Security & reconciliation**
+### **Security & reconciliation**[](#security-and-reconciliation)
 
 -   **Address uniqueness:** Ensure deposit addresses are unique and collision-resistant.
     
@@ -97,4 +81,6 @@ This is analogous to “permanent deposit address” setups used by crypto gatew
 -   **Audit trails:** Record every deposit, sweep, internal transfer, and withdrawal.
     
 
-[PreviousSmartSweepchevron-left](/features/smartsweep)[NextMulti-brand Setupchevron-right](/features/multi-brand-setup)
+[PreviousSmartSweep](/features/smartsweep)[NextMulti-brand Setup](/features/multi-brand-setup)
+
+Last updated 9 hours ago

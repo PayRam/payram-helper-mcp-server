@@ -1,14 +1,14 @@
-copyCopychevron-down
+For the complete documentation index, see [llms.txt](https://docs.payram.com/llms.txt). This page is also available as [Markdown](https://docs.payram.com/faqs/debug-faqs.md).
+
+Copy
+
+On this page
 
 1.  [FAQs](/faqs)
 
 # Debug FAQ's
 
-### 
-
-[hashtag](#security-and-troubleshooting)
-
-Security & Troubleshooting
+### Security & Troubleshooting[](#security-and-troubleshooting)
 
 -   [What security best practices does PayRam recommend?](/faqs/debug-faqs#what-security-best-practices-does-payram-recommend)
     
@@ -17,19 +17,11 @@ Security & Troubleshooting
 -   [How do I migrate from testnet to mainnet?](/faqs/debug-faqs#how-do-i-migrate-from-testnet-to-mainnet)
     
 
-#### 
-
-[hashtag](#what-security-best-practices-does-payram-recommend)
-
-What security best practices does PayRam recommend?
+#### What security best practices does PayRam recommend?[](#what-security-best-practices-does-payram-recommend)
 
 Security is paramount. Key practices include: always run PayRam over **HTTPS/TLS** (so API calls and UI are encrypted); keep your PayRam API keys, wallet mnemonics, and xpubs out of source control and never expose them publicly; validate incoming webhooks by checking the `API-Key` header or source IP to ensure they’re really from PayRam; back up your PayRam database (`payram.db`) and mnemonic seed securely (encrypted, offline); and monitor server logs for anomalies. If a key or credential is compromised, rotate it immediately. These measures help keep your self-hosted PayRam instance safe from unauthorized access or data loss.
 
-#### 
-
-[hashtag](#how-can-i-debug-payment-or-configuration-issues)
-
-How can I debug payment or configuration issues?
+#### How can I debug payment or configuration issues?[](#how-can-i-debug-payment-or-configuration-issues)
 
 If you encounter problems, PayRam provides several tools:
 
@@ -42,16 +34,12 @@ If you encounter problems, PayRam provides several tools:
 -   **Configuration**: Double-check `config.yaml` for typos (YAML is sensitive to formatting). Confirm that RPC endpoints work by testing them separately. For address issues, ensure your xpub is correctly pasted. Sometimes simply restarting PayRam after a config change resolves issues. In general, use the above aids to trace where a payment is (in PayRam’s database vs on-chain vs your system).
     
 
-#### 
-
-[hashtag](#how-do-i-migrate-from-testnet-to-mainnet)
-
-How do I migrate from testnet to mainnet?
+#### How do I migrate from testnet to mainnet?[](#how-do-i-migrate-from-testnet-to-mainnet)
 
 (Repeat of “migrate from testnet to mainnet” for visibility.) Update `config.yaml` for **production**: switch `server: "PRODUCTION"`, replace test RPC endpoints with mainnet endpoints (Ethereum mainnet RPC, Bitcoin mainnet node, Tron mainnet), and use mainnet xpubs instead of testnet ones. Also raise confirmation requirements (e.g. Bitcoin ≥6, Ethereum ≥12). Test these settings on a staging instance first. Once confirmed, point your DNS to the new server (or switch environment flag) and restart PayRam. This moves PayRam from test to live mode safely.
 
 **Sources:** PayRam installation and configuration guides.
 
-[PreviousCustomization FAQ'schevron-left](/faqs/customization-faqs)[NextGlossarychevron-right](/support/glossary)
+[PreviousCustomization FAQ's](/faqs/customization-faqs)[NextGlossary](/support/glossary)
 
-Last updated 19 days ago
+Last updated 9 hours ago

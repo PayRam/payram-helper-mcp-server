@@ -1,21 +1,21 @@
-copyCopychevron-down
+For the complete documentation index, see [llms.txt](https://docs.payram.com/llms.txt). This page is also available as [Markdown](https://docs.payram.com/api-integration/payments-api/get-blockchain-currencies.md).
 
-1.  [API Integration](/api-integration)chevron-right
+Copy
+
+On this page
+
+1.  [API Integration](/api-integration)
 2.  [⚡Payments API](/api-integration/payments-api)
 
 # 🪙Get Blockchain Currencies
 
 In this section, you’ll learn how to fetch all available blockchain deposit options for a specific payment using its reference\_id.
 
-![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2F2diixQuZV5bHAbOknKAq%2Fblobs%2FsZhigtbNRwzTrrddUOpR%2Fpayram-payment-apis-get-blockchain-currencies.png&width=768&dpr=3&quality=100&sign=b97a5b2e&sv=2)
+![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2Fwm1DIvbGMREWT1TdLPtz%2Fblobs%2FlFo1Aof5UsSuwodjju9o%2Fpayram-payment-apis-get-blockchain-currencies.png&width=768&dpr=3&quality=100&sign=8fbeb70a&sv=2)
 
 * * *
 
-## 
-
-[hashtag](#url-details)
-
-URL Details
+## URL Details[](#url-details)
 
 Parameter
 
@@ -25,22 +25,17 @@ Example
 
 BASE\_URL
 
-Your PayRam server URL
+Your PayRam Site URL — find it under **Settings → Site URL** in your dashboard. Include the port if you installed on one.
 
-[https://yourdomain.com:8443 arrow-up-right](https://yourdomain.com:8443
-)
+`https://pay.example.com`
 
 API Endpoint
 
-Endpoint to create a new payment link.
+Endpoint to list the deposit options available for a payment.
 
-/api/v1/payment
+`/api/v1/blockchain-currency/reference/{reference_id}`
 
-## 
-
-[hashtag](#headers)
-
-Headers
+## Headers[](#headers)
 
 Header
 
@@ -60,15 +55,9 @@ Format of the request data.
 
 application/json
 
-circle-info
-
 **Note** **: You can generate a unique API key for each project directly from the PayRam dashboard. This helps you manage and track payouts separately for every project.**
 
-## 
-
-[hashtag](#curl-request)
-
-curl request
+## curl request[](#curl-request)
 
 Before running the command, replace the placeholders with your actual details:
 
@@ -77,11 +66,7 @@ Before running the command, replace the placeholders with your actual details:
 -   reference\_id → Use the value returned from the Create Payment API
     
 
-## 
-
-[hashtag](#curl-response)
-
-curl response
+## curl response[](#curl-response)
 
 You’ll receive an array of blockchain currencies for that payment:
 
@@ -92,11 +77,7 @@ You’ll receive an array of blockchain currencies for that payment:
 -   Customer address state – customerAddress is empty for first-time users (no deposit address assigned yet).
     
 
-#### 
-
-[hashtag](#response-breakdown)
-
-Response breakdown
+#### Response breakdown[](#response-breakdown)
 
 -   blockchainCode – Blockchain symbol (e.g., ETH, BTC, TRX, BASE).
     
@@ -117,10 +98,8 @@ Response breakdown
 -   recommended / mostUsed – Suggested or frequently used options for display.
     
 
-circle-info
-
 **NOTE** **:** **If customerAddress is empty for a given family, you can call the** **Assign Deposit Address API** **to assign a static deposit address for that user on that blockchain family.**
 
-[PreviousFetch Tickerschevron-left](/api-integration/payments-api/fetch-tickers)[NextAssign Deposit Addresschevron-right](/api-integration/payments-api/assign-deposit-address)
+[PreviousFetch Tickers](/api-integration/payments-api/fetch-tickers)[NextAssign Deposit Address](/api-integration/payments-api/assign-deposit-address)
 
-Last updated 1 day ago
+Last updated 4 hours ago

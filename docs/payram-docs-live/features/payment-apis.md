@@ -1,4 +1,8 @@
-copyCopychevron-down
+For the complete documentation index, see [llms.txt](https://docs.payram.com/llms.txt). This page is also available as [Markdown](https://docs.payram.com/features/payment-apis.md).
+
+Copy
+
+On this page
 
 1.  [FEATURES](/features)
 
@@ -6,17 +10,13 @@ copyCopychevron-down
 
 Seamless, programmable payments.
 
-![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2F2diixQuZV5bHAbOknKAq%2Fblobs%2FKXspsAy3vlNIPn8NrKxf%2Fpayram-feature-payment-apis.png&width=768&dpr=3&quality=100&sign=6e724e5f&sv=2)
+![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2Fwm1DIvbGMREWT1TdLPtz%2Fblobs%2Fch9vf9uB0kQcSOxb63AP%2Fpayram-feature-payment-apis.png&width=768&dpr=3&quality=100&sign=588e61e&sv=2)
 
 Integrate PayRam’s Payment APIs to drive transactions from your app or backend, handle payments, webhooks, and more, all under your control.
 
 * * *
 
-### 
-
-[hashtag](#why-it-matters)
-
-**Why it matters**
+### **Why it matters**[](#why-it-matters)
 
 -   **Full automations:** Let your backend create and manage payments, no manual intervention.
     
@@ -29,11 +29,7 @@ Integrate PayRam’s Payment APIs to drive transactions from your app or backend
 
 * * *
 
-### 
-
-[hashtag](#managing-api-keys)
-
-**Managing API keys**
+### **Managing API keys**[](#managing-api-keys)
 
 API keys are required to authenticate all PayRam API requests. Each key is tied to a specific **project**, allowing for environment-level control and security.
 
@@ -52,6 +48,6 @@ API keys are required to authenticate all PayRam API requests. Each key is tied 
 6.  You can also deactivate existing keys by toggling them to inactive.
     
 
-[PreviousPayment Linkschevron-left](/features/payment-links)[NextMulti-currency & Multi-chain Supportchevron-right](/features/multi-currency-and-multi-chain-support)
+[PreviousPayment Links](/features/payment-links)[NextMulti-currency & Multi-chain Support](/features/multi-currency-and-multi-chain-support)
 
-Last updated 1 day ago
+Last updated 9 hours ago

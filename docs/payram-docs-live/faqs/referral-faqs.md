@@ -1,23 +1,19 @@
-copyCopychevron-down
+For the complete documentation index, see [llms.txt](https://docs.payram.com/llms.txt). This page is also available as [Markdown](https://docs.payram.com/faqs/referral-faqs.md).
+
+Copy
+
+On this page
 
 1.  [FAQs](/faqs)
 
 # Referral FAQ's
 
-### 
-
-[hashtag](#referral-campaigns)
-
-Referral Campaigns
+### Referral Campaigns[](#referral-campaigns)
 
 -   [How do I set up a referral campaign?](/faqs/referral-faqs#how-do-i-set-up-a-referral-campaign)
     
 
-#### 
-
-[hashtag](#how-do-i-set-up-a-referral-campaign)
-
-How do I set up a referral campaign?
+#### How do I set up a referral campaign?[](#how-do-i-set-up-a-referral-campaign)
 
 PayRam’s dashboard provides a **Referral Campaign** workflow (under _Growth → Campaigns_). To set one up:
 
@@ -32,6 +28,6 @@ PayRam’s dashboard provides a **Referral Campaign** workflow (under _Growth �
 
 By following these steps (create campaign, embed the widget, link users, and log events), you fully integrate PayRam’s referral/affiliate system.
 
-[PreviousFund Management FAQ'schevron-left](/faqs/fund-management-faqs)[NextCustomization FAQ'schevron-right](/faqs/customization-faqs)
+[PreviousFund Management FAQ's](/faqs/fund-management-faqs)[NextCustomization FAQ's](/faqs/customization-faqs)
 
-Last updated 19 days ago
+Last updated 9 hours ago
