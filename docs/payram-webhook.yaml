@@ -1,10 +1,20 @@
 openapi: 3.1.0
 info:
   title: Payram Webhooks
-  version: 0.0.1
+  version: 0.1.0
   description: >
     OpenAPI 3.1 document for Payram → Merchant webhook events. Use this to
     implement your server's webhook endpoint. This file is not used for SDK codegen.
+
+
+    Source of truth: https://docs.payram.com/api-integration/payments-api/webhook
+    (mirrored at docs/payram-docs-live/api-integration/payments-api/webhook.md).
+
+
+    Verify every delivery. `X-Payram-Signature` is an HMAC-SHA256 of the **raw
+    request body** keyed with your project API key — compute it over the exact
+    received bytes, never over re-serialized JSON. The plain `API-KEY` header is
+    legacy, retained for backward compatibility only.
   contact:
     name: Payram Support
     url: https://docs.payram.com
@@ -16,7 +26,33 @@ webhooks:
   paymentEvent:
     post:
       summary: Payram → Merchant payment lifecycle event
-      description: Payram sends this to your endpoint when payment status changes.
+      description: |
+        Payram sends this to your endpoint when a payment (deposit) is detected
+        and as it progresses on-chain. Respond `2xx` to acknowledge; respond
+        quickly and process asynchronously.
+
+        **Authenticity.** Verify using either header — prefer the signature:
+
+        - `X-Payram-Signature` (recommended) — `sha256=<hex>`, an HMAC-SHA256 of
+          the raw request body keyed with your project API key. Constant-time
+          compare.
+        - `API-KEY` (legacy) — your project API key sent verbatim.
+
+        **Delivery and retries.** Confirmation-progress deliveries retry up to 3
+        times per cycle (immediately, then 2s and 4s) and are re-sent on the next
+        poll until the payment fills. Final deliveries (`closed` / `cancelled`)
+        retry at 0s, 2s, 4s, then move to long-term backoff (30m, 1h, 2h, …)
+        until your endpoint returns `2xx`. Any response `>= 400`, or a timeout
+        (the client waits up to 60s), counts as a failure.
+
+        **Idempotency.** You may receive the same status more than once. Key off
+        `reference_id` (or `invoice_id`) + `status`.
+
+        Webhooks are on by default and can be disabled server-side with
+        `SEND_WEBHOOK_TO_MERCHANT=false`.
+      security:
+        - PayramWebhookSignature: []
+        - PayramWebhookApiKeyLegacy: []
       requestBody:
         required: true
         content:
@@ -24,57 +60,190 @@ webhooks:
             schema:
               $ref: "#/components/schemas/WebhookPayload"
             examples:
-              completed:
+              awaitingDeposit:
+                summary: Created, nothing received yet
+                description: >
+                  Before any on-chain deposit, filled amounts are null and
+                  payment_info is empty.
                 value:
-                  reference_id: ref_123
-                  invoice_id: inv_456
-                  customer_id: cust_789
-                  customer_email: a@b.com
+                  customer_id: "1234"
+                  invoice_id: INV-0090
+                  reference_id: a1b2c3d4e5
+                  status: OPEN
+                  amount: "323.53"
+                  currency: USDT
+                  filled_amount: null
+                  filled_amount_in_usd: null
+                  sponsored_amount: "0"
+                  sponsored_amount_in_usd: "0"
+                  timestamp: 1750340282
+                  payment_info: []
+                  confirmation_current: 0
+                  confirmation_required: 12
+              confirming:
+                summary: Deposit detected, still confirming
+                value:
+                  customer_id: "1234"
+                  invoice_id: INV-0090
+                  reference_id: a1b2c3d4e5
+                  status: PARTIALLY_FILLED
+                  amount: "323.53"
+                  currency: USDT
+                  filled_amount: "323.53"
+                  filled_amount_in_usd: "323.53"
+                  sponsored_amount: "0"
+                  sponsored_amount_in_usd: "0"
+                  timestamp: 1750340282
+                  payment_info:
+                    - source_address: "0x7a2C9bF1"
+                      transaction_hash: "0xabc123def456"
+                      destination_address: "0x21d4cF2EEA8d45"
+                      block_number: 21897412
+                  confirmation_current: 5
+                  confirmation_required: 12
+              filled:
+                summary: Settled
+                description: >
+                  On the final closed/cancelled webhook the confirmation
+                  counters are 0.
+                value:
+                  customer_id: "1234"
+                  invoice_id: INV-0090
+                  reference_id: a1b2c3d4e5
                   status: FILLED
-                  amount: 49.99
-                  filled_amount_in_usd: 49.99
-                  currency: USD
+                  amount: "323.53"
+                  currency: USDT
+                  filled_amount: "323.53"
+                  filled_amount_in_usd: "323.53"
+                  sponsored_amount: "0"
+                  sponsored_amount_in_usd: "0"
+                  timestamp: 1750340282
+                  payment_info:
+                    - source_address: "0x7a2C9bF1"
+                      transaction_hash: "0xabc123def456"
+                      destination_address: "0x21d4cF2EEA8d45"
+                      block_number: 21897412
+                  confirmation_current: 12
+                  confirmation_required: 12
       responses:
         "200":
-          description: Acknowledge receipt
+          description: Acknowledge receipt. Any 2xx is accepted.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/WebhookAck"
-          headers:
-            API-Key:
-              description: Shared secret used for webhook auth
-              schema:
-                type: string
 components:
+  securitySchemes:
+    PayramWebhookSignature:
+      type: apiKey
+      in: header
+      name: X-Payram-Signature
+      description: >
+        Recommended. `sha256=<hex>` — HMAC-SHA256 of the raw request body, keyed
+        with your project API key. Recompute over the exact received bytes (not
+        re-serialized JSON) and constant-time compare.
+    PayramWebhookApiKeyLegacy:
+      type: apiKey
+      in: header
+      name: API-KEY
+      description: >
+        Legacy. Your project API key sent verbatim. Retained for backward
+        compatibility — prefer `X-Payram-Signature` for new integrations.
   schemas:
     WebhookPayload:
       type: object
+      description: >
+        Payment lifecycle event. All monetary amounts are JSON **strings** to
+        preserve decimal precision — parse them as decimals, never as floats.
+        `timestamp`, `confirmation_*` and `block_number` are numbers.
       properties:
         reference_id:
           type: string
+          description: Payram's unique reference for the payment. Use as the idempotency key.
+          example: a1b2c3d4e5
         invoice_id:
           type: string
+          description: The invoice this payment belongs to, echoed from `invoiceID` at creation.
+          example: INV-0090
         customer_id:
           type: string
+          description: Your identifier for the paying customer.
+          example: "1234"
         customer_email:
           type: string
           format: email
         status:
           type: string
+          description: >
+            Fill state. `UNDEFINED` is not documented upstream but is accepted
+            defensively — treat it as "no decision yet" and do not fulfil on it.
           enum: [OPEN, CANCELLED, FILLED, PARTIALLY_FILLED, OVER_FILLED, UNDEFINED]
         amount:
-          type: number
-          format: double
-        filled_amount_in_usd:
-          type: number
-          format: double
+          type: string
+          description: Requested payment amount in `currency`, as a decimal string.
+          example: "323.53"
         currency:
           type: string
-          minLength: 3
-          maxLength: 3
+          description: >
+            Currency code. Not restricted to three characters — Payram settles
+            USDT, USDC, PYUSD and cbBTC among others.
+          examples: [BTC, ETH, USDT, USDC, PYUSD, cbBTC]
+        filled_amount:
+          type: [string, "null"]
+          description: Amount received so far. Null before any deposit is detected.
+          example: "323.53"
+        filled_amount_in_usd:
+          type: [string, "null"]
+          description: >
+            USD value of the filled amount. **Cumulative** — later events restate
+            the running total, they do not report a delta.
+          example: "323.53"
+        sponsored_amount:
+          type: string
+          description: Gas/fee amount sponsored by Payram. `"0"` if none.
+          example: "0"
+        sponsored_amount_in_usd:
+          type: string
+          description: USD value of the sponsored amount.
+          example: "0"
+        timestamp:
+          type: integer
+          description: Last-update time, Unix epoch **seconds** (not milliseconds).
+          example: 1750340282
+        payment_info:
+          type: array
+          description: >
+            On-chain deposit details. Empty until a deposit is detected. Present
+            since Core v3.1.2 so you can reconcile without a second lookup.
+          items:
+            $ref: "#/components/schemas/WebhookPaymentInfo"
+        confirmation_current:
+          type: integer
+          description: Confirmations seen so far. `0` on the final webhook.
+          example: 5
+        confirmation_required:
+          type: integer
+          description: Confirmations required before the payment is considered settled.
+          example: 12
       additionalProperties: true
       required: [reference_id, status]
+    WebhookPaymentInfo:
+      type: object
+      description: A single on-chain deposit against this payment.
+      properties:
+        source_address:
+          type: string
+          description: Address the funds came from.
+        transaction_hash:
+          type: string
+          description: On-chain transaction hash of the deposit.
+        destination_address:
+          type: string
+          description: Payram deposit address that received the funds.
+        block_number:
+          type: integer
+          description: Block the deposit was included in.
+      additionalProperties: true
     WebhookAck:
       type: object
       properties:

@@ -337,9 +337,37 @@ paths:
       description: |
         Queues a payout in Payram using the authenticated external platform context
         (API-Key required). Prefer this endpoint for merchant-initiated payouts.
+
+        Requires Payram **v3.1.1 or later**; earlier versions return 404.
+
+        **Always send an idempotency key.** A payout moves real money — if a
+        request times out and you retry without a key, Payram cannot tell the
+        retry apart from a deliberate second payment and will send the funds
+        twice. Retrying with the same key returns the original payout instead of
+        creating a second one. Keys are scoped per project and never expire.
+
+        At creation Payram evaluates the payout in USD against the project's
+        limits per recipient member. At or under the auto-approve amount it is
+        queued (`status: pending`); above it, or over the hourly/daily limit, it
+        is held (`status: pending-approval`) with `attributes.approvalReason`
+        explaining why. Below the minimum it is rejected outright. Approve and
+        reject are dashboard actions.
       operationId: createMerchantWithdrawal
       security:
         - PayramApiKey: []
+      parameters:
+        - name: Idempotency-Key
+          in: header
+          required: false
+          description: >
+            Unique value of your choosing, generated before the first attempt and
+            stored alongside the payout in your own system. Use something you can
+            look up again (an order ID), not a timestamp — a retry must reproduce
+            the same key. Takes precedence over the `idempotencyKey` body field.
+            Requires Payram **v3.6.0 or later**; ignored on earlier versions.
+          schema:
+            type: string
+          example: payout-2026-08-13-00417
       requestBody:
         required: true
         content:
@@ -363,6 +391,17 @@ paths:
                   - $ref: '#/components/schemas/PayramErrorResponse'
         '401':
           description: Unauthorized or missing API key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayramErrorResponse'
+        '409':
+          description: >
+            `PAYOUT_DUPLICATE_REQUEST`. Returned when a payout is created
+            **without** an idempotency key and matches another from the last 5
+            minutes on the same project, recipient address, amount, currency and
+            chain. Send an idempotency key if you genuinely need two identical
+            payouts inside that window.
           content:
             application/json:
               schema:
@@ -738,6 +777,31 @@ components:
           format: double
           minimum: 0
           exclusiveMinimum: true  # amount must be > 0
+        invoiceID:
+          type: string
+          description: >
+            Your own invoice reference. Echoed back as `invoice_id` in the
+            payment webhook — the correlation key for settling an order.
+          example: INV-0090
+        expire:
+          type: string
+          format: date-time
+          description: >
+            When the payment link expires, RFC 3339. Defaults to **24 hours**
+            from creation; once expired the payment moves to `CANCELLED`.
+          example: "2026-08-20T10:00:00Z"
+        currency:
+          type: string
+          description: >
+            Restricts the payment to a single currency. Omit to let the customer
+            choose at checkout. Use together with `network`.
+          example: USDC
+        network:
+          type: string
+          description: >
+            Restricts the payment to a single blockchain. Use together with
+            `currency`.
+          example: BASE
 
     # CURRENT success: host is required
     InitiatePaymentResponse:
@@ -875,21 +939,22 @@ components:
         blockchainCode:
           type: string
           description: >
-            Lowercase chain name (NOT a ticker). One of: ethereum, bitcoin, tron,
-            base, polygon.
-          enum:
-            - ethereum
-            - bitcoin
-            - tron
-            - base
-            - polygon
-          example: ethereum
-        currencyCode:
-          type: string
-          description: Uppercase asset ticker to send.
+            Uppercase chain code. **BTC is not supported for payouts** — Bitcoin
+            is deposit-only, and its funds are collected manually via the Payram
+            Business App rather than paid out through this endpoint.
           enum:
             - ETH
-            - BTC
+            - BASE
+            - POLYGON
+            - TRX
+          example: ETH
+        currencyCode:
+          type: string
+          description: >
+            Uppercase asset ticker to send — tokens (USDC, USDT) or native coins
+            (ETH, POL, TRX). Must be enabled for the project on the chosen chain.
+          enum:
+            - ETH
             - USDC
             - USDT
             - POL
@@ -899,7 +964,13 @@ components:
         amount:
           type: string
           pattern: "^\\d+(\\.\\d+)?$"
-          description: Amount expressed in blockchain units.
+          description: >
+            **Crypto amount** in the currency's own units — *not* USD. `"100"`
+            USDC sends 100 USDC; `"0.05"` ETH sends 0.05 ETH. Payram computes the
+            USD value internally for limit checks. If your system works in fiat,
+            convert first via `GET /api/v1/ticker`:
+            `cryptoAmount = usdAmount / price`, rounded to that currency's
+            `walletPrecision`. Sent as a string to preserve decimal precision.
           example: "250.75"
         toAddress:
           type: string
@@ -907,7 +978,10 @@ components:
         customerID:
           type: string
           nullable: true
-          description: Optional customer identifier for platform records.
+          description: >
+            Your unique identifier for the recipient. Technically optional in the
+            schema, but a payout **cannot be created without it** — omitting it
+            returns an error. Always send it.
         mobileNumber:
           type: string
           nullable: true
@@ -916,6 +990,14 @@ components:
           type: string
           nullable: true
           description: Optional physical address of the recipient.
+        idempotencyKey:
+          type: string
+          nullable: true
+          description: >
+            Alternative to the `Idempotency-Key` header. If both are sent, the
+            header wins. See the endpoint description for why this should always
+            be set.
+          example: payout-2026-08-13-00417
 
     Withdrawal:
       type: object
