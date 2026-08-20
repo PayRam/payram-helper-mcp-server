@@ -1,21 +1,21 @@
-copyCopychevron-down
+For the complete documentation index, see [llms.txt](https://docs.payram.com/llms.txt). This page is also available as [Markdown](https://docs.payram.com/api-integration/payments-api/payment-status.md).
 
-1.  [API Integration](/api-integration)chevron-right
+Copy
+
+On this page
+
+1.  [API Integration](/api-integration)
 2.  [⚡Payments API](/api-integration/payments-api)
 
 # ☑️Payment Status
 
 In this section, you’ll learn how to fetch the current payment status for a specific transaction using its reference\_id.
 
-![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2F2diixQuZV5bHAbOknKAq%2Fblobs%2FAJNiry2AqTlM9AzkvHnR%2Fpayram-payment-payment-status.png&width=768&dpr=3&quality=100&sign=1df8c2ad&sv=2)
+![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2Fwm1DIvbGMREWT1TdLPtz%2Fblobs%2FtxWxC3Fhsyt4MylRugMg%2Fpayram-payment-payment-status.png&width=768&dpr=3&quality=100&sign=8ac96591&sv=2)
 
 * * *
 
-## 
-
-[hashtag](#url-details)
-
-URL Details
+## URL Details[](#url-details)
 
 Parameter
 
@@ -25,22 +25,17 @@ Example
 
 BASE\_URL
 
-Your PayRam server URL
+Your PayRam Site URL — find it under **Settings → Site URL** in your dashboard. Include the port if you installed on one.
 
-[https://yourdomain.com:8443 arrow-up-right](https://yourdomain.com:8443
-)
+`https://pay.example.com`
 
 API Endpoint
 
-Endpoint to create a new payment link.
+Endpoint to fetch the current status of a payment.
 
-/api/v1/ticker
+`/api/v1/payment/reference/{reference_id}`
 
-## 
-
-[hashtag](#headers)
-
-Headers
+## Headers[](#headers)
 
 Header
 
@@ -60,15 +55,9 @@ Format of the request data.
 
 application/json
 
-circle-info
-
 **Note** **: You can generate a unique API key for each project directly from the PayRam dashboard. This helps you manage and track payouts separately for every project.**
 
-## 
-
-[hashtag](#curl-request)
-
-curl request
+## curl request[](#curl-request)
 
 Before running the command, replace the placeholders with your actual details:
 
@@ -77,22 +66,16 @@ Before running the command, replace the placeholders with your actual details:
 -   <your\_api\_key> → Your PayRam API key
     
 
-## 
+## curl response[](#curl-response)
 
-[hashtag](#curl-response)
+You’ll receive the payment record, including:
 
-curl response
-
-You’ll receive a list of supported blockchain assets, each containing:
-
--   Blockchain info – e.g., ETH, BTC, TRX, BASE
+-   Identifiers – the reference ID, invoice ID, and your customer ID
     
--   Token details – contract address, precision, and standard
+-   Amount – the requested amount in USD
     
--   Live pricing – current USD value for each token
+-   State – the current `paymentState` (see the table below)
     
-
-circle-info
 
 **Note :** **Check the paymentState field in the response to track the payment status.**
 
@@ -120,6 +103,6 @@ OVER\_FILLED
 
 The user has paid more than the requested amount.
 
-[PreviousAssign Deposit Addresschevron-left](/api-integration/payments-api/assign-deposit-address)[NextWebhookchevron-right](/api-integration/payments-api/webhook)
+[PreviousAssign Deposit Address](/api-integration/payments-api/assign-deposit-address)[NextWebhook](/api-integration/payments-api/webhook)
 
-Last updated 1 day ago
+Last updated 7 hours ago

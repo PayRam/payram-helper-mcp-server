@@ -1,24 +1,20 @@
-copyCopychevron-down
+For the complete documentation index, see [llms.txt](https://docs.payram.com/llms.txt). This page is also available as [Markdown](https://docs.payram.com/payram-sdk/typescript-javascript-sdk.md).
+
+Copy
+
+On this page
 
 1.  [PayRam SDK](/payram-sdk)
 
-# codeTypescript/Javascript SDK
+# Typescript/Javascript SDK
 
 A lightweight TypeScript SDK for connecting your backend to your self-hosted PayRam server.
 
-## 
-
-[hashtag](#introduction)
-
-Introduction
+## Introduction[](#introduction)
 
 The PayRam TypeScript SDK helps your backend communicate smoothly with your self-hosted PayRam server. It provides a clean, type-safe interface so you don’t have to manually handle raw API calls, making integration simpler and more reliable. The SDK also includes built-in support for safe request retries and offers framework-friendly helpers for handling webhooks with minimal setup.
 
-### 
-
-[hashtag](#prerequisites)
-
-Prerequisites
+### Prerequisites[](#prerequisites)
 
 Before you begin, make sure you have:
 
@@ -27,11 +23,7 @@ Before you begin, make sure you have:
 -   The Base URL of your PayRam server, which tells the SDK where your self-hosted PayRam instance is running.
     
 
-## 
-
-[hashtag](#installation)
-
-Installation
+## Installation[](#installation)
 
 Install the SDK using your package manager of choice
 
@@ -59,11 +51,7 @@ Copy
 pnpm add payram
 ```
 
-## 
-
-[hashtag](#quickstart)
-
-QuickStart
+## QuickStart[](#quickstart)
 
 -   Create a new PayRam client instance by passing your API key and server URL.
     
@@ -129,19 +117,11 @@ boolean
 
 Set to false only if your PayRam server is running on an http:// URL (without SSL). Keep it true for https://
 
-## 
-
-[hashtag](#payments)
-
-Payments
+## Payments[](#payments)
 
 In this section you'll get all the methods which are related to the payments
 
-### 
-
-[hashtag](#create-payments)
-
-Create Payments
+### Create Payments[](#create-payments)
 
 -   Creates a new payment session by sending customer details and the amount to PayRam, and returns both a unique reference\_id for tracking and a redirect URL that your customer can visit to complete the payment.
     
@@ -172,15 +152,9 @@ The payment amount in USD.
 
 ✅ Yes
 
-circle-info
-
 **Note : The url field provides a ready-to-use PayRam payment page. You can share this link directly with your customers, or build a custom UI using other API endpoints.**
 
-### 
-
-[hashtag](#payment-status)
-
-Payment Status
+### Payment Status[](#payment-status)
 
 -   Fetches the latest payment details using the reference\_id and returns the current paymentState so you can track whether the payment is pending, completed, or failed.
     
@@ -212,19 +186,11 @@ OVER\_FILLED
 
 The user has paid more than the requested amount.
 
-## 
-
-[hashtag](#payout)
-
-Payout
+## Payout[](#payout)
 
 In this section you'll get all the methods which are related to the payments
 
-### 
-
-[hashtag](#create-payout)
-
-Create Payout
+### Create Payout[](#create-payout)
 
 -   Creates a new payout request by sending the merchant details, token information, amount, and destination wallet address to the PayRam server.
     
@@ -273,15 +239,9 @@ Unique identifier for the customer.
 
 ✅ Yes
 
-circle-info
-
 **Note: PayRam currently supports payouts in USDT (ETH, TRX) and USDC (ETH, BASE). Make sure the selected currency matches a supported network when creating a payout.**
 
-### 
-
-[hashtag](#payout-status)
-
-Payout Status
+### Payout Status[](#payout-status)
 
 -   Retrieves the latest payout details using its ID so you can check whether the payout is still pending, awaiting approval, processing on-chain, completed, or failed.
     
@@ -329,11 +289,7 @@ cancelled
 
 The transaction was stopped before being sent or processed.
 
-## 
-
-[hashtag](#webhook)
-
-Webhook
+## Webhook[](#webhook)
 
 PayRam sends webhook events to your server whenever something important happens, such as a payment updates.
 
@@ -352,18 +308,12 @@ Fastify Example
 
 Next.js Example (App Router)
 
-circle-info
-
 **Note: The adapter handles verification and sends the reply automatically. No manual res.status(200) is required.**
 
-## 
-
-[hashtag](#validate-api-key)
-
-Validate Api Key
+## Validate Api Key[](#validate-api-key)
 
 The verifyApiKey function lets you manually check the API key inside your request handler. Use it when you are handling webhooks with a custom framework and need to confirm the request is really from your PayRam server.
 
-[PreviousGET All Payoutschevron-left](/api-integration/payouts-apis/get-all-payouts)[NextPayRam MCPchevron-right](/mcp/payram-mcp)
+[PreviousEditing Payout Limits](/api-integration/payouts-apis/editing-payout-limits)[NextPayRam Shopify Plugin](/plugins/payram-shopify-plugin)
 
-Last updated 19 days ago
+Last updated 9 hours ago

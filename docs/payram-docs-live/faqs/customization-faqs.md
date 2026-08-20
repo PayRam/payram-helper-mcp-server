@@ -1,36 +1,28 @@
-copyCopychevron-down
+For the complete documentation index, see [llms.txt](https://docs.payram.com/llms.txt). This page is also available as [Markdown](https://docs.payram.com/faqs/customization-faqs.md).
+
+Copy
+
+On this page
 
 1.  [FAQs](/faqs)
 
 # Customization FAQ's
 
-### 
-
-[hashtag](#customization-and-access-control)
-
-Customization & Access Control
+### Customization & Access Control[](#customization-and-access-control)
 
 -   [How do I customize the payment page’s branding?](/faqs/customization-faqs#how-do-i-customize-the-payment-pages-branding)
     
 -   [How do I manage user roles and permissions?](/faqs/customization-faqs#how-do-i-manage-user-roles-and-permissions)
     
 
-#### 
-
-[hashtag](#how-do-i-customize-the-payment-pages-branding)
-
-How do I customize the payment page’s branding?
+#### How do I customize the payment page’s branding?[](#how-do-i-customize-the-payment-pages-branding)
 
 PayRam allows basic branding of the checkout page. In the **project settings** (during setup), you can upload your logo image and set a primary color (hex code) for the theme. These are stored in the project configuration (for example, the JSON `logoPath` and `brandColor` fields). You can also enter custom CSS in the advanced branding section to further tweak styles. In short: specify your logo and colors in the PayRam dashboard (Getting Started → Step 2), and PayRam will use those values on the hosted payment page to match your brand.
 
-#### 
-
-[hashtag](#how-do-i-manage-user-roles-and-permissions)
-
-How do I manage user roles and permissions?
+#### How do I manage user roles and permissions?[](#how-do-i-manage-user-roles-and-permissions)
 
 When you first set up PayRam, the initial account you create is the **root (admin)** user. From there, in the Dashboard under _Team_, you can add additional users with designated roles (such as Developer, Finance, Read-Only, etc.) to control access. Each user will have permissions based on their role. Separately, when you generate project API keys, you specify a role name (e.g. `platform_admin`) for that key. In your code, use these API keys (keeping them secret) for backend calls; each key inherits the permissions of its role. In summary, use the Team interface to manage login users and use the project-API-key roles to manage programmatic access.
 
-[PreviousReferral FAQ'schevron-left](/faqs/referral-faqs)[NextDebug FAQ'schevron-right](/faqs/debug-faqs)
+[PreviousReferral FAQ's](/faqs/referral-faqs)[NextDebug FAQ's](/faqs/debug-faqs)
 
-Last updated 19 days ago
+Last updated 9 hours ago

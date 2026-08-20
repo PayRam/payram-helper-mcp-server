@@ -1,21 +1,21 @@
-copyCopychevron-down
+For the complete documentation index, see [llms.txt](https://docs.payram.com/llms.txt). This page is also available as [Markdown](https://docs.payram.com/api-integration/payments-api/create-payment.md).
 
-1.  [API Integration](/api-integration)chevron-right
+Copy
+
+On this page
+
+1.  [API Integration](/api-integration)
 2.  [⚡Payments API](/api-integration/payments-api)
 
 # ✨Create Payment
 
 In this section, you’ll learn how to create a payment link using the PayRam API for customers to make payments easily.
 
-![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2F2diixQuZV5bHAbOknKAq%2Fblobs%2F3fqxCFqn6d7ynHOq0lml%2Fpayram-payment-apis-create-payment.png&width=768&dpr=3&quality=100&sign=f1ed33db&sv=2)
+![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2Fwm1DIvbGMREWT1TdLPtz%2Fblobs%2Fx56GsGsbGOGBWmMJC2yw%2Fpayram-payment-apis-create-payment.png&width=768&dpr=3&quality=100&sign=8b658502&sv=2)
 
 * * *
 
-## 
-
-[hashtag](#url-details)
-
-URL Details
+## URL Details[](#url-details)
 
 Parameter
 
@@ -25,26 +25,19 @@ Example
 
 BASE\_URL
 
-Your PayRam server URL
+Your PayRam Site URL — find it under **Settings → Site URL** in your dashboard. Include the port if you installed on one.
 
-[https://yourdomain.com:8443 arrow-up-right](https://yourdomain.com:8443
-)
+`https://pay.example.com`
 
 API Endpoint
 
 Endpoint to create a new payment link.
 
-/api/v1/payment
-
-circle-info
+`/api/v1/payment`
 
 **Note** **: You can generate a unique API key for each project directly from the PayRam dashboard. This helps you manage and track payouts separately for every project.**
 
-## 
-
-[hashtag](#headers)
-
-Headers
+## Headers[](#headers)
 
 Header
 
@@ -64,13 +57,11 @@ Format of the request data.
 
 application/json
 
-## 
-
-[hashtag](#request-body)
-
-Request Body
+## Request Body[](#request-body)
 
 Field
+
+Required
 
 Description
 
@@ -78,11 +69,15 @@ Example
 
 customerEmail
 
+Yes
+
 Customer’s email address where the payment link will be associated.
 
-[\[email protected\]](/cdn-cgi/l/email-protection)
+test@payram.com
 
 customerID
+
+Yes
 
 Unique identifier for the customer.
 
@@ -90,15 +85,47 @@ Unique identifier for the customer.
 
 amountInUSD
 
+Yes
+
 The payment amount in USD.
 
 10
 
-## 
+invoiceID
 
-[hashtag](#curl-request)
+No
 
-curl request
+Your own invoice reference. Returned as `invoice_id` in the payment webhook.
+
+INV-0090
+
+expire
+
+No
+
+When the payment link expires, as an RFC 3339 timestamp. Defaults to 24 hours from creation.
+
+2026-08-20T10:00:00Z
+
+currency
+
+No
+
+Restricts the payment to a single currency. Omit to let the customer choose.
+
+USDC
+
+network
+
+No
+
+Restricts the payment to a single blockchain. Use together with `currency`.
+
+BASE
+
+**Payment links expire after 24 hours by default.** Once expired, the payment moves to `CANCELLED`. Send `expire` to set a different window.
+
+## curl request[](#curl-request)
 
 Before running the command, replace the placeholders with your actual details:
 
@@ -109,14 +136,10 @@ Before running the command, replace the placeholders with your actual details:
 -   Replace the request body fields with real customer data
     
 
-## 
-
-[hashtag](#curl-response)
-
-curl response
-
-circle-info
+## curl response[](#curl-response)
 
 **Note** **: The url field provides a ready-to-use PayRam payment page. You can share this link directly with your customers, or build a custom UI using other API endpoints.**
 
-[PreviousPayments APIchevron-left](/api-integration/payments-api)[NextFetch Tickerschevron-right](/api-integration/payments-api/fetch-tickers)
+[PreviousPayments API](/api-integration/payments-api)[NextFetch Tickers](/api-integration/payments-api/fetch-tickers)
+
+Last updated 4 hours ago

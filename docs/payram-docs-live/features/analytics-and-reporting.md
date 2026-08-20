@@ -1,4 +1,8 @@
-copyCopychevron-down
+For the complete documentation index, see [llms.txt](https://docs.payram.com/llms.txt). This page is also available as [Markdown](https://docs.payram.com/features/analytics-and-reporting.md).
+
+Copy
+
+On this page
 
 1.  [FEATURES](/features)
 
@@ -6,7 +10,7 @@ copyCopychevron-down
 
 Turn your data into decisions.
 
-![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2F2diixQuZV5bHAbOknKAq%2Fblobs%2Flpu476iwgtTgOp3Kot5I%2Fpayram-feature-analytics-reporting.png&width=768&dpr=3&quality=100&sign=7158cdee&sv=2)
+![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2Fwm1DIvbGMREWT1TdLPtz%2Fblobs%2FmCsztou5QtJZHC6nhqll%2Fpayram-feature-analytics-reporting.png&width=768&dpr=3&quality=100&sign=b6817e35&sv=2)
 
 Gain actionable business insights with PayRam’s Analytics & Reporting dashboard.
 
@@ -14,11 +18,7 @@ Easily monitor performance, understand customer behavior, and make smarter, data
 
 * * *
 
-### 
-
-[hashtag](#why-it-matters)
-
-**Why it matters**
+### **Why it matters**[](#why-it-matters)
 
 -   **See what drives growth:** Revenue, customers, and conversions at a glance.
     
@@ -33,19 +33,11 @@ Easily monitor performance, understand customer behavior, and make smarter, data
 
 * * *
 
-### 
-
-[hashtag](#key-dashboards)
-
-Key dashboards
+### Key dashboards[](#key-dashboards)
 
 The Analytics module is organised into three sections for clarity and focus:
 
-#### 
-
-[hashtag](#revenue-insights)
-
-Revenue Insights
+#### Revenue Insights[](#revenue-insights)
 
 Keep track of your earnings and identify trends that shape your business growth.
 
@@ -64,11 +56,7 @@ Keep track of your earnings and identify trends that shape your business growth.
 
 > Tip: Filter by time period (daily, weekly, monthly, quarterly) to monitor performance across campaigns or regions.
 
-#### 
-
-[hashtag](#customer-analytics)
-
-Customer Analytics
+#### Customer Analytics[](#customer-analytics)
 
 Understand who your customers are and how they interact with your platform.
 
@@ -85,11 +73,7 @@ Understand who your customers are and how they interact with your platform.
 
 > Use case: Discover if your new payment options improve retention or reduce churn over time.
 
-#### 
-
-[hashtag](#transaction-health)
-
-Transaction Health
+#### Transaction Health[](#transaction-health)
 
 Track the pulse of your payment operations and ensure frictionless experiences.
 
@@ -108,4 +92,6 @@ Track the pulse of your payment operations and ensure frictionless experiences.
 
 > Insight: If your success rate dips for a particular token or network, you can act fast — either optimize configurations or notify customers.
 
-[PreviousUser Managementchevron-left](/features/user-management)[NextPayoutschevron-right](/features/payouts)
+[PreviousUser Management](/features/user-management)[NextPayouts](/features/payouts)
+
+Last updated 9 hours ago

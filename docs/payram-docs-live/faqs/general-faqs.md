@@ -1,4 +1,8 @@
-copyCopychevron-down
+For the complete documentation index, see [llms.txt](https://docs.payram.com/llms.txt). This page is also available as [Markdown](https://docs.payram.com/faqs/general-faqs.md).
+
+Copy
+
+On this page
 
 1.  [FAQs](/faqs)
 
@@ -39,31 +43,19 @@ copyCopychevron-down
 -   [What support options are available?](/faqs/general-faqs#what-support-options-are-available)
     
 
-#### 
-
-[hashtag](#what-is-payram)
-
-What is PayRam?
+#### What is PayRam?[](#what-is-payram)
 
 PayRam is a **self-hosted** cryptocurrency payment processor that you deploy and run on your own servers—no middlemen, no censorship, or any limitations. You retain **full custody** of your funds and infrastructure, gaining total control over your payments flow and data.
 
 * * *
 
-#### 
-
-[hashtag](#how-do-i-get-started-and-how-fast-can-i-go-live)
-
-How do I get started, and how fast can I go live?
+#### How do I get started, and how fast can I go live?[](#how-do-i-get-started-and-how-fast-can-i-go-live)
 
 Getting started is quick and code-light. After installing PayRam via our install script, you simply embed a few lines of API code into your application. You can be **accepting live crypto payments in under an hour**, with no account activation or KYC delays on PayRam’s side.
 
 * * *
 
-#### 
-
-[hashtag](#what-are-the-minimum-server-requirements-to-run-payram)
-
-What are the minimum server requirements to run PayRam?
+#### What are the minimum server requirements to run PayRam?[](#what-are-the-minimum-server-requirements-to-run-payram)
 
 For smooth production performance, we **recommend**:
 
@@ -71,58 +63,38 @@ For smooth production performance, we **recommend**:
     
 -   **4 GB RAM**
     
--   **15 GB+ disk**
+-   **50 GB SSD**
     
     For very high-volume use cases, scale CPU, memory, and disk accordingly.
     
 
 * * *
 
-#### 
-
-[hashtag](#which-cryptocurrencies-and-blockchains-does-payram-support)
-
-Which cryptocurrencies and blockchains does PayRam support?
+#### Which cryptocurrencies and blockchains does PayRam support?[](#which-cryptocurrencies-and-blockchains-does-payram-support)
 
 PayRam natively supports major cryptos, including Bitcoin (BTC), Ethereum (ETH), Tron (TRX), Tether (USDT), USD Coin (USDC), Polygon (POL), Coinbase Wrapped Bitcoin (cbBTC) and other EVM-compatible tokens. PayRam currently supports payments on networks, including Ethereum, Base, Polygon, Tron, and Bitcoin. PayRam is actively adding support for new cryptos and networks.
 
 * * *
 
-#### 
-
-[hashtag](#does-payram-handle-fiat-currencies-usd-eur-etc)
-
-Does PayRam handle fiat currencies (USD, EUR, etc.)?
+#### Does PayRam handle fiat currencies (USD, EUR, etc.)?[](#does-payram-handle-fiat-currencies-usd-eur-etc)
 
 _Not yet._ PayRam currently processes **crypto-only** transactions. Automated crypto-to-fiat on-ramp and direct fiat off-ramp settlement are part of the roadmap.
 
 * * *
 
-#### 
-
-[hashtag](#what-fees-does-payram-charge)
-
-What fees does PayRam charge?
+#### What fees does PayRam charge?[](#what-fees-does-payram-charge)
 
 PayRam charges a flat 1%-5% fee on settlement, when funds are withdrawn to the cold wallet. PayRam does NOT charge any other fees or subscriptions or has any reserve fund requirements.
 
 * * *
 
-#### 
-
-[hashtag](#are-there-any-transaction-limits)
-
-Are there any transaction limits?
+#### Are there any transaction limits?[](#are-there-any-transaction-limits)
 
 No, PayRam does not have any transaction limits. The platform supports **unlimited** transactions and scales with your business. Whether you process 10 transactions or 10,000+ per day, PayRam handles it seamlessly.
 
 * * *
 
-#### 
-
-[hashtag](#how-do-i-integrate-payram-with-my-platform)
-
-How do I integrate PayRam with my platform?
+#### How do I integrate PayRam with my platform?[](#how-do-i-integrate-payram-with-my-platform)
 
 After installation, you have access to a **RESTful API**, plus SDKs and pre-built connectors. You can integrate via:
 
@@ -137,21 +109,13 @@ After installation, you have access to a **RESTful API**, plus SDKs and pre-buil
 
 * * *
 
-#### 
-
-[hashtag](#is-there-a-sandbox-or-test-mode)
-
-Is there a sandbox or test mode?
+#### Is there a sandbox or test mode?[](#is-there-a-sandbox-or-test-mode)
 
 Yes, a complete **testnet environment for PayRam** is available. Configure PayRam to point at testnet RPC URLs and use our test wallets/faucets to validate your integration before going live.
 
 * * *
 
-#### 
-
-[hashtag](#how-secure-is-payram)
-
-How secure is PayRam?
+#### How secure is PayRam?[](#how-secure-is-payram)
 
 -   Self‑custodial control: You maintain exclusive ownership of your private keys at all times.
     
@@ -170,51 +134,31 @@ How secure is PayRam?
 
 * * *
 
-#### 
-
-[hashtag](#does-payram-require-kyc-aml)
-
-Does PayRam require KYC/AML?
+#### Does PayRam require KYC/AML?[](#does-payram-require-kyc-aml)
 
 As a self-hosted solution, PayRam does not impose mandatory KYC requirements by default. However, users have the flexibility to implement their own KYC/AML workflows in accordance with their jurisdictional regulations or customer due diligence policies.
 
 * * *
 
-#### 
-
-[hashtag](#how-are-refunds-and-chargebacks-handled)
-
-How are refunds and chargebacks handled?
+#### How are refunds and chargebacks handled?[](#how-are-refunds-and-chargebacks-handled)
 
 As there is no automatic on-chain chargeback mechanism, refunds on PayRam must be processed manually through the dashboard or API. The specified crypto amount is returned directly to the customer’s wallet address by the merchant.
 
 * * *
 
-#### 
-
-[hashtag](#what-happens-if-a-customer-underpays-or-overpays)
-
-What happens if a customer underpays or overpays?
+#### What happens if a customer underpays or overpays?[](#what-happens-if-a-customer-underpays-or-overpays)
 
 If a customer underpays, the payment status remains marked as “pending” until the full amount is received. In the case of an overpayment, the excess amount is clearly displayed in the PayRam dashboard, allowing the merchant to either issue a refund or apply the surplus to future invoices, depending on the preferred workflow.
 
 * * *
 
-#### 
-
-[hashtag](#can-i-set-up-recurring-subscriptions-or-billing)
-
-Can I set up recurring subscriptions or billing?
+#### Can I set up recurring subscriptions or billing?[](#can-i-set-up-recurring-subscriptions-or-billing)
 
 PayRam natively supports one-off payments and invoices. Subscription functionality is not included by default and would need to be implemented at the application layer or through custom scripting using the available APIs.
 
 * * *
 
-#### 
-
-[hashtag](#which-industries-benefit-most-from-payram)
-
-Which industries benefit most from PayRam?
+#### Which industries benefit most from PayRam?[](#which-industries-benefit-most-from-payram)
 
 PayRam is suitable for a wide range of industries, with particular relevance for:
 
@@ -229,11 +173,7 @@ PayRam is suitable for a wide range of industries, with particular relevance for
 
 * * *
 
-#### 
-
-[hashtag](#how-do-i-migrate-from-testnet-to-mainnet)
-
-How do I migrate from testnet to mainnet?
+#### How do I migrate from testnet to mainnet?[](#how-do-i-migrate-from-testnet-to-mainnet)
 
 1.  Update your `config.yaml` from `DEVELOPMENT` to `PRODUCTION`.
     
@@ -246,16 +186,12 @@ How do I migrate from testnet to mainnet?
 
 * * *
 
-#### 
+#### What support options are available?[](#what-support-options-are-available)
 
-[hashtag](#what-support-options-are-available)
-
-What support options are available?
-
-PayRam offers several support options to assist users. For critical issues, 24/7 support is available via email and chat. Comprehensive documentation and code samples can be found at [docs.payram.comarrow-up-right](https://docs.payram.com/), providing guidance for setup and integration. Additionally, users can access community forums and GitHub issue tracking for self-service support and peer assistance.
+PayRam offers several support options to assist users. For critical issues, 24/7 support is available via email and chat. Comprehensive documentation and code samples can be found at [docs.payram.com](https://docs.payram.com/), providing guidance for setup and integration. Additionally, users can access community forums and GitHub issue tracking for self-service support and peer assistance.
 
 * * *
 
-[PreviousIntroductionchevron-left](/faqs/introduction)[NextFund Management FAQ'schevron-right](/faqs/fund-management-faqs)
+[PreviousIntroduction](/faqs/introduction)[NextFund Management FAQ's](/faqs/fund-management-faqs)
 
-Last updated 1 day ago
+Last updated 9 hours ago

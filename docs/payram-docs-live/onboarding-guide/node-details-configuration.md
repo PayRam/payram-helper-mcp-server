@@ -1,4 +1,8 @@
-copyCopychevron-down
+For the complete documentation index, see [llms.txt](https://docs.payram.com/llms.txt). This page is also available as [Markdown](https://docs.payram.com/onboarding-guide/node-details-configuration.md).
+
+Copy
+
+On this page
 
 1.  [ONBOARDING GUIDE](/onboarding-guide)
 
@@ -8,94 +12,71 @@ In this section, you will configure the node details of the blockchain where you
 
 * * *
 
-## 
-
-[hashtag](#prerequisites)
-
-**Prerequisites**
+## **Prerequisites**[](#prerequisites)
 
 Before you proceed with the node configuration, make sure the following steps are completed:
 
--   Install the [PayRamarrow-up-right](https://www.notion.so/PayRam-Setup-2782637ada87802ba500e9d01a595075?pvs=21) and complete the [onboarding configurationarrow-up-right](https://www.notion.so/S1-Onboarding-Configuration-2782637ada87804ab920e82c033eed38?pvs=21).
+-   [Install PayRam](/deployment-guide/quick-setup) and complete the [root account setup](/onboarding-guide/root-account-setup).
     
 -   Ensure the server is running and ready, so you can connect your blockchain nodes without issues.
     
 
 * * *
 
-## 
-
-[hashtag](#nodes-configuration)
-
-Nodes configuration :
+## Nodes configuration[](#nodes-configuration)
 
 1
 
-### 
+### Open Settings[](#open-settings)
 
-[hashtag](#dashboard-page)
-
-Dashboard page
-
--   Once you have successfully completed the Onboarding configuration, you will be redirected to the dashboard .
+-   From the left menu, select **Settings**.
     
 
-![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2F2diixQuZV5bHAbOknKAq%2Fblobs%2FY9yYnuzBuZ3oeksUCqBk%2Fimage.png&width=768&dpr=3&quality=100&sign=80e9b58f&sv=2)
+![The Settings screen](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2F3861722996-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252Fwm1DIvbGMREWT1TdLPtz%252Fuploads%252Fgit-blob-a8935fd88273d4d7006a143b6f68ae362673b117%252Fpayram-onboarding-settings.png%3Falt%3Dmedia&width=768&dpr=3&quality=100&sign=de50c77a&sv=2)
 
 2
 
-### 
+### Open Node Configurations[](#open-node-configurations)
 
-[hashtag](#settings)
-
-Settings
-
--   Before accepting any payments, you need to configure the blockchain nodes based on the network you selected while installing PayRam. For example, if you chose mainnet, configure the mainnet nodes, and if you chose testnet, configure the testnet nodes accordingly.
-    
--   Now click on the Settings
+-   Under **Integrations**, select **Node Configurations**.
     
 
-![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2F2diixQuZV5bHAbOknKAq%2Fblobs%2FbmH91EYv9LN8Gknr0Msd%2Fimage.png&width=768&dpr=3&quality=100&sign=626dafc&sv=2)
+![Node configurations, listing each supported network](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2F3861722996-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252Fwm1DIvbGMREWT1TdLPtz%252Fuploads%252Fgit-blob-511956eb3135f654faaaee386e5165f0fe33890d%252Fpayram-onboarding-node-configurations.png%3Falt%3Dmedia&width=768&dpr=3&quality=100&sign=7d5e029e&sv=2)
+
+-   Each supported network shows how many RPC nodes it has, how many are active, and the last block PayRam processed. PayRam ships with public nodes already configured, so payments are detected without any setup.
+    
+
+**Note**: If the **Last Block Processed** value is not moving, select **Restart Processors** on this page. If it stays stuck, restart the server itself — [see the restart command](/script/script-usage).
 
 3
 
-### 
+### Review a network's node pool[](#review-a-networks-node-pool)
 
-[hashtag](#integrations)
-
-Integrations
-
--   Then select integrations
+-   Select any network to open its RPC node pool.
     
 
-![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2F2diixQuZV5bHAbOknKAq%2Fblobs%2Fax5YlR28etOELAkWJClz%2Fimage.png&width=768&dpr=3&quality=100&sign=a248e15c&sv=2)
+![The RPC node pool for a network](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2F3861722996-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252Fwm1DIvbGMREWT1TdLPtz%252Fuploads%252Fgit-blob-7a3da9f034a1ac1e1aaf24ebb862f47f69e02ce0%252Fpayram-onboarding-node-pool.png%3Falt%3Dmedia&width=768&dpr=3&quality=100&sign=72b4d5fd&sv=2)
+
+-   Each node shows its position in the pool (**#1**, **#2**, and so on), whether it is **Free** or paid, and whether it is **Active**. The node marked **Preferred** is tried first, and PayRam falls back to the others if it is unreachable.
+    
+-   **Test Connection** checks the pool from your server, so you can confirm a node works before relying on it.
+    
 
 4
 
-### 
+### Add your own RPC node[](#add-your-own-rpc-node)
 
-[hashtag](#node-configurations)
-
-Node configurations
-
--   Under **Node Details**, you will find the node configuration information
+-   Select **Add Node**, enter the node URL, choose whether it is a free or paid node, then select **Add Node**.
     
 
-![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2F2diixQuZV5bHAbOknKAq%2Fblobs%2FGY90JpPCsrN2G8aqSxxE%2Fimage.png&width=768&dpr=3&quality=100&sign=91b30850&sv=2)
+![Adding an RPC node](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2F3861722996-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252Fwm1DIvbGMREWT1TdLPtz%252Fuploads%252Fgit-blob-9da67e722d3e8d20e5317df682f40482757e72bc%252Fpayram-onboarding-add-node.png%3Falt%3Dmedia&width=768&dpr=3&quality=100&sign=7d018b4d&sv=2)
 
--   The node details are already set up with some public RPC URLs. However, if you want to use any private RPC URLs, you can update the configuration according
-    
-
-> **Note**: If the “**Last Block Processed**” rows are not updating, you’ll need to restart your PayRam server. Please run the restart command script on the server where PayRam is hosted.
-> 
-> [👉 View Restart Command Guidearrow-up-right](https://docs.payram.com/script/script-usage#restart)
+**Consider a paid node provider.** The public nodes PayRam ships with are fine for testing and low volume, but they can be rate-limited or unreliable. If you expect high payment volume, or you need uninterrupted operation, add a node from a paid provider such as Infura or Alchemy.
 
 * * *
 
-If you do not want to use the default node RPC provided by us and instead prefer to use your own private RPC, you can change the node configuration details by following the link below and updating the RPC URL with your custom endpoint.
+You have configured the nodes for the blockchains you want to accept payments on. The next step is to add the wallets for those blockchains, which is required before you can receive payments.
 
-* * *
+[PreviousRoot Account Setup](/onboarding-guide/root-account-setup)[NextWallet Integration](/onboarding-guide/wallet-integration)
 
-You’ve successfully added the required node details for a blockchain, the node configuration is complete. The next step is to add the corresponding wallets for those blockchains, which is necessary before you can start receiving PayRam payments.
-
-[PreviousRoot Account Setupchevron-left](/onboarding-guide/root-account-setup)[NextWallet Integrationchevron-right](/onboarding-guide/wallet-integration)
+Last updated 9 hours ago

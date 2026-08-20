@@ -1,4 +1,8 @@
-copyCopychevron-down
+For the complete documentation index, see [llms.txt](https://docs.payram.com/llms.txt). This page is also available as [Markdown](https://docs.payram.com/features/smartsweep.md).
+
+Copy
+
+On this page
 
 1.  [FEATURES](/features)
 
@@ -6,17 +10,13 @@ copyCopychevron-down
 
 Automate your fund management.
 
-![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2F2diixQuZV5bHAbOknKAq%2Fblobs%2F2cDV5OiQtyONU7ZF7uTp%2Fpayram-feature-smartsweep.png&width=768&dpr=3&quality=100&sign=12c65bf7&sv=2)
+![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2Fwm1DIvbGMREWT1TdLPtz%2Fblobs%2F4Ee1kHnwFqeZaZwzJYDx%2Fpayram-feature-smartsweep.png&width=768&dpr=3&quality=100&sign=e08538d0&sv=2)
 
 SmartSweep automatically transfers funds from Customer Deposit Wallets to your designated Cold Wallet, helping you consolidate balances securely and efficiently, without manual intervention or exposed keys.
 
 * * *
 
-### 
-
-[hashtag](#why-it-matters)
-
-**Why it matters**
+### **Why it matters**[](#why-it-matters)
 
 -   **Save time:** No more manual consolidation of deposits.
     
@@ -31,11 +31,7 @@ SmartSweep automatically transfers funds from Customer Deposit Wallets to your d
 
 * * *
 
-### 
-
-[hashtag](#smartsweep-workflow)
-
-**SmartSweep workflow**
+### **SmartSweep workflow**[](#smartsweep-workflow)
 
 1.  **Customer Deposit Wallets** receive funds from individual users.
     
@@ -50,11 +46,7 @@ SmartSweep automatically transfers funds from Customer Deposit Wallets to your d
 
 * * *
 
-### 
-
-[hashtag](#how-it-works)
-
-**How it works**
+### **How it works**[](#how-it-works)
 
 Once a wallet is activated, PayRam can sweep funds automatically based on three configurable settings:
 
@@ -70,6 +62,6 @@ Once a wallet is activated, PayRam can sweep funds automatically based on three 
 3.  **Time:** The sweep occurs after a set time period has elapsed.
     
 
-[PreviousMulti-currency & Multi-chain Supportchevron-left](/features/multi-currency-and-multi-chain-support)[NextCustomer Deposit Walletschevron-right](/features/customer-deposit-wallets)
+[PreviousMulti-currency & Multi-chain Support](/features/multi-currency-and-multi-chain-support)[NextCustomer Deposit Wallets](/features/customer-deposit-wallets)
 
-Last updated 19 days ago
+Last updated 9 hours ago

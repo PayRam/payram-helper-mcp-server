@@ -1,6 +1,6 @@
 {
-  "fetchedAt": "2026-02-03T14:30:30.670Z",
-  "totalPages": 52,
+  "fetchedAt": "2026-08-14T15:18:48.851Z",
+  "totalPages": 59,
   "pages": [
     {
       "url": "/api-integration/introduction",
@@ -39,16 +39,32 @@
       "path": "api-integration/payouts-apis.md"
     },
     {
+      "url": "/api-integration/payouts-apis/approving-held-payouts",
+      "path": "api-integration/payouts-apis/approving-held-payouts.md"
+    },
+    {
       "url": "/api-integration/payouts-apis/create-payouts",
       "path": "api-integration/payouts-apis/create-payouts.md"
+    },
+    {
+      "url": "/api-integration/payouts-apis/editing-payout-limits",
+      "path": "api-integration/payouts-apis/editing-payout-limits.md"
     },
     {
       "url": "/api-integration/payouts-apis/get-all-payouts",
       "path": "api-integration/payouts-apis/get-all-payouts.md"
     },
     {
-      "url": "/api-integration/payouts-apis/payouts-status",
-      "path": "api-integration/payouts-apis/payouts-status.md"
+      "url": "/api-integration/payouts-apis/get-single-payout",
+      "path": "api-integration/payouts-apis/get-single-payout.md"
+    },
+    {
+      "url": "/api-integration/payouts-apis/overview",
+      "path": "api-integration/payouts-apis/overview.md"
+    },
+    {
+      "url": "/api-integration/payouts-apis/payout-webhooks",
+      "path": "api-integration/payouts-apis/payout-webhooks.md"
     },
     {
       "url": "/deployment-guide",
@@ -95,6 +111,10 @@
       "path": "features/analytics-and-reporting.md"
     },
     {
+      "url": "/features/card-to-crypto-fiat-onramp",
+      "path": "features/card-to-crypto-fiat-onramp.md"
+    },
+    {
       "url": "/features/customer-deposit-wallets",
       "path": "features/customer-deposit-wallets.md"
     },
@@ -105,6 +125,10 @@
     {
       "url": "/features/multi-currency-and-multi-chain-support",
       "path": "features/multi-currency-and-multi-chain-support.md"
+    },
+    {
+      "url": "/features/operator-mode",
+      "path": "features/operator-mode.md"
     },
     {
       "url": "/features/payment-apis",
@@ -135,6 +159,10 @@
       "path": "introduction.md"
     },
     {
+      "url": "/introduction/payram-usecases",
+      "path": "introduction/payram-usecases.md"
+    },
+    {
       "url": "/introduction/whats-new",
       "path": "introduction/whats-new.md"
     },
@@ -145,10 +173,6 @@
     {
       "url": "/mcp/payram-mcp",
       "path": "mcp/payram-mcp.md"
-    },
-    {
-      "url": "/onboarding-guide",
-      "path": "onboarding-guide.md"
     },
     {
       "url": "/onboarding-guide/funds-sweeping",
@@ -183,8 +207,16 @@
       "path": "onboarding-guide/wallet-integration.md"
     },
     {
+      "url": "/operator-mode/operator-mode",
+      "path": "operator-mode/operator-mode.md"
+    },
+    {
       "url": "/payram-sdk/typescript-javascript-sdk",
       "path": "payram-sdk/typescript-javascript-sdk.md"
+    },
+    {
+      "url": "/plugins/payram-shopify-plugin",
+      "path": "plugins/payram-shopify-plugin.md"
     },
     {
       "url": "/script/script-usage",

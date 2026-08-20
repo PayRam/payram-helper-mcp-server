@@ -1,21 +1,21 @@
-copyCopychevron-down
+For the complete documentation index, see [llms.txt](https://docs.payram.com/llms.txt). This page is also available as [Markdown](https://docs.payram.com/api-integration/payments-api/assign-deposit-address.md).
 
-1.  [API Integration](/api-integration)chevron-right
+Copy
+
+On this page
+
+1.  [API Integration](/api-integration)
 2.  [⚡Payments API](/api-integration/payments-api)
 
 # ↘️Assign Deposit Address
 
 In this section, you’ll learn how to assign a static deposit address to a user for a given blockchain family.
 
-![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2F2diixQuZV5bHAbOknKAq%2Fblobs%2FAeuT1j8HEx0IbVlqGpLv%2Fpayram-payment-apis-assign-deposit-address.png&width=768&dpr=3&quality=100&sign=c6254bc4&sv=2)
+![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2Fwm1DIvbGMREWT1TdLPtz%2Fblobs%2F4wTeL86ZviiN3VkCxCod%2Fpayram-payment-apis-assign-deposit-address.png&width=768&dpr=3&quality=100&sign=10ba884d&sv=2)
 
 * * *
 
-## 
-
-[hashtag](#url-details)
-
-URL Details
+## URL Details[](#url-details)
 
 Parameter
 
@@ -25,22 +25,17 @@ Example
 
 BASE\_URL
 
-Your PayRam server URL
+Your PayRam Site URL — find it under **Settings → Site URL** in your dashboard. Include the port if you installed on one.
 
-[https://yourdomain.com:8443 arrow-up-right](https://yourdomain.com:8443
-)
+`https://pay.example.com`
 
 API Endpoint
 
-Endpoint to create a new payment link.
+Endpoint to assign a deposit address to a customer.
 
-/api/v1/payment
+`/api/v1/deposit-address/reference/{reference_id}`
 
-## 
-
-[hashtag](#headers)
-
-Headers
+## Headers[](#headers)
 
 Header
 
@@ -60,15 +55,9 @@ Format of the request data.
 
 application/json
 
-circle-info
-
 **Note** **: You can generate a unique API key for each project directly from the PayRam dashboard. This helps you manage and track payouts separately for every project.**
 
-## 
-
-[hashtag](#request-body)
-
-Request Body
+## Request Body[](#request-body)
 
 Field
 
@@ -82,11 +71,7 @@ Blockchain code to assign address for (BTC, ETH, TRX, BASE, POLYGON)
 
 ETH
 
-## 
-
-[hashtag](#curl-request)
-
-curl request
+## curl request[](#curl-request)
 
 Before running the command, replace the placeholders with your actual details:
 
@@ -97,11 +82,7 @@ Before running the command, replace the placeholders with your actual details:
 -   reference\_id → Use the value returned from the Create Payment API
     
 
-## 
-
-[hashtag](#curl-response)
-
-curl response
+## curl response[](#curl-response)
 
 -   Address – The user’s assigned deposit address for this blockchain family. This address will be reused for all future payments in the same family.
     
@@ -110,10 +91,8 @@ curl response
 -   Status – Indicates the current state of the assigned address (e.g., active, inactive).
     
 
-circle-info
-
 **Note** **: Once a deposit address is assigned, it becomes permanent for that user within the same blockchain family. PayRam automatically reuses this address for subsequent transactions.**
 
-[PreviousGet Blockchain Currencieschevron-left](/api-integration/payments-api/get-blockchain-currencies)[NextPayment Statuschevron-right](/api-integration/payments-api/payment-status)
+[PreviousGet Blockchain Currencies](/api-integration/payments-api/get-blockchain-currencies)[NextPayment Status](/api-integration/payments-api/payment-status)
 
-Last updated 1 day ago
+Last updated 4 hours ago

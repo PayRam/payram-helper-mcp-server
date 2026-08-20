@@ -1,4 +1,8 @@
-copyCopychevron-down
+For the complete documentation index, see [llms.txt](https://docs.payram.com/llms.txt). This page is also available as [Markdown](https://docs.payram.com/onboarding-guide/funds-sweeping.md).
+
+Copy
+
+On this page
 
 1.  [ONBOARDING GUIDE](/onboarding-guide)
 
@@ -8,11 +12,7 @@ In this section, you will learn how fund sweeping works on each blockchain.
 
 * * *
 
-## 
-
-[hashtag](#prerequisites)
-
-**Prerequisites**
+## **Prerequisites**[](#prerequisites)
 
 Before proceeding with this section, ensure the following steps are completed:
 
@@ -25,11 +25,7 @@ Before proceeding with this section, ensure the following steps are completed:
 
 * * *
 
-## 
-
-[hashtag](#sweep-process-by-blockchain-network)
-
-**Sweep process by blockchain network**
+## **Sweep process by blockchain network**[](#sweep-process-by-blockchain-network)
 
 The way sweeping works depends on the blockchain you are using.
 
@@ -45,8 +41,8 @@ Bitcoin & other networks :
 
 Check out the BTC sweep process step-by-step guide to learn how to transfer funds using the PayRam mobile app. If you accept payments in BTC, follow this sweep process guide.
 
-[bitcoinBitcoin Funds Sweep Guidechevron-right](/onboarding-guide/funds-sweeping/bitcoin-funds-sweep-guide)
+[Bitcoin Funds Sweep Guide](/onboarding-guide/funds-sweeping/bitcoin-funds-sweep-guide)
 
-[PreviousHot Wallet Setupchevron-left](/onboarding-guide/hot-wallet-setup)[NextBitcoin Funds Sweep Guidechevron-right](/onboarding-guide/funds-sweeping/bitcoin-funds-sweep-guide)
+[PreviousHot Wallet Setup](/onboarding-guide/hot-wallet-setup)[NextBitcoin Funds Sweep Guide](/onboarding-guide/funds-sweeping/bitcoin-funds-sweep-guide)
 
-Last updated 1 day ago
+Last updated 9 hours ago

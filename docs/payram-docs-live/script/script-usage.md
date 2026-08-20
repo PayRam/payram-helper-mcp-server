@@ -1,92 +1,74 @@
-copyCopychevron-down
+For the complete documentation index, see [llms.txt](https://docs.payram.com/llms.txt). This page is also available as [Markdown](https://docs.payram.com/script/script-usage.md).
+
+Copy
+
+On this page
 
 1.  [Script](/script)
 
-# rectangle-codeScript Usage
+# Script Usage
 
-## 
+In this section, you will find the script commands to install and update PayRam — use the Mainnet command for production, Testnet for development, and Update to upgrade to the latest version.
 
-[hashtag](#commands)
+## Commands[](#commands)
 
-Commands
-
-### 
-
-[hashtag](#mainnet-installation)
-
-**Mainnet installation**
+### **Mainnet installation**[](#mainnet-installation)
 
 -   **Install PayRam on the mainnet (production environment):**
     
     Copy
     
     ```
-    /bin/bash -c "$(curl -fsSL <https://payram.com/setup_payram.sh>)" bash --mainnet
+    bash <(curl -fsSL https://payram.com/setup_payram.sh) --mainnet
     ```
     
 
 * * *
 
-### 
+### **Testnet installation**[](#testnet-installation)
 
-[hashtag](#testnet-installation)
-
-**Testnet installation**
-
--   **Install PayRam on the mainnet (Development environment):**
+-   **Install PayRam on the testnet (Development environment):**
     
     Copy
     
     ```
-    /bin/bash -c "$(curl -fsSL <https://payram.com/setup_payram.sh>)" bash --testnet
+    bash <(curl -fsSL https://payram.com/setup_payram.sh) --testnet
     ```
     
 
 * * *
 
-### 
-
-[hashtag](#update)
-
-Update
+### Update[](#update)
 
 -   To update the PayRam container to the latest version, run the following command:
     
     Copy
     
     ```
-    /bin/bash -c "$(curl -fsSL <https://payram.com/setup_payram.sh>)" bash --update
+    bash <(curl -fsSL https://payram.com/setup_payram.sh) --update
     ```
     
--   To update the PayRam server to a specific version using a tag, run the following command:
+
+* * *
+
+### Reset[](#reset)
+
+-   To completely reset the PayRam server configuration and perform a clean uninstallation, including the removal of all Docker images, run the following command:
     
     Copy
     
     ```
-    /bin/bash -c "$(curl -fsSL <https://payram.com/setup_payram.sh>)" bash --update --tag="version"
+    bash <(curl -fsSL https://payram.com/setup_payram.sh) --reset
     ```
     
 
 * * *
 
-### 
-
-[hashtag](#reset)
-
-Reset
-
--   To completely reset the PayRam server configuration and perform a clean uninstallation, including the removal of all Docker images, run the following command:
-    
-
-* * *
-
-### 
-
-[hashtag](#restart)
-
-Restart
+### Restart[](#restart)
 
 -   To restart the PayRam server and refresh all active services without removing any data or configurations, run the following command.This will safely restart PayRam, helping to resolve issues such as unprocessed blocks or inactive services
     
 
-[PreviousBitcoin Funds Sweep Guidechevron-left](/onboarding-guide/funds-sweeping/bitcoin-funds-sweep-guide)[NextIntroductionchevron-right](/api-integration/introduction)
+[PreviousOperator Mode](/operator-mode/operator-mode)[NextIntroduction](/api-integration/introduction)
+
+Last updated 9 hours ago

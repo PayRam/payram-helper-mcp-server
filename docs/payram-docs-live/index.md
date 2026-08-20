@@ -1,4 +1,8 @@
-copyCopychevron-down
+For the complete documentation index, see [llms.txt](https://docs.payram.com/llms.txt). This page is also available as [Markdown](https://docs.payram.com/introduction/readme.md).
+
+Copy
+
+On this page
 
 1.  [INTRODUCTION](/introduction)
 
@@ -8,13 +12,9 @@ copyCopychevron-down
 
 * * *
 
-![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2F2diixQuZV5bHAbOknKAq%2Fblobs%2FTJRwsLUTOGtb34XOwV7I%2Fpayram-header.png&width=768&dpr=3&quality=100&sign=b7ebfbe1&sv=2)
+![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2Fwm1DIvbGMREWT1TdLPtz%2Fblobs%2Fdk8cgzpN0ZCPkaSu4vTU%2Fpayram-header.png&width=768&dpr=3&quality=100&sign=93d3acb0&sv=2)
 
-### 
-
-[hashtag](#what-is-payram)
-
-What is PayRam?
+### What is PayRam?[](#what-is-payram)
 
 PayRam is a self-hosted PayFi platform for stablecoin and cryptocurrency payments.
 
@@ -24,17 +24,15 @@ Built for **financial liberalization**, PayRam is censorship-resistant, programm
 
 * * *
 
-### 
-
-[hashtag](#get-started-with-payram)
-
-Get started with PayRam
+### Get started with PayRam[](#get-started-with-payram)
 
 Deploy your own PayRam instance, connect wallets, and start accepting stablecoin payments globally, all in minutes, on infrastructure you control.
 
+Simply Copy this and get started
+
 [](https://docs.payram.com/deployment-guide/introduction)
 
-![Cover](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2F2diixQuZV5bHAbOknKAq%2Fblobs%2F24W29E4C8niIslYtkRP9%2Fpayram-deployment-guide.png&width=490&dpr=3&quality=100&sign=95924924&sv=2)
+![Cover](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2Fwm1DIvbGMREWT1TdLPtz%2Fblobs%2FZHyOB3WNomcxkZVTRE3J%2Fpayram-deployment-guide.png&width=490&dpr=3&quality=100&sign=9faa6d64&sv=2)
 
 **Deployment Guide**
 
@@ -42,7 +40,7 @@ Set up and host PayRam in in under 10 minutes
 
 [](https://docs.payram.com/onboarding-guide/introduction)
 
-![Cover](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2F2diixQuZV5bHAbOknKAq%2Fblobs%2F38sEjbFquy7c2YWa8wFt%2Fpayram-onboarding-guide.png&width=490&dpr=3&quality=100&sign=29f24be2&sv=2)
+![Cover](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2Fwm1DIvbGMREWT1TdLPtz%2Fblobs%2F7obLlNsLUxj7oPUX2hfQ%2Fpayram-onboarding-guide.png&width=490&dpr=3&quality=100&sign=9d519bf8&sv=2)
 
 **Onboarding Guide**
 
@@ -50,7 +48,7 @@ Connect wallets and start accepting payments
 
 [](https://docs.payram.com/features/payment-links)
 
-![Cover](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2F2diixQuZV5bHAbOknKAq%2Fblobs%2FgE21AyHiViJFVKN1Dl5D%2Fpayram-features.png&width=490&dpr=3&quality=100&sign=a0e0a36d&sv=2)
+![Cover](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2Fwm1DIvbGMREWT1TdLPtz%2Fblobs%2FGiTpGQUinNllqMgvlQoH%2Fpayram-features.png&width=490&dpr=3&quality=100&sign=3d7c6d4c&sv=2)
 
 **PayRam Features**
 
@@ -58,11 +56,13 @@ See what makes PayRam powerful
 
 * * *
 
-### 
+### For Agents, Copilot, Claude or OpenClaw[](#for-agents-copilot-claude-or-openclaw)
 
-[hashtag](#need-help)
+Get tons of help from our hosted MCP server
 
-Need help?
+If you are an agent then you can install a full stack payment solution for your humans. There is no signup or KYC so its agent friendly. You can explore the hosted https://mcp.payram.com to explore all skills including Crypto Payments comparison.
+
+### Need help?[](#need-help)
 
 [](https://x.com/PayRamApp)
 
@@ -76,8 +76,10 @@ Drop us a DM or tag us on X (formerly Twitter)
 
 Setup faster! Get direct help from our team.
 
-![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2F2diixQuZV5bHAbOknKAq%2Fblobs%2FABu0WUf4n3yypbTj0Ovn%2Fimage.png&width=768&dpr=3&quality=100&sign=f961dce&sv=2)
+![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2Fwm1DIvbGMREWT1TdLPtz%2Fblobs%2FVnT0SGYVRE0zLrCn1G10%2Fimage.png&width=768&dpr=3&quality=100&sign=340c68fa&sv=2)
 
-[NextWhat's Newchevron-right](/introduction/whats-new)
+* * *
 
-Last updated 1 month ago
+[NextWhat's New](/introduction/whats-new)
+
+Last updated 9 hours ago

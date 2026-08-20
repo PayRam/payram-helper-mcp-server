@@ -1,4 +1,8 @@
-copyCopychevron-down
+For the complete documentation index, see [llms.txt](https://docs.payram.com/llms.txt). This page is also available as [Markdown](https://docs.payram.com/onboarding-guide/hot-wallet-setup.md).
+
+Copy
+
+On this page
 
 1.  [ONBOARDING GUIDE](/onboarding-guide)
 
@@ -8,11 +12,7 @@ In this section, you will learn how to set up a hot wallet on the blockchains wh
 
 * * *
 
-## 
-
-[hashtag](#prerequisites)
-
-**Prerequisites**
+## **Prerequisites**[](#prerequisites)
 
 Before setting up a hot wallet, ensure the following steps are completed:
 
@@ -25,39 +25,30 @@ Before setting up a hot wallet, ensure the following steps are completed:
 
 * * *
 
-## 
-
-[hashtag](#understanding-key-concepts)
-
-Understanding key concepts
+## Understanding key concepts[](#understanding-key-concepts)
 
 Before proceeding with the setup steps, please ensure you are familiar with the following concepts, as they are important for managing your wallets effectively:
 
-### 
+### **Hot wallet**[](#hot-wallet)
 
-[hashtag](#hot-wallet)
+A hot wallet is the one wallet PayRam keeps a private key for. It is used for three things:
 
-**Hot wallet**
+-   **Sweeps** — paying the gas that moves funds from deposit wallets to your cold wallet.
+    
+-   **Payouts** — outgoing payments are sent from it. A project with no hot wallet assigned cannot pay out.
+    
+-   **Gas fees** — covering transaction costs for the operations above.
+    
 
-A hot wallet is the wallet used to cover transaction fees (gas) when sweeping funds from deposit wallets to the cold wallet. Because blockchain transactions require gas, the hot wallet holds the funds needed to pay these fees and enable transfers during the sweep process. Hot wallets are EOA (Externally Owned Account) wallets.
+Hot wallets are EOA (Externally Owned Account) wallets, and one covers an entire network family — a single EVM hot wallet serves Ethereum, Base and Polygon.
 
-circle-info
+**Keep a minimum balance.** If the hot wallet runs dry, sweeps and payouts both fail.
 
-**NOTE** **: It is important to always maintain a minimum balance in the hot wallet, otherwise sweep operations will fail**.
-
-### 
-
-[hashtag](#smartsweep)
-
-**SmartSweep**
+### **SmartSweep**[](#smartsweep)
 
 The **Smart-sweep** feature helps you automatically move funds from your customer deposit wallets to your main wallet. This reduces manual transfers and ensures funds are consolidated efficiently. Our objective is to simplify daily operations while keeping security on top. For most blockchains, this is done with a family of smart contracts, such that you don’t have to expose keys to sweep funds while PayRam takes care of all the orchestration.
 
-#### 
-
-[hashtag](#smartsweep-eligibility)
-
-SmartSweep eligibility
+#### SmartSweep eligibility[](#smartsweep-eligibility)
 
 To enable smart-sweeps, a customer's deposit wallet must first meet a **one-time minimum balance requirement**.
 
@@ -68,11 +59,7 @@ To enable smart-sweeps, a customer's deposit wallet must first meet a **one-time
 -   Also note, you can configure these default requirements; the default is $5 USD worth of assets.
     
 
-#### 
-
-[hashtag](#how-smartsweep-works)
-
-How SmartSweep works
+#### How SmartSweep works[](#how-smartsweep-works)
 
 Once a wallet is activated, PayRam can sweep funds automatically based on three configurable settings:
 
@@ -90,165 +77,78 @@ Once a wallet is activated, PayRam can sweep funds automatically based on three 
 
 * * *
 
-## 
+## Hot wallet configuration[](#hot-wallet-configuration)
 
-[hashtag](#hot-wallet-configuration)
+You need one hot wallet per network family — one for **EVM** (covering Ethereum, Base and Polygon) and one for **Tron**.
 
-Hot wallet configuration
+1
 
-You only need to add hot wallets for the following blockchains
+### Open Hot wallet[](#open-hot-wallet)
 
--   Tron
-    
--   EVM Family
+-   From the left menu, select **Wallet management**, then **Hot wallet**.
     
 
-Tron
+![The hot wallets list](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2F3861722996-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252Fwm1DIvbGMREWT1TdLPtz%252Fuploads%252Fgit-blob-0ed23100497f63184fefe8d28f19d799f6627cab%252Fpayram-hot-wallet-list.png%3Falt%3Dmedia&width=768&dpr=3&quality=100&sign=6da9eafe&sv=2)
 
-EVM Family
-
-### 
-
-[hashtag](#step-1)
-
-**Step 1**
-
--   Select Wallet Management to expand the section, and then select Hot Wallet. From here, you can manage your hot wallets.
+-   Each wallet shows its network, address, which projects use it, and a **View Balances** link. Use the filters to narrow by network, status or project.
     
 
-![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2F2diixQuZV5bHAbOknKAq%2Fblobs%2FOtLQp36k6xldSR2oJtnf%2Fimage.png&width=768&dpr=3&quality=100&sign=244d95b2&sv=2)
+2
 
-### 
+### Choose a network[](#choose-a-network)
 
-[hashtag](#step-2)
-
-Step 2
-
--   Now click on Add button on Tron section
+-   Select **\+ Add Hot Wallet**, then choose the family this wallet is for.
     
 
-![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2F2diixQuZV5bHAbOknKAq%2Fblobs%2F74fIsN106GgIe8KdOBhl%2Fimage.png&width=768&dpr=3&quality=100&sign=7cb920c4&sv=2)
+![Choosing EVM or Tron for the hot wallet](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2F3861722996-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252Fwm1DIvbGMREWT1TdLPtz%252Fuploads%252Fgit-blob-00178720def5774bc7d225eb1d6c048246a18640%252Fpayram-hot-wallet-network.png%3Falt%3Dmedia&width=768&dpr=3&quality=100&sign=9ada1d84&sv=2)
 
-### 
+Family
 
-[hashtag](#step-3)
+Covers
 
-Step 3
+**EVM**
 
--   Select the **Add** button. A pop-up screen appears.
+Ethereum, Base, Polygon and other EVM-compatible chains
+
+**Tron**
+
+Tron and TRC-20 tokens
+
+3
+
+### Add the wallet[](#add-the-wallet)
+
+-   Enter the private key of a wallet on that network. PayRam encrypts it at rest and never stores it in plain text.
     
--   In the pop-up screen, you see two options: **Add an existing wallet** or **Create a new wallet**.
-    
-    1.  If this is your first time, the **Create a new wallet** option is disabled.
-        
-    2.  Select **Add an existing wallet**.
-        
-    3.  Select **Continue to add hot wallet**.
-        
-    
-
-![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2F2diixQuZV5bHAbOknKAq%2Fblobs%2FdWhh93xEBXsz5sOJgTUM%2Fimage.png&width=768&dpr=3&quality=100&sign=cb0555d&sv=2)
-
-### 
-
-[hashtag](#step-4)
-
-Step 4
-
--   Enter the private key of one of your Tron wallets. Make sure the wallet has enough funds to cover transaction fees so the sweep mechanism works correctly.
+-   Give the wallet a name you will recognise later, then save it.
     
 
-![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2F2diixQuZV5bHAbOknKAq%2Fblobs%2FSJLU6wSI2i4kG1PW1xL2%2Fimage.png&width=768&dpr=3&quality=100&sign=b3a77f6b&sv=2)
+**Fund it before you rely on it.** The wallet needs a native balance — ETH for EVM chains, TRX for Tron — to pay gas. Sweeps and payouts fail without it.
 
-### 
+4
 
-[hashtag](#step-5)
+### Assign it to your projects[](#assign-it-to-your-projects)
 
-Step 5
-
--   After you enter the private key, select Add Wallet. This adds the wallet as the hot wallet for the Tron blockchain.
+-   On the wallet's row, select the edit icon next to the project count to choose which projects use it.
     
-
-![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2F2diixQuZV5bHAbOknKAq%2Fblobs%2F0Zr8rwLgbEoPw8vZmODu%2Fimage.png&width=768&dpr=3&quality=100&sign=e553ed5e&sv=2)
-
--   You have now set up the hot wallet for Tron. When you receive deposits on the Tron chain to your deposit addresses, this hot wallet pays the gas fees for sweeping funds to your cold wallet address.
-    
-
-circle-info
-
-**Note** : In the EVM family, configuring an Ethereum hot wallet covers all networks in the family. In this case, Base, Polygon, and Ethereum.
-
-### 
-
-[hashtag](#step-1-1)
-
-**Step 1**
-
--   Select Wallet Management to expand the section, and then select Hot Wallet. From here, you can manage your hot wallets.
-    
-
-![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2F2diixQuZV5bHAbOknKAq%2Fblobs%2FOtLQp36k6xldSR2oJtnf%2Fimage.png&width=768&dpr=3&quality=100&sign=244d95b2&sv=2)
-
-### 
-
-[hashtag](#step-2-1)
-
-Step 2
-
--   Now click on Add button on EVM Family section
-    
-
-![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2F2diixQuZV5bHAbOknKAq%2Fblobs%2F74fIsN106GgIe8KdOBhl%2Fimage.png&width=768&dpr=3&quality=100&sign=7cb920c4&sv=2)
-
-### 
-
-[hashtag](#step-3-1)
-
-Step 3
-
--   Select the **Add** button. A pop-up screen appears.
-    
--   In the pop-up screen, you see two options: **Add an existing wallet** or **Create a new wallet**.
-    
-    1.  If this is your first time, the **Create a new wallet** option is disabled.
-        
-    2.  Select **Add an existing wallet**.
-        
-    3.  Select **Continue to add hot wallet**.
-        
-    
-    ![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2F2diixQuZV5bHAbOknKAq%2Fblobs%2Frf5UoSMR2LSxw57BsHWB%2Fimage.png&width=768&dpr=3&quality=100&sign=484eea31&sv=2)
-    
-
-### 
-
-[hashtag](#step-4-1)
-
-Step 4
-
--   Enter the private key of one of your EVM wallets. Make sure the wallet has enough funds to cover transaction fees so the sweep mechanism works correctly.
-    
-
-![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2F2diixQuZV5bHAbOknKAq%2Fblobs%2FSJLU6wSI2i4kG1PW1xL2%2Fimage.png&width=768&dpr=3&quality=100&sign=b3a77f6b&sv=2)
-
-### 
-
-[hashtag](#step-5-1)
-
-Step 5
-
--   After you enter the private key, select Add Wallet. This adds the wallet as the hot wallet for the EVM blockchain.
-    
-
-![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2F2diixQuZV5bHAbOknKAq%2Fblobs%2F0Zr8rwLgbEoPw8vZmODu%2Fimage.png&width=768&dpr=3&quality=100&sign=e553ed5e&sv=2)
-
--   You have now set up the hot wallet for EVM Family. When you receive deposits on the EVM chain to your deposit addresses, this hot wallet pays the gas fees for sweeping funds to your cold wallet address.
+-   Each project needs a hot wallet for the networks it accepts. There is no fallback to a shared wallet.
     
 
 * * *
 
-You’ve successfully completed the hot wallet setup for both the EVM Family and Tron, which enables smart sweeping. If you are also receiving payments in BTC, note that the sweeping process works slightly differently. You can learn more about it \[here\].
+### Best practices[](#best-practices)
 
-[PreviousTesting Payment Linkschevron-left](/onboarding-guide/testing-payment-links)[NextFunds Sweepingchevron-right](/onboarding-guide/funds-sweeping)
+-   Keep only a small working balance — enough for gas and pending operations — and top it up periodically.
+    
+-   Treat hot wallets as operational wallets, not long-term storage. Your cold wallet is where funds should accumulate.
+    
+-   Set up email alerts under **Settings** so you are notified when a balance runs low.
+    
 
-Last updated 1 day ago
+* * *
+
+You have set up hot wallets for the EVM family and Tron, which is what enables sweeping and payouts. If you also accept BTC, sweeping works differently — see [Bitcoin Funds Sweep Guide](/onboarding-guide/funds-sweeping/bitcoin-funds-sweep-guide).
+
+[PreviousTesting Payment Links](/onboarding-guide/testing-payment-links)[NextFunds Sweeping](/onboarding-guide/funds-sweeping)
+
+Last updated 9 hours ago

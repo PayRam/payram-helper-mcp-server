@@ -1,22 +1,22 @@
-copyCopychevron-down
+For the complete documentation index, see [llms.txt](https://docs.payram.com/llms.txt). This page is also available as [Markdown](https://docs.payram.com/features/user-management.md).
+
+Copy
+
+On this page
 
 1.  [FEATURES](/features)
 
-# usersUser Management
+# User Management
 
 Collaboration just got easier on PayRam.
 
-![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2F2diixQuZV5bHAbOknKAq%2Fblobs%2F2JnfdiMdee7xxNpfToEa%2Fpayram-feature-user-management.png&width=768&dpr=3&quality=100&sign=88dc3932&sv=2)
+![](https://docs.payram.com/~gitbook/image?url=https%3A%2F%2Fcontent.gitbook.com%2Fcontent%2Fwm1DIvbGMREWT1TdLPtz%2Fblobs%2F6FcV4gwaPTvf1mXACrUC%2Fpayram-feature-user-management.png&width=768&dpr=3&quality=100&sign=49d41282&sv=2)
 
 Add teammates to your PayRam dashboard and assign roles based on what they need to do. Give full control to your operations team or grant limited permissions to specific projects. Every role stays secure.
 
 * * *
 
-### 
-
-[hashtag](#why-it-matters)
-
-**Why it matters**
+### **Why it matters**[](#why-it-matters)
 
 -   **Operate safely** without sharing sensitive credentials.
     
@@ -29,11 +29,7 @@ Add teammates to your PayRam dashboard and assign roles based on what they need 
 
 * * *
 
-### 
-
-[hashtag](#how-to-add-your-team-members)
-
-**How to add your team members**
+### **How to add your team members**[](#how-to-add-your-team-members)
 
 1.  Go to **Settings → User Management** in your PayRam dashboard
     
@@ -52,11 +48,7 @@ Add teammates to your PayRam dashboard and assign roles based on what they need 
 
 * * *
 
-### 
-
-[hashtag](#roles-and-permissions)
-
-Roles and permissions
+### Roles and permissions[](#roles-and-permissions)
 
 Role
 
@@ -119,4 +111,6 @@ Manages all referral integrations and related APIs.
 
 > **Note:** Only Admins or Owners can assign or modify roles. Owners cannot be removed or downgraded. Each user can hold only one role at a time.
 
-[PreviousMulti-brand Setupchevron-left](/features/multi-brand-setup)[NextAnalytics & Reportingchevron-right](/features/analytics-and-reporting)
+[PreviousMulti-brand Setup](/features/multi-brand-setup)[NextAnalytics & Reporting](/features/analytics-and-reporting)
+
+Last updated 9 hours ago

@@ -1,4 +1,8 @@
-copyCopychevron-down
+For the complete documentation index, see [llms.txt](https://docs.payram.com/llms.txt). This page is also available as [Markdown](https://docs.payram.com/mcp/payram-mcp.md).
+
+Copy
+
+On this page
 
 1.  [MCP](/mcp)
 
@@ -6,21 +10,13 @@ copyCopychevron-down
 
 This section explains how to use the PayRam MCP server to integrate payments, payouts, webhooks, and referral workflows into your application efficiently.
 
-## 
-
-[hashtag](#introduction)
-
-Introduction
+## Introduction[](#introduction)
 
 The PayRam MCP Server allows AI assistants to connect with the PayRam platform and help businesses set up and manage crypto payments with ease.
 
 It supports key payment-related workflows such as payment creation, payouts, webhook handling, and referral management. In addition, it provides an overview of core PayRam concepts, standard payment flows, and practical integration guidance, along with example snippets to simplify implementation.
 
-### 
-
-[hashtag](#key-capabilities)
-
-Key capabilities
+### Key capabilities[](#key-capabilities)
 
 -   **Payment Operations**: Create payment intents, track payment status, and manage end-to-end payment flows.
     
@@ -35,11 +31,7 @@ Key capabilities
 -   **Multi-Framework Support**: Generate integration snippets for commonly used backend frameworks to accelerate development.
     
 
-### 
-
-[hashtag](#prerequisites)
-
-Prerequisites
+### Prerequisites[](#prerequisites)
 
 -   An MCP-compatible client (examples provided below).
     
@@ -49,11 +41,7 @@ Prerequisites
         
     
 
-### 
-
-[hashtag](#client-configuration)
-
-Client Configuration
+### Client Configuration[](#client-configuration)
 
 VSCode
 
@@ -191,11 +179,7 @@ If your MCP-compatible client allows manual registration of an HTTP MCP endpoint
 
 Save the configuration and reload the client or reopen the chat session if required. Once configured, you can verify the setup by asking the client to perform a PayRam-specific action.
 
-### 
-
-[hashtag](#sample-prompts-to-get-started)
-
-Sample Prompts to Get Started
+### Sample Prompts to Get Started[](#sample-prompts-to-get-started)
 
 You can use the following example prompts with GitHub Copilot to explore and test PayRam MCP capabilities:
 
@@ -210,11 +194,7 @@ You can use the following example prompts with GitHub Copilot to explore and tes
 -   **“Create a payment and show how to check its status.”**
     
 
-### 
-
-[hashtag](#security-considerations)
-
-Security Considerations
+### Security Considerations[](#security-considerations)
 
 -   Do not share **PayRam API keys**, **webhook secrets**, or any other sensitive credentials in client-side code or AI prompts.
     
@@ -225,6 +205,6 @@ Security Considerations
 -   Use **separate PayRam credentials** for development and production environments to reduce operational risk.
     
 
-[PreviousTypescript/Javascript SDKchevron-left](/payram-sdk/typescript-javascript-sdk)[NextAnalytics MCPchevron-right](/mcp/analytics-mcp)
+[PreviousPayRam Shopify Plugin](/plugins/payram-shopify-plugin)[NextAnalytics MCP](/mcp/analytics-mcp)
 
-Last updated 11 days ago
+Last updated 9 hours ago
